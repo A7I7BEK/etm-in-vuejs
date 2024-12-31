@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <g id="Group_498" data-name="Group 498" transform="translate(2333 -9408)">
+    <rect id="Rectangle_397" data-name="Rectangle 397" width="16" height="16" transform="translate(-2333 9408)" fill="none"/>
+    <g id="video-camera" transform="translate(-2333 9410.875)">
+      <path id="Path_126" data-name="Path 126" d="M10.348,0H1.113A1.141,1.141,0,0,0,0,1.165V8.835A1.141,1.141,0,0,0,1.113,10h9.235a1.141,1.141,0,0,0,1.113-1.165V1.165A1.141,1.141,0,0,0,10.348,0Zm0,0" fill="#838ea1"/>
+      <path id="Path_127" data-name="Path 127" d="M328.906,37.424l3.8,2.223V31.981l-3.8,2.223Zm0,0" transform="translate(-316.708 -30.802)" fill="#838ea1"/>
+    </g>
+  </g>
+</svg>

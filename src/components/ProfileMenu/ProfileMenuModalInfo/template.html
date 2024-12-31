@@ -1,0 +1,105 @@
+<base-modal id="profileModal" modal-size="lg">
+	<template #title>{{ $t('profileMenuModal.editProfile') }}</template>
+
+
+	<template #content>
+		<div class="az_prfl_mod">
+			<div class="az_prfl_mod_case">
+				<form @submit.prevent="Save">
+					<div class="az_prfl_mod_photo">
+						<label class="az_prfl_mod_photo_img fx-c">
+							<input id="profilePhotoUpload" type="file" accept="image/*" hidden @change="UploadPhoto">
+
+							<img class="img" v-if="model.photoUrl" key="img" :src="$store.state.url + model.photoUrl">
+							<img class="prvw" v-else key="prvw" src="/img/svg/sidebar_user.svg">
+						</label>
+
+
+						<label class="az_prfl_mod_photo_txt del"
+							   v-if="model.photoUrl"
+							   key="del"
+							   @click="DeletePhoto"
+						>
+							<span class="txt">{{ $t('delete') }}</span>
+							<i class="fa fa-minus-circle"></i>
+						</label>
+						<label class="az_prfl_mod_photo_txt"
+							   for="profilePhotoUpload"
+							   v-else
+							   key="upl"
+						>
+							<span class="txt">{{ $t('profileMenuModal.uploadPhoto') }}</span>
+							<i class="fa fa-plus-circle"></i>
+						</label>
+					</div>
+
+
+					<div class="row">
+						<div class="col-lg-6">
+							<div class="az_base_form_gr">
+								<label class="az_base_lbl">{{ $t('userName') }}</label>
+								<input class="form-control az_base_inp"
+									   type="text"
+									   :class="{'is-invalid': $v.model.user.userName.$error}"
+									   v-model="$v.model.user.userName.$model">
+							</div>
+
+							<div class="az_base_form_gr">
+								<label class="az_base_lbl">{{ $t('firstName') }}</label>
+								<input class="form-control az_base_inp"
+									   type="text"
+									   :class="{'is-invalid': $v.model.firstName.$error}"
+									   v-model="$v.model.firstName.$model">
+							</div>
+
+							<div class="az_base_form_gr">
+								<label class="az_base_lbl">{{ $t('lastName') }}</label>
+								<input class="form-control az_base_inp"
+									   type="text"
+									   :class="{'is-invalid': $v.model.lastName.$error}"
+									   v-model="$v.model.lastName.$model">
+							</div>
+
+							<div class="az_base_form_gr">
+								<label class="az_base_lbl">{{ $t('middleName') }}</label>
+								<input class="form-control az_base_inp"
+									   type="text"
+									   v-model="model.middleName">
+							</div>
+						</div>
+
+
+						<div class="col-lg-6">
+							<div class="az_base_form_gr">
+								<label class="az_base_lbl">{{ $t('email') }}</label>
+								<input class="form-control az_base_inp"
+									   type="email"
+									   :class="{'is-invalid': $v.model.user.email.$error}"
+									   v-model="$v.model.user.email.$model">
+							</div>
+
+							<base-input-phone
+									class="az_base_form_gr"
+									:input-class="{'is-invalid': $v.model.user.phoneNumber.$error}"
+									:value.sync="$v.model.user.phoneNumber.$model"
+							></base-input-phone>
+
+							<base-input-deadline
+									class="az_base_form_gr"
+									:label-text="$t('birthday')"
+									disable-from
+									:value.sync="model.birthDate"
+							></base-input-deadline>
+						</div>
+					</div>
+
+
+					<div class="d-flex justify-content-end">
+						<button class="btn az_base_btn btn-default mr-3" type="button" data-dismiss="modal">{{ $t('cancel') }}</button>
+						<button class="btn az_base_btn btn-primary" type="submit">{{ $t('save') }}</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</template>
+</base-modal>

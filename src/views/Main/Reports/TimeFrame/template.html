@@ -1,0 +1,35 @@
+<div>
+	<div class="base_report_case">
+		<div class="az_report_nav mb-3">
+			<div class="az_report_nav_it">
+				<label class="az_base_lbl">{{$t('nameOfEmployees')}}</label>
+				<select class="form-control az_base_inp" v-model="employeeSelected">
+					<option :value="null">{{$t('choose')}}</option>
+					<option v-for="item in employeeList" :value="item.id">{{ item.firstName }} {{ item.lastName }}</option>
+				</select>
+			</div>
+		</div>
+
+
+		<div class="az_report_cal">
+			<vue-cal
+					:events="events"
+					:time-step="30"
+					:locale="$i18n.locale === 'ru' ? $i18n.locale : 'en'"
+					today-button
+					:min-event-width="50"
+					@ready="CalendarReady"
+					@view-change="CalendarChange"
+			></vue-cal>
+			<!--:time-from="8 * 60"-->
+			<!--:time-to="19 * 60"-->
+		</div>
+
+
+
+		<!--<div class="az_report_foot">-->
+			<!--<button type="button" class="btn az_base_btn btn-primary mr-3"> {{$t('submit')}}</button>-->
+			<!--<button type="button" class="btn az_base_btn btn-excel">{{$t('downloadExcel')}}</button>-->
+		<!--</div>-->
+	</div>
+</div>

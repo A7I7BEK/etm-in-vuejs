@@ -1,0 +1,120 @@
+<div class="base_report_case" v-if="can('REPORT_KANBAN_TRELLO_PROJECT_WITH_USER')">
+	<div class="az_report_nav">
+		<div class="az_report_nav_it">
+			<label class="az_base_lbl">{{$t('nameProject')}}</label>
+			<select class="form-control az_base_inp" v-model="projectSelected">
+				<option :value="null">{{$t('choose')}}</option>
+				<option v-for="item in projectSelectionList" :value="item.id">{{ item.name }}</option>
+			</select>
+		</div>
+	</div>
+
+
+
+	<template v-if="projectSelected">
+		<base-report-table class="text-center mt-3">
+			<template #head>
+				<tr>
+					<th class="text-left">{{ $tc('menu.task', 1) }}</th>
+					<th>{{ $tc('menu.project', 1) }}</th>
+					<th>{{$t('resolution')}}</th>
+					<th>{{$t('executor')}}</th>
+					<th>{{$t('priority')}}</th>
+					<th>{{$t('difficultyLevel')}}</th>
+					<th>{{$t('deadlineLast')}}</th>
+					<th>{{$t('timeSpent')}}</th>
+				</tr>
+			</template>
+
+
+			<template #body>
+				<tr v-for="(item, index) in projectDataList" :key="index">
+					<td class="text-left">{{ item.taskName }}</td>
+					<td>{{ item.status }}</td>
+					<td>{{ item.rezalution}}</td>
+					<td>
+						<div v-for="(item2, index2) in item.users" :class="{ 'mt-2': index2 > 0 }">{{ item2 }}</div>
+					</td>
+					<td>
+						<template v-if="item.priorityType === $store.state.TASK_PRIORITY_TYPE.HIGH">{{$t('priorityHigh')}}</template>
+						<template v-else-if="item.priorityType === $store.state.TASK_PRIORITY_TYPE.NORMAL">{{$t('normal')}}</template>
+						<template v-else-if="item.priorityType === $store.state.TASK_PRIORITY_TYPE.LOW">{{$t('priorityLow')}}</template>
+					</td>
+					<td>
+						<template v-if="item.levelType === $store.state.TASK_LEVEL_TYPE.HIGH">{{$t('priorityHigh')}}</template>
+						<template v-else-if="item.levelType === $store.state.TASK_LEVEL_TYPE.NORMAL">{{$t('normal')}}</template>
+						<template v-else-if="item.levelType === $store.state.TASK_LEVEL_TYPE.LOW">{{$t('priorityLow')}}</template>
+					</td>
+					<td>{{ item.deadLine | filterDate }}</td>
+					<td>{{ item.timeLeft }}</td>
+				</tr>
+			</template>
+		</base-report-table>
+
+
+		<div class="jplist-panel box panel-bottom mt-3">
+			<div>
+				<select class="jplist-select" v-model="pagination.range">
+					<option :value="10">10</option>
+					<option :value="20">20</option>
+					<option :value="50">50</option>
+				</select>
+
+
+				<div class="panel-bottom__pagination">
+					<button type="button" :disabled="pagination.page === 0" @click="GetProjectAll('page', 0)">
+						<svg xmlns="http://www.w3.org/2000/svg" width="12.41" height="12"
+							 viewBox="0 0 12.41 12">
+							<path id="ic_first_page_24px"
+								  d="M18.41,16.59,13.82,12l4.59-4.59L17,6l-6,6,6,6ZM6,6H8V18H6Z"
+								  transform="translate(-6 -6)" fill="#495e75"/>
+						</svg>
+					</button>
+					<button type="button" :disabled="pagination.page === 0" @click="GetProjectAll('diff', -1)">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+							 viewBox="0 0 16 16">
+							<path id="ic_arrow_back_24px"
+								  d="M20,11H7.83l5.59-5.59L12,4,4,12l8,8,1.41-1.41L7.83,13H20Z"
+								  transform="translate(-4 -4)" fill="#495e75"/>
+						</svg>
+					</button>
+
+					<form @submit.prevent="GetProjectAll('page', inputPage - 1)">
+						<input type="number" min="1" :max="computedLastPage + 1" v-model="inputPage">
+					</form>
+
+					<button type="button" :disabled="pagination.page === computedLastPage" @click="GetProjectAll('diff', 1)">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+							 viewBox="0 0 16 16">
+							<path id="ic_arrow_back_24px"
+								  d="M20,11H7.83l5.59-5.59L12,4,4,12l8,8,1.41-1.41L7.83,13H20Z"
+								  transform="translate(20 20) rotate(180)" fill="#495e75"/>
+						</svg>
+					</button>
+					<button type="button" :disabled="pagination.page === computedLastPage" @click="GetProjectAll('page', computedLastPage)">
+						<svg xmlns="http://www.w3.org/2000/svg" width="12.41" height="12"
+							 viewBox="0 0 12.41 12">
+							<path id="ic_first_page_24px"
+								  d="M18.41,16.59,13.82,12l4.59-4.59L17,6l-6,6,6,6ZM6,6H8V18H6Z"
+								  transform="translate(18.41 18) rotate(180)" fill="#495e75"/>
+						</svg>
+					</button>
+				</div>
+			</div>
+
+
+            <i18n class="jplist-label" tag="div" path="paginationText">
+                <template #shownText>{{ computedItemFrom }}</template>
+                <template #fromText><template>{{ computedItemTo }}</template></template>
+                <template #toText><template>{{ pagination.count }}</template></template>
+            </i18n>
+		</div>
+
+
+
+		<div class="az_report_foot" v-if="can('REPORT_PERSONAL_UPLOAD')">
+			<!--<button type="button" class="btn az_base_btn btn-primary mr-3">Отправить</button>-->
+			<button type="button" class="btn az_base_btn btn-excel" @click="ExportToFile"> {{$t('downloadExcel')}} </button>
+		</div>
+	</template>
+</div>

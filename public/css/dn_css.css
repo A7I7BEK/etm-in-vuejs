@@ -1,0 +1,33 @@
+.main-content>.main-content__left, .main-content>.main-content__right{
+	width: 100%;
+	margin: 0;
+}
+button[disabled] {
+	opacity: 0.5;
+	cursor: default;
+}
+.task-table__lg a.position-relative {
+	border: none;
+}
+.priority.dn_absolute_span{
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: 7px;
+	padding: 0;
+}
+.dn_absolute_span.task-danger {
+	background: #F08C77;
+}
+
+.dn_absolute_span.task-warning {
+	background: #E2C25D;
+}
+
+.dn_absolute_span.task-success {
+	background: #7DCBAA;
+}
+
+.dn_absolute_span.task-default {
+	background: #0a9ceb;
+}

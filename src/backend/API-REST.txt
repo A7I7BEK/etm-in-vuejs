@@ -1,0 +1,159 @@
+
+----------------------------------
+********* auth *********
+----------------------------------
+— auth/login
+— auth/refresh-token
+— auth/organizations/create/user
+— auth/organizations/create/user/resend
+— auth/organizations/otp/confirm
+— auth/forgot/password/send/otp
+— auth/forgot/password/resend/otp
+— auth/forgot/password/confirm/otp
+— auth/forgot/password/change/password
+----------------------------------
+
+
+----------------------------------
+********* users *********
+----------------------------------
+— users/me
+— users/attachRole
+— users/change/language
+----------------------------------
+
+
+----------------------------------
+********* resource *********
+----------------------------------
+— resource/update
+— resource/delete/123
+— resource/upload/file
+----------------------------------
+
+
+----------------------------------
+********* organizations *********
+----------------------------------
+— organizations
+----------------------------------
+
+
+----------------------------------
+********* permissions *********
+----------------------------------
+— permissions
+----------------------------------
+
+
+----------------------------------
+********* roles *********
+----------------------------------
+— roles
+----------------------------------
+
+
+----------------------------------
+********* employees *********
+----------------------------------
+— employees
+— employees/password/change
+— employees/profile/update
+----------------------------------
+
+
+----------------------------------
+********* groups *********
+----------------------------------
+— groups
+----------------------------------
+
+
+----------------------------------
+********* tasks *********
+----------------------------------
+— tasks
+— tasks/copy
+— tasks/move
+— taskComments
+— taskTimer
+— taskDeadline
+— taskDeadline
+— taskAttachments
+— tasks/123/attachments
+— tasks/123/details
+----------------------------------
+
+
+----------------------------------
+********* task (other) *********
+----------------------------------
+— taskActions
+— taskCheckLists
+— taskTags
+— taskTags/delete
+— taskMembers
+— taskMembers/delete
+— task/share/email
+— task/share/telegram
+----------------------------------
+
+
+----------------------------------
+********* checkListGroups *********
+----------------------------------
+— checkListGroups
+----------------------------------
+
+
+----------------------------------
+********* projects *********
+----------------------------------
+— projects
+— projects/123/details
+— projects/percentage
+— projects/selection
+— projects/background
+----------------------------------
+
+
+----------------------------------
+********* project (other) *********
+----------------------------------
+— projectColumns
+— projectColumns/move
+— projectColumns/selection
+— projectTags
+— projectMembers
+— list/projectMembers
+----------------------------------
+
+
+----------------------------------
+********* notifications *********
+----------------------------------
+— notifications
+— notifications/seen
+----------------------------------
+
+
+----------------------------------
+********* reports *********
+----------------------------------
+— reports/by/project/kanban/managersAndMember
+— reports/by/project/trello/managersAndMember
+— reports/task/by/projectWithUser
+— reports/by/projects/kanban
+— reports/by/projects/trello
+— reports/person/full/weekly
+— reports/hours/by/timeleft
+----------------------------------
+
+
+----------------------------------
+********* file *********
+----------------------------------
+— file/report/full/upload
+— file/report/personal/upload
+— file/report/date/upload
+----------------------------------

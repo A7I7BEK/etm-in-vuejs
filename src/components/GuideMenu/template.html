@@ -1,0 +1,48 @@
+<div>
+	<base-right-menu id="guideMenu">
+		<template #title>{{ $t('instruction') }}</template>
+
+
+		<template #content>
+			<div class="az_guide">
+
+				<div class="az_guide_gr" v-for="item_1 in guideGroupList">
+					<div class="az_guide_gr_ttl">{{ $t(item_1.name) }}</div>
+
+					<div class="az_guide_gr_cnt">
+						<ul class="az_guide_ls">
+							<li v-for="item_2 in item_1.guideList">
+								<div class="az_guide_act">
+									<div class="az_guide_act_show">
+										<a href="#"
+										   class="az_profile_act_btn az_guide_act_show_btn"
+										   data-toggle="modal"
+										   data-target="#guideMenuModal"
+										   @click.prevent="guideSelected = item_2">
+											<img class="img" src="/img/svg/guide_video.svg" v-if="item_1.name === 'guideVideo'">
+											<img class="img" src="/img/svg/guide_pdf.svg" v-else-if="item_1.name === 'guidePDF'">
+											<img class="img" src="/img/svg/guide_ppt.svg" v-else-if="item_1.name === 'guidePPT'">
+											<span class="txt">{{ item_2.name }}</span>
+										</a>
+									</div>
+
+									<div class="az_guide_act_down">
+										<a :href="item_2.downLink" class="az_profile_act_btn az_guide_act_down_btn" target="_blank">
+											<img src="/img/svg/guide_download.svg" alt="">
+										</a>
+									</div>
+								</div>
+							</li>
+						</ul>
+					</div>
+				</div>
+
+			</div>
+		</template>
+	</base-right-menu>
+
+
+
+
+	<guide-menu-modal :resource="guideSelected"></guide-menu-modal>
+</div>

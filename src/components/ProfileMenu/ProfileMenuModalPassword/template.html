@@ -1,0 +1,57 @@
+<base-modal id="profilePassword">
+	<template #title>{{$t('changePassword')}}</template>
+
+
+	<template #content>
+		<div class="az_prfl_mod">
+			<div class="az_prfl_mod_case">
+				<form @submit.prevent="ChangePassword">
+					<div class="form-group">
+						<label class="az_base_lbl">{{$t('currentPassword')}}</label>
+						<input type="password"
+							   class="form-control az_base_inp"
+							   :class="{'is-invalid': $v.model.currentPassword.$error}"
+							   v-model="$v.model.currentPassword.$model"
+						>
+						<template v-if="$v.model.currentPassword.$error">
+							<small class="form-text text-danger" v-if="!$v.model.currentPassword.required">{{$t('fieldRequired')}}</small>
+						</template>
+					</div>
+
+					<div class="form-group">
+						<label class="az_base_lbl">{{$t('newPassword')}}</label>
+						<input type="password"
+							   class="form-control az_base_inp"
+							   :class="{'is-invalid': $v.model.newPassword.$error}"
+							   v-model="$v.model.newPassword.$model"
+						>
+						<template v-if="$v.model.newPassword.$error">
+							<small class="form-text text-danger" v-if="!$v.model.newPassword.required">{{$t('fieldRequired')}}</small>
+							<small class="form-text text-danger" v-if="!$v.model.newPassword.minLength">{{$t('minimumRequired')}}</small>
+						</template>
+					</div>
+
+					<div class="form-group">
+						<label class="az_base_lbl">{{$t('passwordRepeatNew')}}</label>
+						<input type="password"
+							   class="form-control az_base_inp"
+							   :class="{'is-invalid': $v.model.newPasswordRepeat.$error}"
+							   v-model="$v.model.newPasswordRepeat.$model"
+						>
+						<template v-if="$v.model.newPasswordRepeat.$error">
+							<small class="form-text text-danger" v-if="!$v.model.newPasswordRepeat.sameAsPassword">
+								{{$t('fieldNewPassword')}}
+							</small>
+						</template>
+					</div>
+
+
+					<div class="d-flex align-items-center justify-content-end">
+						<button type="button" class="btn az_base_btn btn-default mr-3" data-dismiss="modal">{{$t('cancel')}}</button>
+						<button type="submit" class="btn az_base_btn btn-primary">{{$t('save')}}</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</template>
+</base-modal>

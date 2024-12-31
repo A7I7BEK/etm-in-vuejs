@@ -1,0 +1,51 @@
+<base-right-menu id="notificationMenu">
+	<template #title>{{ $t('notifications') }}</template>
+
+
+	<template #content>
+		<div class="az_ntf_menu">
+			<div class="az_ntf_menu_set custom-dropdown__main" data-custom-drop>
+				<button type="button" class="btn az_base_btn button-effect" data-custom-drop-btn ref="markAll">
+					<i class="fa fa-gear"></i>
+				</button>
+
+				<div class="custom-dropdown" data-custom-drop-body>
+					<ul class="az_ntf_menu_set_ls">
+						<li><a href="" @click.prevent="MarkAllAsRead">{{ $t('markAllAsRead') }}</a></li>
+					</ul>
+				</div>
+			</div>
+
+
+			<ul class="az_ntf_menu_msg_ls">
+				<li v-for="item in notificationList" :key="item.id">
+					<a href="#"
+					   class="mw-action__content__bottom az_ntf_menu_msg_it"
+					   :class="{'active': !item.seenAt}"
+					   @click.prevent="GoToNotification(item)">
+
+						<strong>{{ item.firstName }} {{ item.lastName }}</strong>
+
+						<action-item :action="item" :clickable="false"></action-item>
+
+						<span>
+							<template v-if="$moment().diff($moment(item.createdAt), 'years') > 0">
+								{{ item.createdAt | filterDateMonth }}
+							</template>
+							<template v-else>
+								{{ item.createdAt | filterTimeMonth }}
+							</template>
+						</span>
+					</a>
+				</li>
+
+
+				<li class="p-3" v-show="paramsNotification.totalCount > paramsNotification.perPage">
+					<button type="button" class="btn az_base_btn btn-primary btn-block" @click="GetNotificationList(10)">
+						{{ $t('more') }}
+					</button>
+				</li>
+			</ul>
+		</div>
+	</template>
+</base-right-menu>

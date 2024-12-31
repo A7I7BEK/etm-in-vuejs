@@ -1,0 +1,135 @@
+<base-right-menu id="rightMenuSearch" button-back="rightMenuMain" style="background: #fff;">
+	<template #title>{{$t('taskSearch')}}</template>
+
+
+	<template #content>
+
+		<!-- Search -->
+		<div class="board-menu__search board-menu__search_block">
+			<div class="form-group">
+				<input type="search"
+					   class="form-control"
+					   :placeholder="$t('taskSearch')"
+					   v-model="$store.state.dashboardFilter.search"
+				>
+				<button type="button" class="button-effect">
+					<img src="/img/svg/menu-search.svg" alt="">
+				</button>
+			</div>
+			<span>{{$t('enterSearchTerm')}}</span>
+		</div>
+
+
+		<!-- Tag -->
+		<div class="board-menu__tags__checkbox">
+			<h4>{{$t('tags')}}</h4>
+			<div class="tags-checkbox__inner">
+
+				<div class="mw-tags__item" v-for="item in storeTagList" :key="item.id" :style="{ background: item.color }">
+					<label class="tag-item__check">
+						<input type="checkbox"
+							   hidden
+							   :value="item.id"
+							   v-model="$store.state.dashboardFilter.selectedTag">
+
+						<div class="tag-check__icon"></div>
+					</label>
+				</div>
+
+			</div>
+		</div>
+
+
+		<!-- Member -->
+		<div class="search-doer">
+			<h4>{{$t('members')}}</h4>
+			<div class="search-doer__inner us-n">
+
+				<div class="search-doer__item" v-for="item in storeMemberList" :key="item.id">
+					<label>
+						<input type="checkbox"
+							   hidden
+							   :value="item.employee.id"
+							   v-model="$store.state.dashboardFilter.selectedMember">
+
+						<div class="doer-item__ava">
+							<img v-if="item.employee.photoUrl" :src="$store.state.url + item.employee.photoUrl">
+							<strong v-else>{{ item.employee.firstName.charAt(0) + item.employee.lastName.charAt(0) }}</strong>
+						</div>
+
+						<h5>{{ item.employee.firstName }} {{ item.employee.lastName }}</h5>
+
+						<div class="doer-check"></div>
+					</label>
+				</div>
+
+			</div>
+		</div>
+
+
+		<!-- Status -->
+		<div class="task-status__search">
+			<h4>{{$t('deadlineS')}}</h4>
+			<div class="tast-status__inner">
+
+				<div class="task-status__item" v-for="item in storeStatusList" :key="item.id">
+					<label>
+						<input type="checkbox"
+							   hidden
+							   :value="item.value"
+							   v-model="$store.state.dashboardFilter.selectedStatus">
+
+						<h5>{{ $t(item.value) }}</h5>
+
+						<div class="doer-check"></div>
+					</label>
+				</div>
+
+			</div>
+		</div>
+
+
+		<!-- Priority -->
+		<div class="priority-search">
+			<h4>{{$t('priority')}}</h4>
+			<div class="priority-search__inner">
+
+				<div class="priority-search__item" v-for="item in storePriorityList" :key="item.id">
+					<label>
+						<input type="checkbox"
+							   hidden
+							   :value="item.id"
+							   v-model="$store.state.dashboardFilter.selectedPriority">
+
+						<h5>{{ $t(item.value) }}</h5>
+
+						<div class="doer-check"></div>
+					</label>
+				</div>
+
+			</div>
+		</div>
+
+
+		<!-- Level -->
+		<div class="level-diff">
+			<h4>{{$t('difficultyLevel')}}</h4>
+			<div class="level-diff__inner">
+
+				<div class="level-diff__item" v-for="item in storeLevelList" :key="item.id">
+					<label>
+						<input type="checkbox"
+							   hidden
+							   :value="item.id"
+							   v-model="$store.state.dashboardFilter.selectedLevel">
+
+						<h5>{{ $t(item.value) }}</h5>
+
+						<div class="doer-check"></div>
+					</label>
+				</div>
+
+			</div>
+		</div>
+	</template>
+</base-right-menu>

@@ -1,0 +1,36 @@
+
+/* sf-ui-text starts here */
+
+@font-face {
+    font-family: "SFUIText-Regular";
+    src: url("../fonts/sf-ui-text/SFUIText-Regular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "SFUIText-Medium";
+    src: url("../fonts/sf-ui-text/SFUIText-Medium.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+
+
+
+@font-face {
+    font-family: "SFUIText-Semibold";
+    src: url("../fonts/sf-ui-text/SFUIText-Semibold.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "SFUIText-Bold";
+    src: url("../fonts/sf-ui-text/SFUIText-Bold.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+
+/* sf-ui-text ends here */
+
+

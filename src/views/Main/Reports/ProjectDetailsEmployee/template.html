@@ -1,0 +1,21 @@
+<div v-if="can('REPORT_KANBAN_PROJECT_MANAGER_AND_MEMBER') && can('REPORT_TRELLO_PROJECT_MANAGER_AND_MEMBER')">
+	<base-report-tab>
+		<template #title>
+			<a class="nav-link active" data-toggle="tab" href="#projectDetailsTaskKanban">{{$t('repoerts.kanban')}}</a>
+			<a class="nav-link" data-toggle="tab" href="#projectDetailsTaskTrello"> {{$t('normal')}}</a>
+		</template>
+
+
+		<template #content>
+
+			<div class="tab-pane fade show active" id="projectDetailsTaskKanban">
+				<type-kanban></type-kanban>
+			</div>
+
+			<div class="tab-pane fade" id="projectDetailsTaskTrello">
+				<type-trello></type-trello>
+			</div>
+
+		</template>
+	</base-report-tab>
+</div>

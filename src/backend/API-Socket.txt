@@ -1,0 +1,14 @@
+
+------------------------------------------
+url + '/ws?access_token=' + token
+------------------------------------------
+
+— user/queue/reply
+— topic/public
+— user/task/reply
+— user/column/reply
+— user/action/reply
+— 
+— 
+
+

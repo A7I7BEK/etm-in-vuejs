@@ -1,0 +1,25 @@
+<div>
+	<form class="mb-5" @submit.prevent="LoginUser">
+
+		<div class="auth_form_group">
+			<label class="az_base_lbl">{{$t('userName')}}</label>
+			<input class="form-control az_base_inp" type="text" v-model="model.userName">
+		</div>
+
+		<div class="auth_form_group">
+			<label class="az_base_lbl">{{$t('password')}}</label>
+			<input class="form-control az_base_inp" type="password" v-model="model.password">
+		</div>
+
+
+		<button class="btn az_base_btn btn-primary btn-block" type="submit">{{ $t('login') }}</button>
+	</form>
+
+
+	<div class="text-center mb-3">
+		<router-link class="auth_link" :to="{ name: 'authRegistration' }">{{ $t('register') }}</router-link>
+	</div>
+	<div class="text-center">
+		<router-link class="auth_link" :to="{ name: 'authRecovery' }">{{ $t('forgotPassword') }}</router-link>
+	</div>
+</div>

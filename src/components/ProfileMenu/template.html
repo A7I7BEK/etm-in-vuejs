@@ -1,0 +1,133 @@
+<div>
+	<base-right-menu id="profileMenu" :class="className">
+		<template #title>{{$t('profile')}}</template>
+
+
+		<template #content>
+			<div class="az_profile">
+
+				<div class="az_profile_info">
+					<ul class="az_profile_info_ls">
+						<li>
+							<div class="txt">{{ $t('fullName') }}</div>
+							<div class="val">
+								{{ $store.state.userProfile.firstName }}
+								{{ $store.state.userProfile.lastName }}
+								{{ $store.state.userProfile.middleName }}
+							</div>
+						</li>
+
+						<li>
+							<div class="txt">{{ $tc('menu.user', 1) }}</div>
+							<div class="val">{{ $store.state.userProfile.userName }}</div>
+						</li>
+
+						<li>
+							<div class="txt">{{ $tc('menu.role', 1) }}</div>
+							<div class="val" v-if="$store.state.userProfile.roles">
+								{{ $store.state.userProfile.roles.map(x => x.roleName).join(', ') }}
+							</div>
+						</li>
+
+						<li>
+							<div class="txt">{{ $t('birthday') }}</div>
+							<div class="val">
+								{{
+									$store.state.userProfile.birthDate
+									?
+									$options.filters.filterDate($store.state.userProfile.birthDate)
+									:
+									$t('notSpecified')
+								}}
+							</div>
+						</li>
+
+						<li>
+							<div class="txt">{{ $t('phoneNumber') }}</div>
+							<div class="val">+998 {{ $store.state.userProfile.phoneNumber | filterPhoneNumber }}</div>
+						</li>
+
+						<li>
+							<div class="txt">{{ $t('email') }}</div>
+							<div class="val">{{ $store.state.userProfile.email }}</div>
+						</li>
+					</ul>
+
+					<button type="button"
+							class="btn az_base_btn btn-primary btn-block"
+							data-toggle="modal"
+							data-target="#profileModal"
+							v-if="can('EMPLOYEE_PROFILE_UPDATE')"
+						>
+						{{ $t('edit') }}
+					</button>
+				</div>
+
+				<div class="az_profile_act_btn_it">
+					<div class="az_dropdown_bx" data-custom-drop>
+						<button type="button" class="az_profile_act_btn" data-custom-drop-btn>
+							<img src="/img/svg/language.svg" alt="" class="img">
+							<span class="txt">{{ $t('dashboard.languageChange') }}</span>
+							<span class="val">
+								<template v-if="$i18n.locale === 'uz'">O‘zbekcha</template>
+								<template v-if="$i18n.locale === 'ru'">Русский</template>
+								<template v-if="$i18n.locale === 'en'">English</template>
+							</span>
+						</button>
+
+						<div class="az_dropdown w-100 right" data-custom-drop-body>
+							<div class="az_dropdown_ttl">{{ $t('dashboard.language') }}</div>
+
+							<div class="az_dropdown_cnt">
+								<ul class="az_profile_lang_ls">
+									<li :class="{'active': $i18n.locale === 'uz'}">
+										<a href="#" @click.prevent="ChangeLang('uz')">
+											<div class="txt">O‘zbekcha</div>
+											<img class="img" src="/img/svg/check-grey.svg">
+										</a>
+									</li>
+
+									<li :class="{'active': $i18n.locale === 'ru'}">
+										<a href="#" @click.prevent="ChangeLang('ru')">
+											<div class="txt">Русский</div>
+											<img class="img" src="/img/svg/check-grey.svg">
+										</a>
+									</li>
+
+									<li :class="{'active': $i18n.locale === 'en'}">
+										<a href="#" @click.prevent="ChangeLang('en')">
+											<div class="txt">English</div>
+											<img class="img" src="/img/svg/check-grey.svg">
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="az_profile_act_btn_it">
+					<button class="az_profile_act_btn" type="button" data-toggle="modal" data-target="#profilePassword">
+						<img class="img" src="/img/svg/sidebar_resolution.svg">
+						<span class="txt">{{ $t('password') }}</span>
+					</button>
+				</div>
+
+				<div class="az_profile_act_btn_it">
+					<button class="az_profile_act_btn" type="button" @click="Logout">
+						<img class="img" src="/img/svg/logout.svg">
+						<span class="txt">{{ $t('logout') }}</span>
+					</button>
+				</div>
+
+			</div>
+		</template>
+	</base-right-menu>
+
+
+
+	<profile-menu-modal-info v-if="can('EMPLOYEE_PROFILE_UPDATE')"></profile-menu-modal-info>
+
+
+	<profile-menu-modal-password></profile-menu-modal-password>
+</div>

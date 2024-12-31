@@ -1,0 +1,920 @@
+@media (max-width:1750px) {
+    .main-content__inner__item table td {
+        font-size: 14px;
+    }
+}
+
+
+@media (max-width:1550px) {
+    .main-content__inner__item {
+        width: calc(100% - 0px)!important;
+    }
+
+    .main-content__left {
+        margin-right: 0!important;
+    }
+
+    .main-content__right {
+        margin-left: 0!important;
+        margin-top: 20px;
+    }
+
+    .main-content__inner__item {
+        overflow: hidden;
+    }
+}
+
+
+@media (max-width:1410px) {
+
+}
+
+
+@media (max-width:1240px) {
+    .custom-dropdown__main .custom-dropdown {
+        left: unset!important;
+        right: 0!important;
+    }
+}
+
+
+@media (max-width:1200px) {
+    .mob-menu-and__gotomain div a {
+        padding: 12px;
+    }
+
+    .board-user__notification {
+        width: 40px;
+        height: 40px;
+    }
+
+    .board-user__ava {
+        width: 40px;
+        height: 40px;
+    }
+
+    .board-right__menu {
+        height: 40px;
+    }
+
+    .board-header {
+        padding: 5px 0;
+    }
+
+    .board-modal__window {
+        /*padding-left: 8px!important;*/
+    }
+
+    .member-invite .custom-dropdown.active {
+        left: unset;
+        right: 0;
+    }
+
+    .menu-user__dropdown {
+        left: unset;
+        right: 0;
+    }
+
+    .board-user__ava__main .dropdown-menu {
+        top: 11px!important;
+    }
+
+}
+
+
+@media (max-width:1100px) {
+    .mw-users {
+        max-width: 100%;
+    }
+
+    .mw-tags {
+        max-width: 100%;
+    }
+
+    .mw-term {
+        max-width: 100%;
+    }
+
+    .member-all .custom-dropdown {
+        left: unset!important;
+        right: 0!important;
+    }
+}
+
+
+@media (max-width:1090px) {
+    .board-sidebar__menu {
+        top: 111px;
+    }
+
+    .card-search__menu {
+        top: 111px;
+    }
+
+
+    .board-main__menu {
+        top: 111px;
+    }
+
+    .board-main {
+        top: 111px;
+        min-height: calc( 100vh - 111px);
+    }
+}
+
+
+@media (max-width:1050px) {
+
+}
+
+
+@media (max-width:1000px) {
+    .task-block {
+        width: 100%;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch!important;
+    }
+
+    .task-block::-webkit-scrollbar {
+        height: 4px;
+    }
+
+    .task-block table {
+        width: 100%!important;
+    }
+
+    .task-bottom {
+        margin-bottom: 24px;
+    }
+
+    .task-block table th {
+        padding: 20px 15px;
+        padding-right: 0;
+    }
+
+    .task-block table td a {
+        padding: 20px 15px!important;
+        padding-right: 0;
+    }
+
+    .progress-bar__main {
+        padding-left: 15px;
+    }
+
+    .task-block table .progress-bar__main a {
+        padding: 0!important;
+    }
+
+    .progress-bar__edit.active a {
+        padding: 5px 12px!important;
+    }
+}
+
+
+@media (max-width:991px) {
+    #new-team2 .modal-content {
+        width: unset!important;
+    }
+}
+
+
+@media (max-width:900px) {
+    .task-block table {
+        width: max-content!important;
+    }
+
+
+    /* Mobile menu starts here */
+    .mobile-menu {
+        display: flex!important;
+        padding: 15px;
+        background-color: #ffffff29;
+        width: max-content;
+        height: max-content;
+        align-items: center;
+        cursor: pointer;
+        border-bottom-right-radius: 12px;
+        top: 90px;
+        z-index: 15;
+        position: fixed;
+        transition: .5s;
+    }
+
+    .mobile-menu.active {
+        background-color: #3F4D67;
+        transition: .5s;
+        position: fixed;
+    }
+
+    .mobile-menu.active svg {
+        transform: rotate(0deg);
+        transition: .6s;
+    }
+
+    .mobile-menu svg {
+        max-width: 20px;
+        max-height: 20px;
+        transition: .6s;
+        transform: rotate(180deg);
+    }
+
+    .mobile-menu svg path {
+        color: #fff;
+        fill: #fff;
+    }
+
+/* Mobile menu ends here */
+
+    .users-page__home .task-block table td:last-child, .roles-page__home .task-block table td:last-child {
+        padding-right: 30px;
+    }
+
+    .users-page__home .task-block table {
+        width: 100%!important;
+    }
+
+    .resloution-page__home .task-block table {
+        width: 100%!important;
+    }
+
+    .roles-home .modal-dialog {
+        padding-left: 15px;
+        padding-right: 15px;
+        max-width: unset;
+    }
+
+    .roles-page__home .task-block table {
+         width: 100%!important;
+    }
+
+    .sidebar-menu__inner {
+        margin-left: 15px;
+        margin-top: 60px;
+    }
+
+    .sidebar-settings__title {
+        margin-top: 36px;
+    }
+
+    .sidebar-settings__title {
+        font-size: 20px;
+        color: #2C3438;
+        padding: 15px;
+        padding-top: 35px;
+    }
+
+    .sidebar-settings__item a {
+        padding: 14px 15px;
+        font-size: 15px;
+    }
+
+    .sidebar-settings {
+        width: 100%;
+        max-width: 200px;
+    }
+
+    .board-sidebar__menu .sidebar-menu__inner {
+        margin-top: 24px;
+    }
+
+    .progress {
+        width: 100px;
+        margin-right: 30px;
+    }
+
+
+}
+
+
+@media (max-width:878px) {
+
+    .sidebar-menu {
+        top: 154px;
+    }
+
+    .board-main {
+        top: 154px;
+        min-height: calc( 100vh - 154px);
+    }
+
+    .board-main__menu {
+        top: 154px;
+    }
+
+    .card-search__menu {
+        top: 154px;
+    }
+
+    .member-all .custom-dropdown {
+        left: 0!important;
+        right: unset!important;
+    }
+
+}
+
+
+
+
+@media (max-width:800px) {
+    .modal-left {
+        width: 100%;
+    }
+
+    .modal-right {
+        width: 100%;
+        margin-top: 10px;
+    }
+
+    .board-modal__window .modal-dialog {
+        max-width: unset;
+        width: 100%;
+        margin: 10px 0;
+        padding-left: 8px;
+    }
+
+    .mw-menu__checklist .custom-dropdown {
+        top: 35px;
+    }
+
+    .menu-user__dropdown {
+        left: unset;
+        right: 0;
+        top: 65px;
+    }
+
+    .mw-menu__term .custom-dropdown.active {
+        top: 35px;
+    }
+
+    .mw-menu__checklist .custom-dropdown.active {
+        top: 35px;
+    }
+
+    .mw-moving .custom-dropdown.active {
+        top: 35px;
+    }
+
+    .mw-checklist__bottom__input input {
+        padding-right: 16px;
+    }
+
+}
+
+
+@media (max-width:768px) {
+
+    .user-info__content .username h5 {
+        font-size: 15px;
+    }
+
+    .user-info__content p {
+        font-size: 15px;
+    }
+
+    .user-info__arrow {
+        margin-left: 20px;
+    }
+
+    .header {
+    }
+
+    .user-info .user-photo {
+        max-width: 50px;
+    }
+
+    .notifications a {
+        padding: 8px 10px;
+    }
+
+    .language .dropdown-toggle {
+        padding: 8px 10px;
+    }
+
+    .language .dropdown-menu {
+        margin-left: -5px;
+    }
+
+    .header-right__item {
+        margin-left: 10px;
+    }
+
+    .user-info a {
+        padding: 0 10px;
+    }
+
+    .mobile-menu {
+        top: 80px;
+    }
+
+    .sidebar-menu {
+        top: 80px;
+    }
+
+    .teams-view, .teams-view.active {
+        top: 80px;
+        height: calc(100vh - 80px);
+    }
+
+    .button-class {
+        padding: 8px 10px;
+        font-size: 16px;
+    }
+
+    .panel-bottom {
+        display: block;
+    }
+
+    .jplist-label {
+        margin-top: 20px;
+    }
+
+    .users-page__home .task-block table {
+        width: max-content!important;
+    }
+
+    .board-sidebar__menu {
+        top: 154px;
+    }
+}
+
+
+@media (max-width:720px) {
+    .main-content__title h2 {
+        color: #2C3438;
+        font-size: 20px;
+    }
+
+    .title-notifications span {
+        padding: 5px 8px 6px 3px;
+        border-radius: 5px;
+        font-size: 10px;
+    }
+
+    .title-notifications {
+        left: calc(100% + 15px);
+    }
+
+    .teams {
+        padding: 6px 10px;
+        font-size: 14px;
+    }
+
+}
+
+
+@media (max-width:640px) {
+
+    .main-content__title h2 {
+        color: #2C3438;
+        font-size: 26px;
+    }
+
+    .button-class {
+        padding: 7px 10px;
+        font-size: 14px;
+    }
+
+    .button-icon svg {
+        width: 10px;
+    }
+
+    .jplist-ios-button {
+        display: none;
+    }
+
+    .main-content .main-content__item__top {
+        display: block;
+    }
+
+    .main-content__title {
+        display: block;
+        margin: 0 auto;
+    }
+
+    .button-class__main button {
+        margin: 0 auto;
+        margin-top: 20px;
+    }
+
+    .departments-home {
+        flex-wrap: wrap;
+    }
+
+    .departments-home .add-user {
+      margin: 0 auto;
+        margin-top: 20px;
+    }
+
+    #new-team2 .departments-home div {
+        margin-right: 0;
+    }
+
+    .users-home .modal-content {
+        width: 100%;
+    }
+
+    .users-home .modal-content {
+        max-width: unset;
+    }
+
+    .member-invite .custom-dropdown.active {
+        left: unset;
+        right: unset;
+    }
+}
+
+
+@media (max-width:580px) {
+    .roles-table__block .access-number a {
+        margin-right: 20px;
+    }
+
+    .project-title h5 {
+        font-size: 13px;
+    }
+
+    .typeofwork span {
+        font-size: 11px;
+    }
+
+    .team-title button {
+        font-size: 11px;
+    }
+
+    .member-invite span {
+        font-size: 13px;
+    }
+
+    .modal-dialog {
+        margin: 10px 10px;
+    }
+
+    .board-mw__main .modal-body {
+        background-color: #F6F8FC;
+        padding: 14px;
+    }
+
+    .m-home__top {
+        margin-left: -14px;
+        margin-top: -14px;
+        width: calc(100% + 28px);
+        padding: 0 14px;
+    }
+
+    .modal-right .modal-header {
+        padding-bottom: 14px;
+    }
+
+    .mw-title__btm__left {
+        margin-right: 15px;
+    }
+
+    .custom-dropdown__main .custom-dropdown {
+        left: unset!important;
+        right: unset!important;
+    }
+}
+
+
+@media (max-width:512px) {
+    .board-sidebar__menu {
+        top: 190px;
+    }
+
+    .board-main__menu {
+        top: 190px;
+    }
+
+    .card-search__menu {
+        top: 190px;
+    }
+
+    .board-main {
+        top: 191px;
+        min-height: calc( 100vh - 191px);
+    }
+
+    .member-all .custom-dropdown {
+        left: unset!important;
+        right: unset!important;
+    }
+}
+
+
+@media (max-width:500px) {
+
+    .header-logo svg {
+        width: 80px;
+    }
+
+    .user-info .user-photo {
+        max-width: 35px;
+    }
+
+    .user-info__content .username h5 {
+        font-size: 13px;
+    }
+
+    .user-info__content p {
+        font-size: 13px;
+    }
+
+    .language .dropdown-toggle {
+        font-size: 13px;
+    }
+
+    .language .dropdown-menu li a {
+        font-size: 13px;
+    }
+
+    .notifications a svg {
+        width: 13px;
+    }
+
+    .user-info__arrow {
+        margin-left: 15px;
+    }
+
+    .user-info a {
+        padding-right: 0;
+    }
+
+    .sidebar-menu {
+        top: 76px;
+        transition: 1s!important;
+        z-index: 14;
+    }
+
+    .mobile-menu {
+        top: 76px!important;
+        height: 64px!important;
+        transition: .3s;
+        background-color: #3F4D67;
+        position: fixed;
+    }
+
+    .mobile-menu.active {
+        top: 76px!important;
+        height: 64px!important;
+        border-radius: 0;
+        transition: .3s;
+        position: absolute;
+    }
+
+    .teams-view, .teams-view.active {
+        top: 76px;
+        height: calc(100vh - 76px);
+    }
+
+    .button-icon {
+        margin-right: 4px;
+    }
+
+    .main-content__inner {
+        width: calc(100% + 30px);
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+
+    .main-content__inner__item {
+        border-radius: 0;
+    }
+
+    .main-content {
+        padding-top: 15px;
+        width: 100%!important;
+    }
+
+    .sidebar-menu__inner {
+        margin-left: 15px;
+        margin-top: 90px;
+    }
+
+    .main-content {
+        margin-left: 0!important;
+    }
+
+    .sidebar-menu {
+        left: -100%!important;
+    }
+
+    .sidebar-menu.active {
+        left: 0!important;
+        width: 100%;
+        z-index: 14;
+    }
+
+     .board-sidebar__menu {
+         top: 190px;
+     }
+
+    .mw-title h5 {
+        max-width: 300px;
+    }
+
+    .action__content__bottom__form form {
+        width: 100%;
+        min-width: unset!important;
+    }
+
+    .action__content__bottom__form form textarea {
+        width: 100%;
+        min-width: unset!important;
+    }
+
+    .action__content__bottom__form  .form-group {
+        width: 100%;
+        min-width: unset!important;
+    }
+
+    .action__content__bottom {
+        flex-wrap: wrap;
+    }
+
+    .action__content__bottom__form {
+        margin-top: 15px;
+    }
+
+    .attachment-main__bottom {
+        position: unset;
+    }
+
+    .mw-attachment__item {
+        position: relative;
+    }
+
+    .attachment-change__name.active {
+        position: absolute;
+        left: 0;
+        width: 100%;
+    }
+
+    .attachment-change__inner {
+        top: 15px;
+        width: 100%;
+    }
+
+}
+
+
+@media (max-width:480px) {
+    .member-invite .custom-dropdown.active {
+         left: 0;
+         right: 0;
+        position: absolute;
+        width: calc(100% - 30px);
+        margin-left: 15px;
+        margin-right: 0;
+    }
+
+    .member-invite {
+        position: unset;
+    }
+
+    .mw-action__content {
+        margin-top: 10px;
+    }
+
+    .action-save {
+        flex-wrap: wrap;
+    }
+
+    .custom-dropdown__main .custom-dropdown {
+        left: 0!important;
+        right: 0!important;
+    }
+
+    .member-all .custom-dropdown {
+        left: unset!important;
+        right: unset!important;
+    }
+
+
+}
+
+
+@media (max-width:400px) {
+    .user-info .user-photo {
+        display: none;
+    }
+}
+
+
+@media (max-width:380px) {
+    .list-block__main {
+        padding-bottom: 20px;
+        overflow-x: scroll;
+    }
+
+    .list-block__main::-webkit-scrollbar {
+        height: 4px;
+    }
+
+    #new-team2 .list-item {
+        width: max-content;
+    }
+
+    .modal-accordion__item {
+        width: 100%;
+    }
+
+    .menu-user__dropdown {
+        width: 100%;
+    }
+
+    .modal-right .custom-dropdown__main .custom-dropdown {
+        width: 100%!important;
+    }
+
+    .mw-title h5 {
+        font-size: 14px;
+        margin-right: 15px;
+    }
+
+}
+
+
+@media (max-width:380px) {
+    .member-ava {
+        width: 28px;
+        overflow: hidden;
+    }
+
+    .members-item {
+        min-width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .members-item span {
+        padding: 0;
+    }
+
+    .member-all {
+    position: unset;
+    }
+
+    .member-all .custom-dropdown {
+        position: absolute;
+        margin-left: 15px;
+        margin-right: 15px;
+        width: calc(100% - 30px)!important;
+        margin-top: 15px;
+        left: 0!important;
+        right: 0!important;
+    }
+
+
+}
+
+
+@media (max-width:360px) {
+    .notification-numb span {
+        font-size: 8px;
+    }
+
+    .header-right__item:first-child {
+        margin-left: 0;
+    }
+
+    .language .dropdown-toggle {
+        padding: 5px 5px;
+        border-radius: 5px;
+    }
+
+    .notifications a {
+        padding: 5px 5px;
+        border-radius: 5px;
+    }
+
+    .notification-numb span {
+        padding: 2px 4px;
+    }
+
+    .notification-numb {
+        position: absolute;
+        top: -15px;
+        right: -7px;
+    }
+
+    .user-info__arrow {
+        display: none;
+    }
+
+    .teams-view.active {
+        width: 100%;
+    }
+}
+
+
+@media (max-width:340px) {
+
+}
+
+
+@media (max-width:280px) {
+
+}
+

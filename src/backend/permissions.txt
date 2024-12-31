@@ -1,0 +1,143 @@
+
+
+----------------------------------
+********* ORGANIZATION *********
+----------------------------------
+— ORGANIZATION_CREATE
+— ORGANIZATION_READ
+— ORGANIZATION_UPDATE
+— ORGANIZATION_DELETE
+----------------------------------
+
+
+----------------------------------
+********* PERMISSION *********
+----------------------------------
+— PERMISSION_CREATE
+— PERMISSION_READ
+— PERMISSION_UPDATE
+— PERMISSION_DELETE
+----------------------------------
+
+
+----------------------------------
+********* ROLE *********
+----------------------------------
+— ROLE_CREATE
+— ROLE_READ
+— ROLE_UPDATE
+— ROLE_DELETE
+----------------------------------
+
+
+----------------------------------
+********* USER *********
+----------------------------------
+— USER_ATTACH_ROLE
+----------------------------------
+
+
+----------------------------------
+********* EMPLOYEE *********
+----------------------------------
+— EMPLOYEE_CREATE
+— EMPLOYEE_READ
+— EMPLOYEE_UPDATE
+— EMPLOYEE_DELETE
+— EMPLOYEE_PASSWORD_CHANGE
+— EMPLOYEE_PROFILE_UPDATE
+----------------------------------
+
+
+----------------------------------
+********* GROUP *********
+----------------------------------
+— GROUP_CREATE
+— GROUP_READ
+— GROUP_UPDATE
+— GROUP_DELETE
+----------------------------------
+
+
+----------------------------------
+********* PROJECT *********
+----------------------------------
+— PROJECT_CREATE
+— PROJECT_READ
+— PROJECT_UPDATE
+— PROJECT_DELETE
+
+— PROJECT_READ_DETAILS
+— PROJECT_CHANGE_PHOTO
+
+— PROJECT_COLUMN_CREATE
+— PROJECT_COLUMN_READ
+— PROJECT_COLUMN_UPDATE
+
+— PROJECT_MEMBER_CREATE
+— PROJECT_MEMBER_READ
+----------------------------------
+
+
+----------------------------------
+********* TASK *********
+----------------------------------
+— TASK_CREATE
+— TASK_READ
+— TASK_UPDATE
+— TASK_DELETE
+
+— TASK_MOVE
+— TASK_COPY
+
+— TASK_MEMBER_CREATE
+— TASK_MEMBER_READ
+— TASK_MEMBER_DELETE
+
+— TASK_TAG_CREATE
+— TASK_TAG_READ
+— TASK_TAG_UPDATE
+— TASK_TAG_DELETE
+
+— TASK_CHECK_CREATE
+— TASK_CHECK_READ
+— TASK_CHECK_UPDATE
+— TASK_CHECK_DELETE
+
+— TASK_ATTACHMENT_CREATE
+— TASK_ATTACHMENT_READ
+
+— TASK_COMMENT_CREATE
+— TASK_COMMENT_READ
+
+— TASK_ACTION_READ
+
+— TASK_CREATE_TIME
+----------------------------------
+
+
+----------------------------------
+********* CHECKLIST GROUP *********
+----------------------------------
+— CHECKLIST_GROUP_CREATE
+— CHECKLIST_GROUP_READ
+— CHECKLIST_GROUP_DELETE
+----------------------------------
+
+
+----------------------------------
+********* REPORT *********
+----------------------------------
+— REPORT_KANBAN_PROJECT_MANAGER_AND_MEMBER
+— REPORT_TRELLO_PROJECT_MANAGER_AND_MEMBER
+— REPORT_CHART_KANBAN_PROJECT
+— REPORT_CHART_TRELLO_PROJECT
+— REPORT_KANBAN_TRELLO_PROJECT_WITH_USER
+— REPORT_TIME_LEFT
+— REPORT_MANAGERS_MEMBERS_UPLOAD
+— REPORT_PERSONAL_UPLOAD
+— REPORT_TIME_LEFT_UPLOAD
+----------------------------------
+
+
+Total: 69
