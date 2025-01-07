@@ -87,8 +87,6 @@
 	import GuideMenu from '../components/GuideMenu/index';
 	import ProfileMenu from '../components/ProfileMenu/index';
 	import NotificationMenu from '../components/NotificationMenu/index';
-	import { token } from '../services/TokenService';
-	import SocketService from '../services/SocketService';
 
 
 	export default {
@@ -134,13 +132,6 @@
 				}
 			},
 		},
-		created()
-		{
-			if (token.Get())
-			{
-				SocketService.Connect(this.$store.state.url, token.Get());
-			}
-		},
 		mounted()
 		{
 			document.addEventListener('click', (e) => {
@@ -150,10 +141,6 @@
 					this.searchResultShow = false;
 				}
 			});
-		},
-		beforeDestroy()
-		{
-			SocketService.Disconnect();
 		},
 		methods: {
 			GoToTask(item)
