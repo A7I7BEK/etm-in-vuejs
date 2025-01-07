@@ -1,6 +1,9 @@
 <script>
 	import BaseRightMenu from '../BaseRightMenu';
 	import ActionItem from '../../views/Dashboard/components/ActionItem.vue';
+	import { SocketService } from '../../services/SocketService';
+	import { token } from '../../services/TokenService';
+
 
 
 	export default {
@@ -17,27 +20,23 @@
 					perPage: 10,
 					totalCount: 0,
 				},
+				socketService: new SocketService({
+					url: this.$store.state.url,
+					path: '/socket.io',
+					token: token.Get(),
+				}),
 			};
-		},
-		watch: {
-			'$store.state.socket.notification': {
-				handler(val)
-				{
-					if (val)
-					{
-						this.notificationList.unshift(JSON.parse(JSON.stringify(val)));
-						this.AlarmSwitcher();
-					}
-				},
-				immediate: true
-			},
 		},
 		created()
 		{
 			this.GetNotificationList();
+			this.socketService.connect();
+			this.socketService.enableMonitoring();
+			this.ListenNotificationSocket();
 		},
 		beforeDestroy()
 		{
+			this.socketService.disconnect();
 			this.notificationList = [];
 			this.AlarmSwitcher();
 		},
@@ -60,6 +59,13 @@
 						this.paramsNotification.totalCount = response.data.totalCount;
 						this.AlarmSwitcher();
 					});
+			},
+			ListenNotificationSocket()
+			{
+				this.socketService.socket.on('news', (data) => {
+					this.notificationList.unshift(data);
+					this.AlarmSwitcher();
+				});
 			},
 			GoToNotification(item)
 			{
