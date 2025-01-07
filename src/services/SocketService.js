@@ -1,71 +1,99 @@
-import SockJS from 'sockjs-client'
-import { Stomp } from '@stomp/stompjs'
-import store from "../store";
+import { io } from 'socket.io-client';
 
 
+export class SocketService
+{
+	constructor (params)
+	{
+		this.url = params.url;
+		this.path = params.path;
+		this.token = params.token;
 
-let stompClient = null;
+		this.socket = io(this.url, {
+			path: this.path,
+			query: {
+				token: this.token,
+			},
+			forceNew: true,
+			autoConnect: false,
+		});
+	}
 
-export function Connect(url, token) {
-	const socket = new SockJS(url + '/ws?access_token=' + token);
-	stompClient = Stomp.over(socket);
 
-	stompClient.connect({}, frame => {
-		console.log('Connection:', frame);
+	connect()
+	{
+		this.socket.connect();
+	}
 
-		SubscribeNotification();
-		SubscribeOnline();
-		SubscribeTask();
-		SubscribeColumn();
-		SubscribeAction();
-	});
+
+	disconnect()
+	{
+		this.socket.disconnect();
+		this.socket.off();
+	}
+
+
+	enableMonitoring()
+	{
+		this.socket.on('connect', () =>
+		{
+			console.log(`{${this.url + this.path}} [connect] Socket Id: ${this.socket.id}`);
+
+			const engine = this.socket.io.engine;
+			console.log(`{${this.url + this.path}} [connect] Engine Transport: ${engine.transport.name}`);
+			// in most cases, prints "polling"
+
+			engine.once('upgrade', () =>
+			{
+				/**
+				 * called when the transport is upgraded (i.e. from HTTP long-polling to WebSocket)
+				 */
+
+				console.log(`{${this.url + this.path}} [connect] Engine Transport (upgraded): ${engine.transport.name}`);
+				// in most cases, prints "websocket"
+			});
+		});
+
+		this.socket.on('connect_error', (error) =>
+		{
+			if (this.socket.active)
+			{
+				/**
+				 * temporary failure, the socket will automatically try to reconnect
+				 */
+
+				console.log(`{${this.url + this.path}} [connect_error] temporary...`);
+			}
+			else
+			{
+				/**
+				 * the connection was denied by the server
+				 * in that case, `socket.connect()` must be manually called in order to reconnect
+				 */
+
+				console.log(`{${this.url + this.path}} [connect_error] Error Message: ${error.message}`);
+			}
+		});
+
+		this.socket.on('disconnect', (reason) =>
+		{
+			if (this.socket.active)
+			{
+				/**
+				 * temporary disconnection, the socket will automatically try to reconnect
+				 */
+
+				console.log(`{${this.url + this.path}} [disconnect] temporary...`);
+			}
+			else
+			{
+				/**
+				 * the connection was forcefully closed by the server or the client itself
+				 * in that case, `socket.connect()` must be manually called in order to reconnect
+				 */
+
+				console.log(`{${this.url + this.path}} [disconnect] Reason: ${reason}`);
+			}
+		});
+	}
 }
-export function Disconnect() {
-	stompClient.disconnect();
-}
-
-
-
-
-function SubscribeNotification() {
-	stompClient.subscribe('/user/queue/reply', message => {
-		console.log('/user/queue/reply', JSON.parse(message.body));
-
-		store.commit('setSocketNotification', JSON.parse(message.body));
-	});
-}
-function SubscribeOnline() {
-	stompClient.subscribe('/topic/public', message => {
-		console.log('/topic/public', JSON.parse(message.body));
-
-		store.commit('setSocketOnline', JSON.parse(message.body));
-	});
-}
-function SubscribeTask() {
-	stompClient.subscribe('/user/task/reply', message => {
-		console.log('/user/task/reply', JSON.parse(message.body));
-
-		store.commit('setSocketTask', JSON.parse(message.body));
-	});
-}
-function SubscribeColumn() {
-	stompClient.subscribe('/user/column/reply', message => {
-		console.log('/user/column/reply', JSON.parse(message.body));
-
-		store.commit('setSocketColumn', JSON.parse(message.body));
-	});
-}
-function SubscribeAction() {
-	stompClient.subscribe('/user/action/reply', message => {
-		console.log('/user/action/reply', JSON.parse(message.body));
-
-		store.commit('setSocketAction', JSON.parse(message.body));
-	});
-}
-
-
-
-export default {
-	Connect,
-	Disconnect,
-};
