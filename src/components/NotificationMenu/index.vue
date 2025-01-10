@@ -24,6 +24,7 @@
 					url: this.$store.state.url,
 					path: '/socket.io',
 					token: token.Get(),
+					roomId: this.$store.state.userProfile.id,
 				}),
 			};
 		},
