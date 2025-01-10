@@ -7,12 +7,12 @@ export class SocketService
 	{
 		this.url = params.url;
 		this.path = params.path;
-		this.token = params.token;
 
 		this.socket = io(this.url, {
 			path: this.path,
 			query: {
-				token: this.token,
+				token: params.token,
+				roomId: params.roomId,
 			},
 			forceNew: true,
 			autoConnect: false,
