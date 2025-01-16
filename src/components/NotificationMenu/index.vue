@@ -22,7 +22,7 @@
 				},
 				socketService: new SocketService({
 					url: this.$store.state.url,
-					path: '/socket.io',
+					path: '/ws-notification',
 					token: token.Get(),
 					roomId: this.$store.state.userProfile.id,
 				}),
@@ -31,9 +31,7 @@
 		created()
 		{
 			this.GetNotificationList();
-			this.socketService.connect();
-			this.socketService.enableMonitoring();
-			this.ListenNotificationSocket();
+			this.ListenSocketNotification();
 		},
 		beforeDestroy()
 		{
@@ -59,9 +57,12 @@
 						this.notificationList = response.data.data;
 						this.paramsNotification.totalCount = response.data.totalCount;
 						this.AlarmSwitcher();
+
+						this.socketService.connect();
+						this.socketService.enableMonitoring();
 					});
 			},
-			ListenNotificationSocket()
+			ListenSocketNotification()
 			{
 				this.socketService.socket.on('news', (data) => {
 					this.notificationList.unshift(data);
