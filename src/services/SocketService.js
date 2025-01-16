@@ -3,16 +3,18 @@ import { io } from 'socket.io-client';
 
 export class SocketService
 {
-	constructor (params)
+	constructor ({ url, path, roomId, token })
 	{
-		this.url = params.url;
-		this.path = params.path;
+		this.url = url;
+		this.path = path;
 
-		this.socket = io(this.url, {
-			path: this.path,
+		this.socket = io(url, {
+			path,
 			query: {
-				token: params.token,
-				roomId: params.roomId,
+				roomId,
+			},
+			auth: {
+				token,
 			},
 			forceNew: true,
 			autoConnect: false,
