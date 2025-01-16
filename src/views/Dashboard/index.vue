@@ -6,6 +6,8 @@
 	import SidebarMenu from '../../layouts/components/SidebarMenu';
 	import RightMenu from './components/RightMenu/index';
 	import TaskModal from './components/TaskModal/index';
+	import { SocketService } from '../../services/SocketService';
+	import { token } from '../../services/TokenService';
 
 
 
@@ -23,6 +25,19 @@
 		data()
 		{
 			return {
+				socketColumn: new SocketService({
+					url: this.$store.state.url,
+					path: '/ws-project-columns',
+					token: token.Get(),
+					roomId: this.$route.params.id,
+				}),
+				socketTask: new SocketService({
+					url: this.$store.state.url,
+					path: '/ws-tasks',
+					token: token.Get(),
+					roomId: this.$route.params.id,
+				}),
+
 				projectDataFiltered: null,
 				projectDataFilteredTaskCount: 0,
 
@@ -131,174 +146,17 @@
 					}
 				}, 2000);
 			},
-			'$store.state.socket.task'(val)
-			{
-
-				let socketValue = JSON.parse(JSON.stringify(val));
-
-
-				let columnLast = this.$store.state.projectData.columns.find(x => x.id === socketValue.lastColumnId);
-				let taskLastIndex = -1;
-				if (columnLast)
-				{
-					taskLastIndex = columnLast.tasks.findIndex(x => x.id === socketValue.id);
-				}
-
-
-				if (this.$store.state.projectData.id === socketValue.projectId && socketValue.eventType === 'PROJECT_TAG_EVENT')
-				{
-					socketValue.taskList.forEach(item => {
-						let taskTemp = this.$store.state.projectData.columns.find(x => x.id === item.columnId).tasks.find(x => x.id === item.id);
-
-						this.$set(taskTemp, 'tagList', item.tagList);
-					});
-				}
-				else if (this.$store.state.projectData.id === socketValue.projectId)
-				{
-					let columnCurrent = this.$store.state.projectData.columns.find(x => x.id === socketValue.columnId);
-					let taskCurrent = columnCurrent.tasks.find(x => x.id === socketValue.id);
-					let taskCurrentIndex = columnCurrent.tasks.findIndex(x => x.id === socketValue.id);
-
-
-					switch (socketValue.eventType)
-					{
-
-						case 'TASK_CREATE_EVENT':
-							columnCurrent.tasks.splice(socketValue.ordering, 0, socketValue);
-							this.ReorderArray(columnCurrent.tasks);
-							break;
-
-
-						case 'TASK_UPDATE_EVENT':
-							this.$set(columnCurrent.tasks, taskCurrentIndex, socketValue);
-							break;
-
-
-						case 'TASK_DELETE_EVENT':
-							columnCurrent.tasks.splice(taskCurrentIndex, 1);
-							this.ReorderArray(columnCurrent.tasks);
-							break;
-
-
-						case 'TASK_MEMBER_EVENT':
-							this.$set(taskCurrent, 'members', socketValue.members);
-							break;
-
-
-						case 'TASK_TAG_EVENT':
-							this.$set(taskCurrent, 'tagList', socketValue.tagList);
-							break;
-
-
-						case 'TASK_CHECK_LIST_EVENT':
-							this.$set(taskCurrent, 'checkListCount', socketValue.checkListCount);
-							break;
-
-
-						case 'TASK_COMMENT_EVENT':
-							this.$set(taskCurrent, 'lastCommentType', socketValue.lastCommentType);
-							this.$set(taskCurrent, 'commentCount', socketValue.commentCount);
-							break;
-
-
-						case 'TASK_ESTIMATE_EVENT':
-						case 'TASK_ESTIMATE_DELETE_EVENT':
-							this.$set(taskCurrent, 'startDate', socketValue.startDate);
-							this.$set(taskCurrent, 'deadLine', socketValue.deadLine);
-							this.$set(taskCurrent, 'status', socketValue.status);
-							break;
-
-
-						case 'TASK_MOVED_EVENT':
-							if (taskCurrentIndex === socketValue.ordering)
-							{
-								return;
-							}
-
-
-							// Copy
-							let taskCopy = JSON.parse(JSON.stringify(columnLast.tasks[taskLastIndex]));
-
-							// Delete
-							columnLast.tasks.splice(taskLastIndex, 1);
-
-							// Update
-							taskCopy.columnId = socketValue.columnId;
-
-							// Add
-							columnCurrent.tasks.splice(socketValue.ordering, 0, taskCopy);
-
-							// Reorder
-							this.ReorderArray(columnLast.tasks);
-							if (socketValue.lastColumnId !== socketValue.columnId)
-							{
-								this.ReorderArray(columnCurrent.tasks);
-							}
-
-							break;
-					}
-				}
-				else if (columnLast)
-				{
-					columnLast.tasks.splice(taskLastIndex, 1);
-					this.ReorderArray(columnLast.tasks);
-				}
-			},
-			'$store.state.socket.column'(val)
-			{
-				if (this.$store.state.projectData.id === val.projectId)
-				{
-					let socketValue = JSON.parse(JSON.stringify(val));
-
-					let columnList = this.$store.state.projectData.columns;
-					let index = columnList.findIndex(x => x.id === socketValue.id);
-
-
-					switch (socketValue.eventType)
-					{
-
-						case 'PROJECT_COLUMN_CREATE_EVENT':
-							columnList.push(socketValue);
-							break;
-
-
-						case 'PROJECT_COLUMN_UPDATE_EVENT':
-							this.$set(columnList[index], 'name', socketValue.name);
-							this.$set(columnList[index], 'codeName', socketValue.codeName);
-							break;
-
-
-						case 'PROJECT_COLUMN_DELETE_EVENT':
-							columnList.splice(index, 1);
-							this.ReorderArray(columnList);
-							break;
-
-
-						case 'PROJECT_COLUMN_MOVE_EVENT':
-							if (index === socketValue.ordering)
-							{
-								return;
-							}
-
-
-							let columnCopy = JSON.parse(JSON.stringify(columnList[index]));
-
-							columnList.splice(index, 1);
-							columnList.splice(socketValue.ordering, 0, columnCopy);
-
-							this.ReorderArray(columnList);
-
-							break;
-					}
-				}
-			},
 		},
 		created()
 		{
 			this.GetAll();
+			this.ListenSocketColumn();
+			this.ListenSocketTask();
 		},
-		destroyed()
+		beforeDestroy()
 		{
+			this.socketColumn.disconnect();
+			this.socketTask.disconnect();
 			this.$store.state.projectData = null;
 		},
 		methods: {
@@ -311,18 +169,18 @@
 					.then(response => {
 						this.$store.state.projectData = response.data.data;
 						this.$store.state.metaData.title = this.$route.meta.title(response.data.data.name);
+
+						this.socketColumn.connect();
+						this.socketColumn.enableMonitoring();
+
+						this.socketTask.connect();
+						this.socketTask.enableMonitoring();
 					})
 					.finally(() => {
 						setTimeout(() => {
 							this.$store.state.loader = false;
 						}, 1000);
 					});
-			},
-			ReorderArray(array)
-			{
-				array.forEach((item, index) => {
-					item.ordering = index;
-				});
 			},
 			GetEmployeeAll()
 			{
@@ -365,6 +223,103 @@
 							this.$notification.success(this.$t('successfullyDeleted'));
 						});
 				}
+			},
+			ListenSocketColumn()
+			{
+				this.socketColumn.socket.on('column-insert', (data) => {
+					const columnList = this.$store.state.projectData.columns;
+					columnList.splice(data.ordering, 0, data);
+					this.ReorderArray(columnList);
+				});
+
+				this.socketColumn.socket.on('column-delete', (data) => {
+					const columnList = this.$store.state.projectData.columns;
+					const columnIndex = columnList.findIndex(x => x.id === data.id);
+					columnList.splice(columnIndex, 1);
+					this.ReorderArray(columnList);
+				});
+
+				this.socketColumn.socket.on('column-replace', (data) => {
+					const columnList = this.$store.state.projectData.columns;
+					Object.assign(columnList[data.ordering], data);
+				});
+
+				this.socketColumn.socket.on('column-reorder', (data) => {
+					const columnList = this.$store.state.projectData.columns;
+					const columnIndex = columnList.findIndex(x => x.id === data.id);
+					const column = columnList[columnIndex];
+
+					if (columnIndex === data.ordering)
+					{
+						this.ReorderArray(columnList);
+						return;
+					}
+
+					columnList.splice(columnIndex, 1);
+					columnList.splice(data.ordering, 0, column);
+					this.ReorderArray(columnList);
+				});
+			},
+			ListenSocketTask()
+			{
+				this.socketTask.socket.on('task-insert', (data) => {
+					const column = this.$store.state.projectData.columns.find(x => x.id === data.column.id);
+					column.tasks.splice(data.ordering, 0, data);
+					this.ReorderArray(column.tasks);
+				});
+
+				this.socketTask.socket.on('task-delete', (data) => {
+					const column = this.$store.state.projectData.columns.find(x => x.id === data.column.id);
+					const taskIndex = column.tasks.findIndex(x => x.id === data.id);
+					column.tasks.splice(taskIndex, 1);
+					this.ReorderArray(column.tasks);
+				});
+
+				this.socketTask.socket.on('task-replace', (data) => {
+					const column = this.$store.state.projectData.columns.find(x => x.id === data.column.id);
+					this.$set(column.tasks, data.ordering, data);
+				});
+
+				this.socketTask.socket.on('task-reorder', (data) => {
+					const column = this.$store.state.projectData.columns.find(x => x.id === data.column.id);
+					const taskIndex = column.tasks.findIndex(x => x.id === data.id);
+					const task = column.tasks[taskIndex];
+
+					if (taskIndex === data.ordering)
+					{
+						this.ReorderArray(column.tasks);
+						return;
+					}
+
+					column.tasks.splice(taskIndex, 1);
+					column.tasks.splice(data.ordering, 0, task);
+					this.ReorderArray(column.tasks);
+				});
+
+				this.socketTask.socket.on('task-move', (data) => {
+					const oldColumn = this.$store.state.projectData.columns.find(x => x.id === data.oldColumnId);
+					const newColumn = this.$store.state.projectData.columns.find(x => x.id === data.column.id);
+					const taskIndex = oldColumn.tasks.findIndex(x => x.id === data.id);
+					const task = oldColumn.tasks[taskIndex];
+
+					if (taskIndex === -1)
+					{
+						this.ReorderArray(oldColumn.tasks);
+						this.ReorderArray(newColumn.tasks);
+						return;
+					}
+
+					oldColumn.tasks.splice(taskIndex, 1);
+					newColumn.tasks.splice(data.ordering, 0, task);
+					this.ReorderArray(oldColumn.tasks);
+					this.ReorderArray(newColumn.tasks);
+				});
+			},
+			ReorderArray(array)
+			{
+				array.forEach((item, index) => {
+					item.ordering = index;
+				});
 			},
 
 
