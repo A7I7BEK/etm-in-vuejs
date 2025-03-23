@@ -3,7 +3,7 @@ import { io } from 'socket.io-client';
 
 export class SocketService
 {
-	constructor ({ url, path, roomId, token })
+	constructor ({ url, path, token, roomId })
 	{
 		this.url = url;
 		this.path = path;
