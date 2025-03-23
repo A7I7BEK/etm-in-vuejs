@@ -20,11 +20,10 @@
 					perPage: 10,
 					totalCount: 0,
 				},
-				socketService: new SocketService({
+				socketNotif: new SocketService({
 					url: this.$store.state.url,
-					path: '/ws-notification',
+					path: '/ws-notifications',
 					token: token.Get(),
-					roomId: this.$store.state.userProfile.id,
 				}),
 			};
 		},
@@ -32,10 +31,12 @@
 		{
 			this.GetNotificationList();
 			this.ListenSocketNotification();
+			this.socketNotif.connect();
+			this.socketNotif.enableMonitoring();
 		},
 		beforeDestroy()
 		{
-			this.socketService.disconnect();
+			this.socketNotif.disconnect();
 			this.notificationList = [];
 			this.AlarmSwitcher();
 		},
@@ -57,14 +58,11 @@
 						this.notificationList = response.data.data;
 						this.paramsNotification.totalCount = response.data.totalCount;
 						this.AlarmSwitcher();
-
-						this.socketService.connect();
-						this.socketService.enableMonitoring();
 					});
 			},
 			ListenSocketNotification()
 			{
-				this.socketService.socket.on('news', (data) => {
+				this.socketNotif.socket.on('notif-insert', (data) => {
 					this.notificationList.unshift(data);
 					this.AlarmSwitcher();
 				});
