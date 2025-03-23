@@ -30,9 +30,9 @@ export default new Vuex.Store({
 			BLUE: 'BLUE',
 		},
 		TASK_COMMENT_TYPE: {
-			SOLUTION: 'TASK_COMMENT_TYPE_DECISION',
-			INFORMATION: 'TASK_COMMENT_TYPE_INFORMATION',
-			PROBLEM: 'TASK_COMMENT_TYPE_PROBLEM',
+			INFORMATION: 'INFORMATION',
+			PROBLEM: 'PROBLEM',
+			SOLUTION: 'SOLUTION',
 		},
 		TASK_TIMER: {
 			START: 'START',
@@ -91,37 +91,29 @@ export default new Vuex.Store({
 		notificationAlert: false,
 	},
 	mutations: {
-		setModalTaskPriorityType(state, data)
-		{
+		setModalTaskPriorityType(state, data) {
 			state.taskModalData = { ...state.taskModalData, 'taskPriorityType': data };
 		},
-		setModalTaskLevelType(state, data)
-		{
+		setModalTaskLevelType(state, data) {
 			state.taskModalData = { ...state.taskModalData, 'taskLevelType': data };
 		},
-		setProjectSelectionList(state, data)
-		{
+		setProjectSelectionList(state, data) {
 			state.projectSelectionList = data;
 		},
 
-		setSocketNotification(state, data)
-		{
+		setSocketNotification(state, data) {
 			state.socket.notification = data;
 		},
-		setSocketOnline(state, data)
-		{
+		setSocketOnline(state, data) {
 			state.socket.online = data;
 		},
-		setSocketTask(state, data)
-		{
+		setSocketTask(state, data) {
 			state.socket.task = data;
 		},
-		setSocketColumn(state, data)
-		{
+		setSocketColumn(state, data) {
 			state.socket.column = data;
 		},
-		setSocketAction(state, data)
-		{
+		setSocketAction(state, data) {
 			state.socket.action = data;
 		},
 	}

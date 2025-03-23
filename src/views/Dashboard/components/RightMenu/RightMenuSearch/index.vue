@@ -18,15 +18,15 @@
 			},
 			storeStatusList()
 			{
-				return this.$store.state.projectData.taskStatusType.filter(x => x.value !== this.$store.state.TASK_STATUS_TYPE.BLUE);
+				return this.$store.state.projectData.taskStatusTypes.filter(a => a !== this.$store.state.TASK_STATUS_TYPE.BLUE);
 			},
 			storePriorityList()
 			{
-				return this.$store.state.projectData.taskPriorityType;
+				return this.$store.state.projectData.taskPriorityTypes;
 			},
 			storeLevelList()
 			{
-				return this.$store.state.projectData.taskLevelType;
+				return this.$store.state.projectData.taskLevelTypes;
 			},
 		},
 	};

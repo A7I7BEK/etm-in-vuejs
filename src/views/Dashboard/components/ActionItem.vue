@@ -64,6 +64,20 @@
 					<template v-else>{{ name }}</template>
 				</template>
 			</i18n>
+			<div>
+				<b>Changes:</b>
+				<ul>
+					<li v-if="textParams.name">
+						Name property changed from "{{ textParams.name.oldValue }}" to "{{ textParams.name.newValue }}"
+					</li>
+					<li v-if="textParams.level">
+						Level property changed from "{{ textParams.level.oldValue }}" to "{{ textParams.level.newValue }}"
+					</li>
+					<li v-if="textParams.priority">
+						Priority property changed from "{{ textParams.priority.oldValue }}" to "{{ textParams.priority.newValue }}"
+					</li>
+				</ul>
+			</div>
 		</template>
 
 		<template v-else-if="activityType === 'DELETE_TASK'">

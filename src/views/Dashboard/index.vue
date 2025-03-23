@@ -138,11 +138,11 @@
 				clearTimeout(this.socketTimerId);
 
 				this.socketTimerId = setTimeout(() => {
-					let member = this.$store.state.projectData.members.find(x => x.employee.userName === val.userName);
+					let member = this.$store.state.projectData.members.find(x => x.employee.user.id === val.userId);
 					if (member)
 					{
-						this.$set(member, 'isOnline', val.isOnline);
-						this.$set(member.employee, 'lastSeenTime', val.lastSeenTime);
+						this.$set(member.employee.user, 'isOnline', val.isOnline);
+						this.$set(member.employee.user, 'lastOnlineAt', val.lastOnlineAt);
 					}
 				}, 2000);
 			},

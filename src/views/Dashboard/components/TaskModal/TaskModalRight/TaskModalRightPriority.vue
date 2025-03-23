@@ -47,9 +47,7 @@
 				this.$api
 					.put('tasks/' + this.$store.state.taskModalData.id, {
 						name: this.$store.state.taskModalData.name,
-						taskPriorityType: {
-							id: item.id
-						}
+						priority: item.id
 					})
 					.then(response => {
 						this.$store.commit('setModalTaskPriorityType', response.data.data.taskPriorityType);

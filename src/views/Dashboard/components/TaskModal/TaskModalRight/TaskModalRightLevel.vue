@@ -47,9 +47,7 @@
 				this.$api
 					.put('tasks/' + this.$store.state.taskModalData.id, {
 						name: this.$store.state.taskModalData.name,
-						taskLevelType: {
-							id: item.id
-						}
+						level: item.id
 					})
 					.then(response => {
 						this.$store.commit('setModalTaskLevelType', response.data.data.taskLevelType);
