@@ -2,6 +2,7 @@
 	import BaseRightMenu from '../../../../../components/BaseRightMenu';
 	import ActionItem from '../../ActionItem';
 	import CommentItem from '../../CommentItem';
+	import { ORDER } from '../../../../../constants';
 
 
 	export default {
@@ -50,7 +51,7 @@
 							'page': 0,
 							'perPage': this.actionPerPage,
 							'sortBy': 'id',
-							'sortDirection': 'desc',
+							'sortDirection': ORDER.DESC,
 							'projectId': this.$route.params.id,
 						}
 					})
@@ -76,7 +77,7 @@
 							'page': 0,
 							'perPage': this.commentPerPage,
 							'sortBy': 'id',
-							'sortDirection': 'desc',
+							'sortDirection': ORDER.DESC,
 							'projectId': this.$route.params.id,
 							'forMenu': true
 						}

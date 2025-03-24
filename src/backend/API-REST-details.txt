@@ -373,7 +373,7 @@ Query?:
     page: 0,
     perPage: 20,
     sortBy: 'id',
-    sortDirection: 'desc',
+    sortDirection: 'DESC',
     allSearch: null,
 }
 ----------------------------------
@@ -483,7 +483,7 @@ Query?:
     page: 0,
     perPage: 20,
     sortBy: 'id',
-    sortDirection: 'desc',
+    sortDirection: 'DESC',
     allSearch: null,
 }
 ----------------------------------
@@ -597,7 +597,7 @@ Query?:
     page: 0,
     perPage: 20,
     sortBy: 'id',
-    sortDirection: 'desc',
+    sortDirection: 'DESC',
     allSearch: null,
     organizationId: null,
 }
@@ -730,7 +730,7 @@ Query?:
     page: 0,
     perPage: 20,
     sortBy: 'id',
-    sortDirection: 'desc',
+    sortDirection: 'DESC',
     withPhoto: true,
     allSearch: null,
     organizationId: 0,
@@ -963,7 +963,7 @@ Query?:
     page: 0,
     perPage: 20,
     sortBy: 'id',
-    sortDirection: 'desc',
+    sortDirection: 'DESC',
     allSearch: null,
     organizationId: 0,
 }
@@ -1103,7 +1103,7 @@ Query?:
     page: 0,
     perPage: 20,
     sortBy: 'id',
-    sortDirection: 'desc',
+    sortDirection: 'DESC',
     allSearch: null,
     ownTask: false,
     projectId: 0,
@@ -1611,7 +1611,7 @@ Query?:
     page: 0,
     perPage: 20,
     sortBy: 'id',
-    sortDirection: 'desc',
+    sortDirection: 'DESC',
     projectId: 0,
     taskId: 0,
     forMenu: true,
@@ -1916,7 +1916,7 @@ Query?:
     page: 0,
     perPage: 20,
     sortBy: 'id',
-    sortDirection: 'desc',
+    sortDirection: 'DESC',
     projectId: 0,
     taskId: 0,
 }
@@ -2166,7 +2166,7 @@ Query?:
     page: 0,
     perPage: 20,
     sortBy: 'id',
-    sortDirection: 'desc',
+    sortDirection: 'DESC',
     allSearch: null,
     groupId: 0,
     managerId: 0,
@@ -2530,7 +2530,7 @@ Body:
 Query?:
 {
     sortBy: 'id',
-    sortDirection: 'desc',
+    sortDirection: 'DESC',
     projectId: 0,
 }
 ----------------------------------
@@ -2713,7 +2713,7 @@ Body:
 Query?:
 {
     sortBy: 'id',
-    sortDirection: 'desc',
+    sortDirection: 'DESC',
     projectId: 0,
 }
 ----------------------------------
@@ -2785,7 +2785,7 @@ Query?:
     page: 0,
     perPage: 20,
     sortBy: 'id',
-    sortDirection: 'desc',
+    sortDirection: 'DESC',
 }
 ----------------------------------
 >>>>> Get <<<<<

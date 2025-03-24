@@ -128,6 +128,7 @@
 
 <script>
 	import { required } from 'vuelidate/lib/validators';
+	import { ORDER } from '../../../../../constants';
 
 
 	export default {
@@ -188,7 +189,7 @@
 								projectId: this.selectedProject.id,
 								columnId: val.id,
 								sortBy: 'ordering',
-								sortDirection: 'asc',
+								sortDirection: ORDER.ASC,
 							}
 						})
 						.then(response => {

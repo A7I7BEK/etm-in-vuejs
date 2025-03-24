@@ -115,6 +115,7 @@
 
 <script>
 	import FormService from '../../../../../services/FormService';
+	import { ORDER } from '../../../../../constants';
 
 
 	export default {
@@ -146,7 +147,7 @@
 						params: {
 							projectId: this.$store.state.taskModalData.projectId,
 							sortBy: 'id',
-							sortDirection: 'asc',
+							sortDirection: ORDER.ASC,
 						}
 					})
 					.then(response => {

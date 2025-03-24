@@ -8,6 +8,7 @@
 	import TaskModal from './components/TaskModal/index';
 	import { SocketService } from '../../services/SocketService';
 	import { token } from '../../services/TokenService';
+	import { ORDER } from '../../constants';
 
 
 
@@ -189,7 +190,7 @@
 						params: {
 							'projectId': this.$route.params.id,
 							'sortBy': 'id',
-							'sortDirection': 'desc',
+							'sortDirection': ORDER.DESC,
 						}
 					})
 					.then(response => {

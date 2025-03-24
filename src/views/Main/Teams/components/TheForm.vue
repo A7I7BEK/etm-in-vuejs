@@ -163,6 +163,7 @@
 	import BaseCrudTable from '../../../../components/BaseCrudTable';
 	import Paginate from 'vuejs-paginate';
 	import { required } from 'vuelidate/lib/validators';
+	import { ORDER } from '../../../../constants';
 
 
 	const notZero = (value) => +value !== 0;
@@ -193,7 +194,7 @@
 					page: 0,
 					perPage: 10,
 					sortBy: 'id',
-					sortDirection: 'desc',
+					sortDirection: ORDER.DESC,
 					withPhoto: true,
 					allSearch: null,
 					organizationId: 0,

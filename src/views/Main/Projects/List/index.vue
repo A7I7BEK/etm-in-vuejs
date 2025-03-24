@@ -53,7 +53,7 @@
 								<div class="txt">#</div>
 
 								<template v-if="params.sortBy === 'id'">
-									<i class="fa fa-angle-up" v-if="params.sortDirection === 'asc'"></i>
+									<i class="fa fa-angle-up" v-if="params.sortDirection === ORDER.ASC"></i>
 									<i class="fa fa-angle-down" v-else></i>
 								</template>
 							</div>
@@ -64,7 +64,7 @@
 								<div class="txt">{{ $t('name') }}</div>
 
 								<template v-if="params.sortBy === 'name'">
-									<i class="fa fa-angle-up" v-if="params.sortDirection === 'asc'"></i>
+									<i class="fa fa-angle-up" v-if="params.sortDirection === ORDER.ASC"></i>
 									<i class="fa fa-angle-down" v-else></i>
 								</template>
 							</div>
@@ -75,7 +75,7 @@
 								<div class="txt">{{ $tc('menu.team', 1) }}</div>
 
 								<template v-if="params.sortBy === 'group'">
-									<i class="fa fa-angle-up" v-if="params.sortDirection === 'asc'"></i>
+									<i class="fa fa-angle-up" v-if="params.sortDirection === ORDER.ASC"></i>
 									<i class="fa fa-angle-down" v-else></i>
 								</template>
 							</div>
@@ -86,7 +86,7 @@
 								<div class="txt">{{ $t('manager') }}</div>
 
 								<template v-if="params.sortBy === 'managerName'">
-									<i class="fa fa-angle-up" v-if="params.sortDirection === 'asc'"></i>
+									<i class="fa fa-angle-up" v-if="params.sortDirection === ORDER.ASC"></i>
 									<i class="fa fa-angle-down" v-else></i>
 								</template>
 							</div>
@@ -97,7 +97,7 @@
 								<div class="txt">{{ $t('percent') }}</div>
 
 								<template v-if="params.sortBy === 'percent'">
-									<i class="fa fa-angle-up" v-if="params.sortDirection === 'asc'"></i>
+									<i class="fa fa-angle-up" v-if="params.sortDirection === ORDER.ASC"></i>
 									<i class="fa fa-angle-down" v-else></i>
 								</template>
 							</div>
@@ -108,7 +108,7 @@
 								<div class="txt">{{ $t('projectType') }}</div>
 
 								<template v-if="params.sortBy === 'projectType'">
-									<i class="fa fa-angle-up" v-if="params.sortDirection === 'asc'"></i>
+									<i class="fa fa-angle-up" v-if="params.sortDirection === ORDER.ASC"></i>
 									<i class="fa fa-angle-down" v-else></i>
 								</template>
 							</div>
@@ -123,7 +123,7 @@
 								<div class="txt">{{ $tc('menu.organization', 1) }}</div>
 
 								<template v-if="params.sortBy === 'organizationId'">
-									<i class="fa fa-angle-up" v-if="params.sortDirection === 'asc'"></i>
+									<i class="fa fa-angle-up" v-if="params.sortDirection === ORDER.ASC"></i>
 									<i class="fa fa-angle-down" v-else></i>
 								</template>
 							</div>
@@ -143,7 +143,7 @@
 				<template #body v-if="record.list.length > 0">
 					<tr v-for="(item, index) in record.list">
 						<td>
-							<div class="az_crud_tb_txt" v-if="params.sortBy === 'id' && params.sortDirection === 'desc'">
+							<div class="az_crud_tb_txt" v-if="params.sortBy === 'id' && params.sortDirection === ORDER.DESC">
 								{{ record.count - (params.page * params.perPage) - index }}
 							</div>
 							<div class="az_crud_tb_txt" v-else>
@@ -260,6 +260,7 @@
 	import BaseInputManager from '../../../../components/BaseInputManager';
 	import BaseInputProjectType from '../../../../components/BaseInputProjectType';
 	import Paginate from 'vuejs-paginate';
+	import { ORDER } from '../../../../constants';
 
 
 
@@ -283,7 +284,7 @@
 					page: 0,
 					perPage: 20,
 					sortBy: 'id',
-					sortDirection: 'desc',
+					sortDirection: ORDER.DESC,
 					allSearch: null,
 					groupId: null,
 					managerId: null,
@@ -335,7 +336,7 @@
 					case 'sort':
 						if (this.params.sortBy === val)
 						{
-							this.params.sortDirection = this.params.sortDirection === 'asc' ? 'desc' : 'asc';
+							this.params.sortDirection = this.params.sortDirection === ORDER.ASC ? ORDER.DESC : ORDER.ASC;
 						}
 						this.params.sortBy = val;
 						break;

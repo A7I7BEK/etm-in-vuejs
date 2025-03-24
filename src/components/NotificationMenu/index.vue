@@ -3,6 +3,7 @@
 	import ActionItem from '../../views/Dashboard/components/ActionItem.vue';
 	import { SocketService } from '../../services/SocketService';
 	import { token } from '../../services/TokenService';
+	import { ORDER } from '../../constants';
 
 
 
@@ -51,7 +52,7 @@
 							page: 0,
 							perPage: this.paramsNotification.perPage,
 							sortBy: 'id',
-							sortDirection: 'desc',
+							sortDirection: ORDER.DESC,
 						}
 					})
 					.then(response => {

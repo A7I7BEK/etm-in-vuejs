@@ -283,6 +283,7 @@
 <script>
 	import { required } from 'vuelidate/lib/validators';
 	import ActionItem from '../../ActionItem';
+	import { ORDER } from '../../../../../constants';
 
 
 	export default {
@@ -450,7 +451,7 @@
 							'perPage': this.paramsComment.perPage,
 							'page': 0,
 							'sortBy': 'id',
-							'sortDirection': 'desc',
+							'sortDirection': ORDER.DESC,
 						}
 					})
 					.then(response => {
@@ -470,7 +471,7 @@
 							'perPage': this.paramsAction.perPage,
 							'page': 0,
 							'sortBy': 'id',
-							'sortDirection': 'desc',
+							'sortDirection': ORDER.DESC,
 						}
 					})
 					.then(response => {
