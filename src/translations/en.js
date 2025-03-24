@@ -355,6 +355,7 @@ export default {
 	nameOfEmployees: 'Name of employees',
 	notifications: 'Notifications',
 	markAllAsRead: 'Mark all as read',
+	deleteAll: 'Delete all',
 	allRightsReserved: 'All rights reserved',
 	noList: 'No list',
 	newName: 'New name',

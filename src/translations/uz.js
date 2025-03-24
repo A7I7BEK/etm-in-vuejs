@@ -355,6 +355,7 @@ export default {
 	nameOfEmployees: 'Xodimlarning ismi sharifi',
 	notifications: 'Xabarnoma',
 	markAllAsRead: 'Barchasini o‘qilgan deb belgilash',
+	deleteAll: 'Barchasini o‘chirish',
 	allRightsReserved: 'Barcha huquqlar himoyalangan',
 	noList: 'Ro‘yxat yo‘q',
 	newName: 'Yangi nom',

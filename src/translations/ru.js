@@ -355,6 +355,7 @@ export default {
 	nameOfEmployees: 'Ф.И.О сотрудников',
 	notifications: 'Уведомления',
 	markAllAsRead: 'Отметить все как прочитанные',
+	deleteAll: 'Удалить все',
 	allRightsReserved: 'Все права защищены',
 	noList: 'Нет списка',
 	newName: 'Новое имя',
