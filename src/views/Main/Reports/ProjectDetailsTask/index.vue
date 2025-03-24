@@ -72,7 +72,7 @@
 						params: {
 							'projectId': this.projectSelected,
 							'page': this.pagination.page,
-							'perPage': this.pagination.range,
+							'pageSize': this.pagination.range,
 						}
 					})
 					.then(response => {
@@ -86,7 +86,7 @@
 						params: {
 							'projectId': this.projectSelected,
 							'page': this.pagination.page,
-							'perPage': this.pagination.range,
+							'pageSize': this.pagination.range,
 						},
 						responseType: 'blob',
 					})

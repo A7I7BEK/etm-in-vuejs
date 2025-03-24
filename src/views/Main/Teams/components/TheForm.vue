@@ -192,7 +192,7 @@
 			return {
 				params: {
 					page: 0,
-					perPage: 10,
+					pageSize: 10,
 					sortBy: 'id',
 					sortDirection: ORDER.DESC,
 					withPhoto: true,
@@ -312,7 +312,7 @@
 					})
 					.then(response => {
 						this.record.list = response.data.data;
-						this.record.pageCount = Math.ceil(response.data.totalCount / this.params.perPage);
+						this.record.pageCount = Math.ceil(response.data.totalCount / this.params.pageSize);
 					});
 			},
 			toggleCheckboxOne(e)

@@ -79,10 +79,10 @@
 					<tr v-for="(item, index) in record.list">
 						<td>
 							<div class="az_crud_tb_txt" v-if="params.sortBy === 'id' && params.sortDirection === ORDER.DESC">
-								{{ record.count - (params.page * params.perPage) - index }}
+								{{ record.count - (params.page * params.pageSize) - index }}
 							</div>
 							<div class="az_crud_tb_txt" v-else>
-								{{ (params.page * params.perPage) + (index + 1) }}
+								{{ (params.page * params.pageSize) + (index + 1) }}
 							</div>
 						</td>
 
@@ -124,7 +124,7 @@
 
 
 		<template #range>
-			<base-crud-range :value="params.perPage" @input="HandleParams('range', $event)"></base-crud-range>
+			<base-crud-range :value="params.pageSize" @input="HandleParams('range', $event)"></base-crud-range>
 		</template>
 
 
@@ -174,7 +174,7 @@
 			return {
 				params: {
 					page: 0,
-					perPage: 20,
+					pageSize: 20,
 					sortBy: 'id',
 					sortDirection: ORDER.DESC,
 					allSearch: null,
@@ -201,7 +201,7 @@
 						break;
 
 					case 'range':
-						this.params.perPage = val;
+						this.params.pageSize = val;
 						break;
 
 					case 'page':
@@ -237,7 +237,7 @@
 					.then(response => {
 						this.record.list = response.data.data;
 						this.record.count = response.data.totalCount;
-						this.record.pageCount = Math.ceil(response.data.totalCount / this.params.perPage);
+						this.record.pageCount = Math.ceil(response.data.totalCount / this.params.pageSize);
 					});
 			},
 			Delete(id)

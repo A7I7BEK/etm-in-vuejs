@@ -50,7 +50,7 @@
 							<!--</div>-->
 						</div>
 
-						<div v-show="actionTotalCount > actionPerPage" class="mt-4">
+						<div v-show="actionTotalCount > actionPageSize" class="mt-4">
 							<button @click="GetTaskActionList(20)" type="button" class="btn az_base_btn btn-primary w-100">
 								{{$t('more')}}
 							</button>
@@ -74,15 +74,15 @@
 										{{ item.lastName }}
 									</strong>
 
-									<comment-item :comment="item"/>
+									<comment-item :comment="item" />
 
 								</div>
 							</div>
 							<div class="menu-actions__item_imgs_ln"></div>
 						</div>
-						<div v-show="commentTotalCount > commentPerPage" class="mt-4">
+						<div v-show="commentTotalCount > commentPageSize" class="mt-4">
 							<button @click="GetTaskCommentList(20)" type="button" class="btn btn-primary w-100 text-center">
-								 {{$t('more')}}
+								{{$t('more')}}
 							</button>
 						</div>
 

@@ -186,7 +186,7 @@
 							'typeDateInterval': 'YEARLY_INTERVAL',
 							'year': this.options.year,
 							'page': this.pagination.page,
-							'perPage': this.pagination.range,
+							'pageSize': this.pagination.range,
 							'fio': this.searchText,
 						}
 					})
@@ -202,7 +202,7 @@
 							'typeDateInterval': 'YEARLY_INTERVAL',
 							'year': this.options.year,
 							'page': this.pagination.page,
-							'perPage': this.pagination.range,
+							'pageSize': this.pagination.range,
 							'fio': this.searchText,
 						},
 						responseType: 'blob',

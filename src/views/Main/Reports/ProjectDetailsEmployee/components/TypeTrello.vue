@@ -262,7 +262,7 @@
 							'projectId': this.selectedData.project,
 							'userId': this.selectedData.member,
 							'page': this.pagination.page,
-							'perPage': this.pagination.range,
+							'pageSize': this.pagination.range,
 						}
 					})
 					.then(response => {
@@ -277,7 +277,7 @@
 							'projectId': this.selectedData.project,
 							'userId': this.selectedData.member,
 							'page': this.pagination.page,
-							'perPage': this.pagination.range,
+							'pageSize': this.pagination.range,
 							'uploadTrello': true,
 						},
 						responseType: 'blob',

@@ -180,7 +180,7 @@
 							'year': this.options.year,
 							'quarterPart': this.options.quarter,
 							'page': this.pagination.page,
-							'perPage': this.pagination.range,
+							'pageSize': this.pagination.range,
 							'fio': this.searchText,
 						}
 					})
@@ -197,7 +197,7 @@
 							'year': this.options.year,
 							'quarterPart': this.options.quarter,
 							'page': this.pagination.page,
-							'perPage': this.pagination.range,
+							'pageSize': this.pagination.range,
 							'fio': this.searchText,
 						},
 						responseType: 'blob',

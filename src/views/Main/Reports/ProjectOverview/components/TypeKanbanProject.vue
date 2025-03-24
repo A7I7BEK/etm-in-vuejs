@@ -252,7 +252,7 @@
 					.get('reports/by/projects/kanban', {
 						params: {
 							'page': this.pagination.page,
-							'perPage': this.pagination.range,
+							'pageSize': this.pagination.range,
 						}
 					})
 					.then(response => {

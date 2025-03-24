@@ -18,7 +18,7 @@
 			return {
 				notificationList: [],
 				paramsNotification: {
-					perPage: 10,
+					pageSize: 10,
 					totalCount: 0,
 				},
 				socketNotif: new SocketService({
@@ -44,13 +44,13 @@
 		methods: {
 			GetNotificationList(step = 0)
 			{
-				this.paramsNotification.perPage += step;
+				this.paramsNotification.pageSize += step;
 
 				this.$api
 					.get('notifications', {
 						params: {
 							page: 0,
-							perPage: this.paramsNotification.perPage,
+							pageSize: this.paramsNotification.pageSize,
 							sortBy: 'id',
 							sortDirection: ORDER.DESC,
 						}

@@ -117,7 +117,7 @@
 								params: {
 									'allSearch': val,
 									'page': 0,
-									'perPage': 10,
+									'pageSize': 10,
 								}
 							})
 							.then(response => {

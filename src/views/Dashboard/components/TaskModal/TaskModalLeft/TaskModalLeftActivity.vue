@@ -230,7 +230,7 @@
 							</li>
 
 
-							<li class="d-flex justify-content-end mt-3" v-if="paramsComment.totalCount > paramsComment.perPage">
+							<li class="d-flex justify-content-end mt-3" v-if="paramsComment.totalCount > paramsComment.pageSize">
 								<button type="button" class="btn az_base_btn btn-default btn-block" style="color: #495E75;" @click="GetTaskComments(10)">
 									{{ $t('more') }}
 								</button>
@@ -265,7 +265,7 @@
 								</div>
 							</li>
 
-							<li class="d-flex justify-content-end mt-3" v-if="paramsAction.totalCount > paramsAction.perPage">
+							<li class="d-flex justify-content-end mt-3" v-if="paramsAction.totalCount > paramsAction.pageSize">
 								<button type="button" class="btn az_base_btn btn-default btn-block" style="color: #495E75;" @click="GetTaskActions(10)">
 									{{ $t('more') }}
 								</button>
@@ -307,11 +307,11 @@
 				},
 
 				paramsComment: {
-					perPage: 10,
+					pageSize: 10,
 					totalCount: 0,
 				},
 				paramsAction: {
-					perPage: 10,
+					pageSize: 10,
 					totalCount: 0,
 				},
 			};
@@ -442,13 +442,13 @@
 
 			GetTaskComments(step = 0)
 			{
-				this.paramsComment.perPage += step;
+				this.paramsComment.pageSize += step;
 
 				this.$api
 					.get('taskComments', {
 						params: {
 							'taskId': this.$store.state.taskModalData.id,
-							'perPage': this.paramsComment.perPage,
+							'pageSize': this.paramsComment.pageSize,
 							'page': 0,
 							'sortBy': 'id',
 							'sortDirection': ORDER.DESC,
@@ -462,13 +462,13 @@
 			},
 			GetTaskActions(step = 0)
 			{
-				this.paramsAction.perPage += step;
+				this.paramsAction.pageSize += step;
 
 				this.$api
 					.get('taskActions', {
 						params: {
 							'taskId': this.$store.state.taskModalData.id,
-							'perPage': this.paramsAction.perPage,
+							'pageSize': this.paramsAction.pageSize,
 							'page': 0,
 							'sortBy': 'id',
 							'sortDirection': ORDER.DESC,

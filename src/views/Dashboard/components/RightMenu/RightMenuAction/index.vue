@@ -16,9 +16,9 @@
 		{
 			return {
 				actionTotalCount: 0,
-				actionPerPage: 20,
+				actionPageSize: 20,
 				commentTotalCount: 0,
-				commentPerPage: 20,
+				commentPageSize: 20,
 				actionList: [],
 				commentList: [],
 			};
@@ -38,18 +38,18 @@
 			{
 				if (pageCount > 0)
 				{
-					this.actionPerPage += pageCount;
+					this.actionPageSize += pageCount;
 				}
 				else
 				{
-					this.actionPerPage = 20;
+					this.actionPageSize = 20;
 				}
 
 				this.$api
 					.get('taskActions', {
 						params: {
 							'page': 0,
-							'perPage': this.actionPerPage,
+							'pageSize': this.actionPageSize,
 							'sortBy': 'id',
 							'sortDirection': ORDER.DESC,
 							'projectId': this.$route.params.id,
@@ -64,18 +64,18 @@
 			{
 				if (pageCount > 0)
 				{
-					this.commentPerPage += pageCount;
+					this.commentPageSize += pageCount;
 				}
 				else
 				{
-					this.commentPerPage = 20;
+					this.commentPageSize = 20;
 				}
 
 				this.$api
 					.get('taskComments', {
 						params: {
 							'page': 0,
-							'perPage': this.commentPerPage,
+							'pageSize': this.commentPageSize,
 							'sortBy': 'id',
 							'sortDirection': ORDER.DESC,
 							'projectId': this.$route.params.id,

@@ -215,7 +215,7 @@
 						params: {
 							'userId': this.selectedManager,
 							'page': this.pagination.page,
-							'perPage': this.pagination.range,
+							'pageSize': this.pagination.range,
 							'byProjectManagers': true,
 						}
 					})
@@ -230,7 +230,7 @@
 						params: {
 							'userId': this.selectedManager,
 							'page': this.pagination.page,
-							'perPage': this.pagination.range,
+							'pageSize': this.pagination.range,
 							'byProjectManagers': true,
 							'uploadTrello': true,
 						},

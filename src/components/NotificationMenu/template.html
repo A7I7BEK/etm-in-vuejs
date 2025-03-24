@@ -40,7 +40,7 @@
 				</li>
 
 
-				<li class="p-3" v-show="paramsNotification.totalCount > paramsNotification.perPage">
+				<li class="p-3" v-show="paramsNotification.totalCount > paramsNotification.pageSize">
 					<button type="button" class="btn az_base_btn btn-primary btn-block" @click="GetNotificationList(10)">
 						{{ $t('more') }}
 					</button>

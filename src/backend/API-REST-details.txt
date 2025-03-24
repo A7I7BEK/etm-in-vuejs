@@ -371,7 +371,7 @@ Body:
 Query?:
 {
     page: 0,
-    perPage: 20,
+    pageSize: 20,
     sortBy: 'id',
     sortDirection: 'DESC',
     allSearch: null,
@@ -481,7 +481,7 @@ Body:
 Query?:
 {
     page: 0,
-    perPage: 20,
+    pageSize: 20,
     sortBy: 'id',
     sortDirection: 'DESC',
     allSearch: null,
@@ -595,7 +595,7 @@ Body:
 Query?:
 {
     page: 0,
-    perPage: 20,
+    pageSize: 20,
     sortBy: 'id',
     sortDirection: 'DESC',
     allSearch: null,
@@ -728,7 +728,7 @@ Body:
 Query?:
 {
     page: 0,
-    perPage: 20,
+    pageSize: 20,
     sortBy: 'id',
     sortDirection: 'DESC',
     withPhoto: true,
@@ -961,7 +961,7 @@ Body:
 Query?:
 {
     page: 0,
-    perPage: 20,
+    pageSize: 20,
     sortBy: 'id',
     sortDirection: 'DESC',
     allSearch: null,
@@ -1101,7 +1101,7 @@ Body:
 Query?:
 {
     page: 0,
-    perPage: 20,
+    pageSize: 20,
     sortBy: 'id',
     sortDirection: 'DESC',
     allSearch: null,
@@ -1609,7 +1609,7 @@ Body:
 Query?:
 {
     page: 0,
-    perPage: 20,
+    pageSize: 20,
     sortBy: 'id',
     sortDirection: 'DESC',
     projectId: 0,
@@ -1914,7 +1914,7 @@ Body:
 Query?:
 {
     page: 0,
-    perPage: 20,
+    pageSize: 20,
     sortBy: 'id',
     sortDirection: 'DESC',
     projectId: 0,
@@ -2164,7 +2164,7 @@ Body:
 Query?:
 {
     page: 0,
-    perPage: 20,
+    pageSize: 20,
     sortBy: 'id',
     sortDirection: 'DESC',
     allSearch: null,
@@ -2783,7 +2783,7 @@ id = 0
 Query?:
 {
     page: 0,
-    perPage: 20,
+    pageSize: 20,
     sortBy: 'id',
     sortDirection: 'DESC',
 }
@@ -2865,7 +2865,7 @@ Query?:
     projectId: 0, // for members
     userId: 0, // manager or member ids
     page: 0,
-    perPage: 20,
+    pageSize: 20,
     byProjectManagers: true, // for managers
 }
 ----------------------------------
@@ -2923,7 +2923,7 @@ Query?:
     projectId: 0, // for members
     userId: 0, // manager or member ids
     page: 0,
-    perPage: 20,
+    pageSize: 20,
     byProjectManagers: true, // for managers
 }
 ----------------------------------
@@ -2974,7 +2974,7 @@ Query?:
 {
     projectId: 0,
     page: 0,
-    perPage: 20,
+    pageSize: 20,
 }
 ----------------------------------
 >>>>> Get <<<<<
@@ -3011,7 +3011,7 @@ Query?:
 {
     forAllProject: true,
     page: 0,
-    perPage: 20,
+    pageSize: 20,
 }
 ----------------------------------
 >>>>> Get <<<<<
@@ -3102,7 +3102,7 @@ Query?:
 Query?:
 {
     page: 0,
-    perPage: 20,
+    pageSize: 20,
     fio: 'aaaaaaa',
     typeDateInterval: 'WEEKLY_INTERVAL' || 'MONTHLY_INTERVAL' || 'QUARTER_INTERVAL' || 'YEARLY_INTERVAL',
     year: 2015, // for MONTHLY_INTERVAL and YEARLY_INTERVAL
@@ -3144,7 +3144,7 @@ Query?:
 Query?:
 {
     page: 0,
-    perPage: 20,
+    pageSize: 20,
     projectId: 0,
     userId: 0,
     uploadKanban: true,
@@ -3168,7 +3168,7 @@ download // most probably stream or blob
 Query?:
 {
     page: 0,
-    perPage: 20,
+    pageSize: 20,
     projectId: 0,
 }
 ----------------------------------
@@ -3188,7 +3188,7 @@ download // most probably stream or blob
 Query?:
 {
     page: 0,
-    perPage: 20,
+    pageSize: 20,
     fio: 'aaaaaaa',
     typeDateInterval: 'WEEKLY_INTERVAL' || 'MONTHLY_INTERVAL' || 'QUARTER_INTERVAL' || 'YEARLY_INTERVAL',
     year: 2015, // for MONTHLY_INTERVAL and YEARLY_INTERVAL

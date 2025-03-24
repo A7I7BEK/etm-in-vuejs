@@ -178,7 +178,7 @@
 							'year': this.options.year,
 							'month': this.options.month,
 							'page': this.pagination.page,
-							'perPage': this.pagination.range,
+							'pageSize': this.pagination.range,
 							'fio': this.searchText,
 						}
 					})
@@ -195,7 +195,7 @@
 							'year': this.options.year,
 							'month': this.options.month,
 							'page': this.pagination.page,
-							'perPage': this.pagination.range,
+							'pageSize': this.pagination.range,
 							'fio': this.searchText,
 						},
 						responseType: 'blob',

@@ -177,7 +177,7 @@
 							'startDate': this.options.start,
 							'endDate': this.options.end,
 							'page': this.pagination.page,
-							'perPage': this.pagination.range,
+							'pageSize': this.pagination.range,
 							'fio': this.searchText,
 						}
 					})
@@ -194,7 +194,7 @@
 							'startDate': this.options.start,
 							'endDate': this.options.end,
 							'page': this.pagination.page,
-							'perPage': this.pagination.range,
+							'pageSize': this.pagination.range,
 							'fio': this.searchText,
 						},
 						responseType: 'blob',
