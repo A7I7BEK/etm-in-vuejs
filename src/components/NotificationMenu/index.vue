@@ -1,7 +1,7 @@
 <script>
 import { FAVICON_ALERT, FAVICON_SIMPLE, ORDER } from '../../constants';
 import { SocketService } from '../../services/SocketService';
-import { token } from '../../services/TokenService';
+import { accessTokenGet } from '../../services/TokenService';
 import ActionItem from '../../views/Dashboard/components/ActionItem.vue';
 import BaseRightMenu from '../BaseRightMenu';
 
@@ -28,7 +28,7 @@ export default {
 			socketNotif: new SocketService({
 				url: this.$store.state.url,
 				path: '/ws-notifications',
-				token: token.Get(),
+				token: accessTokenGet(),
 			}),
 		};
 	},

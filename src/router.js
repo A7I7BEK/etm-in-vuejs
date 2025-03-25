@@ -1,7 +1,8 @@
+// @ts-nocheck
 import Vue from 'vue';
 import Router from 'vue-router';
-import i18n from './plugins/vue-i18n-config';
-import { token } from './services/TokenService';
+import $i18n from './plugins/vue-i18n-config';
+import { accessTokenGet } from './services/TokenService';
 
 
 Vue.use(Router);
@@ -34,9 +35,8 @@ const router = new Router({
 									name: 'mainTasksList',
 									component: () => import('./views/Main/Tasks/List/index'),
 									meta: {
-										title()
-										{
-											return i18n.tc('menu.task', 2) + ' | ETM';
+										title() {
+											return $i18n.tc('menu.task', 2) + ' | ETM';
 										},
 									},
 								},
@@ -45,10 +45,9 @@ const router = new Router({
 									name: 'mainTasksCreate',
 									component: () => import('./views/Main/Tasks/Create/index'),
 									meta: {
-										title()
-										{
-											return i18n.t('crudCreate', {
-												text: i18n.tc('menu.task', 1).toLowerCase(),
+										title() {
+											return $i18n.t('crudCreate', {
+												text: $i18n.tc('menu.task', 1).toLowerCase(),
 											}) + ' | ETM';
 										},
 									},
@@ -59,10 +58,9 @@ const router = new Router({
 									name: 'mainTasksUpdate',
 									component: () => import('./views/Main/Tasks/Update/index'),
 									meta: {
-										title(name)
-										{
-											return i18n.t('crudEdit', {
-												table: i18n.tc('menu.task', 1).toLowerCase(),
+										title(name) {
+											return $i18n.t('crudEdit', {
+												table: $i18n.tc('menu.task', 1).toLowerCase(),
 												name: name,
 											}) + ' | ETM';
 										},
@@ -74,10 +72,9 @@ const router = new Router({
 									name: 'mainTasksRead',
 									component: () => import('./views/Main/Tasks/Read/index'),
 									meta: {
-										title(name)
-										{
-											return i18n.t('crudRead', {
-												table: i18n.tc('menu.task', 1).toLowerCase(),
+										title(name) {
+											return $i18n.t('crudRead', {
+												table: $i18n.tc('menu.task', 1).toLowerCase(),
 												name: name,
 											}) + ' | ETM';
 										},
@@ -96,9 +93,8 @@ const router = new Router({
 									name: 'mainProjectsList',
 									component: () => import('./views/Main/Projects/List/index'),
 									meta: {
-										title()
-										{
-											return i18n.tc('menu.project', 2) + ' | ETM';
+										title() {
+											return $i18n.tc('menu.project', 2) + ' | ETM';
 										},
 									},
 								},
@@ -107,10 +103,9 @@ const router = new Router({
 									name: 'mainProjectsCreate',
 									component: () => import('./views/Main/Projects/Create/index'),
 									meta: {
-										title()
-										{
-											return i18n.t('crudCreate', {
-												text: i18n.tc('menu.project', 1).toLowerCase(),
+										title() {
+											return $i18n.t('crudCreate', {
+												text: $i18n.tc('menu.project', 1).toLowerCase(),
 											}) + ' | ETM';
 										},
 									},
@@ -121,10 +116,9 @@ const router = new Router({
 									name: 'mainProjectsUpdate',
 									component: () => import('./views/Main/Projects/Update/index'),
 									meta: {
-										title(name)
-										{
-											return i18n.t('crudEdit', {
-												table: i18n.tc('menu.project', 1).toLowerCase(),
+										title(name) {
+											return $i18n.t('crudEdit', {
+												table: $i18n.tc('menu.project', 1).toLowerCase(),
 												name: name,
 											}) + ' | ETM';
 										},
@@ -136,10 +130,9 @@ const router = new Router({
 									name: 'mainProjectsRead',
 									component: () => import('./views/Main/Projects/Read/index'),
 									meta: {
-										title(name)
-										{
-											return i18n.t('crudRead', {
-												table: i18n.tc('menu.project', 1).toLowerCase(),
+										title(name) {
+											return $i18n.t('crudRead', {
+												table: $i18n.tc('menu.project', 1).toLowerCase(),
 												name: name,
 											}) + ' | ETM';
 										},
@@ -158,9 +151,8 @@ const router = new Router({
 									name: 'mainTeamsList',
 									component: () => import('./views/Main/Teams/List/index'),
 									meta: {
-										title()
-										{
-											return i18n.tc('menu.team', 2) + ' | ETM';
+										title() {
+											return $i18n.tc('menu.team', 2) + ' | ETM';
 										},
 									},
 								},
@@ -169,10 +161,9 @@ const router = new Router({
 									name: 'mainTeamsCreate',
 									component: () => import('./views/Main/Teams/Create/index'),
 									meta: {
-										title()
-										{
-											return i18n.t('crudCreate', {
-												text: i18n.tc('menu.team', 1).toLowerCase(),
+										title() {
+											return $i18n.t('crudCreate', {
+												text: $i18n.tc('menu.team', 1).toLowerCase(),
 											}) + ' | ETM';
 										},
 									},
@@ -183,10 +174,9 @@ const router = new Router({
 									name: 'mainTeamsUpdate',
 									component: () => import('./views/Main/Teams/Update/index'),
 									meta: {
-										title(name)
-										{
-											return i18n.t('crudEdit', {
-												table: i18n.tc('menu.team', 1).toLowerCase(),
+										title(name) {
+											return $i18n.t('crudEdit', {
+												table: $i18n.tc('menu.team', 1).toLowerCase(),
 												name: name,
 											}) + ' | ETM';
 										},
@@ -198,10 +188,9 @@ const router = new Router({
 									name: 'mainTeamsRead',
 									component: () => import('./views/Main/Teams/Read/index'),
 									meta: {
-										title(name)
-										{
-											return i18n.t('crudRead', {
-												table: i18n.tc('menu.team', 1).toLowerCase(),
+										title(name) {
+											return $i18n.t('crudRead', {
+												table: $i18n.tc('menu.team', 1).toLowerCase(),
 												name: name,
 											}) + ' | ETM';
 										},
@@ -220,9 +209,8 @@ const router = new Router({
 									name: 'mainUsersList',
 									component: () => import('./views/Main/Users/List/index'),
 									meta: {
-										title()
-										{
-											return i18n.tc('menu.user', 2) + ' | ETM';
+										title() {
+											return $i18n.tc('menu.user', 2) + ' | ETM';
 										},
 									},
 								},
@@ -231,10 +219,9 @@ const router = new Router({
 									name: 'mainUsersCreate',
 									component: () => import('./views/Main/Users/Create/index'),
 									meta: {
-										title()
-										{
-											return i18n.t('crudCreate', {
-												text: i18n.tc('menu.user', 1).toLowerCase(),
+										title() {
+											return $i18n.t('crudCreate', {
+												text: $i18n.tc('menu.user', 1).toLowerCase(),
 											}) + ' | ETM';
 										},
 									},
@@ -245,10 +232,9 @@ const router = new Router({
 									name: 'mainUsersUpdate',
 									component: () => import('./views/Main/Users/Update/index'),
 									meta: {
-										title(name)
-										{
-											return i18n.t('crudEdit', {
-												table: i18n.tc('menu.user', 1).toLowerCase(),
+										title(name) {
+											return $i18n.t('crudEdit', {
+												table: $i18n.tc('menu.user', 1).toLowerCase(),
 												name: name,
 											}) + ' | ETM';
 										},
@@ -260,10 +246,9 @@ const router = new Router({
 									name: 'mainUsersRead',
 									component: () => import('./views/Main/Users/Read/index'),
 									meta: {
-										title(name)
-										{
-											return i18n.t('crudRead', {
-												table: i18n.tc('menu.user', 1).toLowerCase(),
+										title(name) {
+											return $i18n.t('crudRead', {
+												table: $i18n.tc('menu.user', 1).toLowerCase(),
 												name: name,
 											}) + ' | ETM';
 										},
@@ -275,9 +260,8 @@ const router = new Router({
 									name: 'mainUsersPasswordReset',
 									component: () => import('./views/Main/Users/PasswordReset/index'),
 									meta: {
-										title(name)
-										{
-											return i18n.t('crudPasswordReset', {
+										title(name) {
+											return $i18n.t('crudPasswordReset', {
 												name: name,
 											}) + ' | ETM';
 										},
@@ -296,9 +280,8 @@ const router = new Router({
 									name: 'mainRolesList',
 									component: () => import('./views/Main/Roles/List/index'),
 									meta: {
-										title()
-										{
-											return i18n.tc('menu.role', 2) + ' | ETM';
+										title() {
+											return $i18n.tc('menu.role', 2) + ' | ETM';
 										},
 									},
 								},
@@ -307,10 +290,9 @@ const router = new Router({
 									name: 'mainRolesCreate',
 									component: () => import('./views/Main/Roles/Create/index'),
 									meta: {
-										title()
-										{
-											return i18n.t('crudCreate', {
-												text: i18n.tc('menu.role', 1).toLowerCase(),
+										title() {
+											return $i18n.t('crudCreate', {
+												text: $i18n.tc('menu.role', 1).toLowerCase(),
 											}) + ' | ETM';
 										},
 									},
@@ -321,10 +303,9 @@ const router = new Router({
 									name: 'mainRolesUpdate',
 									component: () => import('./views/Main/Roles/Update/index'),
 									meta: {
-										title(name)
-										{
-											return i18n.t('crudEdit', {
-												table: i18n.tc('menu.role', 1).toLowerCase(),
+										title(name) {
+											return $i18n.t('crudEdit', {
+												table: $i18n.tc('menu.role', 1).toLowerCase(),
 												name: name,
 											}) + ' | ETM';
 										},
@@ -336,10 +317,9 @@ const router = new Router({
 									name: 'mainRolesRead',
 									component: () => import('./views/Main/Roles/Read/index'),
 									meta: {
-										title(name)
-										{
-											return i18n.t('crudRead', {
-												table: i18n.tc('menu.role', 1).toLowerCase(),
+										title(name) {
+											return $i18n.t('crudRead', {
+												table: $i18n.tc('menu.role', 1).toLowerCase(),
 												name: name,
 											}) + ' | ETM';
 										},
@@ -358,9 +338,8 @@ const router = new Router({
 									name: 'mainPermissionsList',
 									component: () => import('./views/Main/Permissions/List/index'),
 									meta: {
-										title()
-										{
-											return i18n.tc('menu.permission', 2) + ' | ETM';
+										title() {
+											return $i18n.tc('menu.permission', 2) + ' | ETM';
 										},
 									},
 								},
@@ -369,10 +348,9 @@ const router = new Router({
 									name: 'mainPermissionsCreate',
 									component: () => import('./views/Main/Permissions/Create/index'),
 									meta: {
-										title()
-										{
-											return i18n.t('crudCreate', {
-												text: i18n.tc('menu.permission', 1).toLowerCase(),
+										title() {
+											return $i18n.t('crudCreate', {
+												text: $i18n.tc('menu.permission', 1).toLowerCase(),
 											}) + ' | ETM';
 										},
 									},
@@ -383,10 +361,9 @@ const router = new Router({
 									name: 'mainPermissionsUpdate',
 									component: () => import('./views/Main/Permissions/Update/index'),
 									meta: {
-										title(name)
-										{
-											return i18n.t('crudEdit', {
-												table: i18n.tc('menu.permission', 1).toLowerCase(),
+										title(name) {
+											return $i18n.t('crudEdit', {
+												table: $i18n.tc('menu.permission', 1).toLowerCase(),
 												name: name,
 											}) + ' | ETM';
 										},
@@ -398,10 +375,9 @@ const router = new Router({
 									name: 'mainPermissionsRead',
 									component: () => import('./views/Main/Permissions/Read/index'),
 									meta: {
-										title(name)
-										{
-											return i18n.t('crudRead', {
-												table: i18n.tc('menu.permission', 1).toLowerCase(),
+										title(name) {
+											return $i18n.t('crudRead', {
+												table: $i18n.tc('menu.permission', 1).toLowerCase(),
 												name: name,
 											}) + ' | ETM';
 										},
@@ -420,9 +396,8 @@ const router = new Router({
 									name: 'mainOrganizationsList',
 									component: () => import('./views/Main/Organizations/List/index'),
 									meta: {
-										title()
-										{
-											return i18n.tc('menu.organization', 2) + ' | ETM';
+										title() {
+											return $i18n.tc('menu.organization', 2) + ' | ETM';
 										},
 									},
 								},
@@ -431,10 +406,9 @@ const router = new Router({
 									name: 'mainOrganizationsCreate',
 									component: () => import('./views/Main/Organizations/Create/index'),
 									meta: {
-										title()
-										{
-											return i18n.t('crudCreate', {
-												text: i18n.tc('menu.organization', 1).toLowerCase(),
+										title() {
+											return $i18n.t('crudCreate', {
+												text: $i18n.tc('menu.organization', 1).toLowerCase(),
 											}) + ' | ETM';
 										},
 									},
@@ -445,10 +419,9 @@ const router = new Router({
 									name: 'mainOrganizationsUpdate',
 									component: () => import('./views/Main/Organizations/Update/index'),
 									meta: {
-										title(name)
-										{
-											return i18n.t('crudEdit', {
-												table: i18n.tc('menu.organization', 1).toLowerCase(),
+										title(name) {
+											return $i18n.t('crudEdit', {
+												table: $i18n.tc('menu.organization', 1).toLowerCase(),
 												name: name,
 											}) + ' | ETM';
 										},
@@ -460,10 +433,9 @@ const router = new Router({
 									name: 'mainOrganizationsRead',
 									component: () => import('./views/Main/Organizations/Read/index'),
 									meta: {
-										title(name)
-										{
-											return i18n.t('crudRead', {
-												table: i18n.tc('menu.organization', 1).toLowerCase(),
+										title(name) {
+											return $i18n.t('crudRead', {
+												table: $i18n.tc('menu.organization', 1).toLowerCase(),
 												name: name,
 											}) + ' | ETM';
 										},
@@ -485,9 +457,8 @@ const router = new Router({
 									name: 'mainReportsProjectOverview',
 									component: () => import('./views/Main/Reports/ProjectOverview/index'),
 									meta: {
-										title()
-										{
-											return i18n.t('menu.projectOverview') + ' | ETM';
+										title() {
+											return $i18n.t('menu.projectOverview') + ' | ETM';
 										},
 									},
 								},
@@ -496,9 +467,8 @@ const router = new Router({
 									name: 'mainReportsTimeSeries',
 									component: () => import('./views/Main/Reports/TimeSeries/index'),
 									meta: {
-										title()
-										{
-											return i18n.t('menu.timeSeries') + ' | ETM';
+										title() {
+											return $i18n.t('menu.timeSeries') + ' | ETM';
 										},
 									},
 								},
@@ -507,9 +477,8 @@ const router = new Router({
 									name: 'mainReportsTimeFrame',
 									component: () => import('./views/Main/Reports/TimeFrame/index'),
 									meta: {
-										title()
-										{
-											return i18n.t('menu.timeFrame') + ' | ETM';
+										title() {
+											return $i18n.t('menu.timeFrame') + ' | ETM';
 										},
 									},
 								},
@@ -518,9 +487,8 @@ const router = new Router({
 									name: 'mainReportsProjectDetailsTask',
 									component: () => import('./views/Main/Reports/ProjectDetailsTask/index'),
 									meta: {
-										title()
-										{
-											return i18n.t('menu.projectDetailsTask') + ' | ETM';
+										title() {
+											return $i18n.t('menu.projectDetailsTask') + ' | ETM';
 										},
 									},
 								},
@@ -529,9 +497,8 @@ const router = new Router({
 									name: 'mainReportsProjectDetailsManager',
 									component: () => import('./views/Main/Reports/ProjectDetailsManager/index'),
 									meta: {
-										title()
-										{
-											return i18n.t('menu.projectDetailsManager') + ' | ETM';
+										title() {
+											return $i18n.t('menu.projectDetailsManager') + ' | ETM';
 										},
 									},
 								},
@@ -540,9 +507,8 @@ const router = new Router({
 									name: 'mainReportsProjectDetailsEmployee',
 									component: () => import('./views/Main/Reports/ProjectDetailsEmployee/index'),
 									meta: {
-										title()
-										{
-											return i18n.t('menu.projectDetailsEmployee') + ' | ETM';
+										title() {
+											return $i18n.t('menu.projectDetailsEmployee') + ' | ETM';
 										},
 									},
 								},
@@ -555,9 +521,8 @@ const router = new Router({
 					name: 'dashboard',
 					component: () => import('./views/Dashboard/index'),
 					meta: {
-						title(name)
-						{
-							return i18n.t('projectInDashboard', {
+						title(name) {
+							return $i18n.t('projectInDashboard', {
 								name: name,
 							}) + ' | ETM';
 						},
@@ -582,17 +547,14 @@ const router = new Router({
 					name: 'authLogin',
 					component: () => import('./views/Authorization/Login/index'),
 					meta: {
-						title()
-						{
-							return i18n.t('login') + ' | ETM';
+						title() {
+							return $i18n.t('login') + ' | ETM';
 						},
-						description()
-						{
-							return i18n.t('meta.description.login');
+						description() {
+							return $i18n.t('meta.description.login');
 						},
-						keywords()
-						{
-							return i18n.t('meta.keywords.login');
+						keywords() {
+							return $i18n.t('meta.keywords.login');
 						},
 					},
 				},
@@ -601,17 +563,14 @@ const router = new Router({
 					name: 'authRegistration',
 					component: () => import('./views/Authorization/Registration/index'),
 					meta: {
-						title()
-						{
-							return i18n.t('register') + ' | ETM';
+						title() {
+							return $i18n.t('register') + ' | ETM';
 						},
-						description()
-						{
-							return i18n.t('meta.description.registration');
+						description() {
+							return $i18n.t('meta.description.registration');
 						},
-						keywords()
-						{
-							return i18n.t('meta.keywords.registration');
+						keywords() {
+							return $i18n.t('meta.keywords.registration');
 						},
 					},
 				},
@@ -620,17 +579,14 @@ const router = new Router({
 					name: 'authRecovery',
 					component: () => import('./views/Authorization/Recovery/index'),
 					meta: {
-						title()
-						{
-							return i18n.t('passwordRecovery') + ' | ETM';
+						title() {
+							return $i18n.t('passwordRecovery') + ' | ETM';
 						},
-						description()
-						{
-							return i18n.t('meta.description.recovery');
+						description() {
+							return $i18n.t('meta.description.recovery');
 						},
-						keywords()
-						{
-							return i18n.t('meta.keywords.recovery');
+						keywords() {
+							return $i18n.t('meta.keywords.recovery');
 						},
 					},
 				},
@@ -641,16 +597,14 @@ const router = new Router({
 
 
 router.beforeEach((to, from, next) => {
-	let hasToken = !!token.Get();
+	let hasToken = !!accessTokenGet();
 	let isPublic = to.matched.some(record => record.meta.public);
 
-	if (hasToken && isPublic)
-	{
+	if (hasToken && isPublic) {
 		return next(from.fullPath);
 	}
 
-	if (!hasToken && !isPublic)
-	{
+	if (!hasToken && !isPublic) {
 		return next({ name: 'authLogin' });
 	}
 

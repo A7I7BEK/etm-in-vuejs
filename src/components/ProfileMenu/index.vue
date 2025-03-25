@@ -1,43 +1,41 @@
 <script>
-	import BaseRightMenu from '../BaseRightMenu';
-	import ProfileMenuModalInfo from './ProfileMenuModalInfo/index';
-	import ProfileMenuModalPassword from './ProfileMenuModalPassword/index';
-	import { RemoveAllTokens } from '../../services/TokenService';
+import { langSet } from '../../services/LanguageService';
+import { clearAllTokens } from '../../services/TokenService';
+import { clearProfile } from '../../utils/clearProfile';
+import BaseRightMenu from '../BaseRightMenu';
+import ProfileMenuModalInfo from './ProfileMenuModalInfo/index';
+import ProfileMenuModalPassword from './ProfileMenuModalPassword/index';
 
 
-	export default {
-		name: 'ProfileMenu',
-		components: {
-			BaseRightMenu,
-			ProfileMenuModalInfo,
-			ProfileMenuModalPassword,
+export default {
+	name: 'ProfileMenu',
+	components: {
+		BaseRightMenu,
+		ProfileMenuModalInfo,
+		ProfileMenuModalPassword,
+	},
+	props: {
+		className: {
+			type: String,
+			default: '',
 		},
-		props: {
-			className: {
-				type: String,
-				default: '',
-			},
-		},
-		methods: {
-			ChangeLang(lang)
-			{
-				this.$i18n.locale = lang;
-				localStorage.setItem('lang', lang);
+	},
+	methods: {
+		ChangeLang(lang) {
+			this.$i18n.locale = lang;
+			langSet(lang);
 
-				this.$api
-					.post('/users/change/language', {
-						langCode: lang,
-					});
-			},
-			Logout()
-			{
-				RemoveAllTokens();
-				this.$store.state.permissionList = [];
-				this.$store.state.userProfile = {};
-				this.$router.push({ name: 'authLogin' });
-			},
-		}
-	};
+			this.$api
+				.post('/users/change-language', {
+					langCode: lang,
+				});
+		},
+		Logout() {
+			clearAllTokens();
+			clearProfile();
+		},
+	}
+};
 </script>
 
 <template src="./template.html"></template>

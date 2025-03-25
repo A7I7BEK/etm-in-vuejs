@@ -1,19 +1,15 @@
 import Vue from 'vue';
 import VueI18n from 'vue-i18n';
-import uz from '../translations/uz';
-import ru from '../translations/ru';
+import { langGet } from '../services/LanguageService';
 import en from '../translations/en';
-import { LANG } from '../defaults';
+import ru from '../translations/ru';
+import uz from '../translations/uz';
 
 
 Vue.use(VueI18n);
 
 
-const i18n = new VueI18n({
-	locale: localStorage.getItem('lang') ? localStorage.getItem('lang') : LANG,
+export default new VueI18n({
+	locale: langGet(),
 	messages: { uz, ru, en },
 });
-
-
-
-export default i18n;
