@@ -1,5 +1,8 @@
 <div>
-	<base-right-menu id="profileMenu" :class="className">
+	<base-right-menu
+		id="profileMenu"
+		:class="className"
+	>
 		<template #title>{{$t('profile')}}</template>
 
 
@@ -24,7 +27,10 @@
 
 						<li>
 							<div class="txt">{{ $tc('menu.role', 1) }}</div>
-							<div class="val" v-if="$store.state.userProfile.roles">
+							<div
+								class="val"
+								v-if="$store.state.userProfile.roles"
+							>
 								{{ $store.state.userProfile.roles.map(x => x.roleName).join(', ') }}
 							</div>
 						</li>
@@ -53,51 +59,60 @@
 						</li>
 					</ul>
 
-					<button type="button"
-							class="btn az_base_btn btn-primary btn-block"
-							data-toggle="modal"
-							data-target="#profileModal"
-							v-if="can('EMPLOYEE_PROFILE_UPDATE')"
-						>
+					<button
+						type="button"
+						class="btn az_base_btn btn-primary btn-block"
+						data-toggle="modal"
+						data-target="#profileModal"
+						v-if="can('EMPLOYEE_PROFILE_UPDATE')"
+					>
 						{{ $t('edit') }}
 					</button>
 				</div>
 
 				<div class="az_profile_act_btn_it">
-					<div class="az_dropdown_bx" data-custom-drop>
-						<button type="button" class="az_profile_act_btn" data-custom-drop-btn>
-							<img src="/img/svg/language.svg" alt="" class="img">
+					<div
+						class="az_dropdown_bx"
+						data-custom-drop
+					>
+						<button
+							type="button"
+							class="az_profile_act_btn"
+							data-custom-drop-btn
+						>
+							<img
+								src="/img/svg/language.svg"
+								alt=""
+								class="img"
+							>
 							<span class="txt">{{ $t('dashboard.languageChange') }}</span>
 							<span class="val">
-								<template v-if="$i18n.locale === 'uz'">O‘zbekcha</template>
-								<template v-if="$i18n.locale === 'ru'">Русский</template>
-								<template v-if="$i18n.locale === 'en'">English</template>
+								{{ LANG[$i18n.locale] }}
 							</span>
 						</button>
 
-						<div class="az_dropdown w-100 right" data-custom-drop-body>
+						<div
+							class="az_dropdown w-100 right"
+							data-custom-drop-body
+						>
 							<div class="az_dropdown_ttl">{{ $t('dashboard.language') }}</div>
 
 							<div class="az_dropdown_cnt">
 								<ul class="az_profile_lang_ls">
-									<li :class="{'active': $i18n.locale === 'uz'}">
-										<a href="#" @click.prevent="ChangeLang('uz')">
-											<div class="txt">O‘zbekcha</div>
-											<img class="img" src="/img/svg/check-grey.svg">
-										</a>
-									</li>
-
-									<li :class="{'active': $i18n.locale === 'ru'}">
-										<a href="#" @click.prevent="ChangeLang('ru')">
-											<div class="txt">Русский</div>
-											<img class="img" src="/img/svg/check-grey.svg">
-										</a>
-									</li>
-
-									<li :class="{'active': $i18n.locale === 'en'}">
-										<a href="#" @click.prevent="ChangeLang('en')">
-											<div class="txt">English</div>
-											<img class="img" src="/img/svg/check-grey.svg">
+									<li
+										v-for="[key, value] in Object.entries(LANG)"
+										:key="key"
+										:class="{'active': $i18n.locale === key}"
+									>
+										<a
+											href="#"
+											@click.prevent="ChangeLang(key)"
+										>
+											<div class="txt">{{ value }}</div>
+											<img
+												class="img"
+												src="/img/svg/check-grey.svg"
+											>
 										</a>
 									</li>
 								</ul>
@@ -107,15 +122,30 @@
 				</div>
 
 				<div class="az_profile_act_btn_it">
-					<button class="az_profile_act_btn" type="button" data-toggle="modal" data-target="#profilePassword">
-						<img class="img" src="/img/svg/sidebar_resolution.svg">
+					<button
+						class="az_profile_act_btn"
+						type="button"
+						data-toggle="modal"
+						data-target="#profilePassword"
+					>
+						<img
+							class="img"
+							src="/img/svg/sidebar_resolution.svg"
+						>
 						<span class="txt">{{ $t('password') }}</span>
 					</button>
 				</div>
 
 				<div class="az_profile_act_btn_it">
-					<button class="az_profile_act_btn" type="button" @click="Logout">
-						<img class="img" src="/img/svg/logout.svg">
+					<button
+						class="az_profile_act_btn"
+						type="button"
+						@click="Logout"
+					>
+						<img
+							class="img"
+							src="/img/svg/logout.svg"
+						>
 						<span class="txt">{{ $t('logout') }}</span>
 					</button>
 				</div>

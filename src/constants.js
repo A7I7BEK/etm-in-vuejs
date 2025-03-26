@@ -7,9 +7,9 @@ export const DEFAULT_LANG = 'en';
 
 /*____________________ Others ____________________*/
 export const LANG = {
-	Uzbek: 'uz',
-	English: 'en',
-	Russian: 'ru',
+	uz: 'O‘zbekcha',
+	en: 'English',
+	ru: 'Русский',
 };
 export const ORDER = {
 	ASC: 'ASC',

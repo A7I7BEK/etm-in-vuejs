@@ -1,4 +1,5 @@
 <script>
+import { LANG } from '../../constants';
 import { langSet } from '../../services/LanguageService';
 import { clearAllTokens } from '../../services/TokenService';
 import { clearProfile } from '../../utils/clearProfile';
@@ -19,6 +20,11 @@ export default {
 			type: String,
 			default: '',
 		},
+	},
+	data() {
+		return {
+			LANG,
+		};
 	},
 	methods: {
 		ChangeLang(lang) {

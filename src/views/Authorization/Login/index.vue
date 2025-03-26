@@ -38,7 +38,7 @@ export default {
 		},
 		GetProfileInfo() {
 			this.$api
-				.get('users/me')
+				.get('/users/me')
 				.then(response => {
 					setProfile(response.data.data);
 					this.$router.push('/');
