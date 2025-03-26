@@ -1,3 +1,3 @@
 export default function (permission) {
-	return !!this.$store.state.permissionList.find(item => item.codeName === permission);
+	return this.$store.state.permissionList.includes(permission);
 };

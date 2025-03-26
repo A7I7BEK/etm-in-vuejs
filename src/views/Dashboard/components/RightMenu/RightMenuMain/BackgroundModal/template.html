@@ -6,20 +6,49 @@
 		<div class="az_prfl_mod">
 			<div class="az_prfl_mod_case">
 				<div class="row mb-4">
-					<div class="col-4 mb-3" v-for="item in $store.state.colorList">
-						<div class="az_bg_mdl_color" :style="{ background: item }" @click="ChangeBackground(item)">
-							<div class="az_bg_mdl_color_tick" v-if="computedBackground.value === item">
-								<img src="/img/svg/background-tick.svg" alt="">
+					<div
+						class="col-4 mb-3"
+						v-for="item in COLOR_LIST"
+					>
+						<div
+							class="az_bg_mdl_color"
+							:style="{ background: item }"
+							@click="ChangeBackground(item)"
+						>
+							<div
+								class="az_bg_mdl_color_tick"
+								v-if="computedBackground.value === item"
+							>
+								<img
+									src="/img/svg/background-tick.svg"
+									alt=""
+								>
 							</div>
 						</div>
 					</div>
 				</div>
 
 
-				<label class="az_bg_mdl_img_up" :class="{'active': computedBackground.img}">
-					<input type="file" accept="image/*" hidden @change="UploadPhoto">
-					<img :src="computedBackground.value" alt="" v-if="computedBackground.img">
-					<img src="/img/svg/background-image-preview.svg" alt="" v-else>
+				<label
+					class="az_bg_mdl_img_up"
+					:class="{'active': computedBackground.img}"
+				>
+					<input
+						type="file"
+						accept="image/*"
+						hidden
+						@change="UploadPhoto"
+					>
+					<img
+						:src="computedBackground.value"
+						alt=""
+						v-if="computedBackground.img"
+					>
+					<img
+						src="/img/svg/background-image-preview.svg"
+						alt=""
+						v-else
+					>
 				</label>
 			</div>
 		</div>
