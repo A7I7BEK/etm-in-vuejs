@@ -80,25 +80,21 @@ export default {
 			this.employeeList = null;
 
 			clearTimeout(this.employeeListTimerId);
-			if (val && val.trim() !== '') {
+			if (val && val.trim()) {
 				this.employeeListTimerId = setTimeout(() => {
+					const members = this.$store.state.projectData.members;
+
 					this.$api
-						.get('employees', {
+						.get('/employees', {
 							params: {
-								'allSearch': val,
-								'withPhoto': true,
+								allSearch: val,
 							}
 						})
 						.then(response => {
+							this.employeeList = response.data.data.
+								filter(emp => !members.some(memb => emp.id === memb.employee.id));
 
-							this.employeeList = response.data.data.filter(item => {
-								if (this.$store.state.projectData.members.findIndex(x => x.employee.id === item.id) < 0) {
-									item.checked = false;
-									return true;
-								}
-								return false;
-							});
-
+							this.employeeList.forEach(a => a.checked = false);
 						});
 				}, 500);
 			}

@@ -43,13 +43,12 @@ export default {
 				lastName: '',
 				middleName: '',
 				birthDate: null,
+				photoUrl: null,
 				resourceFile: {
 					id: null,
 				},
-				photoUrl: '',
 				user: {
 					organizationId: 0,
-					id: 0,
 					userName: '',
 					email: '',
 					phoneNumber: '',
@@ -68,41 +67,35 @@ export default {
 	methods: {
 		getOne() {
 			this.$api
-				.get('employees/' + this.id)
+				.get('/employees/' + this.id)
 				.then(response => {
 					let data = response.data.data;
 
-					this.model.SetData({
-						firstName: data.firstName,
-						lastName: data.lastName,
-						middleName: data.middleName,
-						birthDate: data.birthDate ? data.birthDate : null,
-						photoUrl: data.photoUrl ? data.photoUrl : '',
-						user: {
-							organizationId: data.organizationId,
-							id: data.userId,
-							userName: data.userName,
-							email: data.email,
-							phoneNumber: '998' + data.phoneNumber,
-						},
-					});
+					this.model.SetData(data);
+					this.model.user.organizationId = data.user.organization.id;
+					this.model.user.phoneNumber = '998' + data.user.phoneNumber;
 
 					this.modelSecond.SetData({
-						userId: data.userId,
-						roleIds: data.roles.map(x => x.id),
+						userId: data.user.id,
+						roleIds: data.user.roles.map(x => x.id),
 					});
 
-					this.titleName = data.userName;
-					this.$store.state.metaData.title = this.$route.meta.title(data.userName);
+					this.titleName = data.user.userName;
+					this.$store.state.metaData.title = this.$route.meta.title(data.user.userName);
 				});
 		},
 		save() {
 			let postData = this.model.GetData();
-			postData.birthDate =
-				this.$moment(postData.birthDate).isValid() ? this.$moment(postData.birthDate).format('DD-MM-YYYY') : null;
+			if (this.$moment(postData.birthDate).isValid()) {
+				postData.birthDate = this.$moment(postData.birthDate).format('DD-MM-YYYY');
+			}
+			else {
+				postData.birthDate = null;
+			}
+
 
 			this.$api
-				.put('employees/' + this.id, postData)
+				.put('/employees/' + this.id, postData)
 				.then(response => {
 					this.attachRole();
 				});

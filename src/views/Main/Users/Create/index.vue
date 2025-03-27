@@ -35,10 +35,10 @@ export default {
 				lastName: '',
 				middleName: '',
 				birthDate: null,
+				photoUrl: null,
 				resourceFile: {
-					id: 0,
+					id: null,
 				},
-				photoUrl: '',
 				user: {
 					organizationId: 0,
 					userName: '',
@@ -56,12 +56,16 @@ export default {
 	methods: {
 		save() {
 			let postData = this.model.GetData();
-			postData.birthDate =
-				this.$moment(postData.birthDate).isValid() ? this.$moment(postData.birthDate).format('DD-MM-YYYY') : null;
+			if (this.$moment(postData.birthDate).isValid()) {
+				postData.birthDate = this.$moment(postData.birthDate).format('DD-MM-YYYY');
+			}
+			else {
+				postData.birthDate = null;
+			}
 
 
 			this.$api
-				.post('employees', postData)
+				.post('/employees', postData)
 				.then(response => {
 					this.modelSecond.userId = response.data.data.user.id;
 					this.attachRole();

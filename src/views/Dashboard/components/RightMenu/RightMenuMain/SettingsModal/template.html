@@ -8,33 +8,51 @@
 				<form @submit.prevent="Save">
 					<div class="form-group">
 						<label class="az_base_lbl">Project name</label>
-						<input type="text"
-							   class="form-control az_base_inp"
-							   v-model.trim="model.name"
-							   :class="{'is-invalid': $v.model.name.$error}"
+						<input
+							type="text"
+							class="form-control az_base_inp"
+							v-model.trim="model.name"
+							:class="{'is-invalid': $v.model.name.$error}"
 						>
 					</div>
 
 					<div class="form-group">
 						<label class="az_base_lbl">Code name</label>
-						<input type="text"
-							   class="form-control az_base_inp"
-							   v-model.trim="model.codeName"
-							   :class="{'is-invalid': $v.model.codeName.$error}"
+						<input
+							type="text"
+							class="form-control az_base_inp"
+							v-model.trim="model.codeName"
+							:class="{'is-invalid': $v.model.codeName.$error}"
 						>
 					</div>
 
 					<div class="form-group">
 						<label class="az_base_lbl">Group</label>
-						<select class="form-control az_base_inp" :class="{'is-invalid': $v.model.group.id.$error}" v-model="model.group.id">
-							<option v-for="item in groupList" :value="item.id">{{ item.name }}</option>
+						<select
+							class="form-control az_base_inp"
+							:class="{'is-invalid': $v.model.group.id.$error}"
+							v-model="model.group.id"
+						>
+							<option
+								v-for="item in groupList"
+								:value="item.id"
+							>{{ item.name }}</option>
 						</select>
 					</div>
 
 					<div class="form-group">
 						<label class="az_base_lbl">Manager</label>
-						<select class="form-control az_base_inp" :class="{'is-invalid': $v.model.manager.id.$error}" v-model="model.manager.id">
-							<option v-for="item in managerList" :value="item.id">{{ item.firstName }} {{ item.middleName }} {{ item.lastName }}</option>
+						<select
+							class="form-control az_base_inp"
+							:class="{'is-invalid': $v.model.manager.id.$error}"
+							v-model="model.manager.id"
+						>
+							<option
+								v-for="item in managerList"
+								:value="item.id"
+							>
+								{{ item.firstName }} {{ item.lastName }} {{ item.middleName }}
+							</option>
 						</select>
 					</div>
 
@@ -42,8 +60,15 @@
 
 
 					<div class="d-flex align-items-center justify-content-end">
-						<button type="button" class="btn az_base_btn btn-default mr-3" data-dismiss="modal">{{$t('cancel')}}</button>
-						<button type="submit" class="btn az_base_btn btn-primary">{{$t('save')}}</button>
+						<button
+							type="button"
+							class="btn az_base_btn btn-default mr-3"
+							data-dismiss="modal"
+						>{{$t('cancel')}}</button>
+						<button
+							type="submit"
+							class="btn az_base_btn btn-primary"
+						>{{$t('save')}}</button>
 					</div>
 				</form>
 			</div>

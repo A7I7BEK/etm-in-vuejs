@@ -79,7 +79,7 @@ export default {
 
 			let postData = this.model.GetData();
 			if (this.$moment(postData.employee.birthDate).isValid()) {
-				postData.employee.birthDate = this.$moment(postData.birthDate).format('DD-MM-YYYY');
+				postData.employee.birthDate = this.$moment(postData.employee.birthDate).format('DD-MM-YYYY');
 			}
 			else {
 				postData.employee.birthDate = null;
