@@ -344,32 +344,6 @@ const router = new Router({
 									},
 								},
 								{
-									path: 'create',
-									name: 'mainPermissionsCreate',
-									component: () => import('./views/Main/Permissions/Create/index'),
-									meta: {
-										title() {
-											return $i18n.t('crudCreate', {
-												text: $i18n.tc('menu.permission', 1).toLowerCase(),
-											}) + ' | ETM';
-										},
-									},
-								},
-								{
-									path: 'update/:id',
-									props: true,
-									name: 'mainPermissionsUpdate',
-									component: () => import('./views/Main/Permissions/Update/index'),
-									meta: {
-										title(name) {
-											return $i18n.t('crudEdit', {
-												table: $i18n.tc('menu.permission', 1).toLowerCase(),
-												name: name,
-											}) + ' | ETM';
-										},
-									},
-								},
-								{
 									path: 'read/:id',
 									props: true,
 									name: 'mainPermissionsRead',

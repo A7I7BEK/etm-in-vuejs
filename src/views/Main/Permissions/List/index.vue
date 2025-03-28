@@ -1,16 +1,15 @@
 <template>
 	<base-crud-page-list
-			v-if="can('PERMISSION_READ')"
-			:title="$tc('menu.permission', 2)"
-			:create-url="{ name: 'mainPermissionsCreate' }"
-			:create-show="can('PERMISSION_CREATE')"
-			:footer-show="record.pageCount > 0"
+		v-if="can('PERMISSION_READ')"
+		:title="$tc('menu.permission', 2)"
+		:create-show="false"
+		:footer-show="record.pageCount > 0"
 	>
 
 		<template #filter>
 			<base-input-search
-					is-filter
-					@update:value="HandleParams('search', $event)"
+				is-filter
+				@update:value="HandleParams(HANDLE_PARAMS.SEARCH, $event)"
 			></base-input-search>
 		</template>
 
@@ -20,43 +19,72 @@
 
 				<template #head>
 					<tr>
-						<th class="width-75 sort" @click="HandleParams('sort', 'id')" :class="{'active': params.sortBy === 'id'}">
+						<th
+							class="width-75 sort"
+							:class="{ 'active': params.sortBy === SORT_PROP.ID }"
+							@click="HandleParams(HANDLE_PARAMS.SORT_BY, SORT_PROP.ID)"
+						>
 							<div class="az_crud_tb_th">
 								<div class="txt">#</div>
 
-								<template v-if="params.sortBy === 'id'">
-									<i class="fa fa-angle-up" v-if="params.sortDirection === ORDER.ASC"></i>
-									<i class="fa fa-angle-down" v-else></i>
+								<template v-if="params.sortBy === SORT_PROP.ID">
+									<i
+										class="fa fa-angle-up"
+										v-if="params.sortDirection === ORDER.ASC"
+									></i>
+									<i
+										class="fa fa-angle-down"
+										v-else
+									></i>
 								</template>
 							</div>
 						</th>
 
-						<th class="sort" @click="HandleParams('sort', 'name')" :class="{'active': params.sortBy === 'name'}">
+						<th
+							class="sort"
+							@click="HandleParams(HANDLE_PARAMS.SORT_BY, SORT_PROP.NAME)"
+							:class="{ 'active': params.sortBy === SORT_PROP.NAME }"
+						>
 							<div class="az_crud_tb_th">
 								<div class="txt">{{ $t('name') }}</div>
 
-								<template v-if="params.sortBy === 'name'">
-									<i class="fa fa-angle-up" v-if="params.sortDirection === ORDER.ASC"></i>
-									<i class="fa fa-angle-down" v-else></i>
+								<template v-if="params.sortBy === SORT_PROP.NAME">
+									<i
+										class="fa fa-angle-up"
+										v-if="params.sortDirection === ORDER.ASC"
+									></i>
+									<i
+										class="fa fa-angle-down"
+										v-else
+									></i>
 								</template>
 							</div>
 						</th>
 
-						<th class="sort" @click="HandleParams('sort', 'codeName')" :class="{'active': params.sortBy === 'codeName'}">
+						<th
+							class="sort"
+							@click="HandleParams(HANDLE_PARAMS.SORT_BY, SORT_PROP.CODE_NAME)"
+							:class="{ 'active': params.sortBy === SORT_PROP.CODE_NAME }"
+						>
 							<div class="az_crud_tb_th">
 								<div class="txt">{{ $t('codeName') }}</div>
 
-								<template v-if="params.sortBy === 'codeName'">
-									<i class="fa fa-angle-up" v-if="params.sortDirection === ORDER.ASC"></i>
-									<i class="fa fa-angle-down" v-else></i>
+								<template v-if="params.sortBy === SORT_PROP.CODE_NAME">
+									<i
+										class="fa fa-angle-up"
+										v-if="params.sortDirection === ORDER.ASC"
+									></i>
+									<i
+										class="fa fa-angle-down"
+										v-else
+									></i>
 								</template>
 							</div>
 						</th>
 
-						<th class="width-50"
-							v-if="can('PERMISSION_READ')
-							|| can('PERMISSION_UPDATE')
-							|| can('PERMISSION_DELETE')"
+						<th
+							class="width-50"
+							v-if="can('PERMISSION_READ')"
 						>
 							{{ $t('actions') }}
 						</th>
@@ -64,45 +92,34 @@
 				</template>
 
 
-				<template #body v-if="record.list.length > 0">
-					<tr v-for="(item, index) in record.list">
+				<template
+					#body
+					v-if="record.list.length > 0"
+				>
+					<tr v-for="item in record.list">
 						<td>
-							<div class="az_crud_tb_txt" v-if="params.sortBy === 'id' && params.sortDirection === ORDER.DESC">
-								{{ record.count - (params.page * params.pageSize) - index }}
-							</div>
-							<div class="az_crud_tb_txt" v-else>
-								{{ (params.page * params.pageSize) + (index + 1) }}
+							<div class="az_crud_tb_txt">
+								{{ item.rowNumber }}
 							</div>
 						</td>
 
 						<td>
-							<div class="az_crud_tb_txt">{{ $t('permission.' + item.name) }}</div>
+							<div class="az_crud_tb_txt">{{ $t('permission.' + item.codeName) }}</div>
 						</td>
 
 						<td>
 							<div class="az_crud_tb_txt">{{ item.codeName }}</div>
 						</td>
 
-						<td v-if="can('PERMISSION_READ') || can('PERMISSION_UPDATE') || can('PERMISSION_DELETE')">
+						<td v-if="can('PERMISSION_READ')">
 							<div class="d-flex">
-								<router-link class="btn az_base_btn btn-success icon mr-2"
-											 v-if="can('PERMISSION_READ')"
-											 :to="{ name: 'mainPermissionsRead', params: { id: item.id } }">
+								<router-link
+									class="btn az_base_btn btn-success icon mr-2"
+									v-if="can('PERMISSION_READ')"
+									:to="{ name: 'mainPermissionsRead', params: { id: item.id } }"
+								>
 									<i class="fa fa-eye"></i>
 								</router-link>
-
-								<router-link class="btn az_base_btn btn-warning icon mr-2"
-											 v-if="can('PERMISSION_UPDATE')"
-											 :to="{ name: 'mainPermissionsUpdate', params: { id: item.id } }">
-									<i class="fa fa-pencil"></i>
-								</router-link>
-
-								<button class="btn az_base_btn btn-danger icon"
-										type="button"
-										v-if="can('PERMISSION_DELETE')"
-										@click="Delete(item.id)">
-									<i class="fa fa-trash-o"></i>
-								</button>
 							</div>
 						</td>
 					</tr>
@@ -113,24 +130,27 @@
 
 
 		<template #range>
-			<base-crud-range :value="params.pageSize" @input="HandleParams('range', $event)"></base-crud-range>
+			<base-crud-range
+				:value="params.pageSize"
+				@input="HandleParams(HANDLE_PARAMS.PAGE_SIZE, $event)"
+			></base-crud-range>
 		</template>
 
 
 		<template #pagination>
 			<paginate
-					container-class="pagination az_base_pag"
-					page-class="page-item"
-					prev-class="page-item"
-					next-class="page-item"
-					page-link-class="page-link"
-					prev-link-class="page-link"
-					next-link-class="page-link"
-					prev-text="&laquo;"
-					next-text="&raquo;"
-					:page-count="record.pageCount"
-					:value="params.page + 1"
-					@input="HandleParams('page', $event)"
+				container-class="pagination az_base_pag"
+				page-class="page-item"
+				prev-class="page-item"
+				next-class="page-item"
+				page-link-class="page-link"
+				prev-link-class="page-link"
+				next-link-class="page-link"
+				prev-text="&laquo;"
+				next-text="&raquo;"
+				:page-count="record.pageCount"
+				:value="params.page"
+				@input="HandleParams(HANDLE_PARAMS.PAGE, $event)"
 			></paginate>
 		</template>
 
@@ -138,102 +158,106 @@
 </template>
 
 <script>
-	import BaseCrudPageList from '../../../../components/BaseCrudPageList';
-	import BaseCrudTable from '../../../../components/BaseCrudTable';
-	import BaseInputSearch from '../../../../components/BaseInputSearch';
-	import BaseCrudRange from '../../../../components/BaseCrudRange';
-	import Paginate from 'vuejs-paginate';
-	import { ORDER } from '../../../../constants';
+import Paginate from 'vuejs-paginate';
+import BaseCrudPageList from '../../../../components/BaseCrudPageList';
+import BaseCrudRange from '../../../../components/BaseCrudRange';
+import BaseCrudTable from '../../../../components/BaseCrudTable';
+import BaseInputSearch from '../../../../components/BaseInputSearch';
+import { HANDLE_PARAMS, ORDER, ORDER_REVERSE } from '../../../../constants';
 
 
+const SORT_PROP = {
+	ID: 'id',
+	NAME: 'name',
+	CODE_NAME: 'codeName',
+};
 
-	export default {
-		name: 'PermissionsList',
-		components: {
-			Paginate,
-			BaseCrudRange,
-			BaseInputSearch,
-			BaseCrudTable,
-			BaseCrudPageList,
-		},
-		data()
-		{
-			return {
-				params: {
-					page: 0,
-					pageSize: 20,
-					sortBy: 'id',
-					sortDirection: ORDER.DESC,
-					allSearch: null,
-				},
-				record: {
-					list: [],
-					count: 0,
-					pageCount: 0,
-				},
-			};
-		},
-		created()
-		{
+
+export default {
+	name: 'PermissionsList',
+	components: {
+		Paginate,
+		BaseCrudRange,
+		BaseInputSearch,
+		BaseCrudTable,
+		BaseCrudPageList,
+	},
+	data() {
+		return {
+			ORDER,
+			HANDLE_PARAMS,
+			SORT_PROP,
+			params: {
+				page: 1,
+				pageSize: 20,
+				sortBy: SORT_PROP.ID,
+				sortDirection: ORDER.DESC,
+				allSearch: null,
+			},
+			record: {
+				list: [],
+				pageCount: 0,
+			},
+		};
+	},
+	created() {
+		this.GetList();
+	},
+	methods: {
+		HandleParams(type, val) {
+			switch (type) {
+				case HANDLE_PARAMS.PAGE:
+					this.params.page = val;
+					break;
+
+				case HANDLE_PARAMS.PAGE_SIZE:
+					this.params.pageSize = val;
+					break;
+
+				case HANDLE_PARAMS.SEARCH:
+					this.params.allSearch = val || null;
+					break;
+
+				case HANDLE_PARAMS.SORT_BY:
+					if (this.params.sortBy === val) {
+						this.params.sortDirection = ORDER_REVERSE[ this.params.sortDirection ];
+					}
+					this.params.sortBy = val;
+					break;
+
+				case HANDLE_PARAMS.ORGANIZATION:
+					this.params.organizationId = val || null;
+					break;
+			}
+
+			if (type !== HANDLE_PARAMS.PAGE) {
+				this.params.page = 1;
+			}
+
 			this.GetList();
 		},
-		methods: {
-			HandleParams(type, val)
-			{
-				switch (type)
-				{
-					case 'search':
-						this.params.allSearch = val ? val : null;
-						break;
+		GetList() {
+			this.$api
+				.get('/permissions', {
+					params: this.params,
+				})
+				.then(response => {
+					const { totalItems } = response.data.meta;
+					const { page, pageSize, sortBy, sortDirection } = this.params;
 
-					case 'range':
-						this.params.pageSize = val;
-						break;
-
-					case 'page':
-						this.params.page = val - 1;
-						break;
-
-					case 'sort':
-						if (this.params.sortBy === val)
-						{
-							this.params.sortDirection = this.params.sortDirection === ORDER.ASC ? ORDER.DESC : ORDER.ASC;
+					response.data.data.forEach((item, index) => {
+						if (sortBy === SORT_PROP.ID && sortDirection === ORDER.DESC) {
+							item.rowNumber = (totalItems - (page - 1) * pageSize) - index;
 						}
-						this.params.sortBy = val;
-						break;
-				}
-
-				if (type !== 'page')
-				{
-					this.params.page = 0;
-				}
-
-				this.GetList();
-			},
-			GetList()
-			{
-				this.$api
-					.get('permissions', {
-						params: this.params,
-					})
-					.then(response => {
-						this.record.list = response.data.data;
-						this.record.count = response.data.totalCount;
-						this.record.pageCount = Math.ceil(response.data.totalCount / this.params.pageSize);
+						else {
+							item.rowNumber = ((page - 1) * pageSize + 1) + index;
+						}
 					});
-			},
-			Delete(id)
-			{
-				if (confirm(this.$t('confirmDelete')))
-				{
-					this.$api
-						.delete('permissions/' + id)
-						.then(response => {
-							this.$notification.success(this.$t('successfullyDeleted'));
-							this.GetList();
-						});
-				}
-			},
-		}
-	};
+
+					this.record.list = response.data.data;
+					this.record.pageCount = response.data.meta.totalPages;
+				});
+		},
+	}
+};
 </script>

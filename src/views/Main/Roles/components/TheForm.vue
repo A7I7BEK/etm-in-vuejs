@@ -107,7 +107,7 @@ export default {
 		},
 		getPermissionAll() {
 			this.$api
-				.get('permissions')
+				.get('/permissions')
 				.then(response => {
 					let data = {
 						project: [],
@@ -118,31 +118,31 @@ export default {
 					};
 
 					response.data.data.forEach(x => {
-						if (x.name.indexOf('PROJECT') === 0) {
+						if (x.codeName.indexOf('PROJECT') === 0) {
 							data.project.push(x);
 						}
 						else if (
-							x.name.indexOf('TASK') === 0
+							x.codeName.indexOf('TASK') === 0
 							||
-							x.name.indexOf('CHECKLIST') === 0
+							x.codeName.indexOf('CHECKLIST') === 0
 						) {
 							data.task.push(x);
 						}
-						else if (x.name.indexOf('REPORT') === 0) {
+						else if (x.codeName.indexOf('REPORT') === 0) {
 							data.report.push(x);
 						}
 						else if (
-							x.name.indexOf('ROLE') === 0
+							x.codeName.indexOf('ROLE') === 0
 							||
-							x.name.indexOf('EMPLOYEE') === 0
+							x.codeName.indexOf('EMPLOYEE') === 0
 							||
-							x.name.indexOf('USER') === 0
+							x.codeName.indexOf('USER') === 0
 							||
-							x.name.indexOf('GROUP') === 0
+							x.codeName.indexOf('GROUP') === 0
 							||
-							x.name.indexOf('PERMISSION') === 0
+							x.codeName.indexOf('PERMISSION') === 0
 							||
-							x.name.indexOf('ORGANIZATION') === 0
+							x.codeName.indexOf('ORGANIZATION') === 0
 						) {
 							data.table.push(x);
 						}
