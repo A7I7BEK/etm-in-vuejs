@@ -310,7 +310,7 @@ export default {
 	methods: {
 		GetProjectList() {
 			this.$api
-				.get('projects/selection', {
+				.get('/projects/selection', {
 					params: {
 						'projectKanban': true,
 						'memberId': this.selectedData.member,

@@ -60,7 +60,7 @@ export default {
 		},
 		ChangeBackground(value) {
 			this.$api
-				.post('projects/background', {
+				.post('/projects/background', {
 					background: value,
 					projectId: this.$store.state.projectData.id,
 				})

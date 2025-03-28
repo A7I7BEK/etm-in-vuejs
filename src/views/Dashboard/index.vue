@@ -145,7 +145,7 @@ export default {
 			this.$store.state.loader = true;
 
 			this.$api
-				.get('projects/' + this.$route.params.id + '/details')
+				.get('/projects/' + this.$route.params.id + '/details')
 				.then(response => {
 					this.$store.state.projectData = response.data.data;
 					this.$store.state.metaData.title = this.$route.meta.title(response.data.data.name);

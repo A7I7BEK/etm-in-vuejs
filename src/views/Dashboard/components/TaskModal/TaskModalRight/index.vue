@@ -123,7 +123,7 @@ export default {
 	methods: {
 		GetProjectSelectionAll() {
 			this.$api
-				.get('projects/selection')
+				.get('/projects/selection')
 				.then(response => {
 					this.$store.commit('setProjectSelectionList', response.data.data);
 				});

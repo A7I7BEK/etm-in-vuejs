@@ -94,7 +94,7 @@ export default {
 	methods: {
 		GetList() {
 			this.$api
-				.get('projectColumns/selection')
+				.get('/project-columns/selection')
 				.then(response => {
 					this.recordList = response.data.data;
 				});

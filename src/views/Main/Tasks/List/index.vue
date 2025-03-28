@@ -462,7 +462,7 @@ export default {
 
 		GetColumnList(projectId) {
 			this.$api
-				.get('projectColumns/selection', {
+				.get('/project-columns/selection', {
 					params: {
 						projectId: projectId,
 					}

@@ -90,7 +90,7 @@ export default {
 			}
 
 			this.$api
-				.put('projects/' + this.model.id, this.model.GetData())
+				.put('/projects/' + this.model.id, this.model.GetData())
 				.then(response => {
 					this.$store.state.projectData.name = response.data.name;
 					this.$store.state.projectData.codeName = response.data.codeName;

@@ -84,7 +84,7 @@ export default {
 
 
 			this.$api
-				.post('projectColumns/move', {
+				.post('/project-columns/move', {
 					id: this.dragElem.id,
 					projectId: this.dragElem.projectId,
 					ordering: elemOrder,

@@ -207,7 +207,7 @@ export default {
 
 			if (val) {
 				this.$api
-					.get('projectColumns/selection', {
+					.get('/project-columns/selection', {
 						params: {
 							projectId: val.id,
 						}

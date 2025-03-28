@@ -448,7 +448,7 @@ export default {
 		},
 		GetList() {
 			this.$api
-				.get('projects', {
+				.get('/projects', {
 					params: this.params,
 				})
 				.then(response => {
@@ -460,7 +460,7 @@ export default {
 		Delete(id) {
 			if (confirm(this.$t('confirmDelete'))) {
 				this.$api
-					.delete('projects/' + id)
+					.delete('/projects/' + id)
 					.then(response => {
 						this.$notification.success(this.$t('successfullyDeleted'));
 						this.GetList();
