@@ -295,17 +295,17 @@ import { HANDLE_PARAMS, ORDER, ORDER_REVERSE } from '../../../../constants';
 
 
 const SORT_PROP = {
-	ID = 'id',
-	FIRST_NAME = 'firstName',
-	LAST_NAME = 'lastName',
-	MIDDLE_NAME = 'middleName',
-	BIRTH_DATE = 'birthDate',
+	ID: 'id',
+	FIRST_NAME: 'firstName',
+	LAST_NAME: 'lastName',
+	MIDDLE_NAME: 'middleName',
+	BIRTH_DATE: 'birthDate',
 
-	USER_NAME = 'userName',
-	EMAIL = 'email',
-	PHONE_NUMBER = 'phoneNumber',
-	LANGUAGE = 'language',
-	ORGANIZATION = 'organization',
+	USER_NAME: 'userName',
+	EMAIL: 'email',
+	PHONE_NUMBER: 'phoneNumber',
+	LANGUAGE: 'language',
+	ORGANIZATION: 'organization',
 };
 
 

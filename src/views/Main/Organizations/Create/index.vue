@@ -1,47 +1,48 @@
 <template>
 	<base-crud-page-create
-			v-if="can('ORGANIZATION_CREATE')"
-			:title="$tc('menu.organization', 1)"
-			:back-url="{ name: 'mainOrganizations' }"
+		v-if="can('ORGANIZATION_CREATE')"
+		:title="$tc('menu.organization', 1)"
+		:back-url="{ name: 'mainOrganizations' }"
 	>
 		<template #form>
 
-			<the-form :model="model" @emit:submit="save"/>
+			<the-form
+				:model="model"
+				@emit:submit="save"
+			/>
 
 		</template>
 	</base-crud-page-create>
 </template>
 
 <script>
-	import BaseCrudPageCreate from '../../../../components/BaseCrudPageCreate';
-	import FormService from '../../../../services/FormService';
-	import TheForm from '../components/TheForm';
+import BaseCrudPageCreate from '../../../../components/BaseCrudPageCreate';
+import FormService from '../../../../services/FormService';
+import TheForm from '../components/TheForm';
 
 
-	export default {
-		name: 'OrganizationsCreate',
-		components: {
-			TheForm,
-			BaseCrudPageCreate,
-		},
-		data()
-		{
-			return {
-				model: new FormService({
-					name: '',
-					email: '',
-				}),
-			};
-		},
-		methods: {
-			save()
-			{
-				this.$api
-					.post('organizations', this.model.GetData())
-					.then(response => {
-						this.$router.push({ name: 'mainOrganizations' });
-					});
-			}
+export default {
+	name: 'OrganizationsCreate',
+	components: {
+		TheForm,
+		BaseCrudPageCreate,
+	},
+	data() {
+		return {
+			model: new FormService({
+				name: '',
+				email: '',
+			}),
+		};
+	},
+	methods: {
+		save() {
+			this.$api
+				.post('/organizations', this.model.GetData())
+				.then(response => {
+					this.$router.push({ name: 'mainOrganizations' });
+				});
 		}
-	};
+	}
+};
 </script>
