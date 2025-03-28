@@ -2,14 +2,18 @@
 /*____________________ Defaults ____________________*/
 export const DEFAULT_API_URL = '/api/v1/';
 export const DEFAULT_IMG_URL = '';
-export const DEFAULT_LANG = 'en';
 
 
 /*____________________ Others ____________________*/
 export const LANG = {
-	uz: 'O‘zbekcha',
-	en: 'English',
-	ru: 'Русский',
+	Uzbek: 'uz',
+	English: 'en',
+	Russian: 'ru',
+};
+export const LANG_LOCALE = {
+	[ LANG.Uzbek ]: 'O‘zbekcha',
+	[ LANG.English ]: 'English',
+	[ LANG.Russian ]: 'Русский',
 };
 export const ORDER = {
 	ASC: 'ASC',
