@@ -87,7 +87,7 @@
 							>
 							<span class="txt">{{ $t('dashboard.languageChange') }}</span>
 							<span class="val">
-								{{ LANG[$i18n.locale] }}
+								{{ LANG_LOCALE[$i18n.locale] }}
 							</span>
 						</button>
 
@@ -100,7 +100,7 @@
 							<div class="az_dropdown_cnt">
 								<ul class="az_profile_lang_ls">
 									<li
-										v-for="[key, value] in Object.entries(LANG)"
+										v-for="[key, value] in Object.entries(LANG_LOCALE)"
 										:key="key"
 										:class="{'active': $i18n.locale === key}"
 									>

@@ -303,7 +303,7 @@ export default {
 		},
 		getRoleAll(organizationId = 0) {
 			this.$api
-				.get('roles', {
+				.get('/roles', {
 					params: {
 						organizationId: organizationId,
 					}

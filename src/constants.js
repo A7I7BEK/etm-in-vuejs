@@ -15,9 +15,20 @@ export const LANG_LOCALE = {
 	[ LANG.English ]: 'English',
 	[ LANG.Russian ]: 'Русский',
 };
+export const HANDLE_PARAMS = {
+	PAGE: 'PAGE',
+	PAGE_SIZE: 'PAGE_SIZE',
+	SEARCH: 'SEARCH',
+	SORT_BY: 'SORT_BY',
+	ORGANIZATION: 'ORGANIZATION',
+};
 export const ORDER = {
 	ASC: 'ASC',
 	DESC: 'DESC',
+};
+export const ORDER_REVERSE = {
+	[ ORDER.ASC ]: ORDER.DESC,
+	[ ORDER.DESC ]: ORDER.ASC,
 };
 export const PROJECT_TYPE = {
 	TRELLO: 'TRELLO',

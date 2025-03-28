@@ -512,4 +512,5 @@ export default {
 			recovery: 'recovery, password, forgot, authorization',
 		},
 	},
+	systemCreated: 'System created',
 };

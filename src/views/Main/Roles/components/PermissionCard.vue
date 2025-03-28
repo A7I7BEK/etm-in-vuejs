@@ -1,14 +1,24 @@
 <template>
 	<div class="az_role_form_perm">
-		<div class="az_crud_ftr" data-custom-accordion>
-			<div class="az_crud_ftr_ttl" data-custom-accordion-btn>
+		<div
+			class="az_crud_ftr"
+			data-custom-accordion
+		>
+			<div
+				class="az_crud_ftr_ttl"
+				data-custom-accordion-btn
+			>
 				<p>{{ $tc(resource.title, 2) }}</p>
 
 				<i class="fa fa-angle-down"></i>
 			</div>
 
 
-			<div class="az_crud_ftr_cnt" data-custom-accordion-body style="display: none;">
+			<div
+				class="az_crud_ftr_cnt"
+				data-custom-accordion-body
+				style="display: none;"
+			>
 				<div class="az_crud_ftr_cnt_inr">
 
 					<div class="az_role_form_tb pb-3">
@@ -18,12 +28,16 @@
 								<tr>
 									<th class="width-50">
 										<div class="custom-control custom-checkbox az_base_custom_chk">
-											<input class="custom-control-input"
-												   :id="'roleCheckAll' + resource.title"
-												   type="checkbox"
-												   @change="toggleCheckboxAll($event.target.checked)"
+											<input
+												class="custom-control-input"
+												:id="'roleCheckAll' + resource.title"
+												type="checkbox"
+												@change="toggleCheckboxAll($event.target.checked)"
 											>
-											<label class="custom-control-label" :for="'roleCheckAll' + resource.title"></label>
+											<label
+												class="custom-control-label"
+												:for="'roleCheckAll' + resource.title"
+											></label>
 										</div>
 									</th>
 
@@ -34,16 +48,27 @@
 							</template>
 
 
-							<template #body v-if="resource.list.length > 0">
-								<tr class="az_role_form_tb_tr_chk" v-for="item in resource.list">
+							<template
+								#body
+								v-if="resource.list.length > 0"
+							>
+								<tr
+									class="az_role_form_tb_tr_chk"
+									v-for="item in resource.list"
+								>
 									<td>
 										<div class="custom-control custom-checkbox az_base_custom_chk">
-											<input class="custom-control-input"
-												   type="checkbox"
-												   :id="'roleCheckOne' + item.id"
-												   :value="item.id"
-												   v-model="model.permissions">
-											<label class="custom-control-label" :for="'roleCheckOne' + item.id"></label>
+											<input
+												class="custom-control-input"
+												type="checkbox"
+												:id="'roleCheckOne' + item.id"
+												:value="item.id"
+												v-model="model.permissionIds"
+											>
+											<label
+												class="custom-control-label"
+												:for="'roleCheckOne' + item.id"
+											></label>
 										</div>
 									</td>
 
@@ -67,55 +92,49 @@
 </template>
 
 <script>
-	import BaseCrudTable from '../../../../components/BaseCrudTable';
+import BaseCrudTable from '../../../../components/BaseCrudTable';
 
 
-	export default {
-		name: 'PermissionCard',
-		components: {
-			BaseCrudTable,
+export default {
+	name: 'PermissionCard',
+	components: {
+		BaseCrudTable,
+	},
+	props: {
+		resource: {
+			type: Object,
+			required: true,
 		},
-		props: {
-			resource: {
-				type: Object,
-				required: true,
-			},
-			model: {
-				type: Object,
-				required: true,
-			},
+		model: {
+			type: Object,
+			required: true,
 		},
-		mounted()
-		{
-			document.addEventListener('click', this.toggleCheckboxOne);
+	},
+	mounted() {
+		document.addEventListener('click', this.toggleCheckboxOne);
+	},
+	destroyed() {
+		document.removeEventListener('click', this.toggleCheckboxOne);
+	},
+	methods: {
+		toggleCheckboxOne(e) {
+			let elem = e.target.closest('.az_role_form_tb_tr_chk');
+			if (elem) {
+				elem.querySelector('.az_base_custom_chk input').click();
+			}
 		},
-		destroyed()
-		{
-			document.removeEventListener('click', this.toggleCheckboxOne);
-		},
-		methods: {
-			toggleCheckboxOne(e)
-			{
-				let elem = e.target.closest('.az_role_form_tb_tr_chk');
-				if (elem)
-				{
-					elem.querySelector('.az_base_custom_chk input').click();
-				}
-			},
-			toggleCheckboxAll(checked)
-			{
-				let data = this.resource.list.map(x => x.id);
+		toggleCheckboxAll(checked) {
+			let data = this.resource.list.map(x => x.id);
 
 
-				if (checked)
-				{
-					this.model.permissions.push(...data.filter(x => this.model.permissions.indexOf(x) < 0));
-				}
-				else
-				{
-					this.model.permissions = this.model.permissions.filter(x => data.indexOf(x) < 0);
-				}
-			},
-		}
-	};
+			if (checked) {
+				const difference = data.filter((a) => !this.model.permissionIds.includes(a));
+				this.model.permissionIds.push(...difference);
+			}
+			else {
+				this.model.permissionIds = this.model.permissionIds.filter((a) => !data.includes(a));
+			}
+		},
+	}
+};
 </script>

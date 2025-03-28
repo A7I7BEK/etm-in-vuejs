@@ -1,5 +1,5 @@
 <script>
-import { LANG } from '../../constants';
+import { LANG_LOCALE } from '../../constants';
 import { langSet } from '../../services/LanguageService';
 import { clearAllTokens } from '../../services/TokenService';
 import { clearProfile } from '../../utils/clearProfile';
@@ -23,7 +23,7 @@ export default {
 	},
 	data() {
 		return {
-			LANG,
+			LANG_LOCALE,
 		};
 	},
 	methods: {

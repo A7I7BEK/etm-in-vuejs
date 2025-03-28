@@ -512,4 +512,5 @@ export default {
 			recovery: 'qayta tiklash, parol, unutmoq, ruxsat',
 		},
 	},
+	systemCreated: 'Tizimda yaratilgan',
 };
