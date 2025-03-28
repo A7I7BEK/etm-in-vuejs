@@ -105,7 +105,7 @@ export default {
 	methods: {
 		getOne() {
 			this.$api
-				.get('tasks/' + this.id)
+				.get('/tasks/' + this.id)
 				.then(response => {
 					this.model = response.data.data;
 					this.titleName = response.data.data.name;

@@ -1,49 +1,50 @@
 <template>
 	<base-crud-page-create
-			v-if="can('TASK_CREATE')"
-			:title="$tc('menu.task', 1)"
-			:back-url="{ name: 'mainTasks' }"
+		v-if="can('TASK_CREATE')"
+		:title="$tc('menu.task', 1)"
+		:back-url="{ name: 'mainTasks' }"
 	>
 		<template #form>
 
-			<the-form :model="model" @emit:submit="save"/>
+			<the-form
+				:model="model"
+				@emit:submit="save"
+			/>
 
 		</template>
 	</base-crud-page-create>
 </template>
 
 <script>
-	import BaseCrudPageCreate from '../../../../components/BaseCrudPageCreate';
-	import FormService from '../../../../services/FormService';
-	import TheForm from '../components/TheForm';
+import BaseCrudPageCreate from '../../../../components/BaseCrudPageCreate';
+import FormService from '../../../../services/FormService';
+import TheForm from '../components/TheForm';
 
 
-	export default {
-		name: 'TasksCreate',
-		components: {
-			TheForm,
-			BaseCrudPageCreate,
-		},
-		data()
-		{
-			return {
-				model: new FormService({
-					name: '',
-					projectId: 0,
-					columnId: 0,
-					organizationId: 0,
-				}),
-			};
-		},
-		methods: {
-			save()
-			{
-				this.$api
-					.post('tasks', this.model.GetData())
-					.then(response => {
-						this.$router.push({ name: 'mainTasks' });
-					});
-			}
+export default {
+	name: 'TasksCreate',
+	components: {
+		TheForm,
+		BaseCrudPageCreate,
+	},
+	data() {
+		return {
+			model: new FormService({
+				name: '',
+				projectId: 0,
+				columnId: 0,
+				organizationId: 0,
+			}),
+		};
+	},
+	methods: {
+		save() {
+			this.$api
+				.post('/tasks', this.model.GetData())
+				.then(response => {
+					this.$router.push({ name: 'mainTasks' });
+				});
 		}
-	};
+	}
+};
 </script>

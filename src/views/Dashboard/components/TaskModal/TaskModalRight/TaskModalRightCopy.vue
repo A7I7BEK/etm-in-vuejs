@@ -223,7 +223,7 @@ export default {
 
 			if (val) {
 				this.$api
-					.get('tasks', {
+					.get('/tasks', {
 						params: {
 							projectId: this.selectedProject.id,
 							columnId: val.id,
@@ -246,7 +246,7 @@ export default {
 
 
 			this.$api
-				.post('tasks/copy', {
+				.post('/tasks/copy', {
 					id: this.$store.state.taskModalData.id,
 					name: this.taskCopyName,
 					projectId: this.selectedProject.id,

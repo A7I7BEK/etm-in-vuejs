@@ -221,7 +221,7 @@ export default {
 			let elemOrder = this.dragEvent.drop.list.findIndex(x => x.id === this.dragEvent.drag.element.id);
 
 			this.$api
-				.post('tasks/move', {
+				.post('/tasks/move', {
 					id: this.dragEvent.drag.element.id,
 					projectId: this.dragEvent.drag.element.projectId,
 					columnId: this.dragEvent.drag.element.columnId,

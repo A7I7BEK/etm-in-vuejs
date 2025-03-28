@@ -440,7 +440,7 @@ export default {
 		},
 		GetList() {
 			this.$api
-				.get('tasks', {
+				.get('/tasks', {
 					params: this.params,
 				})
 				.then(response => {
@@ -452,7 +452,7 @@ export default {
 		Delete(id) {
 			if (confirm(this.$t('confirmDelete'))) {
 				this.$api
-					.delete('tasks/' + id)
+					.delete('/tasks/' + id)
 					.then(response => {
 						this.$notification.success(this.$t('successfullyDeleted'));
 						this.GetList();

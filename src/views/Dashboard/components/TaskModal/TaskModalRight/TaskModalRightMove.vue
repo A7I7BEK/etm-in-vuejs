@@ -206,7 +206,7 @@ export default {
 
 			if (val) {
 				this.$api
-					.get('tasks', {
+					.get('/tasks', {
 						params: {
 							projectId: this.selectedProject.id,
 							columnId: val.id,
@@ -227,7 +227,7 @@ export default {
 
 
 			this.$api
-				.post('tasks/move', {
+				.post('/tasks/move', {
 					id: this.$store.state.taskModalData.id,
 					projectId: this.selectedProject.id,
 					columnId: this.selectedColumn.id,

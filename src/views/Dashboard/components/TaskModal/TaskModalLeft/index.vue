@@ -168,7 +168,7 @@ export default {
 
 
 			this.$api
-				.put('tasks/' + this.$store.state.taskModalData.id, {
+				.put('/tasks/' + this.$store.state.taskModalData.id, {
 					name: this.taskNameForEdit,
 				})
 				.then(response => {
