@@ -324,7 +324,7 @@ export default {
 
 			this.$store.state.loader = true;
 			this.$api
-				.post('/resource/upload/file', formData, {
+				.post('/resource/upload-one', formData, {
 					params: {
 						minWidth: 100,
 						minHeight: 100,
