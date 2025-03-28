@@ -174,7 +174,7 @@ export default {
 		},
 		getGroupAll(organizationId = 0) {
 			this.$api
-				.get('groups', {
+				.get('/groups', {
 					params: {
 						organizationId: organizationId,
 					}
