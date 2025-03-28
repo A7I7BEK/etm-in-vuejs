@@ -154,7 +154,7 @@ export default {
 	methods: {
 		GetTaskAttachmentList() {
 			this.$api
-				.get('taskAttachments', {
+				.get('/task-attachments', {
 					params: {
 						taskId: this.$store.state.taskModalData.id
 					}
@@ -214,7 +214,7 @@ export default {
 		},
 		AttachFileToTask(fileId) {
 			this.$api
-				.post('taskAttachments', {
+				.post('/task-attachments', {
 					attachments: [
 						{
 							id: fileId

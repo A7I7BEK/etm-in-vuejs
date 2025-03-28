@@ -134,7 +134,7 @@ export default {
 
 			this.$store.state.taskModalData.timerStatus = status;
 			this.$api
-				.post('taskTimer', {
+				.post('/task-timer', {
 					id: this.$store.state.taskModalData.id,
 					entryTypeCode: status,
 				});

@@ -390,7 +390,7 @@ export default {
 						return;
 					}
 					this.$api
-						.put('taskDeadline', {
+						.put('/task-deadline', {
 							"changesComment": this.dateComment,
 							"checked": true,
 							'deadLine': this.$moment(this.deadlineDate).format('YYYY-MM-DD') + ' ' + this.$moment(this.deadlineTime).format('HH:mm:ss'),
@@ -410,7 +410,7 @@ export default {
 			}
 			else {
 				this.$api
-					.post('taskDeadline', {
+					.post('/task-deadline', {
 						"checked": true,
 						'deadLine': this.$moment(this.deadlineDate).format('YYYY-MM-DD') + ' ' + this.$moment(this.deadlineTime).format('HH:mm:ss'),
 						'startDate': this.$moment(this.startDate).format('YYYY-MM-DD') + ' ' + this.$moment(this.startTime).format('HH:mm:ss'),
@@ -430,7 +430,7 @@ export default {
 				if (this.$v.dateComment.$invalid) {
 					return;
 				}
-				this.$api.delete('taskDeadline', {
+				this.$api.delete('/task-deadline', {
 					data: {
 						"changesComment": this.dateComment,
 						"startDate": true,
@@ -457,7 +457,7 @@ export default {
 				if (this.$v.dateComment.$invalid) {
 					return;
 				}
-				this.$api.delete('taskDeadline', {
+				this.$api.delete('/task-deadline', {
 					data: {
 						"changesComment": this.dateComment,
 						"deadLine": true,
