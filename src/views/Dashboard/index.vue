@@ -164,7 +164,7 @@ export default {
 		},
 		GetEmployeeAll() {
 			this.$api
-				.get('projectMembers', {
+				.get('/project-members', {
 					params: {
 						'projectId': this.$route.params.id,
 						'sortBy': 'id',
@@ -180,7 +180,7 @@ export default {
 			let userIdList = selectedList.map(item => ({ id: item.id }));
 
 			this.$api
-				.post('projectMembers', {
+				.post('/project-members', {
 					'projectId': this.$store.state.projectData.id,
 					'userIds': userIdList,
 				})
@@ -193,7 +193,7 @@ export default {
 		DeleteMember(id) {
 			if (confirm(this.$t('confirmDelete'))) {
 				this.$api
-					.delete('projectMembers/' + id)
+					.delete('/project-members/' + id)
 					.then(response => {
 						this.GetEmployeeAll();
 						this.$notification.success(this.$t('successfullyDeleted'));

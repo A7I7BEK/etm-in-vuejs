@@ -206,7 +206,7 @@ export default {
 	methods: {
 		GetProjectTagAll() {
 			this.$api
-				.get('projectTags', {
+				.get('/project-tags', {
 					params: {
 						projectId: this.$store.state.taskModalData.projectId,
 						sortBy: 'id',
@@ -224,7 +224,7 @@ export default {
 		},
 		CreateProjectTag() {
 			this.$api
-				.post('projectTags', this.model.GetData())
+				.post('/project-tags', this.model.GetData())
 				.then(response => {
 					this.GetProjectTagAll();
 					this.tagViewMode = true;
@@ -236,7 +236,7 @@ export default {
 			let postData = { ...item };
 			postData.name = this.projectTagName;
 			this.$api
-				.put('projectTags/' + postData.id, postData)
+				.put('/project-tags/' + postData.id, postData)
 				.then(response => {
 					this.projectTagId = 0;
 					this.GetTaskTagAll();
@@ -247,7 +247,7 @@ export default {
 		DeleteProjectTag(id) {
 			if (confirm(this.$t('confirmDelete'))) {
 				this.$api
-					.delete('projectTags/' + id)
+					.delete('/project-tags/' + id)
 					.then(response => {
 						this.GetTaskTagAll();
 						this.GetProjectTagAll();

@@ -604,7 +604,7 @@ export default {
 			this.paramsAction.pageSize += step;
 
 			this.$api
-				.get('taskActions', {
+				.get('/actions', {
 					params: {
 						'taskId': this.$store.state.taskModalData.id,
 						'pageSize': this.paramsAction.pageSize,
