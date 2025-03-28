@@ -214,14 +214,14 @@ export default {
 		},
 		ShareEmail(postData) {
 			return this.$api
-				.post('task/share/email', postData)
+				.post('/share/task/email', postData)
 				.then(response => {
 					// console.log('ShareEmail', response.data);
 				});
 		},
 		ShareTelegram(postData) {
 			return this.$api
-				.post('task/share/telegram', postData)
+				.post('/share/task/telegram', postData)
 				.then(response => {
 					// console.log('ShareTelegram', response.data);
 				});

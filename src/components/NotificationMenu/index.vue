@@ -46,7 +46,7 @@ export default {
 	methods: {
 		GetNotificationList() {
 			this.$api
-				.get('notifications', {
+				.get('/notifications', {
 					params: this.notif.params,
 				})
 				.then(response => {
@@ -67,7 +67,7 @@ export default {
 		},
 		GoToNotification(item) {
 			this.$api
-				.post('notifications/seen', {
+				.post('/notifications/seen', {
 					allNotification: false,
 					notificationId: item.id,
 				})
@@ -96,7 +96,7 @@ export default {
 			this.$refs.markAll.click();
 
 			this.$api
-				.post('notifications/seen', {
+				.post('/notifications/seen', {
 					allNotification: true,
 					notificationId: 999,
 				})
@@ -108,7 +108,7 @@ export default {
 			this.$refs.markAll.click();
 
 			this.$api
-				.post('notifications/clear', {
+				.post('/notifications/clear', {
 					allNotification: true,
 					notificationId: 999,
 				})
