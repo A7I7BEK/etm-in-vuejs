@@ -267,7 +267,7 @@ export default {
 
 		GetTaskTagAll() {
 			this.$api
-				.get('taskTags', {
+				.get('/task-tags', {
 					params: {
 						taskId: this.$store.state.taskModalData.id,
 					}
@@ -279,7 +279,7 @@ export default {
 		},
 		AddTaskTag(id) {
 			this.$api
-				.post('taskTags', {
+				.post('/task-tags', {
 					projectTagId: id,
 					taskId: this.$store.state.taskModalData.id
 				})
@@ -289,7 +289,7 @@ export default {
 		},
 		DeleteTaskTag(id) {
 			this.$api
-				.delete('taskTags', {
+				.delete('/task-tags', {
 					data: {
 						projectTagId: id,
 						taskId: this.$store.state.taskModalData.id

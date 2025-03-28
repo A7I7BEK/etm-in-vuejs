@@ -63,7 +63,7 @@ export default {
 			}
 
 			this.$api
-				.get('taskComments', {
+				.get('/task-comments', {
 					params: {
 						'page': 0,
 						'pageSize': this.commentPageSize,

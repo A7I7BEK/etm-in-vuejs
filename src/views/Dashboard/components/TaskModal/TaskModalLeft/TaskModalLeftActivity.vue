@@ -513,7 +513,7 @@ export default {
 				}
 
 				this.$api
-					.post('taskComments', {
+					.post('/task-comments', {
 						'commentText': this.commentText,
 						'commentType': {
 							'id': this.commentTypeSelectedId
@@ -538,7 +538,7 @@ export default {
 				}
 
 				this.$api
-					.put('taskComments/' + this.commentEditModal.id, {
+					.put('/task-comments/' + this.commentEditModal.id, {
 						'commentText': this.commentEditModal.text,
 						'commentType': {
 							'id': this.commentEditModal.typeId
@@ -571,7 +571,7 @@ export default {
 		DeleteComment(id) {
 			if (confirm(this.$t('confirmDelete'))) {
 				this.$api
-					.delete('taskComments/' + id)
+					.delete('/task-comments/' + id)
 					.then(response => {
 						this.GetTaskComments();
 						this.$notification.success(this.$t('successfullyDeleted'));
@@ -585,7 +585,7 @@ export default {
 			this.paramsComment.pageSize += step;
 
 			this.$api
-				.get('taskComments', {
+				.get('/task-comments', {
 					params: {
 						'taskId': this.$store.state.taskModalData.id,
 						'pageSize': this.paramsComment.pageSize,
