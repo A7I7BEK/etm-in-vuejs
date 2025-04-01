@@ -27,10 +27,6 @@ export default {
 			return { img, value };
 		},
 	},
-	created() {
-	},
-	mounted() {
-	},
 	methods: {
 		UploadPhoto(event) {
 			if (event.target.files.length === 0) {

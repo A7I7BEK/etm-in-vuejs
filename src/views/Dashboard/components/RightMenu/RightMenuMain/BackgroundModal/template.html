@@ -40,9 +40,9 @@
 						@change="UploadPhoto"
 					>
 					<img
+						v-if="computedBackground.img"
 						:src="computedBackground.value"
 						alt=""
-						v-if="computedBackground.img"
 					>
 					<img
 						src="/img/svg/background-image-preview.svg"

@@ -43,10 +43,7 @@ export default {
 				lastName: '',
 				middleName: '',
 				birthDate: null,
-				photoUrl: null,
-				resourceFile: {
-					id: null,
-				},
+				photoFileId: 0,
 				user: {
 					organizationId: 0,
 					userName: '',
@@ -74,6 +71,7 @@ export default {
 					this.model.SetData(data);
 					this.model.user.organizationId = data.user.organization.id;
 					this.model.user.phoneNumber = '998' + data.user.phoneNumber;
+					this.model.photoFileId = data.photoFile?.id || 0;
 
 					this.modelSecond.SetData({
 						userId: data.user.id,
@@ -84,7 +82,7 @@ export default {
 					this.$store.state.metaData.title = this.$route.meta.title(data.user.userName);
 				});
 		},
-		save() {
+		async save() {
 			let postData = this.model.GetData();
 			if (this.$moment(postData.birthDate).isValid()) {
 				postData.birthDate = this.$moment(postData.birthDate).format('DD-MM-YYYY');
@@ -94,18 +92,12 @@ export default {
 			}
 
 
-			this.$api
-				.put('/employees/' + this.id, postData)
-				.then(response => {
-					this.attachRole();
-				});
-		},
-		attachRole() {
-			this.$api
-				.post('/users/attach-role', this.modelSecond.GetData())
-				.then(response => {
-					this.$router.push({ name: 'mainUsers' });
-				});
+			await this.$api.put('/employees/' + this.id, postData);
+			await this.$api.post('/users/attach-role', this.modelSecond.GetData());
+
+
+			this.$store.state.loader = false;
+			this.$router.push({ name: 'mainUsers' });
 		},
 	}
 };

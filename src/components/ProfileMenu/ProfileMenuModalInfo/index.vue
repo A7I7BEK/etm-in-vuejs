@@ -21,15 +21,14 @@ export default {
 					lastName: '',
 					middleName: '',
 					birthDate: null,
-					photoUrl: null,
-					resourceFile: {
-						id: 0,
-					},
+					photoFileId: 0,
 				},
 				userName: '',
 				email: '',
 				phoneNumber: '',
 			}),
+			photoFile: null,
+			photoFileUrl: null,
 		};
 	},
 	validations: {
@@ -60,21 +59,28 @@ export default {
 			let data = structuredClone(this.$store.state.userProfile);
 
 			this.model.SetData(data);
-			this.model.phoneNumber = '998' + this.model.phoneNumber;
+			this.model.phoneNumber = '998' + data.phoneNumber;
+			this.model.employee.photoFileId = data.employee.photoFile?.id || 0;
 		});
 
 
 		$('#profileModal').on('hidden.bs.modal', () => {
 			this.$v.$reset();
 			this.model.Reset();
+			this.DeleteTempPhoto();
 		});
 	},
 	methods: {
-		Save() {
+		async Save() {
 			this.$v.$touch();
 			if (this.$v.$invalid) {
 				return;
 			}
+
+			this.$store.state.loader = true;
+
+
+			await this.SavePhoto();
 
 
 			let postData = this.model.GetData();
@@ -86,26 +92,25 @@ export default {
 			}
 
 
-			this.$api
-				.post('/users/update-profile', postData)
-				.then(response => {
-					$('#profileModal').modal('hide');
-					this.GetProfileInfo();
-					this.$notification.success(this.$t('profileEdited'));
-				});
+			await this.$api.post('/users/update-profile', postData);
+			await this.GetProfileInfo();
+
+
+			$('#profileModal').modal('hide');
+			this.$notification.success(this.$t('profileEdited'));
+			this.$store.state.loader = false;
 		},
-		UploadPhoto(event) {
-			if (event.target.files.length === 0) {
+		async SavePhoto() {
+			if (!this.photoFile) {
 				return;
 			}
 
 
 			let formData = new FormData();
-			formData.append('file', event.target.files[ 0 ]);
+			formData.append('file', this.photoFile);
 
 
-			this.$store.state.loader = true;
-			this.$api
+			await this.$api
 				.post('/resource/upload-one', formData, {
 					params: {
 						minWidth: 100,
@@ -113,20 +118,27 @@ export default {
 					}
 				})
 				.then(response => {
-					this.model.employee.photoUrl = response.data.data.url;
-					this.model.employee.resourceFile.id = response.data.data.id;
-				})
-				.finally(() => {
-					event.target.value = '';
-					this.$store.state.loader = false;
+					this.model.employee.photoFileId = response.data.data.id;
 				});
 		},
-		DeletePhoto() {
-			this.model.employee.photoUrl = null;
-			this.model.employee.resourceFile.id = 0;
+		UploadPhoto(event) {
+			if (event.target.files.length === 0) {
+				return;
+			}
+
+			this.photoFile = event.target.files[ 0 ];
+			this.photoFileUrl = URL.createObjectURL(this.photoFile);
+			event.target.value = '';
 		},
-		GetProfileInfo() {
-			this.$api
+		DeleteTempPhoto() {
+			this.photoFile = null;
+			this.photoFileUrl = null;
+		},
+		DeleteRealPhoto() {
+			this.model.employee.photoFileId = 0;
+		},
+		async GetProfileInfo() {
+			await this.$api
 				.get('/users/me')
 				.then(response => {
 					this.$store.state.userProfile = response.data.data;

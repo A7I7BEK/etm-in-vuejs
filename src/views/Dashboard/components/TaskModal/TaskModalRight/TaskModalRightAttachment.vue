@@ -26,44 +26,36 @@
 export default {
 	name: 'TaskModalRightAttachment',
 	methods: {
-		SaveFile(event) {
+		async SaveFile(event) {
 			if (event.target.files.length === 0) {
 				return;
 			}
 
+			this.$store.state.loader = true;
 
 			let formData = new FormData();
 			formData.append('file', event.target.files[ 0 ]);
 
+			const resp = await this.$api.post('/resource/upload-one', formData);
+			await this.AttachFileToTask(resp.data.data.id);
+			await this.GetTaskAttachmentList();
 
-			this.$store.state.loader = true;
-			this.$api
-				.post('/resource/upload-one', formData)
-				.then(response => {
-					this.AttachFileToTask(response.data.data.id);
-				})
-				.finally(() => {
-					event.target.value = '';
-					this.$store.state.loader = false;
-				});
+			event.target.value = '';
+			this.$notification.success(this.$t('FileUploadedSuccessfully'));
+			this.$store.state.loader = false;
 		},
-		AttachFileToTask(fileId) {
-			this.$api
-				.post('/task-attachments', {
-					attachments: [
-						{
-							id: fileId
-						}
-					],
-					taskId: this.$store.state.taskModalData.id
-				})
-				.then(response => {
-					this.GetTaskAttachmentList();
-					this.$notification.success(this.$t('FileUploadedSuccessfully'));
-				});
+		async AttachFileToTask(fileId) {
+			await this.$api.post('/task-attachments', {
+				attachments: [
+					{
+						id: fileId
+					}
+				],
+				taskId: this.$store.state.taskModalData.id
+			});
 		},
-		GetTaskAttachmentList() {
-			this.$api
+		async GetTaskAttachmentList() {
+			await this.$api
 				.get('/task-attachments', {
 					params: {
 						taskId: this.$store.state.taskModalData.id

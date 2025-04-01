@@ -21,9 +21,15 @@
 
 							<img
 								class="img"
-								v-if="model.employee.photoUrl"
+								v-if="photoFileUrl"
+								key="tempImg"
+								:src="photoFileUrl"
+							>
+							<img
+								class="img"
+								v-else-if="model.employee.photoFileId"
 								key="img"
-								:src="$store.state.url + model.employee.photoUrl"
+								:src="$store.state.url + model.employee.photoFile.url"
 							>
 							<img
 								class="prvw"
@@ -36,9 +42,18 @@
 
 						<label
 							class="az_prfl_mod_photo_txt del"
-							v-if="model.employee.photoUrl"
-							key="del"
-							@click="DeletePhoto"
+							v-if="photoFileUrl"
+							key="delTemp"
+							@click="DeleteTempPhoto"
+						>
+							<span class="txt">{{ $t('delete') }}</span>
+							<i class="fa fa-minus-circle"></i>
+						</label>
+						<label
+							class="az_prfl_mod_photo_txt del"
+							v-else-if="model.employee.photoFileId"
+							key="delReal"
+							@click="DeleteRealPhoto"
 						>
 							<span class="txt">{{ $t('delete') }}</span>
 							<i class="fa fa-minus-circle"></i>

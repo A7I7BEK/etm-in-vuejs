@@ -13,9 +13,15 @@
 
 				<img
 					class="img"
-					v-if="model.photoUrl"
+					v-if="photoFileUrl"
+					key="tempImg"
+					:src="photoFileUrl"
+				>
+				<img
+					class="img"
+					v-else-if="model.photoFileId"
 					key="img"
-					:src="$store.state.url + model.photoUrl"
+					:src="$store.state.url + model.photoFile.url"
 				>
 				<img
 					class="prvw"
@@ -28,9 +34,18 @@
 
 			<label
 				class="az_prfl_mod_photo_txt del"
-				v-if="model.photoUrl"
-				key="del"
-				@click="deletePhoto"
+				v-if="photoFileUrl"
+				key="delTemp"
+				@click="deleteTempPhoto"
+			>
+				<span class="txt">{{ $t('delete') }}</span>
+				<i class="fa fa-minus-circle"></i>
+			</label>
+			<label
+				class="az_prfl_mod_photo_txt del"
+				v-else-if="model.photoFileId"
+				key="delReal"
+				@click="deleteRealPhoto"
 			>
 				<span class="txt">{{ $t('delete') }}</span>
 				<i class="fa fa-minus-circle"></i>
@@ -228,6 +243,8 @@ export default {
 		return {
 			roleList: [],
 			passwordShow: false,
+			photoFile: null,
+			photoFileUrl: null,
 		};
 	},
 	validations() {
@@ -293,11 +310,15 @@ export default {
 		}
 	},
 	methods: {
-		submit() {
+		async submit() {
 			this.$v.$touch();
 			if (this.$v.$invalid) {
 				return;
 			}
+
+			this.$store.state.loader = true;
+			await this.savePhoto();
+
 
 			this.$emit('emit:submit');
 		},
@@ -312,36 +333,39 @@ export default {
 					this.roleList = response.data.data;
 				});
 		},
-		uploadPhoto(event) {
-			if (event.target.files.length === 0) {
+		async savePhoto() {
+			if (!this.photoFile) {
 				return;
 			}
 
 
 			let formData = new FormData();
-			formData.append('file', event.target.files[ 0 ]);
+			formData.append('file', this.photoFile);
 
 
-			this.$store.state.loader = true;
-			this.$api
-				.post('/resource/upload-one', formData, {
-					params: {
-						minWidth: 100,
-						minHeight: 100,
-					}
-				})
-				.then(response => {
-					this.model.photoUrl = response.data.data.url;
-					this.model.resourceFile.id = response.data.data.id;
-				})
-				.finally(() => {
-					event.target.value = '';
-					this.$store.state.loader = false;
-				});
+			const resp = await this.$api.post('/resource/upload-one', formData, {
+				params: {
+					minWidth: 100,
+					minHeight: 100,
+				}
+			});
+			this.model.photoFileId = resp.data.data.id;
 		},
-		deletePhoto() {
-			this.model.photoUrl = '';
-			this.model.resourceFile.id = 0;
+		uploadPhoto(event) {
+			if (event.target.files.length === 0) {
+				return;
+			}
+
+			this.photoFile = event.target.files[ 0 ];
+			this.photoFileUrl = URL.createObjectURL(this.photoFile);
+			event.target.value = '';
+		},
+		deleteTempPhoto() {
+			this.photoFile = null;
+			this.photoFileUrl = null;
+		},
+		deleteRealPhoto() {
+			this.model.photoFileId = 0;
 		},
 	}
 };

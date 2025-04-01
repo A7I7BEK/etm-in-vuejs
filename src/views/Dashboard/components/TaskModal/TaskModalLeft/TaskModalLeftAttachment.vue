@@ -152,8 +152,8 @@ export default {
 		},
 	},
 	methods: {
-		GetTaskAttachmentList() {
-			this.$api
+		async GetTaskAttachmentList() {
+			await this.$api
 				.get('/task-attachments', {
 					params: {
 						taskId: this.$store.state.taskModalData.id
@@ -164,7 +164,7 @@ export default {
 					this.$store.state.taskModalActionStarter++;
 				});
 		},
-		Update(id) {
+		async Update(id) {
 			this.$v.$touch();
 			if (this.$v.$invalid) {
 				return;
@@ -173,59 +173,49 @@ export default {
 
 			document.dispatchEvent(new Event('mousedown'));
 
-			this.$api
-				.put('/resource/' + id, {
-					name: this.attachmentName
-				})
-				.then(response => {
-					this.GetTaskAttachmentList();
-				});
+			await this.$api.put('/resource/' + id, {
+				name: this.attachmentName
+			});
+			await this.GetTaskAttachmentList();
 		},
-		Delete(id) {
-			if (confirm(this.$t('confirmDelete'))) {
-				this.$api
-					.delete('/resource/' + id)
-					.then(response => {
-						this.GetTaskAttachmentList();
-					});
+		async Delete(id) {
+			if (!confirm(this.$t('confirmDelete'))) {
+				return;
 			}
+
+			await this.$api.delete('/resource/id', {
+				data: {
+					id: id
+				}
+			});
+			await this.GetTaskAttachmentList();
 		},
-		SaveClipboardImage(event) {
+		async SaveClipboardImage(event) {
 			if (event.clipboardData.files.length === 0) {
 				return;
 			}
 
+			this.$store.state.loader = true;
 
 			let formData = new FormData();
 			formData.append('file', event.clipboardData.files[ 0 ]);
 
+			const resp = await this.$api.post('/resource/upload-one', formData);
+			await this.AttachFileToTask(resp.data.data.id);
+			await this.GetTaskAttachmentList();
 
-			this.$store.state.loader = true;
-			this.$api
-				.post('/resource/upload-one', formData)
-				.then(response => {
-					this.AttachFileToTask(response.data.data.id);
-				})
-				.finally(() => {
-					setTimeout(() => {
-						this.$store.state.loader = false;
-					}, 500);
-				});
+			this.$notification.success(this.$t('FileUploadedSuccessfully'));
+			this.$store.state.loader = false;
 		},
-		AttachFileToTask(fileId) {
-			this.$api
-				.post('/task-attachments', {
-					attachments: [
-						{
-							id: fileId
-						}
-					],
-					taskId: this.$store.state.taskModalData.id
-				})
-				.then(response => {
-					this.GetTaskAttachmentList();
-					this.$notification.success(this.$t('FileUploadedSuccessfully'));
-				});
+		async AttachFileToTask(fileId) {
+			await this.$api.post('/task-attachments', {
+				attachments: [
+					{
+						id: fileId
+					}
+				],
+				taskId: this.$store.state.taskModalData.id
+			});
 		},
 	}
 };

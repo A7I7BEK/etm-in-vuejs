@@ -35,10 +35,7 @@ export default {
 				lastName: '',
 				middleName: '',
 				birthDate: null,
-				photoUrl: null,
-				resourceFile: {
-					id: null,
-				},
+				photoFileId: 0,
 				user: {
 					organizationId: 0,
 					userName: '',
@@ -54,7 +51,7 @@ export default {
 		};
 	},
 	methods: {
-		save() {
+		async save() {
 			let postData = this.model.GetData();
 			if (this.$moment(postData.birthDate).isValid()) {
 				postData.birthDate = this.$moment(postData.birthDate).format('DD-MM-YYYY');
@@ -64,20 +61,14 @@ export default {
 			}
 
 
-			this.$api
-				.post('/employees', postData)
-				.then(response => {
-					this.modelSecond.userId = response.data.data.user.id;
-					this.attachRole();
-				});
+			const resp = await this.$api.post('/employees', postData);
+			this.modelSecond.userId = resp.data.data.user.id;
+			await this.$api.post('/users/attach-role', this.modelSecond.GetData());
+
+
+			this.$store.state.loader = false;
+			this.$router.push({ name: 'mainUsers' });
 		},
-		attachRole() {
-			this.$api
-				.post('/users/attach-role', this.modelSecond.GetData())
-				.then(response => {
-					this.$router.push({ name: 'mainUsers' });
-				});
-		},
-	}
+	},
 };
 </script>
