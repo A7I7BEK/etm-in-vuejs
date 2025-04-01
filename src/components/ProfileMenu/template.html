@@ -14,9 +14,9 @@
 						<li>
 							<div class="txt">{{ $t('fullName') }}</div>
 							<div class="val">
-								{{ $store.state.userProfile.firstName }}
-								{{ $store.state.userProfile.lastName }}
-								{{ $store.state.userProfile.middleName }}
+								{{ $store.state.userProfile.employee.firstName }}
+								{{ $store.state.userProfile.employee.lastName }}
+								{{ $store.state.userProfile.employee.middleName }}
 							</div>
 						</li>
 
@@ -39,9 +39,9 @@
 							<div class="txt">{{ $t('birthday') }}</div>
 							<div class="val">
 								{{
-									$store.state.userProfile.birthDate
+									$store.state.userProfile.employee.birthDate
 									?
-									$options.filters.filterDate($store.state.userProfile.birthDate)
+									$options.filters.filterDate($store.state.userProfile.employee.birthDate)
 									:
 									$t('notSpecified')
 								}}

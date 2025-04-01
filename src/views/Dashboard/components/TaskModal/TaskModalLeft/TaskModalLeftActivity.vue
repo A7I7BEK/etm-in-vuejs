@@ -31,10 +31,10 @@
 						>
 							<div
 								class="mw-action__ava"
-								v-if="$store.state.userProfile.photoUrl"
+								v-if="$store.state.userProfile.employee.photoFile"
 							>
 								<img
-									:src="$store.state.url + $store.state.userProfile.photoUrl"
+									:src="$store.state.url + $store.state.userProfile.employee.photoFile.url"
 									alt=""
 								>
 							</div>

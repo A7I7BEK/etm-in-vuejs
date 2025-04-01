@@ -1,6 +1,7 @@
 <script>
 import { email, minLength, required } from 'vuelidate/lib/validators';
 import FormService from '../../../services/FormService';
+import { setProfile } from '../../../utils/setProfile';
 import BaseInputDeadline from '../../BaseInputDeadline';
 import BaseInputPhone from '../../BaseInputPhone';
 import BaseModal from '../../BaseModal';
@@ -141,7 +142,7 @@ export default {
 			await this.$api
 				.get('/users/me')
 				.then(response => {
-					this.$store.state.userProfile = response.data.data;
+					setProfile(response.data.data);
 				});
 		},
 	}

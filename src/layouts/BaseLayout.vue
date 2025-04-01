@@ -104,8 +104,8 @@
 						data-custom-switch-btn="#profileMenu"
 					>
 						<img
-							v-if="$store.state.userProfile.photoUrl"
-							:src="$store.state.url + $store.state.userProfile.photoUrl"
+							v-if="$store.state.userProfile.employee.photoFile"
+							:src="$store.state.url + $store.state.userProfile.employee.photoFile.url"
 						>
 						<i
 							class="fa fa-user"
