@@ -64,8 +64,8 @@
 					:title="item.employee.firstName + ' ' + item.employee.lastName"
 				>
 					<img
-						v-if="item.employee.photoUrl"
-						:src="$store.state.url + item.employee.photoUrl"
+						v-if="item.employee.photoFile"
+						:src="$store.state.url + item.employee.photoFile.url"
 					>
 					<div v-else>{{ item.employee.firstName.charAt(0) + item.employee.lastName.charAt(0) }}</div>
 				</div>

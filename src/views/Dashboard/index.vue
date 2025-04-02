@@ -91,10 +91,10 @@ export default {
 							}
 						})
 						.then(response => {
-							this.employeeList = response.data.data.
+							const newEmployees = response.data.data.
 								filter(emp => !members.some(memb => emp.id === memb.employee.id));
 
-							this.employeeList.forEach(a => a.checked = false);
+							this.employeeList = newEmployees.map(item => ({ ...item, 'checked': false }));
 						});
 				}, 500);
 			}

@@ -113,13 +113,13 @@
 																>
 
 																<div class="boardofusers-ava">
-																	<strong v-if="item.employee.photoUrl.trim() === ''">
+																	<img
+																		v-if="item.employee.photoFile"
+																		:src="$store.state.url + item.employee.photoFile.url"
+																	>
+																	<strong v-else>
 																		{{ item.employee.firstName.charAt(0) + item.employee.lastName.charAt(0) }}
 																	</strong>
-																	<img
-																		v-else
-																		:src="$store.state.url + item.employee.photoUrl"
-																	>
 																</div>
 
 																<div class="user-checkbox__main">
@@ -306,15 +306,13 @@
 																		>
 
 																		<div class="boardofusers-ava">
-																			<strong
-																				v-if="item.employee.photoUrl.trim() === ''"
+																			<img
+																				v-if="item.employee.photoFile"
+																				:src="$store.state.url + item.employee.photoFile.url"
 																			>
+																			<strong v-else>
 																				{{ item.employee.firstName.charAt(0) + item.employee.lastName.charAt(0) }}
 																			</strong>
-																			<img
-																				v-else
-																				:src="$store.state.url + item.employee.photoUrl"
-																			>
 																		</div>
 
 																		<div class="user-checkbox__main">

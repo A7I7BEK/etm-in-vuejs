@@ -54,13 +54,14 @@
 					:title="item.employee.firstName + ' ' + item.employee.lastName"
 				>
 					<div class="mw-users__item__img">
-						<strong
-							v-if="item.employee.photoUrl.trim() === ''">{{ item.employee.firstName.charAt(0) + item.employee.lastName.charAt(0) }}</strong>
 						<img
-							v-else
-							:src="$store.state.url + item.employee.photoUrl"
+							v-if="item.employee.photoFile"
+							:src="$store.state.url + item.employee.photoFile.url"
 							class="h-100"
 						>
+						<strong v-else>
+							{{ item.employee.firstName.charAt(0) + item.employee.lastName.charAt(0) }}
+						</strong>
 					</div>
 				</div>
 

@@ -163,8 +163,8 @@
 						<td>
 							<div class="az_crud_tb_pic">
 								<img
-									v-if="item.photoUrl"
-									:src="$store.state.url + item.photoUrl"
+									v-if="item.photoFile"
+									:src="$store.state.url + item.photoFile.url"
 								>
 								<i
 									class="fa fa-user"
@@ -192,7 +192,7 @@
 						<td>
 							<div
 								class="az_crud_tb_txt"
-								v-if="item.user.roles.length > 0"
+								v-if="item.user.roles?.length > 0"
 							>
 								{{item.user.roles.map(x => x.name).join(', ')}}
 							</div>

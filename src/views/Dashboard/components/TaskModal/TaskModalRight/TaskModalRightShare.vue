@@ -85,8 +85,8 @@
 							<div class="az_mem_inv">
 								<div class="az_mem_inv_img">
 									<img
-										v-if="item.photoUrl"
-										:src="$store.state.url + item.photoUrl"
+										v-if="item.photoFile"
+										:src="$store.state.url + item.photoFile.url"
 									>
 									<b v-else>{{ item.firstName.charAt(0) + item.lastName.charAt(0) }}</b>
 								</div>
