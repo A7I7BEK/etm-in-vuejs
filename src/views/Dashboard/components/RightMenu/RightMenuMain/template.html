@@ -5,10 +5,23 @@
 
 		<template #content>
 			<div class="board-menu__search">
-				<div class="form-group" data-custom-switch-btn="#rightMenuSearch">
-					<input type="search" class="form-control" :placeholder="$t('taskSearch')">
-					<button type="submit" class="button-effect">
-						<img src="/img/svg/menu-search.svg" alt="">
+				<div
+					class="form-group"
+					data-custom-switch-btn="#rightMenuSearch"
+				>
+					<input
+						type="search"
+						class="form-control"
+						:placeholder="$t('taskSearch')"
+					>
+					<button
+						type="submit"
+						class="button-effect"
+					>
+						<img
+							src="/img/svg/menu-search.svg"
+							alt=""
+						>
 					</button>
 				</div>
 			</div>
@@ -17,34 +30,54 @@
 			<div class="board-main__menu__content">
 				<div class="board-menu__settings">
 
-					<div class="change-background menu-settings__item"
-						 data-toggle="modal"
-						 data-target="#backgroundModal"
-						 v-if="can('PROJECT_CHANGE_PHOTO')">
+					<div
+						class="change-background menu-settings__item"
+						data-toggle="modal"
+						data-target="#backgroundModal"
+						v-if="can('PROJECT_CHANGE_PHOTO')"
+					>
 						<div class="change-background__inner">
 							<div class="ch-back__icon">
-								<i class="fa fa-picture-o" aria-hidden="true"></i>
+								<i
+									class="fa fa-picture-o"
+									aria-hidden="true"
+								></i>
 							</div>
 							<span>{{$t('changeBackground')}}</span>
 							<div class="current-background">
-								<div class="current-background__inner" v-if="computedBackground.img">
-									<img :src="computedBackground.value" alt="">
+								<div
+									class="current-background__inner"
+									v-if="computedBackground.img"
+								>
+									<img
+										:src="computedBackground.value"
+										alt=""
+									>
 								</div>
 
-								<div class="current-background__inner" v-else :style="computedBackground.value"></div>
+								<div
+									class="current-background__inner"
+									v-else
+									:style="computedBackground.value"
+								></div>
 							</div>
 						</div>
 					</div>
 
 
-					<div class="board-menu__settings__main menu-settings__item"
-						 data-toggle="modal"
-						 data-target="#settingsModal"
-						 v-if="can('PROJECT_UPDATE')"
-						 @click="settingsModalStarter++">
+					<div
+						class="board-menu__settings__main menu-settings__item"
+						data-toggle="modal"
+						data-target="#settingsModal"
+						v-if="can('PROJECT_UPDATE')"
+						@click="settingsModalStarter++"
+					>
 						<div class="m-settings__main__inner">
 							<div class="m-settings__icon">
-								<i class="fa fa-cog" aria-hidden="true"></i>
+								<i
+									class="fa fa-cog"
+									aria-hidden="true"
+								></i>
 							</div>
 							<span>{{$t('projectSettings')}}</span>
 						</div>
@@ -55,10 +88,12 @@
 
 
 			<div class="board-menu__actions">
-				<div class="board-menu__actions__title"
-					 style="cursor: pointer"
-					 data-custom-switch-btn="#rightMenuAction"
-					 @click="$store.state.rightMenuActionStarter++">
+				<div
+					class="board-menu__actions__title"
+					style="cursor: pointer"
+					data-custom-switch-btn="#rightMenuAction"
+					@click="$store.state.rightMenuActionStarter++"
+				>
 					<div class="board-action__icon">
 						<i class="fa fa-list-ul"></i>
 					</div>
@@ -67,9 +102,16 @@
 
 
 				<div class="menu-actions__content">
-					<div v-for="item in $store.state.projectData.actions" class="menu-actions__item">
+					<div
+						v-for="item in $store.state.projectData.actions"
+						class="menu-actions__item"
+					>
 						<div class="menu-actions__ava">
-							<img v-if="item.photoUrl.trim()" :src="$store.state.url + item.photoUrl" alt="">
+							<img
+								v-if="item.photoUrl.trim()"
+								:src="$store.state.url + item.photoUrl"
+								alt=""
+							>
 							<b v-else>{{ item.firstName.charAt(0) + item.lastName.charAt(0) }}</b>
 						</div>
 						<div class="menu-actions__item__text">

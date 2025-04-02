@@ -499,6 +499,7 @@ export default {
 	},
 	methods: {
 		CommentTypeSelect() {
+			// TODO
 			this.commentTypeSelectedId = this.$store.state.projectData.taskCommentTypes.find(x => x.value === this.$store.state.TASK_COMMENT_TYPE.INFORMATION).id;
 		},
 		SaveComment() {

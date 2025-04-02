@@ -11,34 +11,34 @@
 			<base-input-search
 				class="mr-3"
 				is-filter
-				@update:value="HandleParams('search', $event)"
+				@update:value="HandleParams(HANDLE_PARAMS.SEARCH, $event)"
 			></base-input-search>
 
 			<base-input-group
 				class="mr-3"
 				is-filter
 				:show-organization="$store.state.userProfile.systemAdmin"
-				@update:value="HandleParams('group', $event)"
+				@update:value="HandleParams(HANDLE_PARAMS.GROUP, $event)"
 			></base-input-group>
 
 			<base-input-manager
 				class="mr-3"
 				is-filter
 				:show-organization="$store.state.userProfile.systemAdmin"
-				@update:value="HandleParams('manager', $event)"
+				@update:value="HandleParams(HANDLE_PARAMS.MANAGER, $event)"
 			></base-input-manager>
 
 			<base-input-project-type
 				class="mr-3"
 				is-filter
-				@update:value="HandleParams('type', $event)"
+				@update:value="HandleParams(HANDLE_PARAMS.PROJECT_TYPE, $event)"
 			></base-input-project-type>
 
 
 			<base-input-organization
 				v-if="$store.state.userProfile.systemAdmin"
 				is-filter
-				@update:value="HandleParams('organization', $event)"
+				@update:value="HandleParams(HANDLE_PARAMS.ORGANIZATION, $event)"
 			></base-input-organization>
 		</template>
 
@@ -50,13 +50,13 @@
 					<tr>
 						<th
 							class="width-75 sort"
-							@click="HandleParams('sort', 'id')"
-							:class="{ 'active': params.sortBy === 'id' }"
+							:class="{ 'active': params.sortBy === SORT_PROP.ID }"
+							@click="HandleParams(HANDLE_PARAMS.SORT_BY, SORT_PROP.ID)"
 						>
 							<div class="az_crud_tb_th">
 								<div class="txt">#</div>
 
-								<template v-if="params.sortBy === 'id'">
+								<template v-if="params.sortBy === SORT_PROP.ID">
 									<i
 										class="fa fa-angle-up"
 										v-if="params.sortDirection === ORDER.ASC"
@@ -71,13 +71,13 @@
 
 						<th
 							class="sort"
-							@click="HandleParams('sort', 'name')"
-							:class="{ 'active': params.sortBy === 'name' }"
+							:class="{ 'active': params.sortBy === SORT_PROP.NAME }"
+							@click="HandleParams(HANDLE_PARAMS.SORT_BY, SORT_PROP.NAME)"
 						>
 							<div class="az_crud_tb_th">
 								<div class="txt">{{ $t('name') }}</div>
 
-								<template v-if="params.sortBy === 'name'">
+								<template v-if="params.sortBy === SORT_PROP.NAME">
 									<i
 										class="fa fa-angle-up"
 										v-if="params.sortDirection === ORDER.ASC"
@@ -92,13 +92,13 @@
 
 						<th
 							class="sort"
-							@click="HandleParams('sort', 'group')"
-							:class="{ 'active': params.sortBy === 'group' }"
+							:class="{ 'active': params.sortBy === SORT_PROP.GROUP }"
+							@click="HandleParams(HANDLE_PARAMS.SORT_BY, SORT_PROP.GROUP)"
 						>
 							<div class="az_crud_tb_th">
 								<div class="txt">{{ $tc('menu.team', 1) }}</div>
 
-								<template v-if="params.sortBy === 'group'">
+								<template v-if="params.sortBy === SORT_PROP.GROUP">
 									<i
 										class="fa fa-angle-up"
 										v-if="params.sortDirection === ORDER.ASC"
@@ -113,13 +113,13 @@
 
 						<th
 							class="sort"
-							@click="HandleParams('sort', 'managerName')"
-							:class="{ 'active': params.sortBy === 'managerName' }"
+							:class="{ 'active': params.sortBy === SORT_PROP.MANAGER }"
+							@click="HandleParams(HANDLE_PARAMS.SORT_BY, SORT_PROP.MANAGER)"
 						>
 							<div class="az_crud_tb_th">
 								<div class="txt">{{ $t('manager') }}</div>
 
-								<template v-if="params.sortBy === 'managerName'">
+								<template v-if="params.sortBy === SORT_PROP.MANAGER">
 									<i
 										class="fa fa-angle-up"
 										v-if="params.sortDirection === ORDER.ASC"
@@ -134,13 +134,13 @@
 
 						<th
 							class="sort"
-							@click="HandleParams('sort', 'percent')"
-							:class="{ 'active': params.sortBy === 'percent' }"
+							:class="{ 'active': params.sortBy === SORT_PROP.PERCENT }"
+							@click="HandleParams(HANDLE_PARAMS.SORT_BY, SORT_PROP.PERCENT)"
 						>
 							<div class="az_crud_tb_th">
 								<div class="txt">{{ $t('percent') }}</div>
 
-								<template v-if="params.sortBy === 'percent'">
+								<template v-if="params.sortBy === SORT_PROP.PERCENT">
 									<i
 										class="fa fa-angle-up"
 										v-if="params.sortDirection === ORDER.ASC"
@@ -155,13 +155,13 @@
 
 						<th
 							class="sort"
-							@click="HandleParams('sort', 'projectType')"
-							:class="{ 'active': params.sortBy === 'projectType' }"
+							:class="{ 'active': params.sortBy === SORT_PROP.PROJECT_TYPE }"
+							@click="HandleParams(HANDLE_PARAMS.SORT_BY, SORT_PROP.PROJECT_TYPE)"
 						>
 							<div class="az_crud_tb_th">
 								<div class="txt">{{ $t('projectType') }}</div>
 
-								<template v-if="params.sortBy === 'projectType'">
+								<template v-if="params.sortBy === SORT_PROP.PROJECT_TYPE">
 									<i
 										class="fa fa-angle-up"
 										v-if="params.sortDirection === ORDER.ASC"
@@ -176,14 +176,13 @@
 
 						<th
 							class="sort"
-							v-if="$store.state.userProfile.systemAdmin"
-							@click="HandleParams('sort', 'organizationId')"
-							:class="{ 'active': params.sortBy === 'organizationId' }"
+							:class="{ 'active': params.sortBy === SORT_PROP.ORGANIZATION }"
+							@click="HandleParams(HANDLE_PARAMS.SORT_BY, SORT_PROP.ORGANIZATION)"
 						>
 							<div class="az_crud_tb_th">
 								<div class="txt">{{ $tc('menu.organization', 1) }}</div>
 
-								<template v-if="params.sortBy === 'organizationId'">
+								<template v-if="params.sortBy === SORT_PROP.ORGANIZATION">
 									<i
 										class="fa fa-angle-up"
 										v-if="params.sortDirection === ORDER.ASC"
@@ -212,19 +211,10 @@
 					#body
 					v-if="record.list.length > 0"
 				>
-					<tr v-for="(item, index) in record.list">
+					<tr v-for="item in record.list">
 						<td>
-							<div
-								class="az_crud_tb_txt"
-								v-if="params.sortBy === 'id' && params.sortDirection === ORDER.DESC"
-							>
-								{{ record.count - (params.page * params.pageSize) - index }}
-							</div>
-							<div
-								class="az_crud_tb_txt"
-								v-else
-							>
-								{{ (params.page * params.pageSize) + (index + 1) }}
+							<div class="az_crud_tb_txt">
+								{{ item.rowNumber }}
 							</div>
 						</td>
 
@@ -237,13 +227,17 @@
 						</td>
 
 						<td>
-							<div class="az_crud_tb_txt">{{ item.managerName }}</div>
+							<div class="az_crud_tb_txt">
+								{{ item.manager.firstName }}
+								{{ item.manager.lastName }}
+								{{ item.manager.middleName }}
+							</div>
 						</td>
 
 						<td>
 							<div
 								class="az_crud_tb_prgs_bx"
-								v-if="item.projectType === PROJECT_TYPE.KANBAN"
+								v-if="item.percent >= 0"
 							>
 								<div class="az_crud_tb_prgs_txt">{{ item.percent }}%</div>
 								<div
@@ -263,18 +257,18 @@
 							</div>
 							<div
 								class="az_crud_tb_txt"
-								v-else-if="item.projectType === PROJECT_TYPE.TRELLO"
+								v-else
 							>
 								{{ $t('notAvailable') }}
 							</div>
 						</td>
 
 						<td>
-							<div class="az_crud_tb_txt">{{ item.projectType.value }}</div>
+							<div class="az_crud_tb_txt">{{ item.projectType }}</div>
 						</td>
 
-						<td v-if="$store.state.userProfile.systemAdmin">
-							<div class="az_crud_tb_txt">{{ item.organizationName }}</div>
+						<td>
+							<div class="az_crud_tb_txt">{{ item.organization.name }}</div>
 						</td>
 
 						<td v-if="can('PROJECT_READ') || can('PROJECT_UPDATE') || can('PROJECT_DELETE')">
@@ -323,7 +317,7 @@
 		<template #range>
 			<base-crud-range
 				:value="params.pageSize"
-				@input="HandleParams('range', $event)"
+				@input="HandleParams(HANDLE_PARAMS.PAGE_SIZE, $event)"
 			></base-crud-range>
 		</template>
 
@@ -340,8 +334,8 @@
 				prev-text="&laquo;"
 				next-text="&raquo;"
 				:page-count="record.pageCount"
-				:value="params.page + 1"
-				@input="HandleParams('page', $event)"
+				:value="params.page"
+				@input="HandleParams(HANDLE_PARAMS.PAGE, $event)"
 			></paginate>
 		</template>
 
@@ -358,8 +352,19 @@ import BaseInputManager from '../../../../components/BaseInputManager';
 import BaseInputOrganization from '../../../../components/BaseInputOrganization';
 import BaseInputProjectType from '../../../../components/BaseInputProjectType';
 import BaseInputSearch from '../../../../components/BaseInputSearch';
-import { ORDER, PROJECT_TYPE } from '../../../../constants';
+import { HANDLE_PARAMS, ORDER, ORDER_REVERSE } from '../../../../constants';
 
+
+const SORT_PROP = {
+	ID: 'id',
+	NAME: 'name',
+	BACKGROUND: 'background',
+	PROJECT_TYPE: 'projectType',
+	GROUP: 'group',
+	MANAGER: 'manager',
+	ORGANIZATION: 'organization',
+	PERCENT: 'percent',
+};
 
 
 export default {
@@ -377,95 +382,104 @@ export default {
 	},
 	data() {
 		return {
-			PROJECT_TYPE,
+			ORDER,
+			HANDLE_PARAMS,
+			SORT_PROP,
 			params: {
-				page: 0,
+				page: 1,
 				pageSize: 20,
-				sortBy: 'id',
+				sortBy: SORT_PROP.ID,
 				sortDirection: ORDER.DESC,
 				allSearch: null,
 				groupId: null,
 				managerId: null,
-				projectKanban: null,
-				projectTrello: null,
+				projectType: null,
 				organizationId: null,
 			},
 			record: {
 				list: [],
-				count: 0,
 				pageCount: 0,
 			},
 		};
 	},
-	created() {
-		this.GetList();
+	async created() {
+		await this.GetList();
 	},
 	methods: {
-		HandleParams(type, val) {
+		async HandleParams(type, val) {
 			switch (type) {
-				case 'search':
-					this.params.allSearch = val ? val : null;
+				case HANDLE_PARAMS.PAGE:
+					this.params.page = val;
 					break;
 
-				case 'group':
-					this.params.groupId = val === 0 ? null : val;
-					break;
-
-				case 'manager':
-					this.params.managerId = val === 0 ? null : val;
-					break;
-
-				case 'type':
-					this.params.projectKanban = val === 'KANBAN' ? true : null;
-					this.params.projectTrello = val === 'TRELLO' ? true : null;
-					break;
-
-				case 'range':
+				case HANDLE_PARAMS.PAGE_SIZE:
 					this.params.pageSize = val;
 					break;
 
-				case 'page':
-					this.params.page = val - 1;
+				case HANDLE_PARAMS.SEARCH:
+					this.params.allSearch = val || null;
 					break;
 
-				case 'sort':
+				case HANDLE_PARAMS.SORT_BY:
 					if (this.params.sortBy === val) {
-						this.params.sortDirection = this.params.sortDirection === ORDER.ASC ? ORDER.DESC : ORDER.ASC;
+						this.params.sortDirection = ORDER_REVERSE[ this.params.sortDirection ];
 					}
 					this.params.sortBy = val;
 					break;
 
-				case 'organization':
-					this.params.organizationId = val === 0 ? null : val;
+				case HANDLE_PARAMS.ORGANIZATION:
+					this.params.organizationId = val || null;
+					break;
+
+				case HANDLE_PARAMS.GROUP:
+					this.params.groupId = val || null;
+					break;
+
+				case HANDLE_PARAMS.MANAGER:
+					this.params.managerId = val || null;
+					break;
+
+				case HANDLE_PARAMS.PROJECT_TYPE:
+					this.params.projectType = val || null;
 					break;
 			}
 
-			if (type !== 'page') {
-				this.params.page = 0;
+			if (type !== HANDLE_PARAMS.PAGE) {
+				this.params.page = 1;
 			}
 
-			this.GetList();
+			await this.GetList();
 		},
-		GetList() {
-			this.$api
-				.get('/projects', {
-					params: this.params,
-				})
-				.then(response => {
-					this.record.list = response.data.data;
-					this.record.count = response.data.totalCount;
-					this.record.pageCount = Math.ceil(response.data.totalCount / this.params.pageSize);
-				});
+		async GetList() {
+			const resp = await this.$api.get('/projects', {
+				params: this.params,
+			});
+
+			const data = resp.data.data;
+			const { totalItems, totalPages } = resp.data.meta;
+			const { page, pageSize, sortBy, sortDirection } = this.params;
+
+			data.forEach((item, index) => {
+				if (sortBy === SORT_PROP.ID && sortDirection === ORDER.DESC) {
+					item.rowNumber = (totalItems - (page - 1) * pageSize) - index;
+				}
+				else {
+					item.rowNumber = ((page - 1) * pageSize + 1) + index;
+				}
+			});
+
+			this.record.list = data;
+			this.record.pageCount = totalPages;
 		},
-		Delete(id) {
-			if (confirm(this.$t('confirmDelete'))) {
-				this.$api
-					.delete('/projects/' + id)
-					.then(response => {
-						this.$notification.success(this.$t('successfullyDeleted'));
-						this.GetList();
-					});
+		async Delete(id) {
+			if (!confirm(this.$t('confirmDelete'))) {
+				return;
 			}
+
+			await this.$api.delete('/projects/' + id);
+			await this.GetList();
+
+			this.$notification.success(this.$t('successfullyDeleted'));
 		},
 	}
 };

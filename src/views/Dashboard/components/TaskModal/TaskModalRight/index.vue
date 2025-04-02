@@ -13,7 +13,7 @@
 					<div class="mw-switch-icon">
 						<i class="fa fa-power-off"></i>
 					</div>
-					<span>{{ $t('start') }}</span>
+					<span>{{ $t('TASK_TIMER_TYPE.START') }}</span>
 				</div>
 
 				<div
@@ -23,7 +23,7 @@
 					<div class="mw-switch-icon">
 						<i class="fa fa-power-off"></i>
 					</div>
-					<span>{{ $t('stop') }}</span>
+					<span>{{ $t('TASK_TIMER_TYPE.STOP') }}</span>
 				</div>
 			</div>
 

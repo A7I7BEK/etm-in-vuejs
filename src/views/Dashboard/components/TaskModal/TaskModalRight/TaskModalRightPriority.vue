@@ -26,19 +26,19 @@
 
 					<div
 						class="priority-search__item"
-						v-for="item in $store.state.projectData.taskPriorityType"
-						:key="item.id"
+						v-for="[ key, value ] in Object.entries(TASK_PRIORITY_TYPE)"
+						:key="key"
 					>
 						<label>
 							<input
 								type="radio"
 								name="radioPriority"
 								hidden
-								:checked="$store.state.taskModalData.taskPriorityType && $store.state.taskModalData.taskPriorityType.id === item.id"
-								@change="ChangePriority(item)"
+								:checked="$store.state.taskModalData.priority === value"
+								@change="ChangePriority(value)"
 							>
 
-							<h5>{{ $t(item.value) }}</h5>
+							<h5>{{ $t(`TASK_PRIORITY_TYPE.${value}`) }}</h5>
 
 							<div class="doer-check"></div>
 						</label>
@@ -52,16 +52,24 @@
 </template>
 
 <script>
+import { TASK_PRIORITY_TYPE } from '../../../../../constants';
+
+
 export default {
 	name: 'TaskModalRightPriority',
+	data() {
+		return {
+			TASK_PRIORITY_TYPE,
+		};
+	},
 	methods: {
-		ChangePriority(item) {
+		ChangePriority(value) {
 			document.dispatchEvent(new Event('mousedown'));
 
 			this.$api
 				.put('/tasks/' + this.$store.state.taskModalData.id, {
 					name: this.$store.state.taskModalData.name,
-					priority: item.id
+					priority: value
 				})
 				.then(response => {
 					this.$store.commit('setModalTaskPriorityType', response.data.data.taskPriorityType);

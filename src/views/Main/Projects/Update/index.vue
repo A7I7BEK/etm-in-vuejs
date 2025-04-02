@@ -39,13 +39,8 @@ export default {
 		return {
 			model: new FormService({
 				name: '',
-				codeName: '',
-				group: {
-					id: 0
-				},
-				manager: {
-					id: 0
-				},
+				groupId: 0,
+				managerId: 0,
 				organizationId: 0,
 			}),
 			titleName: '',
@@ -63,14 +58,9 @@ export default {
 
 					this.model.SetData({
 						name: data.name,
-						codeName: data.codeName,
-						group: {
-							id: data.group.id
-						},
-						manager: {
-							id: data.manager.id
-						},
-						organizationId: data.organizationId,
+						groupId: data.group.id,
+						managerId: data.manager.id,
+						organizationId: data.organization.id,
 					});
 
 					this.titleName = data.name;

@@ -21,8 +21,16 @@
 						<td>{{ model.name }}</td>
 					</tr>
 					<tr>
-						<th>{{ $t('codeName') }}</th>
-						<td>{{ model.codeName }}</td>
+						<th>{{ $t('projectType') }}</th>
+						<td>{{ model.projectType }}</td>
+					</tr>
+					<tr>
+						<th>{{ $t('manager') }}</th>
+						<td>
+							{{ model.manager.firstName }}
+							{{ model.manager.lastName }}
+							{{ model.manager.middleName }}
+						</td>
 					</tr>
 					<tr>
 						<th>{{ $tc('menu.team', 1) }}</th>
@@ -34,12 +42,14 @@
 							<ul class="az_crud_read_tb_ls">
 								<li v-for="item in model.members">
 									<span class="txt">
-										{{ item.employee.firstName + ' ' + item.employee.lastName + ' ' + item.employee.middleName }}
+										{{ item.employee.firstName }}
+										{{ item.employee.lastName }}
+										{{ item.employee.middleName }}
 									</span>
 
 									<i
 										class="fa fa-user-secret ml-2"
-										v-if="item.employee.isTeamLeader"
+										v-if="item.isTeamLeader"
 										:title="$t('teamLeader')"
 									></i>
 									<i
@@ -49,15 +59,6 @@
 									></i>
 								</li>
 							</ul>
-						</td>
-					</tr>
-					<tr>
-						<th>{{ $t('projectType') }}</th>
-						<td>{{ model.projectType.value }}</td>
-					</tr>
-					<tr>
-						<th>{{ $t('manager') }}</th>
-						<td>{{ model.manager.firstName + ' ' + model.manager.lastName + ' ' + model.manager.middleName }}
 						</td>
 					</tr>
 				</tbody>
@@ -96,9 +97,11 @@ export default {
 			this.$api
 				.get('/projects/' + this.id)
 				.then(response => {
-					this.model = response.data.data;
-					this.titleName = response.data.data.name;
-					this.$store.state.metaData.title = this.$route.meta.title(response.data.data.name);
+					const data = response.data.data;
+
+					this.model = data;
+					this.titleName = data.name;
+					this.$store.state.metaData.title = this.$route.meta.title(data.name);
 				});
 		},
 	}

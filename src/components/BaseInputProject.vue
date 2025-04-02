@@ -20,7 +20,7 @@
 			>
 				{{ item.name }}
 
-				<template v-if="showOrganization"> => {{ item.organizationName }}</template>
+				<template v-if="showOrganization"> => {{ item.organization.name }}</template>
 			</option>
 		</select>
 	</div>

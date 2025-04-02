@@ -31,14 +31,9 @@ export default {
 		return {
 			model: new FormService({
 				name: '',
-				codeName: '',
 				projectType: '',
-				group: {
-					id: 0
-				},
-				manager: {
-					id: 0
-				},
+				groupId: 0,
+				managerId: 0,
 				organizationId: 0,
 			}),
 		};

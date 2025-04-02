@@ -238,6 +238,7 @@
 
 <script>
 import BaseReportTable from '../../../../../components/BaseReportTable';
+import { PROJECT_TYPE } from '../../../../../constants';
 
 
 export default {
@@ -299,7 +300,7 @@ export default {
 			this.$api
 				.get('/projects/selection', {
 					params: {
-						'projectTrello': true,
+						projectType: PROJECT_TYPE.TRELLO,
 						'memberId': this.selectedData.member,
 					}
 				})

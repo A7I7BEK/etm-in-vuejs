@@ -21,40 +21,32 @@ export default {
 			model: new FormService({
 				id: this.$store.state.projectData.id,
 				name: this.$store.state.projectData.name,
-				codeName: this.$store.state.projectData.codeName,
-				group: {
-					id: this.$store.state.projectData.group.id
-				},
-				manager: {
-					id: this.$store.state.projectData.manager ? this.$store.state.projectData.manager.id : 0
-				},
-				organizationId: this.$store.state.projectData.organizationId,
+				groupId: this.$store.state.projectData.group.id,
+				managerId: this.$store.state.projectData.manager.id,
+				organizationId: 0,
 			}),
 			groupList: [],
 			managerList: [],
 		};
 	},
-	validations: {
-		model: {
-			name: {
-				required,
-			},
-			codeName: {
-				required,
-			},
-			group: {
-				id: {
+	validations() {
+		let options = {
+			model: {
+				name: {
+					required,
+				},
+				groupId: {
 					required,
 					minValue: minValue(1),
 				},
-			},
-			manager: {
-				id: {
+				managerId: {
 					required,
 					minValue: minValue(1),
 				},
-			},
-		},
+			}
+		};
+
+		return options;
 	},
 	watch: {
 		'starter'() {
@@ -92,11 +84,12 @@ export default {
 			this.$api
 				.put('/projects/' + this.model.id, this.model.GetData())
 				.then(response => {
-					this.$store.state.projectData.name = response.data.name;
-					this.$store.state.projectData.codeName = response.data.codeName;
-					this.$store.state.projectData.group = response.data.group;
-					this.$store.state.projectData.members = response.data.members;
-					this.$store.state.projectData.manager = response.data.manager;
+					const data = response.data.data;
+
+					this.$store.state.projectData.name = data.name;
+					this.$store.state.projectData.group = data.group;
+					this.$store.state.projectData.members = data.members;
+					this.$store.state.projectData.manager = data.manager;
 
 					$('#settingsModal').modal('hide');
 				});

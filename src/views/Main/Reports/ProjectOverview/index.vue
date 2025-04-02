@@ -1,8 +1,9 @@
 <script>
 import BaseReportTab from '../../../../components/BaseReportTab';
-import TypeTrello from './components/TypeTrello';
+import { PROJECT_TYPE } from '../../../../constants';
 import TypeKanbanOverall from './components/TypeKanbanOverall';
 import TypeKanbanProject from './components/TypeKanbanProject';
+import TypeTrello from './components/TypeTrello';
 
 
 export default {
@@ -19,14 +20,12 @@ export default {
 	created() {
 		this.GetProjectSelectionAll();
 	},
-	mounted() {
-	},
 	methods: {
 		GetProjectSelectionAll() {
 			this.$api
 				.get('/projects/selection', {
 					params: {
-						'projectTrello': true
+						projectType: PROJECT_TYPE.TRELLO
 					}
 				})
 				.then(response => {

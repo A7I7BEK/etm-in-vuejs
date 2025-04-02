@@ -37,7 +37,9 @@
 								<span
 									class="d-block text-truncate"
 									v-if="selectedProject"
-								>{{ selectedProject.name }}</span>
+								>
+									{{ selectedProject.name }}
+								</span>
 								<span v-else>{{ $t('choose') }}</span>
 							</button>
 

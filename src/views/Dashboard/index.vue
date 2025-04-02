@@ -53,11 +53,11 @@ export default {
 	},
 	computed: {
 		computedMembers() {
-			let tempMembers = {
+			const tempMembers = {
 				list: [],
 				remainder: 0,
 			};
-			let memberList = this.$store.state.projectData.members;
+			const memberList = structuredClone(this.$store.state.projectData.members);
 
 			tempMembers.list = memberList.slice(0, 4);
 			tempMembers.remainder = memberList.length > 4 ? memberList.length - 4 : 0;
@@ -295,7 +295,7 @@ export default {
 
 
 		FilterTasks() {
-			let projectDataCopy = JSON.parse(JSON.stringify(this.$store.state.projectData));
+			let projectDataCopy = structuredClone(this.$store.state.projectData);
 
 			let search = this.$store.state.dashboardFilter.search;
 			let selectedTag = this.$store.state.dashboardFilter.selectedTag;
@@ -322,25 +322,19 @@ export default {
 
 
 					if (selectedTag.length > 0) {
-						tagFound = !!selectedTag.find(id => item.tagList.find(x => x.projectTagId === id));
+						tagFound = selectedTag.some(id => item.tags.some(a => a.projectTag.id === id));
 					}
 					if (selectedMember.length > 0) {
-						memberFound = !!selectedMember.find(id => item.members.find(x => x.employee.id === id));
+						memberFound = selectedMember.some(id => item.members.some(a => a.projectMember.employee.id === id));
 					}
 					if (selectedStatus.length > 0) {
-						statusFound = !!selectedStatus.find(x => x === item.status);
+						statusFound = selectedStatus.some(a => a === item.status);
 					}
 					if (selectedPriority.length > 0) {
-						priorityFound = false;
-						if (item.taskPriorityType) {
-							priorityFound = !!selectedPriority.find(x => x === item.taskPriorityType.id);
-						}
+						priorityFound = selectedPriority.some(a => a === item.priority);
 					}
 					if (selectedLevel.length > 0) {
-						levelFound = false;
-						if (item.taskLevelType) {
-							levelFound = !!selectedLevel.find(x => x === item.taskLevelType.id);
-						}
+						levelFound = selectedLevel.some(a => a === item.level);
 					}
 
 

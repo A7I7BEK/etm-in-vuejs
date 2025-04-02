@@ -49,7 +49,7 @@
 								</g>
 							</svg>
 						</span>
-						<span>{{ $store.state.projectData.projectType.name }}</span>
+						<span>{{ $store.state.projectData.projectType }}</span>
 					</div>
 
 					<div class="ln_common_btn ln_common_btn_bor_left">
@@ -79,7 +79,9 @@
 						class="ln_common32_btn"
 						v-for="item in computedMembers.list"
 						:title="item.employee.firstName + ' ' + item.employee.lastName +
-						 (!item.isOnline && item.employee.lastSeenTime ? ` - ${$t('wasOnline')}: ` + $options.filters.filterTimeMonth(item.employee.lastSeenTime) : '')"
+						 (!item.employee.user.isOnline && item.employee.user.lastOnlineAt ?
+						 ` - ${$t('wasOnline')}: ` +
+						 $options.filters.filterTimeMonth(item.employee.user.lastOnlineAt) : '')"
 					>
 
 						<img
@@ -95,18 +97,18 @@
 						<img
 							class="ln_common32_btn_ritop"
 							src="/img/ia33.png"
-							v-if="$store.state.projectData.manager && $store.state.projectData.manager.id === item.employee.id"
+							v-if="$store.state.projectData.manager.id === item.employee.id"
 						>
 						<img
 							class="ln_common32_btn_ritop"
 							src="/img/ia22.png"
-							v-if="item.employee.isTeamLeader"
+							v-if="item.isTeamLeader"
 						>
 						<img
 							class="ln_common32_btn_ritop"
 							src="/img/ia11.png"
 							style="right:auto;left: -4px;"
-							v-if="item.isOnline"
+							v-if="item.employee.user.isOnline"
 						>
 
 						<span
@@ -143,7 +145,9 @@
 										class="ln_common32_btn"
 										v-for="item in $store.state.projectData.members"
 										:title="item.employee.firstName + ' ' + item.employee.lastName +
-										 (!item.isOnline && item.employee.lastSeenTime ? ` - ${$t('wasOnline')}: ` + $options.filters.filterTimeMonth(item.employee.lastSeenTime) : '')"
+										(!item.employee.user.isOnline && item.employee.user.lastOnlineAt ?
+										` - ${$t('wasOnline')}: ` +
+										$options.filters.filterTimeMonth(item.employee.user.lastOnlineAt) : '')"
 									>
 
 										<img
@@ -159,18 +163,18 @@
 										<img
 											class="ln_common32_btn_ritop"
 											src="/img/ia33.png"
-											v-if="$store.state.projectData.manager && $store.state.projectData.manager.id === item.employee.id"
+											v-if="$store.state.projectData.manager.id === item.employee.id"
 										>
 										<img
 											class="ln_common32_btn_ritop"
 											src="/img/ia22.png"
-											v-if="item.employee.isTeamLeader"
+											v-if="item.isTeamLeader"
 										>
 										<img
 											class="ln_common32_btn_ritop"
 											src="/img/ia11.png"
 											style="right:auto;left: -4px;"
-											v-if="item.isOnline"
+											v-if="item.employee.user.isOnline"
 										>
 
 										<span
@@ -264,7 +268,7 @@
 								<!--		<span class="ln_common32_btn_name" v-else>{{ item.employee.firstName.charAt(0) + item.employee.lastName.charAt(0) }}</span>-->
 
 								<!--		<img class="ln_common32_btn_ritop" src="/img/ia33.png" v-if="item.employee.isManager">-->
-								<!--		<img class="ln_common32_btn_ritop" src="/img/ia22.png" v-if="item.employee.isTeamLeader">-->
+								<!--		<img class="ln_common32_btn_ritop" src="/img/ia22.png" v-if="item.isTeamLeader">-->
 								<!--		&lt;!&ndash;<img class="ln_common32_btn_ritop" src="/img/ia11.png">&ndash;&gt;-->
 								<!--	</button>-->
 								<!--</div>-->

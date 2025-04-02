@@ -11,7 +11,9 @@
 					<option
 						v-for="item in projectList"
 						:value="item.id"
-					>{{ item.name }}</option>
+					>
+						{{ item.name }}
+					</option>
 				</select>
 			</div>
 
@@ -251,6 +253,7 @@
 
 <script>
 import BaseReportTable from '../../../../../components/BaseReportTable';
+import { PROJECT_TYPE } from '../../../../../constants';
 
 
 export default {
@@ -312,7 +315,7 @@ export default {
 			this.$api
 				.get('/projects/selection', {
 					params: {
-						'projectKanban': true,
+						projectType: PROJECT_TYPE.KANBAN,
 						'memberId': this.selectedData.member,
 					}
 				})

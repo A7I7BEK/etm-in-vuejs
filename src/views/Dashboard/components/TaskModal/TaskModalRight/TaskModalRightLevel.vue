@@ -26,19 +26,19 @@
 
 					<div
 						class="priority-search__item"
-						v-for="item in $store.state.projectData.taskLevelType"
-						:key="item.id"
+						v-for="[ key, value ] in Object.entries(TASK_LEVEL_TYPE)"
+						:key="key"
 					>
 						<label>
 							<input
 								type="radio"
 								name="radioLevel"
 								hidden
-								:checked="$store.state.taskModalData.taskLevelType && $store.state.taskModalData.taskLevelType.id === item.id"
-								@change="ChangeLevel(item)"
+								:checked="$store.state.taskModalData.level === value"
+								@change="ChangeLevel(value)"
 							>
 
-							<h5>{{ $t(item.value) }}</h5>
+							<h5>{{ $t(`TASK_LEVEL_TYPE.${value}`) }}</h5>
 
 							<div class="doer-check"></div>
 						</label>
@@ -52,16 +52,24 @@
 </template>
 
 <script>
+import { TASK_LEVEL_TYPE } from '../../../../../constants';
+
+
 export default {
 	name: 'TaskModalRightLevel',
+	data() {
+		return {
+			TASK_LEVEL_TYPE,
+		};
+	},
 	methods: {
-		ChangeLevel(item) {
+		ChangeLevel(value) {
 			document.dispatchEvent(new Event('mousedown'));
 
 			this.$api
 				.put('/tasks/' + this.$store.state.taskModalData.id, {
 					name: this.$store.state.taskModalData.name,
-					level: item.id
+					level: value
 				})
 				.then(response => {
 					this.$store.commit('setModalTaskLevelType', response.data.data.taskLevelType);

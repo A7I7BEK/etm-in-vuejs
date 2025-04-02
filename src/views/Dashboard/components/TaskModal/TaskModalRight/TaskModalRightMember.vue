@@ -65,13 +65,17 @@ export default {
 	name: 'TaskModalRightMember',
 	computed: {
 		computedProjectMemberList() {
-			let memberList = [];
+			const memberList = [];
+			const prMembers = this.$store.state.projectData.members;
+			const tsMembers = this.$store.state.taskModalData.members;
 
-			memberList = this.$store.state.projectData.members.map(item => {
-				if (this.$store.state.taskModalData.members.some(x => x.employee.id === item.employee.id)) {
-					return { ...item, 'checked': true };
-				}
-				return { ...item, 'checked': false };
+			memberList = prMembers.map(item => {
+				const checked = tsMembers.some(a => a.projectMember.employee.id === item.employee.id);
+
+				return {
+					...item,
+					checked,
+				};
 			});
 
 			return memberList;

@@ -81,8 +81,9 @@
 								v-if="item.employee.photoFile"
 								:src="$store.state.url + item.employee.photoFile.url"
 							>
-							<strong
-								v-else>{{ item.employee.firstName.charAt(0) + item.employee.lastName.charAt(0) }}</strong>
+							<strong v-else>
+								{{ item.employee.firstName.charAt(0) + item.employee.lastName.charAt(0) }}
+							</strong>
 						</div>
 
 						<h5>{{ item.employee.firstName }} {{ item.employee.lastName }}</h5>

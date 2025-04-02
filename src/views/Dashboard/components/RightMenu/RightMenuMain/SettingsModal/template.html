@@ -17,21 +17,11 @@
 					</div>
 
 					<div class="form-group">
-						<label class="az_base_lbl">Code name</label>
-						<input
-							type="text"
-							class="form-control az_base_inp"
-							v-model.trim="model.codeName"
-							:class="{'is-invalid': $v.model.codeName.$error}"
-						>
-					</div>
-
-					<div class="form-group">
 						<label class="az_base_lbl">Group</label>
 						<select
 							class="form-control az_base_inp"
-							:class="{'is-invalid': $v.model.group.id.$error}"
-							v-model="model.group.id"
+							:class="{'is-invalid': $v.model.groupId.$error}"
+							v-model="model.groupId"
 						>
 							<option
 								v-for="item in groupList"
@@ -46,14 +36,16 @@
 						<label class="az_base_lbl">Manager</label>
 						<select
 							class="form-control az_base_inp"
-							:class="{'is-invalid': $v.model.manager.id.$error}"
-							v-model="model.manager.id"
+							:class="{'is-invalid': $v.model.managerId.$error}"
+							v-model="model.managerId"
 						>
 							<option
 								v-for="item in managerList"
 								:value="item.id"
 							>
-								{{ item.firstName }} {{ item.lastName }} {{ item.middleName }}
+								{{ item.firstName }}
+								{{ item.lastName }}
+								{{ item.middleName }}
 							</option>
 						</select>
 					</div>
