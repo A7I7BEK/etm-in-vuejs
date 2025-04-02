@@ -24,14 +24,16 @@
 						<th>{{ $tc('menu.user', 2) }}</th>
 						<td>
 							<ul class="az_crud_read_tb_ls">
-								<li v-for="item in model.employeeGroups">
+								<li v-for="item in model.employees">
 									<span class="txt">
-										{{ item.employeeInfo.firstName + ' ' + item.employeeInfo.lastName + ' ' + item.employeeInfo.middleName }}
+										{{ item.firstName }}
+										{{ item.lastName }}
+										{{ item.middleName }}
 									</span>
 
 									<i
+										v-if="item.id === model.leader.id"
 										class="fa fa-user-secret ml-2"
-										v-if="item.leader"
 										:title="$t('teamLeader')"
 									></i>
 								</li>
@@ -74,9 +76,10 @@ export default {
 			this.$api
 				.get('/groups/' + this.id)
 				.then(response => {
-					this.model = response.data.data;
-					this.titleName = response.data.data.name;
-					this.$store.state.metaData.title = this.$route.meta.title(response.data.data.name);
+					const data = response.data.data;
+					this.model = data;
+					this.titleName = data.name;
+					this.$store.state.metaData.title = this.$route.meta.title(data.name);
 				});
 		},
 	}

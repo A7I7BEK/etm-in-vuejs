@@ -39,9 +39,9 @@ export default {
 		return {
 			model: new FormService({
 				name: '',
-				organizationId: 0,
-				userIds: [],
+				employeeIds: [],
 				leaderId: 0,
+				organizationId: 0,
 			}),
 			titleName: '',
 		};
@@ -57,19 +57,17 @@ export default {
 					let data = response.data.data;
 
 					this.model.name = data.name;
-					this.model.organizationId = data.organizationId;
-					this.model.userIds = data.employeeGroups.map(x => {
+					this.model.leaderId = data.leader.id;
+					this.model.employeeIds = data.employees.map(item => {
 						return {
-							id: x.employeeId,
-							firstName: x.employeeInfo.firstName,
-							lastName: x.employeeInfo.lastName,
-							middleName: x.employeeInfo.middleName,
+							id: item.id,
+							firstName: item.firstName,
+							lastName: item.lastName,
+							middleName: item.middleName,
 						};
 					});
+					this.model.organizationId = data.organization.id;
 
-					setTimeout(() => {
-						this.model.leaderId = data.employeeGroups.find(x => x.leader).employeeId;
-					}, 50);
 
 					this.titleName = data.name;
 					this.$store.state.metaData.title = this.$route.meta.title(data.name);
@@ -77,7 +75,7 @@ export default {
 		},
 		save() {
 			let postData = this.model.GetData();
-			postData.userIds.find(x => x.id === postData.leaderId).leader = true;
+			postData.employeeIds.map(a => a.id);
 
 
 			this.$api

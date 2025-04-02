@@ -27,7 +27,7 @@
 					<base-input-search
 						label-class="d-none"
 						:value="params.allSearch"
-						@update:value="handleParams('search', $event)"
+						@update:value="handleParams(HANDLE_PARAMS.SEARCH, $event)"
 					></base-input-search>
 
 
@@ -80,7 +80,7 @@
 												lastName: item.lastName,
 												middleName: item.middleName
 											}"
-											v-model="$v.model.userIds.$model"
+											v-model="$v.model.employeeIds.$model"
 										>
 										<label
 											class="custom-control-label"
@@ -104,7 +104,9 @@
 
 								<td>
 									<div class="az_crud_tb_txt">
-										{{ item.firstName }} {{ item.lastName }} {{ item.middleName }}
+										{{ item.firstName }}
+										{{ item.lastName }}
+										{{ item.middleName }}
 									</div>
 								</td>
 
@@ -144,7 +146,7 @@
 							next-text="&raquo;"
 							:page-count="record.pageCount"
 							:value="params.page"
-							@input="handleParams('page', $event)"
+							@input="handleParams(HANDLE_PARAMS.PAGE, $event)"
 						></paginate>
 					</div>
 				</div>
@@ -157,11 +159,11 @@
 			<div class="az_team_form_user_bx">
 				<div
 					class="az_team_form_user"
-					:class="{ 'is-invalid': $v.model.userIds.$error }"
+					:class="{ 'is-invalid': $v.model.employeeIds.$error }"
 				>
 					<div
 						class="az_team_form_user_badge"
-						v-for="(item, index) in model.userIds"
+						v-for="(item, index) in model.employeeIds"
 					>
 						<div class="txt">{{ item.firstName }} {{ item.lastName }} {{ item.middleName }}</div>
 
@@ -196,7 +198,7 @@
 				<option :value="0">{{ $t('select') }}</option>
 
 				<option
-					v-for="item in model.userIds"
+					v-for="item in model.employeeIds"
 					:value="item.id"
 				>
 					{{ item.firstName }} {{ item.lastName }} {{ item.middleName }}
@@ -222,7 +224,7 @@ import { required } from 'vuelidate/lib/validators';
 import BaseCrudTable from '../../../../components/BaseCrudTable';
 import BaseInputOrganization from '../../../../components/BaseInputOrganization';
 import BaseInputSearch from '../../../../components/BaseInputSearch';
-import { ORDER } from '../../../../constants';
+import { HANDLE_PARAMS, ORDER } from '../../../../constants';
 
 
 const notZero = (value) => +value !== 0;
@@ -248,13 +250,15 @@ export default {
 	},
 	data() {
 		return {
+			ORDER,
+			HANDLE_PARAMS,
 			params: {
 				page: 1,
-				pageSize: 10,
+				pageSize: 20,
 				sortBy: 'id',
 				sortDirection: ORDER.DESC,
 				allSearch: null,
-				organizationId: 0,
+				organizationId: null,
 			},
 			record: {
 				list: [],
@@ -269,7 +273,7 @@ export default {
 				name: {
 					required,
 				},
-				userIds: {
+				employeeIds: {
 					required,
 				},
 				leaderId: {
@@ -291,14 +295,14 @@ export default {
 		'model.organizationId'(val) {
 			if (this.$store.state.userProfile.systemAdmin) {
 				if (!this.edit) {
-					this.model.userIds = [];
+					this.model.employeeIds = [];
 					this.params.allSearch = null;
 				}
 
-				this.handleParams('organization', val);
+				this.handleParams(HANDLE_PARAMS.ORGANIZATION, val);
 			}
 		},
-		'model.userIds'(val) {
+		'model.employeeIds'(val) {
 			this.model.leaderId = 0;
 			this.trackCheckboxAll();
 		},
@@ -327,20 +331,20 @@ export default {
 		},
 		handleParams(type, val) {
 			switch (type) {
-				case 'search':
-					this.params.allSearch = val || null;
-					break;
-
-				case 'page':
+				case HANDLE_PARAMS.PAGE:
 					this.params.page = val;
 					break;
 
-				case 'organization':
-					this.params.organizationId = val;
+				case HANDLE_PARAMS.SEARCH:
+					this.params.allSearch = val || null;
+					break;
+
+				case HANDLE_PARAMS.ORGANIZATION:
+					this.params.organizationId = val || null;
 					break;
 			}
 
-			if (type !== 'page') {
+			if (type !== HANDLE_PARAMS.PAGE) {
 				this.params.page = 1;
 			}
 
@@ -374,21 +378,21 @@ export default {
 
 
 			if (checked) {
-				const difference = data.filter(a => !this.model.userIds.some(b => a.id === b.id));
-				this.model.userIds.push(...difference);
+				const difference = data.filter(a => !this.model.employeeIds.some(b => a.id === b.id));
+				this.model.employeeIds.push(...difference);
 			}
 			else {
-				this.model.userIds = this.model.userIds.filter(a => !data.some(b => a.id === b.id));
+				this.model.employeeIds = this.model.employeeIds.filter(a => !data.some(b => a.id === b.id));
 			}
 		},
 		trackCheckboxAll() {
-			this.checkboxAllChecked = this.record.list.every(a => this.model.userIds.some(b => a.id === b.id));
+			this.checkboxAllChecked = this.record.list.every(a => this.model.employeeIds.some(b => a.id === b.id));
 		},
 		removeSelectedUser(index) {
-			this.model.userIds.splice(index, 1);
+			this.model.employeeIds.splice(index, 1);
 		},
 		clearSelectedUser() {
-			this.model.userIds = [];
+			this.model.employeeIds = [];
 		},
 	}
 };

@@ -31,16 +31,16 @@ export default {
 		return {
 			model: new FormService({
 				name: '',
-				organizationId: 0,
-				userIds: [],
+				employeeIds: [],
 				leaderId: 0,
+				organizationId: 0,
 			}),
 		};
 	},
 	methods: {
 		save() {
 			let postData = this.model.GetData();
-			postData.userIds.find(x => x.id === postData.leaderId).leader = true;
+			postData.employeeIds.map(a => a.id);
 
 
 			this.$api

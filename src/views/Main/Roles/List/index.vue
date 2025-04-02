@@ -273,11 +273,11 @@ export default {
 			},
 		};
 	},
-	created() {
-		this.GetList();
+	async created() {
+		await this.GetList();
 	},
 	methods: {
-		HandleParams(type, val) {
+		async HandleParams(type, val) {
 			switch (type) {
 				case HANDLE_PARAMS.PAGE:
 					this.params.page = val;
@@ -307,39 +307,38 @@ export default {
 				this.params.page = 1;
 			}
 
-			this.GetList();
+			await this.GetList();
 		},
-		GetList() {
-			this.$api
-				.get('/roles', {
-					params: this.params,
-				})
-				.then(response => {
-					const { totalItems } = response.data.meta;
-					const { page, pageSize, sortBy, sortDirection } = this.params;
+		async GetList() {
+			const resp = await this.$api.get('/roles', {
+				params: this.params,
+			});
 
-					response.data.data.forEach((item, index) => {
-						if (sortBy === SORT_PROP.ID && sortDirection === ORDER.DESC) {
-							item.rowNumber = (totalItems - (page - 1) * pageSize) - index;
-						}
-						else {
-							item.rowNumber = ((page - 1) * pageSize + 1) + index;
-						}
-					});
+			const data = resp.data.data;
+			const { totalItems, totalPages } = resp.data.meta;
+			const { page, pageSize, sortBy, sortDirection } = this.params;
 
-					this.record.list = response.data.data;
-					this.record.pageCount = response.data.meta.totalPages;
-				});
+			data.forEach((item, index) => {
+				if (sortBy === SORT_PROP.ID && sortDirection === ORDER.DESC) {
+					item.rowNumber = (totalItems - (page - 1) * pageSize) - index;
+				}
+				else {
+					item.rowNumber = ((page - 1) * pageSize + 1) + index;
+				}
+			});
+
+			this.record.list = data;
+			this.record.pageCount = totalPages;
 		},
-		Delete(id) {
-			if (confirm(this.$t('confirmDelete'))) {
-				this.$api
-					.delete('/roles/' + id)
-					.then(response => {
-						this.$notification.success(this.$t('successfullyDeleted'));
-						this.GetList();
-					});
+		async Delete(id) {
+			if (!confirm(this.$t('confirmDelete'))) {
+				return;
 			}
+
+			await this.$api.delete('/roles/' + id);
+			await this.GetList();
+
+			this.$notification.success(this.$t('successfullyDeleted'));
 		},
 	}
 };

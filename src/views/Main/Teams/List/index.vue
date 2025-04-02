@@ -11,13 +11,13 @@
 			<base-input-search
 				class="mr-3"
 				is-filter
-				@update:value="HandleParams('search', $event)"
+				@update:value="HandleParams(HANDLE_PARAMS.SEARCH, $event)"
 			></base-input-search>
 
 			<base-input-organization
 				v-if="$store.state.userProfile.systemAdmin"
 				is-filter
-				@update:value="HandleParams('organization', $event)"
+				@update:value="HandleParams(HANDLE_PARAMS.ORGANIZATION, $event)"
 			></base-input-organization>
 		</template>
 
@@ -29,13 +29,13 @@
 					<tr>
 						<th
 							class="width-75 sort"
-							@click="HandleParams('sort', 'id')"
-							:class="{ 'active': params.sortBy === 'id' }"
+							:class="{ 'active': params.sortBy === SORT_PROP.ID }"
+							@click="HandleParams(HANDLE_PARAMS.SORT_BY, SORT_PROP.ID)"
 						>
 							<div class="az_crud_tb_th">
 								<div class="txt">#</div>
 
-								<template v-if="params.sortBy === 'id'">
+								<template v-if="params.sortBy === SORT_PROP.ID">
 									<i
 										class="fa fa-angle-up"
 										v-if="params.sortDirection === ORDER.ASC"
@@ -50,13 +50,13 @@
 
 						<th
 							class="sort"
-							@click="HandleParams('sort', 'name')"
-							:class="{ 'active': params.sortBy === 'name' }"
+							:class="{ 'active': params.sortBy === SORT_PROP.NAME }"
+							@click="HandleParams(HANDLE_PARAMS.SORT_BY, SORT_PROP.NAME)"
 						>
 							<div class="az_crud_tb_th">
 								<div class="txt">{{ $t('name') }}</div>
 
-								<template v-if="params.sortBy === 'name'">
+								<template v-if="params.sortBy === SORT_PROP.NAME">
 									<i
 										class="fa fa-angle-up"
 										v-if="params.sortDirection === ORDER.ASC"
@@ -71,14 +71,34 @@
 
 						<th
 							class="sort"
-							v-if="$store.state.userProfile.systemAdmin"
-							@click="HandleParams('sort', 'organizationId')"
-							:class="{ 'active': params.sortBy === 'organizationId' }"
+							:class="{ 'active': params.sortBy === SORT_PROP.LEADER }"
+							@click="HandleParams(HANDLE_PARAMS.SORT_BY, SORT_PROP.LEADER)"
+						>
+							<div class="az_crud_tb_th">
+								<div class="txt">{{ $t('teamLeader') }}</div>
+
+								<template v-if="params.sortBy === SORT_PROP.LEADER">
+									<i
+										class="fa fa-angle-up"
+										v-if="params.sortDirection === ORDER.ASC"
+									></i>
+									<i
+										class="fa fa-angle-down"
+										v-else
+									></i>
+								</template>
+							</div>
+						</th>
+
+						<th
+							class="sort"
+							:class="{ 'active': params.sortBy === SORT_PROP.ORGANIZATION }"
+							@click="HandleParams(HANDLE_PARAMS.SORT_BY, SORT_PROP.ORGANIZATION)"
 						>
 							<div class="az_crud_tb_th">
 								<div class="txt">{{ $tc('menu.organization', 1) }}</div>
 
-								<template v-if="params.sortBy === 'organizationId'">
+								<template v-if="params.sortBy === SORT_PROP.ORGANIZATION">
 									<i
 										class="fa fa-angle-up"
 										v-if="params.sortDirection === ORDER.ASC"
@@ -107,19 +127,10 @@
 					#body
 					v-if="record.list.length > 0"
 				>
-					<tr v-for="(item, index) in record.list">
+					<tr v-for="item in record.list">
 						<td>
-							<div
-								class="az_crud_tb_txt"
-								v-if="params.sortBy === 'id' && params.sortDirection === ORDER.DESC"
-							>
-								{{ record.count - (params.page * params.pageSize) - index }}
-							</div>
-							<div
-								class="az_crud_tb_txt"
-								v-else
-							>
-								{{ (params.page * params.pageSize) + (index + 1) }}
+							<div class="az_crud_tb_txt">
+								{{ item.rowNumber }}
 							</div>
 						</td>
 
@@ -127,8 +138,16 @@
 							<div class="az_crud_tb_txt">{{ item.name }}</div>
 						</td>
 
-						<td v-if="$store.state.userProfile.systemAdmin">
-							<div class="az_crud_tb_txt">{{ item.organizationName }}</div>
+						<td>
+							<div class="az_crud_tb_txt">
+								{{ item.firstName }}
+								{{ item.lastName }}
+								{{ item.middleName }}
+							</div>
+						</td>
+
+						<td>
+							<div class="az_crud_tb_txt">{{ item.organization.name }}</div>
 						</td>
 
 						<td v-if="can('GROUP_READ') || can('GROUP_UPDATE') || can('GROUP_DELETE')">
@@ -169,7 +188,7 @@
 		<template #range>
 			<base-crud-range
 				:value="params.pageSize"
-				@input="HandleParams('range', $event)"
+				@input="HandleParams(HANDLE_PARAMS.PAGE_SIZE, $event)"
 			></base-crud-range>
 		</template>
 
@@ -186,8 +205,8 @@
 				prev-text="&laquo;"
 				next-text="&raquo;"
 				:page-count="record.pageCount"
-				:value="params.page + 1"
-				@input="HandleParams('page', $event)"
+				:value="params.page"
+				@input="HandleParams(HANDLE_PARAMS.PAGE, $event)"
 			></paginate>
 		</template>
 
@@ -195,14 +214,21 @@
 </template>
 
 <script>
-import BaseCrudPageList from '../../../../components/BaseCrudPageList';
-import BaseCrudTable from '../../../../components/BaseCrudTable';
-import BaseInputSearch from '../../../../components/BaseInputSearch';
-import BaseCrudRange from '../../../../components/BaseCrudRange';
-import BaseInputOrganization from '../../../../components/BaseInputOrganization';
 import Paginate from 'vuejs-paginate';
-import { ORDER } from '../../../../constants';
+import BaseCrudPageList from '../../../../components/BaseCrudPageList';
+import BaseCrudRange from '../../../../components/BaseCrudRange';
+import BaseCrudTable from '../../../../components/BaseCrudTable';
+import BaseInputOrganization from '../../../../components/BaseInputOrganization';
+import BaseInputSearch from '../../../../components/BaseInputSearch';
+import { HANDLE_PARAMS, ORDER, ORDER_REVERSE } from '../../../../constants';
 
+
+const SORT_PROP = {
+	ID: 'id',
+	NAME: 'name',
+	LEADER: 'leader',
+	ORGANIZATION: 'organization',
+};
 
 
 export default {
@@ -217,77 +243,89 @@ export default {
 	},
 	data() {
 		return {
+			ORDER,
+			HANDLE_PARAMS,
+			SORT_PROP,
 			params: {
-				page: 0,
+				page: 1,
 				pageSize: 20,
-				sortBy: 'id',
+				sortBy: SORT_PROP.ID,
 				sortDirection: ORDER.DESC,
 				allSearch: null,
 				organizationId: null,
 			},
 			record: {
 				list: [],
-				count: 0,
 				pageCount: 0,
 			},
 		};
 	},
-	created() {
-		this.GetList();
+	async created() {
+		await this.GetList();
 	},
 	methods: {
-		HandleParams(type, val) {
+		async HandleParams(type, val) {
 			switch (type) {
-				case 'search':
-					this.params.allSearch = val ? val : null;
+				case HANDLE_PARAMS.PAGE:
+					this.params.page = val;
 					break;
 
-				case 'range':
+				case HANDLE_PARAMS.PAGE_SIZE:
 					this.params.pageSize = val;
 					break;
 
-				case 'page':
-					this.params.page = val - 1;
+				case HANDLE_PARAMS.SEARCH:
+					this.params.allSearch = val || null;
 					break;
 
-				case 'sort':
+				case HANDLE_PARAMS.SORT_BY:
 					if (this.params.sortBy === val) {
-						this.params.sortDirection = this.params.sortDirection === ORDER.ASC ? ORDER.DESC : ORDER.ASC;
+						this.params.sortDirection = ORDER_REVERSE[ this.params.sortDirection ];
 					}
 					this.params.sortBy = val;
 					break;
 
-				case 'organization':
-					this.params.organizationId = val === 0 ? null : val;
+				case HANDLE_PARAMS.ORGANIZATION:
+					this.params.organizationId = val || null;
 					break;
 			}
 
-			if (type !== 'page') {
-				this.params.page = 0;
+			if (type !== HANDLE_PARAMS.PAGE) {
+				this.params.page = 1;
 			}
 
-			this.GetList();
+			await this.GetList();
 		},
-		GetList() {
-			this.$api
-				.get('/groups', {
-					params: this.params,
-				})
-				.then(response => {
-					this.record.list = response.data.data;
-					this.record.count = response.data.totalCount;
-					this.record.pageCount = Math.ceil(response.data.totalCount / this.params.pageSize);
-				});
+		async GetList() {
+			const resp = await this.$api.get('/groups', {
+				params: this.params,
+			});
+
+			const data = resp.data.data;
+			const { totalItems, totalPages } = resp.data.meta;
+			const { page, pageSize, sortBy, sortDirection } = this.params;
+
+			data.forEach((item, index) => {
+				if (sortBy === SORT_PROP.ID && sortDirection === ORDER.DESC) {
+					item.rowNumber = (totalItems - (page - 1) * pageSize) - index;
+				}
+				else {
+					item.rowNumber = ((page - 1) * pageSize + 1) + index;
+				}
+			});
+
+			this.record.list = data;
+			this.record.pageCount = totalPages;
 		},
-		Delete(id) {
-			if (confirm(this.$t('confirmDelete'))) {
-				this.$api
-					.delete('/groups/' + id)
-					.then(response => {
-						this.$notification.success(this.$t('successfullyDeleted'));
-						this.GetList();
-					});
+		async Delete(id) {
+			if (!confirm(this.$t('confirmDelete'))) {
+				return;
 			}
+
+			await this.$api.delete('/groups/' + id);
+			await this.GetList();
+
+			this.$notification.success(this.$t('successfullyDeleted'));
 		},
 	}
 };
