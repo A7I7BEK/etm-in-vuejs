@@ -56,7 +56,7 @@
 												type="checkbox"
 												hidden
 												v-model="item.checked"
-												@change="ProjectTagToggle(item)"
+												@change="TaskTagToggle(item)"
 											>
 											<img
 												src="/img/svg/check.svg"
@@ -196,108 +196,100 @@ export default {
 			model: new FormService({
 				name: '',
 				color: '#7d97c7',
-				projectId: this.$store.state.taskModalData.projectId,
+				projectId: this.$store.state.projectData.id,
 			}),
 		};
 	},
-	created() {
-		this.GetProjectTagAll();
+	async created() {
+		await this.GetProjectTagAll();
 	},
 	methods: {
-		GetProjectTagAll() {
-			this.$api
-				.get('/project-tags', {
-					params: {
-						projectId: this.$store.state.taskModalData.projectId,
-						sortBy: 'id',
-						sortDirection: ORDER.ASC,
-					}
-				})
-				.then(response => {
-					this.projectTagList = response.data.data.map(item => {
-						if (this.$store.state.taskModalData.tags.findIndex(x => x.projectTagId === item.id) < 0) {
-							return { ...item, 'checked': false };
-						}
-						return { ...item, 'checked': true };
-					});
-				});
+		async GetProjectTagAll() {
+			const resp = await this.$api.get('/project-tags', {
+				params: {
+					sortBy: 'id',
+					sortDirection: ORDER.ASC,
+					projectId: this.$store.state.projectData.id,
+				}
+			});
+
+			this.$store.state.projectData.tags = resp.data.data;
+			const taskTags = this.$store.state.taskModalData.tags;
+
+			this.projectTagList = resp.data.data.map(prTag => {
+				return {
+					...prTag,
+					checked: taskTags.some(tsTag => tsTag.projectTag.id === prTag.id),
+				};
+			});
 		},
-		CreateProjectTag() {
-			this.$api
-				.post('/project-tags', this.model.GetData())
-				.then(response => {
-					this.GetProjectTagAll();
-					this.tagViewMode = true;
-					this.$notification.success(this.$t('SuccessfullyCreated'));
-					this.model.Reset();
-				});
+		async CreateProjectTag() {
+			await this.$api.post('/project-tags', this.model.GetData());
+			await this.GetProjectTagAll();
+
+			this.tagViewMode = true;
+			this.model.Reset();
+			this.$notification.success(this.$t('SuccessfullyCreated'));
 		},
-		EditProjectTag(item) {
-			let postData = { ...item };
-			postData.name = this.projectTagName;
-			this.$api
-				.put('/project-tags/' + postData.id, postData)
-				.then(response => {
-					this.projectTagId = 0;
-					this.GetTaskTagAll();
-					this.GetProjectTagAll();
-					this.$notification.success(this.$t('SuccessfullyChanged'));
-				});
+		async EditProjectTag(item) {
+			await this.$api.put('/project-tags/' + item.id, {
+				name: this.projectTagName,
+				color: item.color,
+			});
+			this.projectTagId = 0;
+
+			await this.GetTaskTagAll();
+			await this.GetProjectTagAll();
+
+			this.$notification.success(this.$t('SuccessfullyChanged'));
 		},
-		DeleteProjectTag(id) {
-			if (confirm(this.$t('confirmDelete'))) {
-				this.$api
-					.delete('/project-tags/' + id)
-					.then(response => {
-						this.GetTaskTagAll();
-						this.GetProjectTagAll();
-						this.$notification.success(this.$t('successfullyDeleted'));
-					});
+		async DeleteProjectTag(id) {
+			if (!confirm(this.$t('confirmDelete'))) {
+				return;
 			}
+
+			await this.$api.delete('/project-tags/' + id);
+			await this.GetTaskTagAll();
+			await this.GetProjectTagAll();
+
+			this.$notification.success(this.$t('successfullyDeleted'));
 		},
 
-		ProjectTagToggle(item) {
+		async TaskTagToggle(item) {
 			if (item.checked) {
-				this.AddTaskTag(item.id);
+				await this.AddTaskTag(item.id);
 			}
 			else {
-				this.DeleteTaskTag(item.id);
+				await this.DeleteTaskTag(item.id);
 			}
 		},
+		async GetTaskTagAll() {
+			const resp = await this.$api.get('/task-tags', {
+				params: {
+					taskId: this.$store.state.taskModalData.id,
+				}
+			});
 
-		GetTaskTagAll() {
-			this.$api
-				.get('/task-tags', {
-					params: {
-						taskId: this.$store.state.taskModalData.id,
-					}
-				})
-				.then(response => {
-					this.$store.state.taskModalData.tags = response.data.data;
-					this.$store.state.taskModalActionStarter++;
-				});
+			this.$store.state.taskModalData.tags = resp.data.data;
+			this.$store.state.taskModalActionStarter++;
 		},
-		AddTaskTag(id) {
-			this.$api
-				.post('/task-tags', {
+		async AddTaskTag(id) {
+			await this.$api.post('/task-tags', {
+				projectTagId: id,
+				taskId: this.$store.state.taskModalData.id
+			});
+
+			await this.GetTaskTagAll();
+		},
+		async DeleteTaskTag(id) {
+			await this.$api.delete('/task-tags', {
+				data: {
 					projectTagId: id,
 					taskId: this.$store.state.taskModalData.id
-				})
-				.then(response => {
-					this.GetTaskTagAll();
-				});
-		},
-		DeleteTaskTag(id) {
-			this.$api
-				.delete('/task-tags', {
-					data: {
-						projectTagId: id,
-						taskId: this.$store.state.taskModalData.id
-					}
-				})
-				.then(response => {
-					this.GetTaskTagAll();
-				});
+				}
+			});
+
+			await this.GetTaskTagAll();
 		},
 	}
 };
