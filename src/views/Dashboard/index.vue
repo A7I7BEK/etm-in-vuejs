@@ -122,7 +122,7 @@ export default {
 			clearTimeout(this.socketTimerId);
 
 			this.socketTimerId = setTimeout(() => {
-				let member = this.$store.state.projectData.members.find(x => x.employee.user.id === val.userId);
+				let member = this.$store.state.projectData.members.find(a => a.employee.user.id === val.userId);
 				if (member) {
 					this.$set(member.employee.user, 'isOnline', val.isOnline);
 					this.$set(member.employee.user, 'lastOnlineAt', val.lastOnlineAt);
@@ -130,8 +130,8 @@ export default {
 			}, 2000);
 		},
 	},
-	created() {
-		this.GetAll();
+	async created() {
+		await this.GetAll();
 		this.ListenSocketColumn();
 		this.ListenSocketTask();
 	},
@@ -141,64 +141,57 @@ export default {
 		this.$store.state.projectData = null;
 	},
 	methods: {
-		GetAll() {
+		async GetAll() {
 			this.$store.state.loader = true;
 
-			this.$api
-				.get('/projects/' + this.$route.params.id + '/details')
-				.then(response => {
-					this.$store.state.projectData = response.data.data;
-					this.$store.state.metaData.title = this.$route.meta.title(response.data.data.name);
+			const resp = await this.$api.get('/projects/' + this.$route.params.id + '/details');
+			this.$store.state.projectData = resp.data.data;
+			this.$store.state.metaData.title = this.$route.meta.title(resp.data.data.name);
 
-					this.socketColumn.connect();
-					this.socketColumn.enableMonitoring();
+			this.socketColumn.connect();
+			this.socketColumn.enableMonitoring();
 
-					this.socketTask.connect();
-					this.socketTask.enableMonitoring();
-				})
-				.finally(() => {
-					setTimeout(() => {
-						this.$store.state.loader = false;
-					}, 1000);
-				});
-		},
-		GetEmployeeAll() {
-			this.$api
-				.get('/project-members', {
-					params: {
-						'projectId': this.$route.params.id,
-						'sortBy': 'id',
-						'sortDirection': ORDER.DESC,
-					}
-				})
-				.then(response => {
-					this.$store.state.projectData.members = response.data.data;
-				});
-		},
-		AddEmployeeList() {
-			let selectedList = this.employeeList.filter(item => item.checked);
-			let userIdList = selectedList.map(item => ({ id: item.id }));
+			this.socketTask.connect();
+			this.socketTask.enableMonitoring();
 
-			this.$api
-				.post('/project-members', {
-					'projectId': this.$store.state.projectData.id,
-					'userIds': userIdList,
-				})
-				.then(response => {
-					this.GetEmployeeAll();
-					this.employeeSearch = null;
-					this.employeeList = null;
-				});
+			setTimeout(() => {
+				this.$store.state.loader = false;
+			}, 500);
+
 		},
-		DeleteMember(id) {
-			if (confirm(this.$t('confirmDelete'))) {
-				this.$api
-					.delete('/project-members/' + id)
-					.then(response => {
-						this.GetEmployeeAll();
-						this.$notification.success(this.$t('successfullyDeleted'));
-					});
+		async GetEmployeeAll() {
+			const resp = await this.$api.get('/project-members', {
+				params: {
+					sortBy: 'id',
+					sortDirection: ORDER.DESC,
+					projectId: this.$store.state.projectData.id,
+				}
+			});
+
+			this.$store.state.projectData.members = resp.data.data;
+		},
+		async AddEmployeeList() {
+			const selectedList = this.employeeList.filter(item => item.checked);
+			const userIdList = selectedList.map(item => item.id);
+
+			await this.$api.post('/project-members', {
+				projectId: this.$store.state.projectData.id,
+				employeeIds: userIdList,
+			});
+			await this.GetEmployeeAll();
+
+			this.employeeSearch = null;
+			this.employeeList = null;
+		},
+		async DeleteMember(id) {
+			if (!confirm(this.$t('confirmDelete'))) {
+				return;
 			}
+
+			await this.$api.delete('/project-members/' + id);
+			await this.GetEmployeeAll();
+
+			this.$notification.success(this.$t('successfullyDeleted'));
 		},
 		ListenSocketColumn() {
 			this.socketColumn.socket.on('column-insert', (data) => {
