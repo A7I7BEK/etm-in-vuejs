@@ -88,10 +88,8 @@ export default {
 
 			this.$api
 				.post('/project-columns', {
-					projectId: this.$route.params.id,
 					name: this.columnName,
-					codeName: this.columnName.toUpperCase().split(' ').join('_'),
-					columnType: 'DEFAULT',
+					projectId: this.$route.params.id,
 				})
 				.then(response => {
 					$('#modalCreateColumn').modal('hide');

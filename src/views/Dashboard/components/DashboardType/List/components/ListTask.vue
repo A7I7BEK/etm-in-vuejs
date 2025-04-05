@@ -5,7 +5,7 @@
 	>
 		<div
 			class="ln_board_item1_body_1_left"
-			:class="{ 'high': taskItem.taskPriorityType === TASK_PRIORITY_TYPE.HIGH }"
+			:class="{ 'high': taskItem.priority === TASK_PRIORITY_TYPE.HIGH }"
 		>
 			<p class="ln_board_item1_body_1_left_pp">{{ taskItem.name }}</p>
 		</div>
@@ -14,25 +14,25 @@
 		<div class="ln_board_item1_body_1_right">
 			<div
 				class="ln_board_item1_body_1_right_00"
-				v-if="$moment(taskItem.deadLine).isValid()"
+				v-if="$moment(taskItem.endDate).isValid()"
 				:class="statusClass[ taskItem.status ]"
 			>
-				<p v-if="$moment().diff($moment(taskItem.deadLine), 'years') > 0">
-					{{ taskItem.deadLine | filterDateMonth }}
+				<p v-if="$moment().diff($moment(taskItem.endDate), 'years') > 0">
+					{{ taskItem.endDate | filterDateMonth }}
 				</p>
 				<p v-else>
-					{{ taskItem.deadLine | filterMonthTime }}
+					{{ taskItem.endDate | filterMonthTime }}
 				</p>
 			</div>
 
 
 			<div
 				class="ln_board_item1_body_1_right_11"
-				v-if="taskItem.checkListCount.totalCount > 0 || taskItem.commentCount > 0"
+				v-if="taskItem.checkListCount || taskItem.commentCount > 0"
 			>
 				<div
 					class="ln_board_item1_____11"
-					v-if="taskItem.checkListCount.totalCount > 0"
+					v-if="taskItem.checkListCount"
 				>
 					<img src="/img/rom3.png">
 					<span>{{ taskItem.checkListCount.checkedCount }} - {{ taskItem.checkListCount.totalCount }}</span>

@@ -32,7 +32,7 @@
 					</div>
 					<p class="ln_board_item1_header_left_ppp">
 						<b v-if="typeTrello">{{ columnItem.name }}</b>
-						<b v-else>{{ $t(columnItem.codeName) }}</b>
+						<b v-else>{{ $t(columnItem.name) }}</b>
 						<span>({{ columnItem.tasks.length }})</span>
 					</p>
 				</div>
@@ -133,9 +133,9 @@
 </template>
 
 <script>
-import ListTask from './ListTask';
 import draggable from 'vuedraggable';
 import { required } from 'vuelidate/lib/validators';
+import ListTask from './ListTask';
 
 
 
@@ -176,13 +176,10 @@ export default {
 			}
 
 
-			let postData = { ...this.columnItem };
-			postData.name = this.columnNameForEdit;
-			postData.codeName = this.columnNameForEdit.toUpperCase().split(' ').join('_');
-			delete postData.tasks;
-
 			this.$api
-				.put('/project-columns/' + postData.id, postData)
+				.put('/project-columns/' + this.columnItem.id, {
+					name: this.columnNameForEdit,
+				})
 				.then(response => {
 					this.columnNameEditMode = false;
 					this.columnNameForEdit = null;
@@ -204,7 +201,7 @@ export default {
 		},
 		DraggableEnd() {
 			if (!this.dragEvent ||
-				this.columnItem.tasks.findIndex(x => x.id === this.dragEvent.drag.element.id)
+				this.columnItem.tasks.findIndex(a => a.id === this.dragEvent.drag.element.id)
 				===
 				this.dragEvent.drag.element.ordering) {
 				return;
@@ -212,19 +209,20 @@ export default {
 
 
 			this.ReorderArray(this.columnItem.tasks);
-			if (this.dragEvent.drag.element.columnId !== this.dragEvent.drop.component.$attrs[ 'data-id' ]) {
+			if (this.dragEvent.drag.element.column.id !== this.dragEvent.drop.component.$attrs[ 'data-id' ]) {
 				this.ReorderArray(this.dragEvent.drop.list);
-				this.dragEvent.drag.element.columnId = this.dragEvent.drop.component.$attrs[ 'data-id' ];
+				this.dragEvent.drag.element.column.id = this.dragEvent.drop.component.$attrs[ 'data-id' ];
 			}
 
 
-			let elemOrder = this.dragEvent.drop.list.findIndex(x => x.id === this.dragEvent.drag.element.id);
+			let elemOrder = this.dragEvent.drop.list.findIndex(a => a.id === this.dragEvent.drag.element.id);
+
 
 			this.$api
 				.post('/tasks/move', {
 					id: this.dragEvent.drag.element.id,
 					projectId: this.dragEvent.drag.element.projectId,
-					columnId: this.dragEvent.drag.element.columnId,
+					columnId: this.dragEvent.drag.element.column.id,
 					ordering: elemOrder < 0 ? 0 : elemOrder,
 				})
 				.then(response => {

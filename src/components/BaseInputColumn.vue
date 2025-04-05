@@ -20,7 +20,7 @@
 			>
 				{{ item.projectType === PROJECT_TYPE.KANBAN ? $t(item.name) : item.name }}
 
-				<template v-if="showProject"> => {{ item.projectName }}</template>
+				<template v-if="showProject"> => {{ item.project.name }}</template>
 			</option>
 		</select>
 	</div>

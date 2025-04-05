@@ -162,7 +162,9 @@
 							type="button"
 							class="create-card button-effect m-0"
 							@click="TaskChange"
-						>{{ $t('copy') }}</button>
+						>
+							{{ $t('copy') }}
+						</button>
 					</div>
 
 				</div>

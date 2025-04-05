@@ -2,7 +2,7 @@
 	<div
 		class="board-item__inner__list"
 		@click="$store.state.taskModalId = taskItem.id"
-		:class="{ 'board-list__red': taskItem.taskPriorityType === TASK_PRIORITY_TYPE.HIGH }"
+		:class="{ 'board-list__red': taskItem.priority === TASK_PRIORITY_TYPE.HIGH }"
 	>
 
 		<h6>{{ taskItem.name }}</h6>
@@ -11,14 +11,14 @@
 
 			<div
 				class="list-settings__date"
-				v-if="$moment(taskItem.deadLine).isValid()"
+				v-if="$moment(taskItem.endDate).isValid()"
 			>
 				<span :class="statusClass[ taskItem.status ]">
-					<template v-if="$moment().diff($moment(taskItem.deadLine), 'years') > 0">
-						{{ taskItem.deadLine | filterDateMonth }}
+					<template v-if="$moment().diff($moment(taskItem.endDate), 'years') > 0">
+						{{ taskItem.endDate | filterDateMonth }}
 					</template>
 					<template v-else>
-						{{ taskItem.deadLine | filterMonthTime }}
+						{{ taskItem.endDate | filterMonthTime }}
 					</template>
 				</span>
 			</div>
@@ -45,7 +45,7 @@
 
 			<div
 				class="list-settings_checkbox"
-				v-if="taskItem.checkListCount.totalCount > 0"
+				v-if="taskItem.checkListCount"
 			>
 				<img
 					src="/img/svg/checkbox.svg"
@@ -73,16 +73,16 @@
 
 			<div
 				class="list-settings__users__colors"
-				v-if="taskItem.tagList.length > 0"
+				v-if="taskItem.tags.length > 0"
 			>
 				<div class="list-color__main">
 					<div
 						class="list-color__main__item"
-						v-for="item in taskItem.tagList"
+						v-for="item in taskItem.tags"
 						:key="item.id"
-						:style="{ background: item.color }"
+						:style="{ background: item.projectTag.color }"
 					>
-						{{ item.name }}
+						{{ item.projectTag.name }}
 					</div>
 				</div>
 			</div>

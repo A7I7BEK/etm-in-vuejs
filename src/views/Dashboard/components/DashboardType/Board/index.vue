@@ -84,7 +84,7 @@ export default {
 		},
 		DraggableEnd() {
 			if (!this.dragElem ||
-				this.projectData.columns.findIndex(x => x.id === this.dragElem.id)
+				this.projectData.columns.findIndex(a => a.id === this.dragElem.id)
 				===
 				this.dragElem.ordering) {
 				return;
@@ -92,13 +92,13 @@ export default {
 
 
 			this.ReorderArray(this.projectData.columns);
-			let elemOrder = this.projectData.columns.findIndex(x => x.id === this.dragElem.id);
+			let elemOrder = this.projectData.columns.findIndex(a => a.id === this.dragElem.id);
 
 
 			this.$api
 				.post('/project-columns/move', {
 					id: this.dragElem.id,
-					projectId: this.dragElem.projectId,
+					projectId: this.dragElem.project.id,
 					ordering: elemOrder,
 				})
 				.then(response => {
