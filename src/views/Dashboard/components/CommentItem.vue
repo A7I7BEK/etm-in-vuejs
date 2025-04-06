@@ -11,13 +11,13 @@
 				@click="showModal"
 				v-if="clickable"
 			>
-				{{ comment.taskName }}
+				{{ comment.task.name }}
 			</a>
 			<p
 				class="m-0"
 				v-else
 			>
-				{{ comment.taskName }}
+				{{ comment.task.name }}
 			</p>
 			<div class="allactionln_t111_dataproblem">
 				<span>
@@ -44,6 +44,7 @@
 <script>
 import { TASK_COMMENT_TYPE } from '../../../constants';
 
+
 export default {
 	props: {
 		comment: Object,
@@ -63,7 +64,7 @@ export default {
 	},
 	methods: {
 		showModal() {
-			this.$store.state.taskModalId = this.comment.taskId;
+			this.$store.state.taskModalId = this.comment.task.id;
 		}
 	}
 };

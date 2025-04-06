@@ -1,4 +1,7 @@
-<base-right-menu id="rightMenuAction" button-back="rightMenuMain">
+<base-right-menu
+	id="rightMenuAction"
+	button-back="rightMenuMain"
+>
 	<template #title>{{$t('actions')}}</template>
 
 
@@ -6,22 +9,40 @@
 		<div class="allactionln_tab">
 			<ul class="nav nav-tabs">
 				<li class="nav-item">
-					<a class="nav-link active" data-toggle="tab" href="#actionMenuHome">{{$t('all')}}</a>
+					<a
+						class="nav-link active"
+						data-toggle="tab"
+						href="#actionMenuHome"
+					>{{$t('all')}}</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" data-toggle="tab" href="#actionMenuComment">{{$t('comments')}}</a>
+					<a
+						class="nav-link"
+						data-toggle="tab"
+						href="#actionMenuComment"
+					>{{$t('comments')}}</a>
 				</li>
 			</ul>
 
 
 			<div class="tab-content">
-				<div class="tab-pane fade show active" id="actionMenuHome">
+				<div
+					class="tab-pane fade show active"
+					id="actionMenuHome"
+				>
 					<div class="allactionln_t1">
 
-						<div v-for="item in actionList" class="allactionln_t111">
+						<div
+							v-for="item in actionList"
+							class="allactionln_t111"
+						>
 							<div class="menu-actions__item">
 								<div class="menu-actions__ava">
-									<img v-if="item.photoUrl && item.photoUrl.trim()" :src="$store.state.url + item.photoUrl" alt="">
+									<img
+										v-if="item.photoUrl && item.photoUrl.trim()"
+										:src="$store.state.url + item.photoUrl"
+										alt=""
+									>
 									<b v-else>{{ item.firstName.charAt(0) + item.lastName.charAt(0) }}</b>
 								</div>
 								<div class="menu-actions__item__text">
@@ -50,8 +71,15 @@
 							<!--</div>-->
 						</div>
 
-						<div v-show="actionTotalCount > actionPageSize" class="mt-4">
-							<button @click="GetTaskActionList(20)" type="button" class="btn az_base_btn btn-primary w-100">
+						<div
+							v-show="actionTotalCount > actionPageSize"
+							class="mt-4"
+						>
+							<button
+								@click="GetTaskActionList(20)"
+								type="button"
+								class="btn az_base_btn btn-primary w-100"
+							>
 								{{$t('more')}}
 							</button>
 						</div>
@@ -59,19 +87,31 @@
 				</div>
 
 
-				<div class="tab-pane fade" id="actionMenuComment">
+				<div
+					class="tab-pane fade"
+					id="actionMenuComment"
+				>
 					<div class="allactionln_t1">
 
-						<div v-for="item in commentList" class="allactionln_t111">
+						<div
+							v-for="item in commentList"
+							class="allactionln_t111"
+						>
 							<div class="menu-actions__item">
 								<div class="menu-actions__ava">
-									<img v-if="item.photoUrl && item.photoUrl.trim()" :src="$store.state.url + item.photoUrl" alt="">
-									<b v-else>{{ item.firstName.charAt(0) + item.lastName.charAt(0) }}</b>
+									<img
+										v-if="item.author.photoFile"
+										:src="$store.state.url + item.author.photoFile.url"
+										alt=""
+									>
+									<b v-else>
+										{{ item.author.firstName.charAt(0) + item.author.lastName.charAt(0) }}
+									</b>
 								</div>
 								<div class="menu-actions__item__text">
 									<strong>
-										{{ item.firstName }}
-										{{ item.lastName }}
+										{{ item.author.firstName }}
+										{{ item.author.lastName }}
 									</strong>
 
 									<comment-item :comment="item" />
@@ -80,8 +120,15 @@
 							</div>
 							<div class="menu-actions__item_imgs_ln"></div>
 						</div>
-						<div v-show="commentTotalCount > commentPageSize" class="mt-4">
-							<button @click="GetTaskCommentList(20)" type="button" class="btn btn-primary w-100 text-center">
+						<div
+							v-show="commentTotalCount > commentPageSize"
+							class="mt-4"
+						>
+							<button
+								@click="GetTaskCommentList(20)"
+								type="button"
+								class="btn btn-primary w-100 text-center"
+							>
 								{{$t('more')}}
 							</button>
 						</div>

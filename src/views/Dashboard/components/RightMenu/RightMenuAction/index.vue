@@ -1,8 +1,8 @@
 <script>
 import BaseRightMenu from '../../../../../components/BaseRightMenu';
+import { ORDER } from '../../../../../constants';
 import ActionItem from '../../ActionItem';
 import CommentItem from '../../CommentItem';
-import { ORDER } from '../../../../../constants';
 
 
 export default {
@@ -65,17 +65,18 @@ export default {
 			this.$api
 				.get('/task-comments', {
 					params: {
-						'page': 0,
-						'pageSize': this.commentPageSize,
-						'sortBy': 'id',
-						'sortDirection': ORDER.DESC,
-						'projectId': this.$route.params.id,
-						'forMenu': true
+						page: 1,
+						pageSize: this.commentPageSize,
+						sortBy: 'id',
+						sortDirection: ORDER.DESC,
+						projectId: this.$route.params.id,
 					}
 				})
 				.then(response => {
-					this.commentList = response.data.data;
-					this.commentTotalCount = response.data.totalCount;
+					const { data, meta } = response.data;
+
+					this.commentList = data;
+					this.commentTotalCount = meta.totalItems;
 				});
 		},
 	}

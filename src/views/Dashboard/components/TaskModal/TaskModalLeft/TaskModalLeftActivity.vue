@@ -46,8 +46,8 @@
 											class="form-control"
 											:placeholder="$t('writeAComment')"
 											rows="5"
-											v-model.trim="commentText"
-											:class="{ 'is-invalid': $v.commentText.$error }"
+											:class="{ 'is-invalid': $v.cCreateModel.commentText.$error }"
+											v-model.trim="$v.cCreateModel.commentText.$model"
 										></textarea>
 									</div>
 
@@ -56,7 +56,8 @@
 											<div class="form-group mb-0">
 												<select
 													class="form-control"
-													v-model="commentTypeSelectedId"
+													:class="{ 'is-invalid': $v.cCreateModel.commentType.$error }"
+													v-model="$v.cCreateModel.commentType.$model"
 												>
 													<option
 														v-for="[ key, value ] in Object.entries(TASK_COMMENT_TYPE)"
@@ -79,9 +80,9 @@
 													@{{ $t('workers') }}
 													<strong
 														class="num"
-														v-if="employeeListChecked.length > 0"
+														v-if="cCreateModel.employeeIds.length > 0"
 													>
-														{{ employeeListChecked.length }}
+														{{ cCreateModel.employeeIds.length }}
 													</strong>
 												</div>
 
@@ -112,7 +113,7 @@
 																	type="checkbox"
 																	:value="item.projectMember.employee.id"
 																	hidden
-																	v-model="employeeListChecked"
+																	v-model="cCreateModel.employeeIds"
 																>
 
 																<div class="boardofusers-ava">
@@ -141,7 +142,7 @@
 											<button
 												type="button"
 												class="modal-btn__save cancel button-effect mr-3"
-												@click="ClearSaveData"
+												@click="cCreateModel.Reset()"
 											>
 												{{ $t('cancel') }}
 											</button>
@@ -235,7 +236,7 @@
 
 									<div
 										class="action__content__top__form mt-3"
-										v-if="item.id === commentEditModal.id"
+										v-if="item.id === cUpdateModel.id"
 									>
 										<form @submit.prevent="EditComment">
 											<div class="form-group">
@@ -243,8 +244,8 @@
 													class="form-control"
 													:placeholder="$t('writeAComment')"
 													rows="5"
-													v-model.trim="commentEditModal.text"
-													:class="{ 'is-invalid': $v.commentEditModal.text.$error }"
+													:class="{ 'is-invalid': $v.cUpdateModel.commentText.$error }"
+													v-model.trim="$v.cUpdateModel.commentText.$model"
 												></textarea>
 											</div>
 
@@ -253,7 +254,8 @@
 													<div class="form-group mb-0">
 														<select
 															class="form-control"
-															v-model="commentEditModal.type"
+															:class="{ 'is-invalid': $v.cUpdateModel.commentType.$error }"
+															v-model="$v.cUpdateModel.commentType.$model"
 														>
 															<option
 																v-for="[ key, value ] in Object.entries(TASK_COMMENT_TYPE)"
@@ -276,9 +278,9 @@
 															@{{ $t('workers') }}
 															<strong
 																class="num"
-																v-if="commentEditModal.employees.length > 0"
+																v-if="cUpdateModel.employeeIds.length > 0"
 															>
-																{{ commentEditModal.employees.length }}
+																{{ cUpdateModel.employeeIds.length }}
 															</strong>
 														</div>
 
@@ -310,7 +312,7 @@
 																			type="checkbox"
 																			:value="item2.projectMember.employee.id"
 																			hidden
-																			v-model="commentEditModal.employees"
+																			v-model="cUpdateModel.employeeIds"
 																		>
 
 																		<div class="boardofusers-ava">
@@ -339,7 +341,7 @@
 													<button
 														type="button"
 														class="modal-btn__save cancel button-effect mr-3"
-														@click="ClearEditData"
+														@click="cUpdateModel.Reset()"
 													>
 														{{ $t('cancel') }}
 													</button>
@@ -359,7 +361,7 @@
 
 							<li
 								class="d-flex justify-content-end mt-3"
-								v-if="paramsComment.totalCount > paramsComment.pageSize"
+								v-if="cParams.totalItems > cParams.pageSize"
 							>
 								<button
 									type="button"
@@ -422,7 +424,7 @@
 
 							<li
 								class="d-flex justify-content-end mt-3"
-								v-if="paramsAction.totalCount > paramsAction.pageSize"
+								v-if="aParams.totalItems > aParams.pageSize"
 							>
 								<button
 									type="button"
@@ -446,6 +448,7 @@
 <script>
 import { required } from 'vuelidate/lib/validators';
 import { ORDER, TASK_COMMENT_TYPE } from '../../../../../constants';
+import FormService from '../../../../../services/FormService';
 import ActionItem from '../../ActionItem';
 
 
@@ -462,41 +465,51 @@ export default {
 				[ TASK_COMMENT_TYPE.SOLUTION ]: 'success',
 				[ TASK_COMMENT_TYPE.PROBLEM ]: 'danger',
 			},
-			commentTypeSelectedId: 0,
-			commentText: null,
-			employeeListChecked: [],
 
-
-			commentEditModal: {
+			cCreateModel: new FormService({
+				commentText: '',
+				commentType: TASK_COMMENT_TYPE.INFORMATION,
+				employeeIds: [],
+				taskId: this.$store.state.taskModalData.id,
+			}),
+			cUpdateModel: new FormService({
+				commentText: '',
+				commentType: '',
+				employeeIds: [],
 				id: 0,
-				type: null,
-				text: null,
-				employees: [],
-			},
+			}),
 
-			paramsComment: {
+			cParams: {
 				pageSize: 10,
-				totalCount: 0,
+				totalItems: this.$store.state.taskModalData.commentsCount,
 			},
-			paramsAction: {
+			aParams: {
 				pageSize: 10,
-				totalCount: 0,
+				totalItems: this.$store.state.taskModalData.actionsCount,
 			},
 		};
 	},
 	validations: {
-		commentText: {
-			required,
-		},
-		commentEditModal: {
-			text: {
+		cCreateModel: {
+			commentText: {
 				required,
-			}
-		}
+			},
+			commentType: {
+				required,
+			},
+		},
+		cUpdateModel: {
+			commentText: {
+				required,
+			},
+			commentType: {
+				required,
+			},
+		},
 	},
 	computed: {
 		storeTaskMemberList() {
-			this.employeeListChecked = [];
+			this.cCreateModel.employeeIds = [];
 			return this.$store.state.taskModalData.members;
 		},
 	},
@@ -505,131 +518,80 @@ export default {
 			this.GetTaskActions();
 		},
 	},
-	created() {
-		this.CommentTypeSelect();
-
-		this.paramsComment.totalCount = this.$store.state.taskModalData.commentsCount;
-		this.paramsAction.totalCount = this.$store.state.taskModalData.actionsCount;
-	},
 	methods: {
-		CommentTypeSelect() {
-			// TODO
-			this.commentTypeSelectedId = this.$store.state.projectData.taskCommentTypes.find(x => x.value === this.$store.state.TASK_COMMENT_TYPE.INFORMATION).id;
-		},
-		SaveComment() {
-			this.$v.commentText.$touch();
-			if (!this.$v.commentText.$invalid) {
+		async GetTaskComments(step = 0) {
+			this.cParams.pageSize += step;
 
-				let userIdList = [];
-				if (this.employeeListChecked.length > 0) {
-					userIdList = this.employeeListChecked.map(x => ({ id: x }));
+			const { data: { data, meta } } = await this.$api.get('/task-comments', {
+				params: {
+					page: 1,
+					pageSize: this.cParams.pageSize,
+					sortBy: 'id',
+					sortDirection: ORDER.DESC,
+					projectId: this.$store.state.projectData.id,
+					taskId: this.$store.state.taskModalData.id,
 				}
+			});
 
-				this.$api
-					.post('/task-comments', {
-						'commentText': this.commentText,
-						'commentType': {
-							'id': this.commentTypeSelectedId
-						},
-						'members': userIdList,
-						'taskId': this.$store.state.taskModalData.id
-					})
-					.then(response => {
-						this.GetTaskComments();
-						this.ClearSaveData();
-						this.$notification.success(this.$t('Added'));
-					});
-			}
+			this.$store.state.taskModalData.comments = data;
+			this.cParams.totalItems = meta.totalItems;
+			this.$store.state.taskModalActionStarter++;
 		},
-		EditComment() {
-			this.$v.commentEditModal.$touch();
-			if (!this.$v.commentEditModal.$invalid) {
+		async GetTaskActions(step = 0) {
+			this.aParams.pageSize += step;
 
-				let userIdList = [];
-				if (this.commentEditModal.employees.length > 0) {
-					userIdList = this.commentEditModal.employees.map(x => ({ id: x }));
+			const { data: { data, meta } } = await this.$api.get('/actions', {
+				params: {
+					'taskId': this.$store.state.taskModalData.id,
+					'pageSize': this.aParams.pageSize,
+					'page': 0,
+					'sortBy': 'id',
+					'sortDirection': ORDER.DESC,
 				}
+			});
 
-				this.$api
-					.put('/task-comments/' + this.commentEditModal.id, {
-						'commentText': this.commentEditModal.text,
-						'commentType': {
-							'id': this.commentEditModal.type
-						},
-						'members': userIdList,
-					})
-					.then(response => {
-						this.GetTaskComments();
-						this.ClearEditData();
-						this.$notification.success(this.$t('EditedBy'));
-					});
+			this.$store.state.taskModalData.actions = data;
+			this.aParams.totalItems = meta.totalItems;
+		},
+		async SaveComment() {
+			this.$v.cCreateModel.$touch();
+			if (this.$v.cCreateModel.$invalid) {
+				return;
 			}
+
+			await this.$api.post('/task-comments', this.cCreateModel.GetData());
+			await this.GetTaskComments();
+
+			this.cCreateModel.Reset();
+			this.$notification.success(this.$t('Added'));
+		},
+		async EditComment() {
+			this.$v.cUpdateModel.$touch();
+			if (this.$v.cUpdateModel.$invalid) {
+				return;
+			}
+
+			await this.$api.put('/task-comments/' + this.cUpdateModel.id, this.cUpdateModel.GetData());
+			await this.GetTaskComments();
+
+			this.cUpdateModel.Reset();
+			this.$notification.success(this.$t('EditedBy'));
 		},
 		CopyObjectForEdit(obj) {
-			this.commentEditModal.id = obj.id;
-			this.commentEditModal.type = obj.commentType;
-			this.commentEditModal.text = obj.commentText;
-			this.commentEditModal.employees = obj.employees.map(a => a.id);
+			this.cUpdateModel.commentText = obj.commentText;
+			this.cUpdateModel.commentType = obj.commentType;
+			this.cUpdateModel.employeeIds = obj.employees.map(a => a.id);
+			this.cUpdateModel.id = obj.id;
 		},
-		ClearSaveData() {
-			this.commentText = null;
-			this.$v.commentText.$reset();
-			this.CommentTypeSelect();
-			this.employeeListChecked = [];
-		},
-		ClearEditData() {
-			this.commentEditModal.id = 0;
-			this.$v.commentEditModal.$reset();
-		},
-		DeleteComment(id) {
-			if (confirm(this.$t('confirmDelete'))) {
-				this.$api
-					.delete('/task-comments/' + id)
-					.then(response => {
-						this.GetTaskComments();
-						this.$notification.success(this.$t('successfullyDeleted'));
-					});
+		async DeleteComment(id) {
+			if (!confirm(this.$t('confirmDelete'))) {
+				return;
 			}
-		},
 
+			await this.$api.delete('/task-comments/' + id);
+			await this.GetTaskComments();
 
-
-		GetTaskComments(step = 0) {
-			this.paramsComment.pageSize += step;
-
-			this.$api
-				.get('/task-comments', {
-					params: {
-						'taskId': this.$store.state.taskModalData.id,
-						'pageSize': this.paramsComment.pageSize,
-						'page': 0,
-						'sortBy': 'id',
-						'sortDirection': ORDER.DESC,
-					}
-				})
-				.then(response => {
-					this.$store.state.taskModalData.comments = response.data.data;
-					this.paramsComment.totalCount = response.data.totalCount;
-					this.$store.state.taskModalActionStarter++;
-				});
-		},
-		GetTaskActions(step = 0) {
-			this.paramsAction.pageSize += step;
-
-			this.$api
-				.get('/actions', {
-					params: {
-						'taskId': this.$store.state.taskModalData.id,
-						'pageSize': this.paramsAction.pageSize,
-						'page': 0,
-						'sortBy': 'id',
-						'sortDirection': ORDER.DESC,
-					}
-				})
-				.then(response => {
-					this.$store.state.taskModalData.actions = response.data.data;
-					this.paramsAction.totalCount = response.data.totalCount;
-				});
+			this.$notification.success(this.$t('successfullyDeleted'));
 		},
 	}
 };
