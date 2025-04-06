@@ -216,10 +216,12 @@ export default {
 			this.$store.state.projectData.tags = resp.data.data;
 			const taskTags = this.$store.state.taskModalData.tags;
 
-			this.projectTagList = resp.data.data.map(prTag => {
+			this.projectTagList = resp.data.data.map(item => {
+				const checked = taskTags.some(a => a.projectTag.id === item.id);
+
 				return {
-					...prTag,
-					checked: taskTags.some(tsTag => tsTag.projectTag.id === prTag.id),
+					...item,
+					checked,
 				};
 			});
 		},

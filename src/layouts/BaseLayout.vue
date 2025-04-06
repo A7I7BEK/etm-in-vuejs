@@ -63,8 +63,9 @@
 												@click.prevent="GoToTask(item)"
 											>
 												<span class="name">{{ item.name }}</span>
-												<span
-													class="capt">{{ $t('searchInThisProject', { message: item.projectName }) }}</span>
+												<span class="capt">
+													{{ $t('searchInThisProject', { message: item.project.name }) }}
+												</span>
 											</a>
 										</li>
 									</ul>
@@ -129,8 +130,8 @@
 </template>
 <script>
 import GuideMenu from '../components/GuideMenu/index';
-import ProfileMenu from '../components/ProfileMenu/index';
 import NotificationMenu from '../components/NotificationMenu/index';
+import ProfileMenu from '../components/ProfileMenu/index';
 
 
 export default {
@@ -156,9 +157,9 @@ export default {
 					this.$api
 						.get('/tasks', {
 							params: {
-								'allSearch': val,
-								'page': 0,
-								'pageSize': 10,
+								page: 0,
+								pageSize: 10,
+								allSearch: val,
 							}
 						})
 						.then(response => {
@@ -189,7 +190,7 @@ export default {
 			this.$router.push({
 				name: 'dashboard',
 				params: {
-					'id': item.projectId,
+					'id': item.project.id,
 					'taskId': item.id,
 				}
 			}).catch(err => {

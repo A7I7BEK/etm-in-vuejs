@@ -299,8 +299,8 @@
 
 
 <script>
-import Datepicker from 'vuejs-datepicker';
 import Timeselector from 'vue-timeselector';
+import Datepicker from 'vuejs-datepicker';
 import { required } from 'vuelidate/lib/validators';
 const today = new Date(moment().format('YYYY-MM-DD'));
 
@@ -341,8 +341,8 @@ export default {
 	},
 	created() {
 		this.createdDate();
-		if (this.$store.state.taskModalData.deadLine !== '') {
-			this.deadlineTime = this.deadlineDate = this.$moment(this.$store.state.taskModalData.deadLine).toDate();
+		if (this.$store.state.taskModalData.endDate !== '') {
+			this.deadlineTime = this.deadlineDate = this.$moment(this.$store.state.taskModalData.endDate).toDate();
 		}
 		if (this.$store.state.taskModalData.startDate !== '') {
 			this.startTime = this.startDate = this.$moment(this.$store.state.taskModalData.startDate).toDate();
@@ -381,9 +381,9 @@ export default {
 				return;
 			}
 
-			const { startDate, deadLine } = this.$store.state.taskModalData;
+			const { startDate, endDate } = this.$store.state.taskModalData;
 
-			if (startDate || deadLine) {
+			if (startDate || endDate) {
 				if (this.dateStatus === 'change') {
 					this.$v.dateComment.$touch();
 					if (this.$v.dateComment.$invalid) {
@@ -484,9 +484,11 @@ export default {
 			this.$api
 				.get('/tasks/' + this.$store.state.taskModalData.id)
 				.then(response => {
-					this.$store.state.taskModalData.deadLine = response.data.data.deadLine;
-					this.$store.state.taskModalData.startDate = response.data.data.startDate;
-					this.$store.state.taskModalData.status = response.data.data.status;
+					const data = response.data.data;
+
+					this.$store.state.taskModalData.startDate = data.startDate;
+					this.$store.state.taskModalData.endDate = data.endDate;
+					this.$store.state.taskModalData.status = data.status;
 
 					this.$store.state.taskModalActionStarter++;
 				});

@@ -18,11 +18,15 @@
 						v-if="can('TASK_UPDATE')"
 						:data-placeholder="$t('taskDescription')"
 						@focusout="SaveDescription"
-					>{{ $store.state.taskModalData.description }}</p>
+					>
+						{{ $store.state.taskModalData.description }}
+					</p>
 					<p
 						v-else
 						:data-placeholder="$t('taskDescription')"
-					>{{ $store.state.taskModalData.description }}</p>
+					>
+						{{ $store.state.taskModalData.description }}
+					</p>
 
 					<!--<div class="mw-description__bottom">-->
 					<!--<div class="mw-description__save button-effect">Сохранить</div>-->
@@ -36,17 +40,6 @@
 <script>
 export default {
 	name: "TaskModalLeftDescription",
-	data() {
-		return {
-
-		};
-	},
-	created() {
-
-	},
-	mounted() {
-
-	},
 	methods: {
 		SaveDescription(e) {
 			this.$api

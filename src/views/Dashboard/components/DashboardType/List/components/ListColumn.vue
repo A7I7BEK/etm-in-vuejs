@@ -221,7 +221,7 @@ export default {
 			this.$api
 				.post('/tasks/move', {
 					id: this.dragEvent.drag.element.id,
-					projectId: this.dragEvent.drag.element.projectId,
+					projectId: this.dragEvent.drag.element.project.id,
 					columnId: this.dragEvent.drag.element.column.id,
 					ordering: elemOrder < 0 ? 0 : elemOrder,
 				})

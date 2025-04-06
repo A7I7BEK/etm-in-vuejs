@@ -11,20 +11,20 @@
 			<base-input-search
 				class="mr-3"
 				is-filter
-				@update:value="HandleParams('search', $event)"
+				@update:value="HandleParams(HANDLE_PARAMS.SEARCH, $event)"
 			></base-input-search>
 
 			<base-input-deadline-type
 				class="mr-3"
 				is-filter
-				@update:value="HandleParams('deadlineType', $event)"
+				@update:value="HandleParams(HANDLE_PARAMS.DEADLINE_TYPE, $event)"
 			></base-input-deadline-type>
 
 			<base-input-deadline
 				class="mr-3"
 				is-filter
 				:label-text="$t('deadlineDate')"
-				@update:value="HandleParams('deadline', $event)"
+				@update:value="HandleParams(HANDLE_PARAMS.DEADLINE, $event)"
 			></base-input-deadline>
 
 			<base-input-project
@@ -32,7 +32,7 @@
 				is-filter
 				:show-organization="$store.state.userProfile.systemAdmin"
 				:value.sync="projectSelected"
-				@update:value="HandleParams('project', $event)"
+				@update:value="HandleParams(HANDLE_PARAMS.PROJECT, $event)"
 			></base-input-project>
 
 			<base-input-column
@@ -41,7 +41,7 @@
 				is-filter
 				:disabled="!params.projectId"
 				:value.sync="columnSelected"
-				@update:value="HandleParams('column', $event)"
+				@update:value="HandleParams(HANDLE_PARAMS.COLUMN, $event)"
 			></base-input-column>
 
 			<div class="az_crud_task_own">
@@ -51,12 +51,14 @@
 						id="myOwnTask"
 						type="checkbox"
 						:checked="params.ownTask"
-						@change="HandleParams('ownTask', $event.target.checked)"
+						@change="HandleParams(HANDLE_PARAMS.OWN_TASK, $event.target.checked)"
 					>
 					<label
 						class="custom-control-label"
 						for="myOwnTask"
-					>{{ $t('tasksIamAssigned') }}</label>
+					>
+						{{ $t('tasksIamAssigned') }}
+					</label>
 				</div>
 			</div>
 		</template>
@@ -69,13 +71,13 @@
 					<tr class="bdr">
 						<th
 							class="width-75 sort"
-							@click="HandleParams('sort', 'id')"
-							:class="{ 'active': params.sortBy === 'id' }"
+							:class="{ 'active': params.sortBy === SORT_PROP.ID }"
+							@click="HandleParams(HANDLE_PARAMS.SORT_BY, SORT_PROP.ID)"
 						>
 							<div class="az_crud_tb_th">
 								<div class="txt">#</div>
 
-								<template v-if="params.sortBy === 'id'">
+								<template v-if="params.sortBy === SORT_PROP.ID">
 									<i
 										class="fa fa-angle-up"
 										v-if="params.sortDirection === ORDER.ASC"
@@ -90,13 +92,13 @@
 
 						<th
 							class="sort"
-							@click="HandleParams('sort', 'name')"
-							:class="{ 'active': params.sortBy === 'name' }"
+							:class="{ 'active': params.sortBy === SORT_PROP.NAME }"
+							@click="HandleParams(HANDLE_PARAMS.SORT_BY, SORT_PROP.NAME)"
 						>
 							<div class="az_crud_tb_th">
 								<div class="txt">{{ $t('name') }}</div>
 
-								<template v-if="params.sortBy === 'name'">
+								<template v-if="params.sortBy === SORT_PROP.NAME">
 									<i
 										class="fa fa-angle-up"
 										v-if="params.sortDirection === ORDER.ASC"
@@ -111,13 +113,13 @@
 
 						<th
 							class="sort"
-							@click="HandleParams('sort', 'columnName')"
-							:class="{ 'active': params.sortBy === 'columnName' }"
+							:class="{ 'active': params.sortBy === SORT_PROP.COLUMN }"
+							@click="HandleParams(HANDLE_PARAMS.SORT_BY, SORT_PROP.COLUMN)"
 						>
 							<div class="az_crud_tb_th">
 								<div class="txt">{{ $t('columnName') }}</div>
 
-								<template v-if="params.sortBy === 'columnName'">
+								<template v-if="params.sortBy === SORT_PROP.COLUMN">
 									<i
 										class="fa fa-angle-up"
 										v-if="params.sortDirection === ORDER.ASC"
@@ -132,13 +134,13 @@
 
 						<th
 							class="sort"
-							@click="HandleParams('sort', 'projectName')"
-							:class="{ 'active': params.sortBy === 'projectName' }"
+							:class="{ 'active': params.sortBy === SORT_PROP.PROJECT }"
+							@click="HandleParams(HANDLE_PARAMS.SORT_BY, SORT_PROP.PROJECT)"
 						>
 							<div class="az_crud_tb_th">
 								<div class="txt">{{ $t('repoerts.boardName') }}</div>
 
-								<template v-if="params.sortBy === 'projectName'">
+								<template v-if="params.sortBy === SORT_PROP.PROJECT">
 									<i
 										class="fa fa-angle-up"
 										v-if="params.sortDirection === ORDER.ASC"
@@ -153,13 +155,13 @@
 
 						<th
 							class="sort"
-							@click="HandleParams('sort', 'deadLine')"
-							:class="{ 'active': params.sortBy === 'deadLine' }"
+							:class="{ 'active': params.sortBy === SORT_PROP.END_DATE }"
+							@click="HandleParams(HANDLE_PARAMS.SORT_BY, SORT_PROP.END_DATE)"
 						>
 							<div class="az_crud_tb_th">
 								<div class="txt">{{ $t('deadline') }}</div>
 
-								<template v-if="params.sortBy === 'deadLine'">
+								<template v-if="params.sortBy === SORT_PROP.END_DATE">
 									<i
 										class="fa fa-angle-up"
 										v-if="params.sortDirection === ORDER.ASC"
@@ -189,22 +191,13 @@
 					v-if="record.list.length > 0"
 				>
 					<tr
+						v-for="item in record.list"
 						class="bdr"
-						v-for="(item, index) in record.list"
-						:class="{ 'danger': item.taskPriorityType === TASK_PRIORITY_TYPE.HIGH }"
+						:class="{ 'danger': item.priority === TASK_PRIORITY_TYPE.HIGH }"
 					>
 						<td>
-							<div
-								class="az_crud_tb_txt"
-								v-if="params.sortBy === 'id' && params.sortDirection === ORDER.DESC"
-							>
-								{{ record.count - (params.page * params.pageSize) - index }}
-							</div>
-							<div
-								class="az_crud_tb_txt"
-								v-else
-							>
-								{{ (params.page * params.pageSize) + (index + 1) }}
+							<div class="az_crud_tb_txt">
+								{{ item.rowNumber }}
 							</div>
 						</td>
 
@@ -213,24 +206,24 @@
 						</td>
 
 						<td>
-							<div class="az_crud_tb_txt">{{ item.columnName }}</div>
+							<div class="az_crud_tb_txt">{{ item.column.name }}</div>
 						</td>
 
 						<td>
-							<div class="az_crud_tb_txt">{{ item.projectName }}</div>
+							<div class="az_crud_tb_txt">{{ item.project.name }}</div>
 						</td>
 
 						<td>
-							<template v-if="$moment(item.deadLine).isValid()">
+							<template v-if="$moment(item.endDate).isValid()">
 								<div
 									class="az_crud_tb_sts"
 									:class="statusClass[ item.status ]"
 								>
-									<template v-if="$moment().diff($moment(item.deadLine), 'years') > 0">
-										{{ item.deadLine | filterDateMonth }}
+									<template v-if="$moment().diff($moment(item.endDate), 'years') > 0">
+										{{ item.endDate | filterDateMonth }}
 									</template>
 									<template v-else>
-										{{ item.deadLine | filterMonthTime }}
+										{{ item.endDate | filterMonthTime }}
 									</template>
 								</div>
 							</template>
@@ -283,7 +276,7 @@
 		<template #range>
 			<base-crud-range
 				:value="params.pageSize"
-				@input="HandleParams('range', $event)"
+				@input="HandleParams(HANDLE_PARAMS.PAGE_SIZE, $event)"
 			></base-crud-range>
 		</template>
 
@@ -300,8 +293,8 @@
 				prev-text="&laquo;"
 				next-text="&raquo;"
 				:page-count="record.pageCount"
-				:value="params.page + 1"
-				@input="HandleParams('page', $event)"
+				:value="params.page"
+				@input="HandleParams(HANDLE_PARAMS.PAGE, $event)"
 			></paginate>
 		</template>
 
@@ -315,11 +308,27 @@ import BaseCrudRange from '../../../../components/BaseCrudRange';
 import BaseCrudTable from '../../../../components/BaseCrudTable';
 import BaseInputColumn from '../../../../components/BaseInputColumn';
 import BaseInputDeadline from '../../../../components/BaseInputDeadline';
-import BaseInputDeadlineType from '../../../../components/BaseInputDeadlineType';
+import BaseInputDeadlineType, { DEADLINE_LIST } from '../../../../components/BaseInputDeadlineType.vue';
 import BaseInputProject from '../../../../components/BaseInputProject';
 import BaseInputSearch from '../../../../components/BaseInputSearch';
-import { ORDER, TASK_PRIORITY_TYPE, TASK_STATUS_TYPE } from '../../../../constants';
+import { HANDLE_PARAMS, ORDER, ORDER_REVERSE, TASK_PRIORITY_TYPE, TASK_STATUS_TYPE } from '../../../../constants';
 
+
+const SORT_PROP = {
+	ID: 'id',
+	NAME: 'name',
+	DESCRIPTION: 'description',
+	ORDERING: 'ordering',
+	CREATED_AT: 'createdAt',
+	START_DATE: 'startDate',
+	END_DATE: 'endDate',
+	LEVEL: 'level',
+	PRIORITY: 'priority',
+	TIMER_STATUS: 'timerStatus',
+	TOTAL_TIME_SPENT: 'totalTimeSpent',
+	COLUMN: 'column',
+	PROJECT: 'project',
+};
 
 
 export default {
@@ -337,6 +346,9 @@ export default {
 	},
 	data() {
 		return {
+			ORDER,
+			HANDLE_PARAMS,
+			SORT_PROP,
 			TASK_PRIORITY_TYPE,
 			statusClass: {
 				[ TASK_STATUS_TYPE.RED ]: 'danger',
@@ -345,15 +357,15 @@ export default {
 				[ TASK_STATUS_TYPE.BLUE ]: 'default',
 			},
 			params: {
-				page: 0,
+				page: 1,
 				pageSize: 20,
-				sortBy: 'id',
+				sortBy: SORT_PROP.ID,
 				sortDirection: ORDER.DESC,
-				ownTask: false,
 				allSearch: null,
-				projectId: null,
 				columnId: null,
-				deadLine: null,
+				projectId: null,
+				ownTask: null,
+				endDate: null,
 				hasNoDeadline: null,
 				inNextDay: null,
 				inNextWeek: null,
@@ -362,7 +374,6 @@ export default {
 			},
 			record: {
 				list: [],
-				count: 0,
 				pageCount: 0,
 			},
 
@@ -381,95 +392,102 @@ export default {
 			}
 		},
 	},
-	created() {
-		this.GetList();
+	async created() {
+		await this.GetList();
 	},
 	methods: {
-		HandleParams(type, val) {
+		async HandleParams(type, val) {
 			switch (type) {
-				case 'search':
-					this.params.allSearch = val ? val : null;
+				case HANDLE_PARAMS.PAGE:
+					this.params.page = val;
 					break;
 
-				case 'range':
+				case HANDLE_PARAMS.PAGE_SIZE:
 					this.params.pageSize = val;
 					break;
 
-				case 'page':
-					this.params.page = val - 1;
+				case HANDLE_PARAMS.SEARCH:
+					this.params.allSearch = val || null;
 					break;
 
-				case 'sort':
+				case HANDLE_PARAMS.SORT_BY:
 					if (this.params.sortBy === val) {
-						this.params.sortDirection = this.params.sortDirection === ORDER.ASC ? ORDER.DESC : ORDER.ASC;
+						this.params.sortDirection = ORDER_REVERSE[ this.params.sortDirection ];
 					}
 					this.params.sortBy = val;
 					break;
 
-				case 'deadlineType':
-					this.params.hasNoDeadline = val === 'hasNoDeadline' ? true : null;
-					this.params.inNextDay = val === 'inNextDay' ? true : null;
-					this.params.inNextWeek = val === 'inNextWeek' ? true : null;
-					this.params.inNextMonth = val === 'inNextMonth' ? true : null;
-					this.params.overdue = val === 'overdue' ? true : null;
+				case HANDLE_PARAMS.COLUMN:
+					this.params.columnId = val || null;
 					break;
 
-				case 'deadline':
-					this.params.deadLine = val ? this.$moment(val).format('YYYY-MM-DD') : null;
-					break;
-
-				case 'project':
-					this.params.projectId = val === 0 ? null : val;
+				case HANDLE_PARAMS.PROJECT:
+					this.params.projectId = val || null;
 					this.params.columnId = null;
 					break;
 
-				case 'column':
-					this.params.columnId = val === 0 ? null : val;
-					break;
-
-				case 'ownTask':
+				case HANDLE_PARAMS.OWN_TASK:
 					this.params.ownTask = val;
 					break;
-			}
 
-			if (type !== 'page') {
-				this.params.page = 0;
-			}
+				case HANDLE_PARAMS.DEADLINE:
+					this.params.endDate = val ? this.$moment(val).format('YYYY-MM-DD') : null;
+					break;
 
-			this.GetList();
-		},
-		GetList() {
-			this.$api
-				.get('/tasks', {
-					params: this.params,
-				})
-				.then(response => {
-					this.record.list = response.data.data;
-					this.record.count = response.data.totalCount;
-					this.record.pageCount = Math.ceil(response.data.totalCount / this.params.pageSize);
-				});
-		},
-		Delete(id) {
-			if (confirm(this.$t('confirmDelete'))) {
-				this.$api
-					.delete('/tasks/' + id)
-					.then(response => {
-						this.$notification.success(this.$t('successfullyDeleted'));
-						this.GetList();
+				case HANDLE_PARAMS.DEADLINE_TYPE:
+					DEADLINE_LIST.forEach(item => {
+						this.params[ item ] = null;
 					});
+					this.params[ val ] = true;
+					break;
 			}
+
+			if (type !== HANDLE_PARAMS.PAGE) {
+				this.params.page = 1;
+			}
+
+			await this.GetList();
+		},
+		async GetList() {
+			const resp = await this.$api.get('/tasks', {
+				params: this.params,
+			});
+
+			const data = resp.data.data;
+			const { totalItems, totalPages } = resp.data.meta;
+			const { page, pageSize, sortBy, sortDirection } = this.params;
+
+			data.forEach((item, index) => {
+				if (sortBy === SORT_PROP.ID && sortDirection === ORDER.DESC) {
+					item.rowNumber = (totalItems - (page - 1) * pageSize) - index;
+				}
+				else {
+					item.rowNumber = ((page - 1) * pageSize + 1) + index;
+				}
+			});
+
+			this.record.list = data;
+			this.record.pageCount = totalPages;
+		},
+		async Delete(id) {
+			if (!confirm(this.$t('confirmDelete'))) {
+				return;
+			}
+
+			await this.$api.delete('/tasks/' + id);
+			await this.GetList();
+
+			this.$notification.success(this.$t('successfullyDeleted'));
 		},
 
-		GetColumnList(projectId) {
-			this.$api
-				.get('/project-columns/selection', {
-					params: {
-						projectId: projectId,
-					}
-				})
-				.then(response => {
-					this.columnList = response.data.data;
-				});
+		async GetColumnList(projectId) {
+			const resp = await this.$api.get('/project-columns/selection', {
+				params: {
+					projectId: projectId,
+				}
+			});
+
+			this.columnList = resp.data.data;
 		}
 	}
 };

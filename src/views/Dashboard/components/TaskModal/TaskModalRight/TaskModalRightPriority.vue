@@ -72,7 +72,7 @@ export default {
 					priority: value
 				})
 				.then(response => {
-					this.$store.commit('setModalTaskPriorityType', response.data.data.taskPriorityType);
+					this.$store.state.taskModalData.priority = value;
 					this.$store.state.taskModalActionStarter++;
 				});
 		},

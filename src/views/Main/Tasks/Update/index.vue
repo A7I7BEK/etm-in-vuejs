@@ -51,9 +51,11 @@ export default {
 			this.$api
 				.get('/tasks/' + this.id)
 				.then(response => {
-					this.model.SetData(response.data.data);
-					this.titleName = response.data.data.name;
-					this.$store.state.metaData.title = this.$route.meta.title(response.data.data.name);
+					const data = response.data.data;
+
+					this.model.SetData(data);
+					this.titleName = data.name;
+					this.$store.state.metaData.title = this.$route.meta.title(data.name);
 				});
 		},
 		save() {

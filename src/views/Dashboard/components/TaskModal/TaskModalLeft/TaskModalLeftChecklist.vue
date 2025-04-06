@@ -85,10 +85,10 @@
 								<p>
 									{{ item.text }}
 									<strong
-										v-for="item2 in item.members"
-										:title="item2.employee.firstName + ' ' + item2.employee.lastName"
+										v-for="item2 in item.employees"
+										:title="item2.firstName + ' ' + item2.lastName"
 									>
-										@{{ item2.employee.userName }}
+										@{{ item2.user.userName }}
 									</strong>
 								</p>
 							</label>
@@ -139,10 +139,10 @@
 								<p>
 									{{ item.text }}
 									<strong
-										v-for="item2 in item.members"
-										:title="item2.employee.firstName + ' ' + item2.employee.lastName"
+										v-for="item2 in item.employees"
+										:title="item2.firstName + ' ' + item2.lastName"
 									>
-										@{{ item2.employee.userName }}
+										@{{ item2.user.userName }}
 									</strong>
 								</p>
 							</label>
@@ -224,23 +224,23 @@
 										<label
 											class="boardofusers__item mb-0 cur-p"
 											v-for="item in storeTaskMemberList"
-											:key="item.employee.id"
-											:title="item.employee.firstName + ' ' + item.employee.lastName"
+											:key="item.projectMember.employee.id"
+											:title="item.projectMember.employee.firstName + ' ' + item.projectMember.employee.lastName"
 										>
 											<input
 												type="checkbox"
-												:value="item.employee.id"
+												:value="item.projectMember.employee.id"
 												hidden
 												v-model="employeeListChecked"
 											>
 
 											<div class="boardofusers-ava">
 												<img
-													v-if="item.employee.photoFile"
-													:src="$store.state.url + item.employee.photoFile.url"
+													v-if="item.projectMember.employee.photoFile"
+													:src="$store.state.url + item.projectMember.employee.photoFile.url"
 												>
 												<strong v-else>
-													{{ item.employee.firstName.charAt(0) + item.employee.lastName.charAt(0) }}
+													{{ item.projectMember.employee.firstName.charAt(0) + item.projectMember.employee.lastName.charAt(0) }}
 												</strong>
 											</div>
 
@@ -311,8 +311,8 @@ export default {
 			let uncheckedList = this.checkListData.checkList.filter(item => (!item.checked));
 
 			return {
-				'uncheckedList': uncheckedList,
-				'checkedCount': this.checkListData.checkList.length - uncheckedList.length,
+				uncheckedList: uncheckedList,
+				checkedCount: this.checkListData.checkList.length - uncheckedList.length,
 			};
 		},
 	},
@@ -354,7 +354,7 @@ export default {
 		Update(item) {
 			this.$api
 				.put('/check-list-items/' + item.id, {
-					'checkListGroupId': item.checkListGroupId,
+					'checkListGroupId': this.checkListData.id,
 					'checked': item.checked,
 					'text': item.text,
 				})
@@ -385,7 +385,7 @@ export default {
 				.get('/check-list-groups', {
 					params: {
 						'sortBy': 'id',
-						'taskId': this.checkListData.taskId,
+						'taskId': this.$store.state.taskModalData.id,
 					}
 				})
 				.then(response => {

@@ -151,7 +151,9 @@
 								<div
 									class="px-2 text-nowrap"
 									v-else
-								>{{ $t('noList') }}</div>
+								>
+									{{ $t('noList') }}
+								</div>
 							</div>
 						</div>
 					</div>
@@ -229,10 +231,10 @@ export default {
 				this.$api
 					.get('/tasks', {
 						params: {
-							projectId: this.selectedProject.id,
-							columnId: val.id,
 							sortBy: 'ordering',
 							sortDirection: ORDER.ASC,
+							columnId: val.id,
+							projectId: this.selectedProject.id,
 						}
 					})
 					.then(response => {
@@ -255,8 +257,7 @@ export default {
 					name: this.taskCopyName,
 					projectId: this.selectedProject.id,
 					columnId: this.selectedColumn.id,
-					ordering: this.selectedTask ? this.selectedTask.ordering : 0,
-					withCheckLists: true,
+					ordering: this.selectedTask?.ordering || 0,
 				})
 				.then(response => {
 					this.$v.$reset();

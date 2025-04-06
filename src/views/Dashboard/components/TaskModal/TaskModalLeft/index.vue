@@ -78,26 +78,27 @@
 							href="#"
 							@click.prevent
 						>
-							{{ $store.state.taskModalData.columnName }}
+							{{ $store.state.taskModalData.column.name }}
 						</a>
 					</div>
 				</div>
 
 				<div class="mw-title__btm__right">
 					<span>{{ $t('difficultyLevel') }}:</span>
-					<span
-						v-if="$store.state.taskModalData.taskLevelType">{{ $t($store.state.taskModalData.taskLevelType) }}</span>
+					<span v-if="$store.state.taskModalData.level">
+						{{ $t(`TASK_LEVEL_TYPE.${$store.state.taskModalData.level}`) }}
+					</span>
 					<span v-else>{{ $t('notSet') }}</span>
 					<!--<div-->
-					<!--v-if="$store.state.taskModalData.taskLevelType"-->
+					<!--v-if="$store.state.taskModalData.level"-->
 					<!--class="level-status"-->
 					<!--:class="[-->
-					<!--{'danger': $store.state.taskModalData.taskLevelType === TASK_LEVEL_TYPE.HIGH},-->
-					<!--{'warning': $store.state.taskModalData.taskLevelType === TASK_LEVEL_TYPE.NORMAL},-->
-					<!--{'success': $store.state.taskModalData.taskLevelType === TASK_LEVEL_TYPE.LOW}-->
+					<!--{'danger': $store.state.taskModalData.level === TASK_LEVEL_TYPE.HIGH},-->
+					<!--{'warning': $store.state.taskModalData.level === TASK_LEVEL_TYPE.NORMAL},-->
+					<!--{'success': $store.state.taskModalData.level === TASK_LEVEL_TYPE.LOW}-->
 					<!--]"-->
 					<!--&gt;-->
-					<!--<span>{{ $store.state.taskModalData.taskLevelType.name }}</span>-->
+					<!--<span>{{ $t(`TASK_LEVEL_TYPE.${$store.state.taskModalData.level}`) }}</span>-->
 					<!--</div>-->
 				</div>
 			</div>

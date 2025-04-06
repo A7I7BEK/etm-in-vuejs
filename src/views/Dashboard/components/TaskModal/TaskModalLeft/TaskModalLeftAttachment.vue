@@ -39,31 +39,31 @@
 					<a
 						class="fancybox"
 						data-fancybox="gallery"
-						v-if="item.mimeType.split('/')[ 0 ] === 'image'"
-						:href="$store.state.url + item.url"
+						v-if="item.file.mimetype.split('/')[ 0 ] === 'image'"
+						:href="$store.state.url + item.file.url"
 					>
-						<img :src="$store.state.url + item.url">
+						<img :src="$store.state.url + item.file.url">
 					</a>
 
 
 					<a
 						v-else
-						:href="$store.state.url + item.url"
+						:href="$store.state.url + item.file.url"
 						download
 					>
-						<span>{{ item.url.split('.')[ 1 ] }}</span>
+						<span>{{ item.file.filename.split('.')[ 1 ] }}</span>
 					</a>
 				</div>
 
 				<div class="mw-attachment__main">
-					<h5>{{ item.name }}</h5>
+					<h5>{{ item.file.name }}</h5>
 					<span>
 						{{ $t('added') }}
 						{{
-							$moment(item.now).diff($moment(item.createdAt), 'hours') > 24 ? ($t('in') + $moment(item.createdAt).format('D.MM.YYYY')) :
-								$moment(item.now).diff($moment(item.createdAt), 'hours') > 0 ? ($moment(item.now).diff($moment(item.createdAt), 'hours') + $t('hoursAgo')) :
-									$moment(item.now).diff($moment(item.createdAt), 'minutes') > 0 ? ($moment(item.now).diff($moment(item.createdAt), 'minutes') + $t('minutesAgo')) :
-										($moment(item.now).diff($moment(item.createdAt), 'seconds') + $t('secondsAgo'))
+							$moment().diff($moment(item.file.createdAt), 'hours') > 24 ? ($t('in') + $moment(item.file.createdAt).format('D.MM.YYYY')) :
+								$moment().diff($moment(item.file.createdAt), 'hours') > 0 ? ($moment().diff($moment(item.file.createdAt), 'hours') + $t('hoursAgo')) :
+									$moment().diff($moment(item.file.createdAt), 'minutes') > 0 ? ($moment().diff($moment(item.file.createdAt), 'minutes') + $t('minutesAgo')) :
+										($moment().diff($moment(item.file.createdAt), 'seconds') + $t('secondsAgo'))
 						}}
 					</span>
 
@@ -79,7 +79,7 @@
 							<div
 								class="attachment-change__block__inner"
 								data-custom-drop-btn
-								@click="attachmentName = item.name"
+								@click="attachmentName = item.file.name"
 							>
 								<span>{{ $t('edit') }}</span>
 								<div>

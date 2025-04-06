@@ -72,7 +72,7 @@ export default {
 					level: value
 				})
 				.then(response => {
-					this.$store.commit('setModalTaskLevelType', response.data.data.taskLevelType);
+					this.$store.state.taskModalData.level = value;
 					this.$store.state.taskModalActionStarter++;
 				});
 		},

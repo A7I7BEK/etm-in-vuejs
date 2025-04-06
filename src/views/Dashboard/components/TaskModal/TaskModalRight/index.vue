@@ -31,10 +31,10 @@
 			<div class="mw-priority align-items-center">
 				<h5>{{ $t('priority') }}:</h5>
 				<span
-					v-if="$store.state.taskModalData.taskPriorityType"
-					:class="priorityClass[ $store.state.taskModalData.taskPriorityType ]"
+					v-if="$store.state.taskModalData.priority"
+					:class="priorityClass[ $store.state.taskModalData.priority ]"
 				>
-					{{ $t(`TASK_PRIORITY_TYPE.${$store.state.taskModalData.taskPriorityType}`) }}
+					{{ $t(`TASK_PRIORITY_TYPE.${$store.state.taskModalData.priority}`) }}
 				</span>
 				<span v-else>{{ $t('notSet') }}</span>
 			</div>

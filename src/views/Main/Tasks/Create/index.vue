@@ -31,9 +31,9 @@ export default {
 		return {
 			model: new FormService({
 				name: '',
+				organizationId: 0,
 				projectId: 0,
 				columnId: 0,
-				organizationId: 0,
 			}),
 		};
 	},

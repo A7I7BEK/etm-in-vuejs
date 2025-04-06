@@ -26,7 +26,7 @@
 					</tr>
 					<tr>
 						<th>{{ $t('createdDate') }}</th>
-						<td>{{ model.startAt | filterDateTime }}</td>
+						<td>{{ model.createdAt | filterDateTime }}</td>
 					</tr>
 					<tr>
 						<th>{{ $t('deadlineStartDate') }}</th>
@@ -37,10 +37,10 @@
 						<td>
 							<div
 								class="az_crud_tb_sts"
-								v-if="$moment(model.deadLine).isValid()"
+								v-if="$moment(model.endDate).isValid()"
 								:class="statusClass[ model.status ]"
 							>
-								{{ model.deadLine | filterDateTime }}
+								{{ model.endDate | filterDateTime }}
 							</div>
 						</td>
 					</tr>
@@ -50,19 +50,19 @@
 					</tr>
 					<tr>
 						<th>{{ $t('nameProject') }}</th>
-						<td>{{ model.projectName }}</td>
+						<td>{{ model.project.name }}</td>
 					</tr>
 					<tr>
 						<th>{{ $t('columnName') }}</th>
-						<td>{{ model.columnName }}</td>
+						<td>{{ model.column.name }}</td>
 					</tr>
 					<tr>
 						<th>{{ $t('difficultyLevel') }}</th>
-						<td>{{ model.taskLevelType ? $t(model.taskLevelType.value) : '' }}</td>
+						<td>{{ model.level ? $t(`TASK_LEVEL_TYPE.${model.level}`) : '' }}</td>
 					</tr>
 					<tr>
 						<th>{{ $t('priority') }}</th>
-						<td>{{ model.taskPriorityType ? $t(model.taskPriorityType.value) : '' }}</td>
+						<td>{{ model.priority ? $t(`TASK_PRIORITY_TYPE.${model.priority}`) : '' }}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -107,9 +107,11 @@ export default {
 			this.$api
 				.get('/tasks/' + this.id)
 				.then(response => {
-					this.model = response.data.data;
-					this.titleName = response.data.data.name;
-					this.$store.state.metaData.title = this.$route.meta.title(response.data.data.name);
+					const data = response.data.data;
+
+					this.model = data;
+					this.titleName = data.name;
+					this.$store.state.metaData.title = this.$route.meta.title(data.name);
 				});
 		},
 	}

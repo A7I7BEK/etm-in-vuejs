@@ -76,10 +76,13 @@
 													class="mw-checklist__findUser button-effect mt-0 d-flex align-items-center"
 													data-custom-drop-btn
 												>
-													@{{ $t('workers') }}<strong
+													@{{ $t('workers') }}
+													<strong
 														class="num"
 														v-if="employeeListChecked.length > 0"
-													>{{ employeeListChecked.length }}</strong>
+													>
+														{{ employeeListChecked.length }}
+													</strong>
 												</div>
 
 
@@ -102,23 +105,23 @@
 															<label
 																class="boardofusers__item mb-0 cur-p"
 																v-for="item in storeTaskMemberList"
-																:key="item.employee.id"
-																:title="item.employee.firstName + ' ' + item.employee.lastName"
+																:key="item.projectMember.employee.id"
+																:title="item.projectMember.employee.firstName + ' ' + item.projectMember.employee.lastName"
 															>
 																<input
 																	type="checkbox"
-																	:value="item.employee.id"
+																	:value="item.projectMember.employee.id"
 																	hidden
 																	v-model="employeeListChecked"
 																>
 
 																<div class="boardofusers-ava">
 																	<img
-																		v-if="item.employee.photoFile"
-																		:src="$store.state.url + item.employee.photoFile.url"
+																		v-if="item.projectMember.employee.photoFile"
+																		:src="$store.state.url + item.projectMember.employee.photoFile.url"
 																	>
 																	<strong v-else>
-																		{{ item.employee.firstName.charAt(0) + item.employee.lastName.charAt(0) }}
+																		{{ item.projectMember.employee.firstName.charAt(0) + item.projectMember.employee.lastName.charAt(0) }}
 																	</strong>
 																</div>
 
@@ -139,11 +142,15 @@
 												type="button"
 												class="modal-btn__save cancel button-effect mr-3"
 												@click="ClearSaveData"
-											>{{ $t('cancel') }}</button>
+											>
+												{{ $t('cancel') }}
+											</button>
 											<button
 												type="submit"
 												class="modal-btn__save button-effect"
-											>{{ $t('save') }}</button>
+											>
+												{{ $t('save') }}
+											</button>
 										</div>
 									</div>
 								</form>
@@ -161,28 +168,29 @@
 								:key="item.id"
 							>
 								<div class="mw-action__ava">
-									<div
-										class="txt"
-										v-if="item.photoUrl.trim() === ''"
-									>
-										{{ item.firstName.charAt(0) + item.lastName.charAt(0) }}
-									</div>
 									<img
-										v-else
-										:src="$store.state.url + item.photoUrl"
-										alt=""
+										v-if="item.author.photoFile"
+										:src="$store.state.url + item.item.author.photoFile.url"
 									>
+									<div
+										v-else
+										class="txt"
+									>
+										{{ item.author.firstName.charAt(0) + item.author.lastName.charAt(0) }}
+									</div>
 								</div>
 
 								<div class="mw-action__content">
 									<div class="mw-action__content__top align-items-center">
-										<strong>{{ item.firstName }} {{ item.lastName }}</strong>
+										<strong>
+											{{ item.author.firstName }} {{ item.author.lastName }}
+										</strong>
 										<span>
-											<template v-if="$moment().diff($moment(item.createdAt), 'years') > 0">
-												{{ item.createdAt | filterDateMonth }}
+											<template v-if="$moment().diff($moment(item.updatedAt), 'years') > 0">
+												{{ item.updatedAt | filterDateMonth }}
 											</template>
 											<template v-else>
-												{{ item.createdAt | filterTimeMonth }}
+												{{ item.updatedAt | filterTimeMonth }}
 											</template>
 										</span>
 										<span
@@ -194,7 +202,7 @@
 
 										<div
 											class="d-flex"
-											v-if="item.userId === $store.state.userProfile.id"
+											v-if="item.author.user.id === $store.state.userProfile.id"
 										>
 											<button
 												type="button"
@@ -217,10 +225,10 @@
 									<p class="mw-action__content__comment">
 										{{ item.commentText }}
 										<strong
-											v-for="item2 in item.members"
-											:title="item2.employee.firstName + ' ' + item2.employee.lastName"
+											v-for="item2 in item.employees"
+											:title="item2.firstName + ' ' + item2.lastName"
 										>
-											@{{ item2.employee.userName }}
+											@{{ item2.user.userName }}
 										</strong>
 									</p>
 
@@ -245,7 +253,7 @@
 													<div class="form-group mb-0">
 														<select
 															class="form-control"
-															v-model="commentEditModal.typeId"
+															v-model="commentEditModal.type"
 														>
 															<option
 																v-for="[ key, value ] in Object.entries(TASK_COMMENT_TYPE)"
@@ -268,9 +276,9 @@
 															@{{ $t('workers') }}
 															<strong
 																class="num"
-																v-if="commentEditModal.employee.length > 0"
+																v-if="commentEditModal.employees.length > 0"
 															>
-																{{ commentEditModal.employee.length }}
+																{{ commentEditModal.employees.length }}
 															</strong>
 														</div>
 
@@ -294,24 +302,24 @@
 
 																	<label
 																		class="boardofusers__item mb-0 cur-p"
-																		v-for="item in storeTaskMemberList"
-																		:key="item.employee.id"
-																		:title="item.employee.firstName + ' ' + item.employee.lastName"
+																		v-for="item2 in storeTaskMemberList"
+																		:key="item2.projectMember.employee.id"
+																		:title="item2.projectMember.employee.firstName + ' ' + item2.projectMember.employee.lastName"
 																	>
 																		<input
 																			type="checkbox"
-																			:value="item.employee.id"
+																			:value="item2.projectMember.employee.id"
 																			hidden
-																			v-model="commentEditModal.employee"
+																			v-model="commentEditModal.employees"
 																		>
 
 																		<div class="boardofusers-ava">
 																			<img
-																				v-if="item.employee.photoFile"
-																				:src="$store.state.url + item.employee.photoFile.url"
+																				v-if="item2.projectMember.employee.photoFile"
+																				:src="$store.state.url + item2.projectMember.employee.photoFile.url"
 																			>
 																			<strong v-else>
-																				{{ item.employee.firstName.charAt(0) + item.employee.lastName.charAt(0) }}
+																				{{ item2.projectMember.employee.firstName.charAt(0) + item2.projectMember.employee.lastName.charAt(0) }}
 																			</strong>
 																		</div>
 
@@ -332,12 +340,15 @@
 														type="button"
 														class="modal-btn__save cancel button-effect mr-3"
 														@click="ClearEditData"
-													>{{ $t('cancel') }}
+													>
+														{{ $t('cancel') }}
 													</button>
 													<button
 														type="submit"
 														class="modal-btn__save button-effect"
-													>{{ $t('save') }}</button>
+													>
+														{{ $t('save') }}
+													</button>
 												</div>
 											</div>
 										</form>
@@ -375,21 +386,24 @@
 								:key="item.id"
 							>
 								<div class="mw-action__ava">
-									<div
-										class="txt"
-										v-if="item.photoUrl.trim() === ''"
-									>
-										{{ item.firstName.charAt(0) + item.lastName.charAt(0) }}
-									</div>
 									<img
-										v-else
-										:src="$store.state.url + item.photoUrl"
+										v-if="item.employee.photoFile"
+										:src="$store.state.url + item.employee.photoFile.url"
 										alt=""
 									>
+									<div
+										class="txt"
+										v-else
+									>
+										{{ item.employee.firstName.charAt(0) + item.employee.lastName.charAt(0) }}
+									</div>
 								</div>
 
 								<div class="mw-action__content__bottom">
-									<strong>{{ item.firstName }} {{ item.lastName }}</strong>
+									<strong>
+										{{ item.employee.firstName }}
+										{{ item.employee.lastName }}
+									</strong>
 									<action-item
 										:action="item"
 										:clickable="false"
@@ -455,9 +469,9 @@ export default {
 
 			commentEditModal: {
 				id: 0,
-				typeId: 0,
+				type: null,
 				text: null,
-				employee: [],
+				employees: [],
 			},
 
 			paramsComment: {
@@ -532,15 +546,15 @@ export default {
 			if (!this.$v.commentEditModal.$invalid) {
 
 				let userIdList = [];
-				if (this.commentEditModal.employee.length > 0) {
-					userIdList = this.commentEditModal.employee.map(x => ({ id: x }));
+				if (this.commentEditModal.employees.length > 0) {
+					userIdList = this.commentEditModal.employees.map(x => ({ id: x }));
 				}
 
 				this.$api
 					.put('/task-comments/' + this.commentEditModal.id, {
 						'commentText': this.commentEditModal.text,
 						'commentType': {
-							'id': this.commentEditModal.typeId
+							'id': this.commentEditModal.type
 						},
 						'members': userIdList,
 					})
@@ -553,9 +567,9 @@ export default {
 		},
 		CopyObjectForEdit(obj) {
 			this.commentEditModal.id = obj.id;
-			this.commentEditModal.typeId = obj.commentType.id;
+			this.commentEditModal.type = obj.commentType;
 			this.commentEditModal.text = obj.commentText;
-			this.commentEditModal.employee = obj.members.map(x => x.employee.id);
+			this.commentEditModal.employees = obj.employees.map(a => a.id);
 		},
 		ClearSaveData() {
 			this.commentText = null;
