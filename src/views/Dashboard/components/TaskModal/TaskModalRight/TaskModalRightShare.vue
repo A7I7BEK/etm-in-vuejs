@@ -111,7 +111,9 @@
 						type="button"
 						class="member-invite-btn button-effect"
 						@click="Share"
-					>{{ $t('share') }}</button>
+					>
+						{{ $t('share') }}
+					</button>
 				</div>
 
 			</div>
@@ -192,14 +194,14 @@ export default {
 
 			let postData = {
 				taskId: this.$store.state.taskModalData.id,
-				userIds: this.employeeSelectedList,
+				employeeIds: this.employeeSelectedList,
 			};
 
 			if (this.checkbox.telegram) {
-				await this.ShareTelegram(postData);
+				await this.$api.post('/share/task/telegram', postData);
 			}
 			if (this.checkbox.email) {
-				await this.ShareEmail(postData);
+				await this.$api.post('/share/task/email', postData);
 			}
 
 
@@ -212,20 +214,6 @@ export default {
 			this.employeeList = null;
 			this.employeeSelectedList = [];
 		},
-		ShareEmail(postData) {
-			return this.$api
-				.post('/share/task/email', postData)
-				.then(response => {
-					// console.log('ShareEmail', response.data);
-				});
-		},
-		ShareTelegram(postData) {
-			return this.$api
-				.post('/share/task/telegram', postData)
-				.then(response => {
-					// console.log('ShareTelegram', response.data);
-				});
-		},
 		ToggleEmployee(item) {
 			item.checked = !item.checked;
 
@@ -233,7 +221,7 @@ export default {
 				this.employeeSelectedList.push(item.id);
 			}
 			else {
-				this.employeeSelectedList = this.employeeSelectedList.filter(x => x !== item.id);
+				this.employeeSelectedList = this.employeeSelectedList.filter(a => a !== item.id);
 			}
 		},
 	}
