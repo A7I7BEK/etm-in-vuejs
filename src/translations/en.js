@@ -455,7 +455,7 @@ export default {
 	TheTimerIsRunning: 'The timer is running!',
 	TimerStopped: 'Timer stopped',
 	Added: 'Added',
-	DeadlineSuccessfully: 'The deadline has been set!',
+	DeadlineSuccessfully: 'The deadline changed!',
 
 	select: 'Select',
 	projectType: 'Project type',

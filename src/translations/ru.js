@@ -455,7 +455,7 @@ export default {
 	TheTimerIsRunning: 'Таймер запущен!',
 	TimerStopped: 'Таймер остановлен',
 	Added: 'Добавлена',
-	DeadlineSuccessfully: 'Срок успешно установлен!',
+	DeadlineSuccessfully: 'Срок изменился!',
 
 	select: 'Выбрать',
 	projectType: 'Тип проекта',

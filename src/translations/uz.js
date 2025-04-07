@@ -455,7 +455,7 @@ export default {
 	TheTimerIsRunning: 'Taymer ishlamoqda!',
 	TimerStopped: 'Taymer to‘xtadi',
 	Added: 'Qo‘shildi',
-	DeadlineSuccessfully: 'O‘rnatildi!',
+	DeadlineSuccessfully: 'Muddati o‘zgardi!',
 
 	select: 'Tanlang',
 	projectType: 'Loyiha turi',
