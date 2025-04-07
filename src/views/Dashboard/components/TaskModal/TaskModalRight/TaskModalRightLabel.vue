@@ -116,7 +116,8 @@
 						type="button"
 						class="btn az_base_btn btn-default btn-block"
 						@click="tagViewMode = false"
-					>{{ $t('createLabel') }}
+					>
+						{{ $t('createLabel') }}
 					</button>
 				</div>
 
@@ -257,14 +258,7 @@ export default {
 			this.$notification.success(this.$t('successfullyDeleted'));
 		},
 
-		async TaskTagToggle(item) {
-			if (item.checked) {
-				await this.AddTaskTag(item.id);
-			}
-			else {
-				await this.DeleteTaskTag(item.id);
-			}
-		},
+
 		async GetTaskTagAll() {
 			const resp = await this.$api.get('/task-tags', {
 				params: {
@@ -274,6 +268,14 @@ export default {
 
 			this.$store.state.taskModalData.tags = resp.data.data;
 			this.$store.state.taskModalActionStarter++;
+		},
+		async TaskTagToggle(item) {
+			if (item.checked) {
+				await this.AddTaskTag(item.id);
+			}
+			else {
+				await this.DeleteTaskTag(item.id);
+			}
 		},
 		async AddTaskTag(id) {
 			await this.$api.post('/task-tags', {
