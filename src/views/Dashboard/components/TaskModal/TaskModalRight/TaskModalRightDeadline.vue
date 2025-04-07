@@ -8,10 +8,7 @@
 			data-custom-drop-btn
 		>
 			<div class="mw-menu__item__icon">
-				<i
-					class="fa fa-clock-o"
-					aria-hidden="true"
-				></i>
+				<i class="fa fa-clock-o"></i>
 			</div>
 			<span>{{ $t('deadlineS') }}</span>
 		</a>
@@ -40,7 +37,7 @@
 									<div class="term-menu__date">
 										<label>{{ $t('date') }}</label>
 										<div
-											:class="{ 'is-invalid': $v.startDateFormatted.$error }"
+											:class="{ 'is-invalid': $v.start.date.$error }"
 											class="term-menu__date__inner"
 										>
 											<input
@@ -51,10 +48,7 @@
 											>
 
 											<div class="term-date__icon">
-												<i
-													class="fa fa-calendar"
-													aria-hidden="true"
-												></i>
+												<i class="fa fa-calendar"></i>
 											</div>
 										</div>
 									</div>
@@ -66,10 +60,10 @@
 
 											<timeselector
 												class="vue_timeselector"
-												:class="{ 'is-invalid': $v.startTime.$error }"
+												:class="{ 'is-invalid': $v.start.time.$error }"
 												displayFormat="HH:mm"
 												:h24="true"
-												v-model="startTime"
+												v-model="start.time"
 											>
 												<template slot="hours">
 													<span>{{ $t('hour') }}</span>
@@ -80,10 +74,7 @@
 											</timeselector>
 
 											<div class="term-time__icon">
-												<i
-													class="fa fa-calendar"
-													aria-hidden="true"
-												></i>
+												<i class="fa fa-calendar"></i>
 											</div>
 										</div>
 									</div>
@@ -92,7 +83,9 @@
 								<div
 									class="invalid-feedback mt-2 d-block"
 									v-if="$v.$error"
-								>{{ $t('chooseDateTime') }}</div>
+								>
+									{{ $t('chooseDateTime') }}
+								</div>
 							</div>
 							<div class="term__calendar">
 								<datepicker
@@ -100,11 +93,11 @@
 									wrapper-class="vue_datepicker"
 									:inline="true"
 									:monday-first="true"
-									:disabled-dates="startDisabledDates"
-									v-model="startDate"
+									:disabled-dates="start.disabledDates"
+									v-model="start.date"
 								></datepicker>
 							</div>
-							<template v-if="dateStatus === 'start'">
+							<template v-if="dateAction === ACTION_TYPE.DELETE_START">
 								<div
 									class="form-group mt-4"
 									style="color: #495e75;"
@@ -112,11 +105,13 @@
 									<label
 										for="startTaskDate"
 										class="mb-1 cur-p"
-									>{{ $t('indicateTheReasonForTheChange') }}</label>
+									>
+										{{ $t('indicateTheReasonForTheChange') }}
+									</label>
 									<input
 										id="startTaskDate"
-										v-model="dateComment"
-										:class="{ 'is-invalid': $v.dateComment.$error }"
+										v-model="start.delComment"
+										:class="{ 'is-invalid': $v.start.delComment.$error }"
 										class="form-control"
 										type="text"
 									>
@@ -124,18 +119,18 @@
 							</template>
 							<div
 								class="term-calendar__bottom flex-wrap"
-								:class="{ 'justify-content-between': dateStatus === 'start' }"
+								:class="{ 'justify-content-between': dateAction === ACTION_TYPE.DELETE_START }"
 							>
 								<div
-									v-if="dateStatus === 'start'"
+									v-if="dateAction === ACTION_TYPE.DELETE_START"
 									class="term-calendar-close button-effect term-calendar__bottom__item mr-0"
-									@click="cleanForm"
+									@click="dateAction = null"
 								>
 									<span>{{ $t('cancel') }}</span>
 								</div>
 								<div
 									class="term-calendar-close button-effect term-calendar__bottom__item mr-0"
-									@click="startResetDeadline"
+									@click="deleteStartDate"
 								>
 									<span>{{ $t('delete') }}</span>
 								</div>
@@ -155,21 +150,18 @@
 									<div class="term-menu__date">
 										<label>{{ $t('date') }}</label>
 										<div
-											:class="{ 'is-invalid': $v.deadlineDateFormatted.$error }"
 											class="term-menu__date__inner"
+											:class="{ 'is-invalid': $v.end.date.$error }"
 										>
 											<input
 												type="text"
 												class="w-100"
 												readonly
-												:value="deadlineDateFormatted"
+												:value="endDateFormatted"
 											>
 
 											<div class="term-date__icon">
-												<i
-													class="fa fa-calendar"
-													aria-hidden="true"
-												></i>
+												<i class="fa fa-calendar"></i>
 											</div>
 										</div>
 									</div>
@@ -181,10 +173,10 @@
 
 											<timeselector
 												class="vue_timeselector"
-												:class="{ 'is-invalid': $v.deadlineTime.$error }"
+												:class="{ 'is-invalid': $v.end.time.$error }"
 												displayFormat="HH:mm"
 												:h24="true"
-												v-model="deadlineTime"
+												v-model="end.time"
 											>
 												<template slot="hours">
 													<span>{{ $t('hour') }}</span>
@@ -195,10 +187,7 @@
 											</timeselector>
 
 											<div class="term-time__icon">
-												<i
-													class="fa fa-calendar"
-													aria-hidden="true"
-												></i>
+												<i class="fa fa-calendar"></i>
 											</div>
 										</div>
 									</div>
@@ -207,7 +196,9 @@
 								<div
 									class="invalid-feedback mt-2 d-block"
 									v-if="$v.$error"
-								>{{ $t('chooseDateTime') }}</div>
+								>
+									{{ $t('chooseDateTime') }}
+								</div>
 							</div>
 							<div class="term__calendar">
 								<datepicker
@@ -215,11 +206,11 @@
 									wrapper-class="vue_datepicker"
 									:inline="true"
 									:monday-first="true"
-									:disabled-dates="deadlineDisabledDates"
-									v-model="deadlineDate"
+									:disabled-dates="end.disabledDates"
+									v-model="end.date"
 								></datepicker>
 							</div>
-							<template v-if="dateStatus === 'end'">
+							<template v-if="dateAction === ACTION_TYPE.DELETE_END">
 								<div
 									class="form-group mt-4"
 									style="color: #495e75;"
@@ -227,11 +218,13 @@
 									<label
 										for="endTaskDate"
 										class="mb-1 cur-p"
-									>{{ $t('indicateTheReasonForTheChange') }}</label>
+									>
+										{{ $t('indicateTheReasonForTheChange') }}
+									</label>
 									<input
 										id="endTaskDate"
-										v-model="dateComment"
-										:class="{ 'is-invalid': $v.dateComment.$error }"
+										v-model="end.delComment"
+										:class="{ 'is-invalid': $v.end.delComment.$error }"
 										class="form-control"
 										type="text"
 									>
@@ -239,18 +232,18 @@
 							</template>
 							<div
 								class="term-calendar__bottom flex-wrap"
-								:class="{ 'justify-content-between': dateStatus === 'end' }"
+								:class="{ 'justify-content-between': dateAction === ACTION_TYPE.DELETE_END }"
 							>
 								<div
-									v-if="dateStatus === 'end'"
+									v-if="dateAction === ACTION_TYPE.DELETE_END"
 									class="term-calendar-close button-effect term-calendar__bottom__item mr-0"
-									@click="cleanForm"
+									@click="dateAction = null"
 								>
 									<span>{{ $t('cancel') }}</span>
 								</div>
 								<div
 									class="term-calendar-close button-effect term-calendar__bottom__item mr-0"
-									@click="ResetDeadline"
+									@click="deleteEndDate"
 								>
 									<span>{{ $t('delete') }}</span>
 								</div>
@@ -259,7 +252,7 @@
 					</div>
 				</div>
 				<div class="term-calendar__bottom flex-wrap justify-content-center mt-5">
-					<template v-if="dateStatus === 'change'">
+					<template v-if="dateAction === ACTION_TYPE.UPDATE">
 						<div
 							class="form-group mt-4 w-75 m-auto"
 							style="color: #495e75;"
@@ -267,17 +260,19 @@
 							<label
 								for="changeTaskDate"
 								class="mb-1 cur-p"
-							>{{ $t('indicateTheReasonForTheChange') }}</label>
+							>
+								{{ $t('indicateTheReasonForTheChange') }}
+							</label>
 							<input
 								id="changeTaskDate"
-								v-model="dateComment"
-								:class="{ 'is-invalid': $v.dateComment.$error }"
+								v-model="updateComment"
+								:class="{ 'is-invalid': $v.updateComment.$error }"
 								class="form-control mb-3"
 								type="text"
 							>
 							<div
 								class="term-calendar-close button-effect term-calendar__bottom__item mr-0 mb-3 justify-content-center text-white"
-								@click="cleanForm"
+								@click="dateAction = null"
 							>
 								<span>{{ $t('cancel') }}</span>
 							</div>
@@ -285,7 +280,7 @@
 					</template>
 					<div
 						class="term-calendar__delete term-calendar-btn button-effect term-calendar__bottom__item w-75 text-center d-block"
-						@click="SetDeadline"
+						@click="setDeadline"
 					>
 						<span>{{ $t('save') }}</span>
 					</div>
@@ -302,7 +297,14 @@
 import Timeselector from 'vue-timeselector';
 import Datepicker from 'vuejs-datepicker';
 import { required } from 'vuelidate/lib/validators';
-const today = new Date(moment().format('YYYY-MM-DD'));
+
+
+const ACTION_TYPE = {
+	DELETE_START: 'DELETE_START',
+	DELETE_END: 'DELETE_END',
+	UPDATE: 'UPDATE',
+};
+
 
 export default {
 	name: "TaskModalRightDeadline",
@@ -310,206 +312,224 @@ export default {
 		Datepicker,
 		Timeselector,
 	},
-	data: () => ({
-		dateStatus: '',
-		dateComment: '',
+	data() {
+		return {
+			ACTION_TYPE,
+			dateAction: null,
+			start: {
+				date: null,
+				time: null,
+				delComment: '',
+				disabledDates: {
+					to: new Date(),
+				},
+			},
+			end: {
+				date: null,
+				time: null,
+				delComment: '',
+				disabledDates: {
+					to: new Date(),
+				},
+			},
+			updateComment: '',
+		};
+	},
+	validations() {
+		const options = {
+			start: {
+				date: {
+					required,
+				},
+				time: {
+					required,
+				},
+			},
+			end: {
+				date: {
+					required,
+				},
+				time: {
+					required,
+				},
+			},
+		};
 
-		startDisabledDates: {
-			to: today
-			// to: new Date()
-		},
-		startDate: null,
-		startDateFormatted: null,
-		startTime: null,
+		if (this.dateAction === ACTION_TYPE.DELETE_START) {
+			options.start.delComment = {
+				required,
+			};
+		}
+		else if (this.dateAction === ACTION_TYPE.DELETE_END) {
+			options.end.delComment = {
+				required,
+			};
+		}
+		else if (this.dateAction === ACTION_TYPE.UPDATE) {
+			options.updateComment = {
+				required,
+			};
+		}
 
+		return options;
+	},
+	computed: {
+		endDateFormatted() {
+			if (!this.end.date) {
+				return '';
+			}
 
-		deadlineDisabledDates: {
-			to: today
-			// to: new Date()
+			return this.$moment(this.end.date).format('D.MM.YYYY');
 		},
-		deadlineDate: null,
-		deadlineDateFormatted: null,
-		deadlineTime: null
-	}),
-	watch: {
-		'deadlineDate'(val) {
-			this.deadlineDateFormatted = this.$moment(val).isValid() ? this.$moment(val).format('D.MM.YYYY') : '';
-		},
-		'startDate'(val) {
-			this.startDateFormatted = this.$moment(val).isValid() ? this.$moment(val).format('D.MM.YYYY') : '';
+		startDateFormatted() {
+			if (!this.start.date) {
+				return '';
+			}
+
+			return this.$moment(this.start.date).format('D.MM.YYYY');
 		},
 	},
 	created() {
-		this.createdDate();
-		if (this.$store.state.taskModalData.endDate !== '') {
-			this.deadlineTime = this.deadlineDate = this.$moment(this.$store.state.taskModalData.endDate).toDate();
+		const { endDate } = this.$store.state.taskModalData;
+		if (endDate) {
+			this.end.date = new Date(endDate);
+			this.end.time = new Date(endDate);
 		}
-		if (this.$store.state.taskModalData.startDate !== '') {
-			this.startTime = this.startDate = this.$moment(this.$store.state.taskModalData.startDate).toDate();
+
+		const { startDate } = this.$store.state.taskModalData;
+		if (startDate) {
+			this.start.date = new Date(startDate);
+			this.start.time = new Date(startDate);
 		}
 	},
 	mounted() {
-		document.addEventListener('click', (e) => {
-			if (!e.target.closest('#modalRightDeadlineBody')) {
-				this.$v.$reset();
-			}
-		});
+		document.addEventListener('click', this.resetWhenClose);
+	},
+	destroyed() {
+		document.removeEventListener('click', this.resetWhenClose);
 	},
 	methods: {
-		cleanForm() {
-			this.dateComment = '';
-			this.dateStatus = '';
-		},
-		createdDate() {
-			let momentDate = +this.$moment().subtract(1, 'days');
-			let date = new Date(momentDate);
-			this.deadlineDisabledDates.to = date;
-			this.startDisabledDates.to = date;
-		},
-		SetDeadline() {
-			this.$v.deadlineDateFormatted.$touch();
-			this.$v.deadlineTime.$touch();
-			this.$v.startDateFormatted.$touch();
-			this.$v.startTime.$touch();
-
-			if (
-				this.$v.deadlineDateFormatted.$invalid
-				|| this.$v.deadlineTime.$invalid
-				|| this.$v.startTime.$invalid
-				|| this.$v.startDateFormatted.$invalid
-			) {
-				return;
-			}
-
+		async setDeadline() {
 			const { startDate, endDate } = this.$store.state.taskModalData;
 
 			if (startDate || endDate) {
-				if (this.dateStatus === 'change') {
-					this.$v.dateComment.$touch();
-					if (this.$v.dateComment.$invalid) {
-						return;
-					}
-					this.$api
-						.put('/task-deadline', {
-							"changesComment": this.dateComment,
-							"checked": true,
-							'deadLine': this.$moment(this.deadlineDate).format('YYYY-MM-DD') + ' ' + this.$moment(this.deadlineTime).format('HH:mm:ss'),
-							'startDate': this.$moment(this.startDate).format('YYYY-MM-DD') + ' ' + this.$moment(this.startTime).format('HH:mm:ss'),
-							'taskId': this.$store.state.taskModalData.id
-						})
-						.then(response => {
-							this.cleanForm();
-							this.GetTaskOne();
-							this.$v.$reset();
-							$(document).click();
-							this.$notification.success(this.$t('DeadlineSuccessfully'));
-						});
-				} else {
-					this.dateStatus = 'change';
-				}
+				await this.updateDeadline();
 			}
 			else {
-				this.$api
-					.post('/task-deadline', {
-						"checked": true,
-						'deadLine': this.$moment(this.deadlineDate).format('YYYY-MM-DD') + ' ' + this.$moment(this.deadlineTime).format('HH:mm:ss'),
-						'startDate': this.$moment(this.startDate).format('YYYY-MM-DD') + ' ' + this.$moment(this.startTime).format('HH:mm:ss'),
-						'taskId': this.$store.state.taskModalData.id
-					})
-					.then(response => {
-						this.GetTaskOne();
-						this.$v.$reset();
-						$(document).click();
-						this.$notification.success(this.$t('DeadlineSuccessfully'));
-					});
+				await this.createDeadline();
 			}
 		},
-		startResetDeadline() {
-			if (this.dateStatus === 'start') {
-				this.$v.dateComment.$touch();
-				if (this.$v.dateComment.$invalid) {
-					return;
+		async createDeadline() {
+			this.$v.$touch();
+			if (this.$v.$invalid) {
+				return;
+			}
+
+			const sDate = this.$moment(this.start.date).format('YYYY-MM-DD');
+			const sTime = this.$moment(this.start.time).format('HH:mm:ss');
+			const eDate = this.$moment(this.end.date).format('YYYY-MM-DD');
+			const eTime = this.$moment(this.end.time).format('HH:mm:ss');
+
+			const resp = await this.$api.post('/task-deadline', {
+				startDate: sDate + ' ' + sTime,
+				endDate: eDate + ' ' + eTime,
+				taskId: this.$store.state.taskModalData.id,
+			});
+
+			this.resetAll(resp.data.data);
+		},
+		async updateDeadline() {
+			this.$v.$touch();
+			if (this.$v.$invalid) {
+				return;
+			}
+
+			if (this.dateAction !== ACTION_TYPE.UPDATE) {
+				this.dateAction = ACTION_TYPE.UPDATE;
+				return;
+			}
+
+			const sDate = this.$moment(this.start.date).format('YYYY-MM-DD');
+			const sTime = this.$moment(this.start.time).format('HH:mm:ss');
+			const eDate = this.$moment(this.end.date).format('YYYY-MM-DD');
+			const eTime = this.$moment(this.end.time).format('HH:mm:ss');
+
+			const resp = await this.$api.put('/task-deadline', {
+				startDate: sDate + ' ' + sTime,
+				endDate: eDate + ' ' + eTime,
+				changesComment: this.updateComment,
+				taskId: this.$store.state.taskModalData.id,
+			});
+
+			this.resetAll(resp.data.data);
+		},
+		async deleteStartDate() {
+			this.$v.$touch();
+			if (this.$v.$invalid) {
+				return;
+			}
+
+			if (this.dateAction !== ACTION_TYPE.DELETE_START) {
+				this.dateAction = ACTION_TYPE.DELETE_START;
+				return;
+			}
+
+			const resp = await this.$api.delete('/task-deadline', {
+				data: {
+					startDate: true,
+					changesComment: this.start.delComment,
+					taskId: this.$store.state.taskModalData.id,
 				}
-				this.$api.delete('/task-deadline', {
-					data: {
-						"changesComment": this.dateComment,
-						"startDate": true,
-						"taskId": this.$store.state.taskModalData.id
-					}
-				})
-					.then(response => {
-						this.GetTaskOne();
-						$(document).click();
-						this.$notification.success('Срок успешно удален!');
+			});
 
-						this.startDate = null;
-						this.startTime = new Date(moment().format('YYYY-MM-DD') + 'T00:00:00');
-						this.cleanForm();
-						this.$v.$reset();
-					});
-			} else {
-				this.dateStatus = 'start';
-			}
+			this.start.date = null;
+			this.start.time = null;
+			this.resetAll(resp.data.data);
 		},
-		ResetDeadline() {
-			if (this.dateStatus === 'end') {
-				this.$v.dateComment.$touch();
-				if (this.$v.dateComment.$invalid) {
-					return;
+		async deleteEndDate() {
+			this.$v.$touch();
+			if (this.$v.$invalid) {
+				return;
+			}
+
+			if (this.dateAction !== ACTION_TYPE.DELETE_END) {
+				this.dateAction = ACTION_TYPE.DELETE_END;
+				return;
+			}
+
+			const resp = await this.$api.delete('/task-deadline', {
+				data: {
+					endDate: true,
+					changesComment: this.end.delComment,
+					taskId: this.$store.state.taskModalData.id,
 				}
-				this.$api.delete('/task-deadline', {
-					data: {
-						"changesComment": this.dateComment,
-						"deadLine": true,
-						"taskId": this.$store.state.taskModalData.id
-					}
-				})
-					.then(response => {
-						this.GetTaskOne();
-						$(document).click();
-						this.$notification.success('Срок успешно удален!');
+			});
 
-						this.deadlineDate = null;
-						this.deadlineTime = new Date(moment().format('YYYY-MM-DD') + 'T00:00:00');
-						this.cleanForm();
-						this.$v.$reset();
-					});
-			} else {
-				this.dateStatus = 'end';
+			this.end.date = null;
+			this.end.time = null;
+			this.resetAll(resp.data.data);
+		},
+		resetAll(data) {
+			this.$store.state.taskModalData.startDate = data.startDate;
+			this.$store.state.taskModalData.endDate = data.endDate;
+			this.$store.state.taskModalData.status = data.status;
+
+			this.start.delComment = '';
+			this.end.delComment = '';
+			this.updateComment = '';
+			this.dateAction = null;
+
+			this.$v.$reset();
+			$(document).click();
+			this.$notification.success(this.$t('DeadlineSuccessfully'));
+
+			this.$store.state.taskModalActionStarter++;
+		},
+
+		resetWhenClose(e) {
+			if (!e.target.closest('#modalRightDeadlineBody')) {
+				this.$v.$reset();
 			}
-
-
-		},
-		GetTaskOne() {
-			this.$api
-				.get('/tasks/' + this.$store.state.taskModalData.id)
-				.then(response => {
-					const data = response.data.data;
-
-					this.$store.state.taskModalData.startDate = data.startDate;
-					this.$store.state.taskModalData.endDate = data.endDate;
-					this.$store.state.taskModalData.status = data.status;
-
-					this.$store.state.taskModalActionStarter++;
-				});
-		},
-	},
-	validations: {
-		dateComment: {
-			required
-		},
-
-		deadlineDateFormatted: {
-			required
-		},
-		deadlineTime: {
-			required
-		},
-		startDateFormatted: {
-			required
-		},
-		startTime: {
-			required
 		},
 	},
 };
