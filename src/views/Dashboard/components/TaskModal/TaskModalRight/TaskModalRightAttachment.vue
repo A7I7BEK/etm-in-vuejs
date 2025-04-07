@@ -46,25 +46,19 @@ export default {
 		},
 		async AttachFileToTask(fileId) {
 			await this.$api.post('/task-attachments', {
-				attachments: [
-					{
-						id: fileId
-					}
-				],
+				fileId,
 				taskId: this.$store.state.taskModalData.id
 			});
 		},
 		async GetTaskAttachmentList() {
-			await this.$api
-				.get('/task-attachments', {
-					params: {
-						taskId: this.$store.state.taskModalData.id
-					}
-				})
-				.then(response => {
-					this.$store.state.taskModalData.attachments = response.data.data;
-					this.$store.state.taskModalActionStarter++;
-				});
+			const resp = await this.$api.get('/task-attachments', {
+				params: {
+					taskId: this.$store.state.taskModalData.id
+				}
+			});
+
+			this.$store.state.taskModalData.attachments = resp.data.data;
+			this.$store.state.taskModalActionStarter++;
 		},
 	}
 };
