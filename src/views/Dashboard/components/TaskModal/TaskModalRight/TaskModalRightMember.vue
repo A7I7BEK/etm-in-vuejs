@@ -82,47 +82,41 @@ export default {
 		}
 	},
 	methods: {
-		ProjectMemberToggle(item) {
+		async GetTaskMemberAll() {
+			const resp = await this.$api.get('/task-members', {
+				params: {
+					taskId: this.$store.state.taskModalData.id
+				}
+			});
+
+			this.$store.state.taskModalData.members = resp.data.data;
+			this.$store.state.taskModalActionStarter++;
+		},
+		async ProjectMemberToggle(item) {
 			if (item.checked) {
-				this.AddMember(item.projectMember.id);
+				await this.AddMember(item.id);
 			}
 			else {
-				this.DeleteMember(item.projectMember.id);
+				await this.DeleteMember(item.id);
 			}
 		},
-		AddMember(id) {
-			this.$api
-				.post('/task-members', {
+		async AddMember(id) {
+			await this.$api.post('/task-members', {
+				projectMemberId: id,
+				taskId: this.$store.state.taskModalData.id
+			});
+
+			await this.GetTaskMemberAll();
+		},
+		async DeleteMember(id) {
+			await this.$api.delete('/task-members', {
+				data: {
 					projectMemberId: id,
 					taskId: this.$store.state.taskModalData.id
-				})
-				.then(response => {
-					this.GetTaskMemberAll();
-				});
-		},
-		DeleteMember(id) {
-			this.$api
-				.delete('/task-members', {
-					data: {
-						projectMemberId: id,
-						taskId: this.$store.state.taskModalData.id
-					}
-				})
-				.then(response => {
-					this.GetTaskMemberAll();
-				});
-		},
-		GetTaskMemberAll() {
-			this.$api
-				.get('/task-members', {
-					params: {
-						taskId: this.$store.state.taskModalData.id
-					}
-				})
-				.then(response => {
-					this.$store.state.taskModalData.members = response.data.data;
-					this.$store.state.taskModalActionStarter++;
-				});
+				}
+			});
+
+			await this.GetTaskMemberAll();
 		},
 	},
 };
