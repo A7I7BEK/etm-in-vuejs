@@ -330,50 +330,44 @@ export default {
 			this.checkListData = resp.data.data;
 			this.$store.state.taskModalActionStarter++;
 		},
-		Create() {
+		async Create() {
 			this.$v.$touch();
-			if (!this.$v.$invalid) {
-
-				let userIdList = [];
-				if (this.employeeListChecked.length > 0) {
-					userIdList = this.employeeListChecked.map(x => ({ id: x }));
-				}
-
-
-				this.$api
-					.post('/check-list-items', {
-						'checkListGroupId': this.checkListData.id,
-						'checked': false,
-						'members': userIdList,
-						'text': this.checkboxName,
-					})
-					.then(response => {
-						this.GetChecklistGroupOne();
-						this.ClearData();
-						this.$notification.success(this.$t('Added'));
-					});
+			if (this.$v.$invalid) {
+				return;
 			}
-		},
-		Update(item) {
-			this.$api
-				.put('/check-list-items/' + item.id, {
-					'checkListGroupId': this.checkListData.id,
-					'checked': item.checked,
-					'text': item.text,
-				})
-				.then(response => {
-					this.GetChecklistGroupOne();
-				});
-		},
-		Delete(id) {
-			if (confirm(this.$t('confirmDelete'))) {
-				this.$api
-					.delete('/check-list-items/' + id)
-					.then(response => {
-						this.GetChecklistGroupOne();
-						this.$notification.success(this.$t('successfullyDeleted'));
-					});
+
+			let userIdList = [];
+			if (this.employeeListChecked.length > 0) {
+				userIdList = this.employeeListChecked.map(x => ({ id: x }));
 			}
+
+			await this.$api.post('/check-list-items', {
+				text: this.checkboxName,
+				employeeIds: userIdList,
+				checkListGroupId: this.checkListData.id,
+			});
+			await this.GetChecklistGroupOne();
+
+			this.ClearData();
+			this.$notification.success(this.$t('Added'));
+		},
+		async Update(item) {
+			await this.$api.put('/check-list-items/' + item.id, {
+				checked: item.checked,
+				text: item.text,
+			});
+
+			await this.GetChecklistGroupOne();
+		},
+		async Delete(id) {
+			if (!confirm(this.$t('confirmDelete'))) {
+				return;
+			}
+
+			await this.$api.delete('/check-list-items/' + id);
+			await this.GetChecklistGroupOne();
+
+			this.$notification.success(this.$t('successfullyDeleted'));
 		},
 		ClearData() {
 			this.checkboxName = null;
