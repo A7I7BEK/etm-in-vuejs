@@ -39,7 +39,9 @@
 					<button
 						type="submit"
 						class="menu-checklist_add button-effect"
-					>{{ $t('add') }}</button>
+					>
+						{{ $t('add') }}
+					</button>
 				</form>
 			</div>
 		</div>
@@ -64,35 +66,30 @@ export default {
 		}
 	},
 	methods: {
-		CreateChecklistGroup() {
+		async CreateChecklistGroup() {
 			this.$v.$touch();
 			if (this.$v.$invalid) {
 				return;
 			}
 
-			this.$api
-				.post('/check-list-groups', {
-					name: this.checklistGroupName,
-					taskId: this.$store.state.taskModalData.id,
-				})
-				.then(response => {
-					this.GetChecklistGroupAll();
-					this.$v.$reset();
-					this.checklistGroupName = null;
-				});
+			await this.$api.post('/check-list-groups', {
+				name: this.checklistGroupName,
+				taskId: this.$store.state.taskModalData.id,
+			});
+			await this.GetChecklistGroupAll();
+
+			this.checklistGroupName = null;
+			this.$v.$reset();
+			this.$store.state.taskModalActionStarter++;
 		},
-		GetChecklistGroupAll() {
-			this.$api
-				.get('/check-list-groups', {
-					params: {
-						sortBy: 'id',
-						taskId: this.$store.state.taskModalData.id,
-					}
-				})
-				.then(response => {
-					this.$store.state.taskModalData.checkListGroups = response.data.data;
-					this.$store.state.taskModalActionStarter++;
-				});
+		async GetChecklistGroupAll() {
+			const resp = await this.$api.get('/check-list-groups', {
+				params: {
+					taskId: this.$store.state.taskModalData.id,
+				}
+			});
+
+			this.$store.state.taskModalData.checkListGroups = resp.data.data;
 		},
 	}
 };

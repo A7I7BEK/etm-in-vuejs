@@ -198,10 +198,13 @@
 								class="mw-checklist__findUser button-effect mt-0 d-flex align-items-center"
 								data-custom-drop-btn
 							>
-								@{{ $t('workers') }} <strong
+								@{{ $t('workers') }}
+								<strong
 									class="num"
 									v-if="employeeListChecked.length > 0"
-								>{{ employeeListChecked.length }}</strong>
+								>
+									{{ employeeListChecked.length }}
+								</strong>
 							</div>
 
 
@@ -260,11 +263,15 @@
 								type="button"
 								class="checklist__bottom__close button-effect"
 								@click="ClearData"
-							>{{ $t('cancel') }}</button>
+							>
+								{{ $t('cancel') }}
+							</button>
 							<button
 								type="submit"
 								class="checklist__bottom__save button-effect"
-							>{{ $t('save') }}</button>
+							>
+								{{ $t('save') }}
+							</button>
 						</div>
 					</div>
 				</div>
@@ -316,16 +323,12 @@ export default {
 			};
 		},
 	},
-	created() {
-	},
 	methods: {
-		GetChecklistGroupOne() {
-			this.$api
-				.get('/check-list-groups/' + this.checkListData.id)
-				.then(response => {
-					this.checkListData = response.data.data;
-					this.$store.state.taskModalActionStarter++;
-				});
+		async GetChecklistGroupOne() {
+			const resp = await this.$api.get('/check-list-groups/' + this.checkListData.id);
+
+			this.checkListData = resp.data.data;
+			this.$store.state.taskModalActionStarter++;
 		},
 		Create() {
 			this.$v.$touch();
@@ -380,28 +383,25 @@ export default {
 
 
 
-		GetChecklistGroupAll() {
-			this.$api
-				.get('/check-list-groups', {
-					params: {
-						'sortBy': 'id',
-						'taskId': this.$store.state.taskModalData.id,
-					}
-				})
-				.then(response => {
-					this.$store.state.taskModalData.checkListGroups = response.data.data;
-				});
+		async GetChecklistGroupAll() {
+			const resp = await this.$api.get('/check-list-groups', {
+				params: {
+					taskId: this.$store.state.taskModalData.id,
+				}
+			});
+
+			this.$store.state.taskModalData.checkListGroups = resp.data.data;
 		},
-		DeleteGroup(id) {
-			if (confirm(this.$t('confirmDelete'))) {
-				this.$api
-					.delete('/check-list-groups/' + id)
-					.then(response => {
-						this.GetChecklistGroupAll();
-						this.$store.state.taskModalActionStarter++;
-						this.$notification.success(this.$t('successfullyDeleted'));
-					});
+		async DeleteGroup(id) {
+			if (!confirm(this.$t('confirmDelete'))) {
+				return;
 			}
+
+			await this.$api.delete('/check-list-groups/' + id);
+			await this.GetChecklistGroupAll();
+
+			this.$store.state.taskModalActionStarter++;
+			this.$notification.success(this.$t('successfullyDeleted'));
 		},
 	}
 };
