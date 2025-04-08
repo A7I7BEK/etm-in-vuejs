@@ -388,29 +388,40 @@
 								:key="item.id"
 							>
 								<div class="mw-action__ava">
-									<img
-										v-if="item.employee.photoFile"
-										:src="$store.state.url + item.employee.photoFile.url"
-										alt=""
-									>
 									<div
 										class="txt"
-										v-else
+										v-if="!item.employee"
+									>
+										UN
+									</div>
+									<div
+										class="txt"
+										v-else-if="!item.employee.photoFile"
 									>
 										{{ item.employee.firstName.charAt(0) + item.employee.lastName.charAt(0) }}
 									</div>
+									<img
+										v-else
+										:src="$store.state.url + item.employee.photoFile.url"
+									>
 								</div>
 
 								<div class="mw-action__content__bottom">
-									<strong>
+									<strong v-if="item.employee">
 										{{ item.employee.firstName }}
 										{{ item.employee.lastName }}
 									</strong>
-									<action-item
+									<strong v-else>
+										{{ $t('unknown') }}
+									</strong>
+
+									<base-action
 										:action="item"
 										:clickable="false"
-									></action-item>
+									></base-action>
+
 									<br>
+
 									<span>
 										<template v-if="$moment().diff($moment(item.createdAt), 'years') > 0">
 											{{ item.createdAt | filterDateMonth }}
@@ -447,15 +458,15 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators';
+import BaseAction from '../../../../../components/actions/base-action.vue';
 import { ORDER, TASK_COMMENT_TYPE } from '../../../../../constants';
 import FormService from '../../../../../services/FormService';
-import ActionItem from '../../ActionItem';
 
 
 export default {
 	name: 'TaskModalLeftActivity',
 	components: {
-		ActionItem,
+		BaseAction,
 	},
 	data() {
 		return {
@@ -542,11 +553,12 @@ export default {
 
 			const { data: { data, meta } } = await this.$api.get('/actions', {
 				params: {
-					'taskId': this.$store.state.taskModalData.id,
-					'pageSize': this.aParams.pageSize,
-					'page': 0,
-					'sortBy': 'id',
-					'sortDirection': ORDER.DESC,
+					page: 1,
+					pageSize: this.aParams.pageSize,
+					sortBy: 'id',
+					sortDirection: ORDER.DESC,
+					projectId: this.$store.state.projectData.id,
+					taskId: this.$store.state.taskModalData.id,
 				}
 			});
 

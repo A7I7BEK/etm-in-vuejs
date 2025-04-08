@@ -1,6 +1,6 @@
 <script>
+import BaseAction from '../../../../../components/actions/base-action.vue';
 import BaseRightMenu from '../../../../../components/BaseRightMenu';
-import ActionItem from '../../ActionItem';
 import BackgroundModal from './BackgroundModal/index';
 import SettingsModal from './SettingsModal/index';
 
@@ -9,7 +9,7 @@ export default {
 	name: 'RightMenuMain',
 	components: {
 		BaseRightMenu,
-		ActionItem,
+		BaseAction,
 		BackgroundModal,
 		SettingsModal,
 	},
@@ -39,9 +39,6 @@ export default {
 			}
 		},
 	},
-	created() {
-	},
-	methods: {}
 };
 </script>
 

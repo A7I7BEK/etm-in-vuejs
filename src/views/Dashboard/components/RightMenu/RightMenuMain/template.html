@@ -74,10 +74,7 @@
 					>
 						<div class="m-settings__main__inner">
 							<div class="m-settings__icon">
-								<i
-									class="fa fa-cog"
-									aria-hidden="true"
-								></i>
+								<i class="fa fa-cog"></i>
 							</div>
 							<span>{{$t('projectSettings')}}</span>
 						</div>
@@ -107,20 +104,27 @@
 						class="menu-actions__item"
 					>
 						<div class="menu-actions__ava">
+							<b v-if="!item.employee">
+								UN
+							</b>
+							<b v-else-if="!item.employee.photoFile">
+								{{ item.employee.firstName.charAt(0) + item.employee.lastName.charAt(0) }}
+							</b>
 							<img
-								v-if="item.photoUrl.trim()"
-								:src="$store.state.url + item.photoUrl"
-								alt=""
+								v-else
+								:src="$store.state.url + item.employee.photoFile.url"
 							>
-							<b v-else>{{ item.firstName.charAt(0) + item.lastName.charAt(0) }}</b>
 						</div>
 						<div class="menu-actions__item__text">
-							<strong>
-								{{ item.firstName }}
-								{{ item.lastName }}
+							<strong v-if="item.employee">
+								{{ item.employee.firstName }}
+								{{ item.employee.lastName }}
+							</strong>
+							<strong v-else>
+								{{ $t('unknown') }}
 							</strong>
 
-							<action-item :action="item"></action-item>
+							<base-action :action="item"></base-action>
 
 							<span>
 								<template v-if="$moment().diff($moment(item.createdAt), 'years') > 0">

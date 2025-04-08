@@ -4,27 +4,55 @@
 
 	<template #content>
 		<div class="az_ntf_menu">
-			<div class="az_ntf_menu_set custom-dropdown__main" data-custom-drop>
-				<button type="button" class="btn az_base_btn button-effect" data-custom-drop-btn ref="markAll">
+			<div
+				class="az_ntf_menu_set custom-dropdown__main"
+				data-custom-drop
+			>
+				<button
+					type="button"
+					class="btn az_base_btn button-effect"
+					data-custom-drop-btn
+					ref="markAll"
+				>
 					<i class="fa fa-gear"></i>
 				</button>
 
-				<div class="custom-dropdown" data-custom-drop-body>
+				<div
+					class="custom-dropdown"
+					data-custom-drop-body
+				>
 					<ul class="az_ntf_menu_set_ls">
-						<li><a href="" @click.prevent="MarkAllAsRead">{{ $t('markAllAsRead') }}</a></li>
-						<li><a href="" @click.prevent="DeleteAll">{{ $t('deleteAll') }}</a></li>
+						<li><a
+								href=""
+								@click.prevent="MarkAllAsRead"
+							>{{ $t('markAllAsRead') }}</a></li>
+						<li><a
+								href=""
+								@click.prevent="DeleteAll"
+							>{{ $t('deleteAll') }}</a></li>
 					</ul>
 				</div>
 			</div>
 
 
 			<ul class="az_ntf_menu_msg_ls">
-				<li v-for="item in notif.list" :key="item.id">
-					<a href="#" class="mw-action__content__bottom az_ntf_menu_msg_it" :class="{'active': !item.seenAt}" @click.prevent="GoToNotification(item)">
+				<li
+					v-for="item in notif.list"
+					:key="item.id"
+				>
+					<a
+						href="#"
+						class="mw-action__content__bottom az_ntf_menu_msg_it"
+						:class="{'active': !item.seenAt}"
+						@click.prevent="GoToNotification(item)"
+					>
 
 						<strong>{{ item.action.employee.firstName }} {{ item.item.action.employee.lastName }}</strong>
 
-						<action-item :action="item.action" :clickable="false"></action-item>
+						<action-item
+							:action="item.action"
+							:clickable="false"
+						></action-item>
 
 						<span>
 							<template v-if="$moment().diff($moment(item.action.createdAt), 'years') > 0">
@@ -38,8 +66,15 @@
 				</li>
 
 
-				<li class="p-3" v-show="notif.totalItems > notif.params.pageSize">
-					<button type="button" class="btn az_base_btn btn-primary btn-block" @click="GetNotificationMore(10)">
+				<li
+					class="p-3"
+					v-show="notif.totalItems > notif.params.pageSize"
+				>
+					<button
+						type="button"
+						class="btn az_base_btn btn-primary btn-block"
+						@click="GetNotificationMore(10)"
+					>
 						{{ $t('more') }}
 					</button>
 				</li>
