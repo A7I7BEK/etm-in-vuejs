@@ -40,12 +40,6 @@ export default new Vuex.Store({
 		notificationAlert: false,
 	},
 	mutations: {
-		setModalTaskPriorityType(state, data) {
-			state.taskModalData = { ...state.taskModalData, 'taskPriorityType': data };
-		},
-		setModalTaskLevelType(state, data) {
-			state.taskModalData = { ...state.taskModalData, 'taskLevelType': data };
-		},
 		setProjectSelectionList(state, data) {
 			state.projectSelectionList = data;
 		},

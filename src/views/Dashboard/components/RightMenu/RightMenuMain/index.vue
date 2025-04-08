@@ -34,6 +34,7 @@ export default {
 	},
 	watch: {
 		'$store.state.socket.action'(val) {
+			// TODO: Socket action
 			if (this.$store.state.projectData.id === val.projectId) {
 				this.$store.state.projectData.actions = val.taskActionDtos;
 			}
