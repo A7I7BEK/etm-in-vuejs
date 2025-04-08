@@ -45,7 +45,7 @@ export default {
 		[ PERMISSION_TYPE.PROJECT_COLUMN.CREATE ]: '"{name}" nomli ustun yaratdi',
 		[ PERMISSION_TYPE.PROJECT_COLUMN.UPDATE ]: '"{name}" nomli ustunni tahrirladi',
 		[ PERMISSION_TYPE.PROJECT_COLUMN.DELETE ]: '"{name}" nomli ustunni o‘chirdi',
-		[ PERMISSION_TYPE.PROJECT_COLUMN.MOVE ]: '"{name}" nomli ustunni qayta tartibladi',
+		[ PERMISSION_TYPE.PROJECT_COLUMN.MOVE ]: '"{name}" nomli ustunni joyini o‘zgartirdi',
 		[ PERMISSION_TYPE.PROJECT_MEMBER.CREATE ]: '"{employeeNames}" nomli xodim(lar)ni loyihaga qo‘shdi',
 		[ PERMISSION_TYPE.PROJECT_MEMBER.DELETE ]: '"{employeeName}" nomli xodimni loyihadan chiqarib yubordi',
 		[ PERMISSION_TYPE.PROJECT_TAG.CREATE ]: '"{name}" nomli loyiha belgisini yaratdi',
@@ -74,7 +74,7 @@ export default {
 		[ PERMISSION_TYPE.TASK.COPY ]: '"{originalName}" nomli vazifadan "{newName}" nomli nusxa yaratdi',
 		[ PERMISSION_TYPE.TASK.MOVE + 'migrate' ]: '"oldProjectName" nomli loyihadan "{taskName}" nomli vazifani ko‘chirib olib keldi',
 		[ PERMISSION_TYPE.TASK.MOVE + 'move' ]: '"{taskName}" nomli vazifani "{oldColumnName}" nomli ustundan "{newColumnName}" nomli ustunga ko‘chirdi',
-		[ PERMISSION_TYPE.TASK.MOVE + 'reorder' ]: '"{name}" nomli vazifani qayta tartibladi',
+		[ PERMISSION_TYPE.TASK.MOVE + 'reorder' ]: '"{taskName}" nomli vazifani joyini o‘zgartirdi',
 	},
 	boardColumn: {
 		addTask: 'Vazifa qo‘shish',

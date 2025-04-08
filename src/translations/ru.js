@@ -74,7 +74,7 @@ export default {
 		[ PERMISSION_TYPE.TASK.COPY ]: 'создал копию задачи "{newName}" из "{originalName}"',
 		[ PERMISSION_TYPE.TASK.MOVE + 'migrate' ]: 'перенес задачу "{taskName}" из проекта "oldProjectName"',
 		[ PERMISSION_TYPE.TASK.MOVE + 'move' ]: 'переместил задачу "{taskName}" из столбца "{oldColumnName}" в столбец "{newColumnName}"',
-		[ PERMISSION_TYPE.TASK.MOVE + 'reorder' ]: 'изменил порядок задачи "{name}"',
+		[ PERMISSION_TYPE.TASK.MOVE + 'reorder' ]: 'изменил порядок задачи "{taskName}"',
 	},
 	boardColumn: {
 		addTask: 'Добавить задачу',

@@ -8,19 +8,19 @@ Vue.filter('filterDate', (val) => {
 });
 
 Vue.filter('filterDateTime', (val) => {
-	return Moment(val).isValid() ? Moment(val).format('D.MM.YYYY HH:mm') : '';
+	return Moment(val).isValid() ? Moment(val).format('D.MM.YYYY, HH:mm:ss') : '';
 });
 
 Vue.filter('filterTimeDate', (val) => {
-	return Moment(val).isValid() ? Moment(val).format('HH:mm D.MM.YYYY') : '';
+	return Moment(val).isValid() ? Moment(val).format('HH:mm:ss, D.MM.YYYY') : '';
 });
 
 Vue.filter('filterTimeMonth', (val) => {
-	return Moment(val).isValid() ? Moment(val).format('HH:mm D MMMM') : '';
+	return Moment(val).isValid() ? Moment(val).format('HH:mm:ss, D MMMM') : '';
 });
 
 Vue.filter('filterMonthTime', (val) => {
-	return Moment(val).isValid() ? Moment(val).format('D MMMM HH:mm') : '';
+	return Moment(val).isValid() ? Moment(val).format('D MMMM, HH:mm:ss') : '';
 });
 
 Vue.filter('filterMonth', (val) => {
@@ -39,8 +39,7 @@ Vue.filter('filterTimeDateStr', (val) => {
 });
 
 Vue.filter('filterTimeLeftMinutes', (val) => {
-	if (typeof val === 'number')
-	{
+	if (typeof val === 'number') {
 		let duration = Moment.duration(val, 'm');
 		return (duration.asDays() > 9 ? Math.floor(duration.asDays()) : '0' + Math.floor(duration.asDays())) + ':' +
 			(duration.hours() > 9 ? duration.hours() : '0' + duration.hours()) + ':' +

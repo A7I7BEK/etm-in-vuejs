@@ -74,7 +74,7 @@ export default {
 		[ PERMISSION_TYPE.TASK.COPY ]: 'created copy of the task "{newName}" from "{originalName}"',
 		[ PERMISSION_TYPE.TASK.MOVE + 'migrate' ]: 'migrated task "{taskName}" from project "oldProjectName"',
 		[ PERMISSION_TYPE.TASK.MOVE + 'move' ]: 'moved task "{taskName}" from column "{oldColumnName}" into column "{newColumnName}"',
-		[ PERMISSION_TYPE.TASK.MOVE + 'reorder' ]: 'reordered task "{name}"',
+		[ PERMISSION_TYPE.TASK.MOVE + 'reorder' ]: 'reordered task "{taskName}"',
 	},
 	boardColumn: {
 		addTask: 'Add task',
