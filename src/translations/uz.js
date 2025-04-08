@@ -528,4 +528,5 @@ export default {
 		},
 	},
 	systemCreated: 'Tizimda yaratilgan',
+	unknown: 'Noma’lum',
 };

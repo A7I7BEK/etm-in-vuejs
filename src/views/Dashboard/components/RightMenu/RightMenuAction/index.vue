@@ -1,7 +1,7 @@
 <script>
+import BaseAction from '../../../../../components/actions/base-action.vue';
 import BaseRightMenu from '../../../../../components/BaseRightMenu';
 import { ORDER } from '../../../../../constants';
-import ActionItem from '../../ActionItem';
 import CommentItem from '../../CommentItem';
 
 
@@ -9,17 +9,18 @@ export default {
 	name: 'RightMenuAction',
 	components: {
 		BaseRightMenu,
-		ActionItem,
+		BaseAction,
 		CommentItem
 	},
 	data() {
 		return {
-			actionTotalCount: 0,
 			actionPageSize: 20,
-			commentTotalCount: 0,
-			commentPageSize: 20,
 			actionList: [],
+			actionTotalCount: 0,
+
+			commentPageSize: 20,
 			commentList: [],
+			commentTotalCount: 0,
 		};
 	},
 	watch: {
@@ -42,16 +43,18 @@ export default {
 			this.$api
 				.get('/actions', {
 					params: {
-						'page': 0,
-						'pageSize': this.actionPageSize,
-						'sortBy': 'id',
-						'sortDirection': ORDER.DESC,
-						'projectId': this.$route.params.id,
+						page: 1,
+						pageSize: this.actionPageSize,
+						sortBy: 'id',
+						sortDirection: ORDER.DESC,
+						projectId: this.$route.params.id,
 					}
 				})
 				.then(response => {
-					this.actionList = response.data.data;
-					this.actionTotalCount = response.data.totalCount;
+					const { data, meta } = response.data;
+
+					this.actionList = data;
+					this.actionTotalCount = meta.totalItems;
 				});
 		},
 		GetTaskCommentList(pageCount = 0) {

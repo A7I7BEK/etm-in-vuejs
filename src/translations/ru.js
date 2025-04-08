@@ -528,4 +528,5 @@ export default {
 		},
 	},
 	systemCreated: 'Создано системой',
+	unknown: 'Неизвестный',
 };
