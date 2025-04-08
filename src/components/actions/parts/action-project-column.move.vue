@@ -13,7 +13,7 @@ import { PERMISSION_TYPE } from '../../constants';
 
 
 export default {
-	name: 'BaseAction',
+	name: 'ActionProjectColumnMove',
 	props: {
 		action: {
 			type: Object,
