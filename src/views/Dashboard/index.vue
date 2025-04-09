@@ -37,6 +37,11 @@ export default {
 				token: accessTokenGet(),
 				roomId: this.$route.params.id,
 			}),
+			socketActive: new SocketService({
+				url: DEFAULT_API_URL,
+				path: '/ws-active-users',
+				token: accessTokenGet(),
+			}),
 
 			projectDataFiltered: null,
 			projectDataFilteredTaskCount: 0,
@@ -124,27 +129,20 @@ export default {
 				this.socketColumn.setup();
 				this.socketTask.setup();
 
-				this.start();
+				await this.start();
 			}
 		},
-		'$store.state.socket.online'(val) {
-			clearTimeout(this.socketTimerId);
-
-			this.socketTimerId = setTimeout(() => {
-				let member = this.$store.state.projectData.members.find(a => a.employee.user.id === val.userId);
-				if (member) {
-					this.$set(member.employee.user, 'isOnline', val.isOnline);
-					this.$set(member.employee.user, 'lastOnlineAt', val.lastOnlineAt);
-				}
-			}, 2000);
-		},
 	},
-	created() {
-		this.start();
+	async created() {
+		await this.start();
+
+		this.ListenSocketActive();
+		this.socketActive.connect();
 	},
 	beforeDestroy() {
 		this.socketColumn.disconnect();
 		this.socketTask.disconnect();
+		this.socketActive.disconnect();
 		this.$store.state.projectData = null;
 	},
 	methods: {
@@ -286,6 +284,24 @@ export default {
 				newColumn.tasks.splice(data.ordering, 0, task);
 				this.ReorderArray(oldColumn.tasks);
 				this.ReorderArray(newColumn.tasks);
+			});
+		},
+		ListenSocketActive() {
+			this.socketActive.socket.on('active-user-join', (data) => {
+				const memberList = this.$store.state.projectData?.members;
+
+				if (!memberList) {
+					return;
+				}
+
+				clearTimeout(this.socketTimerId);
+				this.socketTimerId = setTimeout(() => {
+					let member = memberList.find(a => a.employee.user.id === data.userId);
+					if (member) {
+						this.$set(member.employee.user, 'isOnline', data.isOnline);
+						this.$set(member.employee.user, 'lastOnlineAt', data.lastOnlineAt);
+					}
+				}, 2000);
 			});
 		},
 		ReorderArray(array) {
