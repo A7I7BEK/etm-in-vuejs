@@ -113,9 +113,18 @@ export default {
 			},
 			deep: true
 		},
-		'$route.params.id'(newVal, oldVal) {
+		async '$route.params.id'(newVal, oldVal) {
 			if (+newVal !== +oldVal) {
-				this.GetAll();
+				this.socketColumn.disconnect();
+				this.socketTask.disconnect();
+
+				this.socketColumn.roomId = newVal;
+				this.socketTask.roomId = newVal;
+
+				this.socketColumn.setup();
+				this.socketTask.setup();
+
+				this.start();
 			}
 		},
 		'$store.state.socket.online'(val) {
@@ -130,10 +139,8 @@ export default {
 			}, 2000);
 		},
 	},
-	async created() {
-		await this.GetAll();
-		this.ListenSocketColumn();
-		this.ListenSocketTask();
+	created() {
+		this.start();
 	},
 	beforeDestroy() {
 		this.socketColumn.disconnect();
@@ -141,6 +148,15 @@ export default {
 		this.$store.state.projectData = null;
 	},
 	methods: {
+		async start() {
+			await this.GetAll();
+
+			this.ListenSocketColumn();
+			this.ListenSocketTask();
+
+			this.socketColumn.connect();
+			this.socketTask.connect();
+		},
 		async GetAll() {
 			this.$store.state.loader = true;
 
@@ -148,16 +164,9 @@ export default {
 			this.$store.state.projectData = resp.data.data;
 			this.$store.state.metaData.title = this.$route.meta.title(resp.data.data.name);
 
-			this.socketColumn.connect();
-			this.socketColumn.enableMonitoring();
-
-			this.socketTask.connect();
-			this.socketTask.enableMonitoring();
-
 			setTimeout(() => {
 				this.$store.state.loader = false;
 			}, 500);
-
 		},
 		async GetEmployeeAll() {
 			const resp = await this.$api.get('/project-members', {
