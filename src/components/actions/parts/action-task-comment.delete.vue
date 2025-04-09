@@ -3,10 +3,6 @@
 		tag="p"
 		:path="`actionItem.${action.activityType}`"
 	>
-		<template #dateTime>
-			{{ action.createdAt | filterDateTime }}
-		</template>
-
 		<template #taskName>
 			<a
 				href="#"
