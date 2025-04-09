@@ -1,4 +1,4 @@
-import { PERMISSION_TYPE } from '../constants';
+import { NOTIFICATION_TYPE, PERMISSION_TYPE } from '../constants';
 
 
 export default {
@@ -56,9 +56,9 @@ export default {
 		[ PERMISSION_TYPE.PROJECT.CHANGE_BACKGROUND ]: 'changed the project background',
 		[ PERMISSION_TYPE.TASK_ATTACHMENT.CREATE ]: 'added file "{fileName}" into task "{taskName}"',
 		[ PERMISSION_TYPE.TASK_ATTACHMENT.DELETE ]: 'removed file "{fileName}" from task "{taskName}"',
-		[ PERMISSION_TYPE.TASK_COMMENT.CREATE ]: 'commented in task "{taskName}" at "{dateTime}"',
-		[ PERMISSION_TYPE.TASK_COMMENT.UPDATE ]: 'updated a comment in task "{taskName}" at "{dateTime}"',
-		[ PERMISSION_TYPE.TASK_COMMENT.DELETE ]: 'deleted a comment in task "{taskName}" at "{dateTime}"',
+		[ PERMISSION_TYPE.TASK_COMMENT.CREATE ]: 'commented in task "{taskName}"',
+		[ PERMISSION_TYPE.TASK_COMMENT.UPDATE ]: 'updated a comment in task "{taskName}"',
+		[ PERMISSION_TYPE.TASK_COMMENT.DELETE ]: 'deleted a comment in task "{taskName}"',
 		[ PERMISSION_TYPE.TASK_DEADLINE.CREATE ]: 'set time for the task "{taskName}"',
 		[ PERMISSION_TYPE.TASK_DEADLINE.UPDATE ]: 'updated time of the task "{taskName}"',
 		[ PERMISSION_TYPE.TASK_DEADLINE.DELETE ]: 'deleted time of the task "{taskName}"',
@@ -66,8 +66,8 @@ export default {
 		[ PERMISSION_TYPE.TASK_MEMBER.DELETE ]: 'removed member "{employeeName}" from task "{taskName}"',
 		[ PERMISSION_TYPE.TASK_TAG.CREATE ]: 'added tag "{tagName}" into task "{taskName}"',
 		[ PERMISSION_TYPE.TASK_TAG.DELETE ]: 'removed tag "{tagName}" from task "{taskName}"',
-		[ PERMISSION_TYPE.TASK_TIMER.START ]: 'started timer of task "{taskName}" at "{dateTime}"',
-		[ PERMISSION_TYPE.TASK_TIMER.STOP ]: 'stopped timer of task "{taskName}" at "{dateTime}"',
+		[ PERMISSION_TYPE.TASK_TIMER.START ]: 'started timer of task "{taskName}"',
+		[ PERMISSION_TYPE.TASK_TIMER.STOP ]: 'stopped timer of task "{taskName}"',
 		[ PERMISSION_TYPE.TASK.CREATE ]: 'created task "{name}"',
 		[ PERMISSION_TYPE.TASK.UPDATE ]: 'edited task "{name}"',
 		[ PERMISSION_TYPE.TASK.DELETE ]: 'deleted task "{name}"',
@@ -75,6 +75,11 @@ export default {
 		[ PERMISSION_TYPE.TASK.MOVE + 'migrate' ]: 'migrated task "{taskName}" from project "oldProjectName"',
 		[ PERMISSION_TYPE.TASK.MOVE + 'move' ]: 'moved task "{taskName}" from column "{oldColumnName}" into column "{newColumnName}"',
 		[ PERMISSION_TYPE.TASK.MOVE + 'reorder' ]: 'reordered task "{taskName}"',
+	},
+	notifItem: {
+		[ NOTIFICATION_TYPE.TASK ]: 'updated your task "{taskName}"',
+		[ NOTIFICATION_TYPE.COMMENT ]: 'mentioned you in comment in task "{taskName}"',
+		[ NOTIFICATION_TYPE.CHECK_LIST_ITEM ]: 'mentioned you in checklist item "{itemName}" in task "{taskName}"',
 	},
 	boardColumn: {
 		addTask: 'Add task',

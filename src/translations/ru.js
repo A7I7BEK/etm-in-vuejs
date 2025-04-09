@@ -1,4 +1,4 @@
-import { PERMISSION_TYPE } from '../constants';
+import { NOTIFICATION_TYPE, PERMISSION_TYPE } from '../constants';
 
 
 export default {
@@ -56,9 +56,9 @@ export default {
 		[ PERMISSION_TYPE.PROJECT.CHANGE_BACKGROUND ]: 'изменил фон проекта',
 		[ PERMISSION_TYPE.TASK_ATTACHMENT.CREATE ]: 'добавил файл "{fileName}" в задачу "{taskName}"',
 		[ PERMISSION_TYPE.TASK_ATTACHMENT.DELETE ]: 'удалил файл "{fileName}" из задачи "{taskName}"',
-		[ PERMISSION_TYPE.TASK_COMMENT.CREATE ]: 'прокомментировал задачу "{taskName}" в "{dateTime}"',
-		[ PERMISSION_TYPE.TASK_COMMENT.UPDATE ]: 'обновил комментарий в задаче "{taskName}" в "{dateTime}"',
-		[ PERMISSION_TYPE.TASK_COMMENT.DELETE ]: 'удалил комментарий в задаче "{taskName}" в "{dateTime}"',
+		[ PERMISSION_TYPE.TASK_COMMENT.CREATE ]: 'прокомментировал задачу "{taskName}"',
+		[ PERMISSION_TYPE.TASK_COMMENT.UPDATE ]: 'обновил комментарий в задаче "{taskName}"',
+		[ PERMISSION_TYPE.TASK_COMMENT.DELETE ]: 'удалил комментарий в задаче "{taskName}"',
 		[ PERMISSION_TYPE.TASK_DEADLINE.CREATE ]: 'установил время для задачи "{taskName}"',
 		[ PERMISSION_TYPE.TASK_DEADLINE.UPDATE ]: 'обновил время задачи "{taskName}"',
 		[ PERMISSION_TYPE.TASK_DEADLINE.DELETE ]: 'удалил время задачи "{taskName}"',
@@ -66,8 +66,8 @@ export default {
 		[ PERMISSION_TYPE.TASK_MEMBER.DELETE ]: 'удалил участника "{employeeName}" из задачи "{taskName}"',
 		[ PERMISSION_TYPE.TASK_TAG.CREATE ]: 'добавил тег "{tagName}" в задачу "{taskName}"',
 		[ PERMISSION_TYPE.TASK_TAG.DELETE ]: 'удалил тег "{tagName}" из задачи "{taskName}"',
-		[ PERMISSION_TYPE.TASK_TIMER.START ]: 'запустил таймер задачи "{taskName}" в "{dateTime}"',
-		[ PERMISSION_TYPE.TASK_TIMER.STOP ]: 'остановил таймер задачи "{taskName}" на "{dateTime}"',
+		[ PERMISSION_TYPE.TASK_TIMER.START ]: 'запустил таймер задачи "{taskName}"',
+		[ PERMISSION_TYPE.TASK_TIMER.STOP ]: 'остановил таймер задачи "{taskName}"',
 		[ PERMISSION_TYPE.TASK.CREATE ]: 'создал задачу "{name}"',
 		[ PERMISSION_TYPE.TASK.UPDATE ]: 'отредактировал задачу "{name}"',
 		[ PERMISSION_TYPE.TASK.DELETE ]: 'удалил задачу "{name}"',
@@ -75,6 +75,11 @@ export default {
 		[ PERMISSION_TYPE.TASK.MOVE + 'migrate' ]: 'перенес задачу "{taskName}" из проекта "oldProjectName"',
 		[ PERMISSION_TYPE.TASK.MOVE + 'move' ]: 'переместил задачу "{taskName}" из столбца "{oldColumnName}" в столбец "{newColumnName}"',
 		[ PERMISSION_TYPE.TASK.MOVE + 'reorder' ]: 'изменил порядок задачи "{taskName}"',
+	},
+	notifItem: {
+		[ NOTIFICATION_TYPE.TASK ]: 'обновил вашу задачу "{taskName}"',
+		[ NOTIFICATION_TYPE.COMMENT ]: 'упомянул вас в комментарии к задаче "{taskName}"',
+		[ NOTIFICATION_TYPE.CHECK_LIST_ITEM ]: 'упомянул вас в пункте контрольного списка "{itemName}" в задаче "{taskName}"',
 	},
 	boardColumn: {
 		addTask: 'Добавить задачу',

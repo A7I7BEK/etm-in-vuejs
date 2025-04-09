@@ -22,14 +22,22 @@
 					data-custom-drop-body
 				>
 					<ul class="az_ntf_menu_set_ls">
-						<li><a
+						<li>
+							<a
 								href=""
 								@click.prevent="MarkAllAsRead"
-							>{{ $t('markAllAsRead') }}</a></li>
-						<li><a
+							>
+								{{ $t('markAllAsRead') }}
+							</a>
+						</li>
+						<li>
+							<a
 								href=""
 								@click.prevent="DeleteAll"
-							>{{ $t('deleteAll') }}</a></li>
+							>
+								{{ $t('deleteAll') }}
+							</a>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -46,13 +54,16 @@
 						:class="{'active': !item.seenAt}"
 						@click.prevent="GoToNotification(item)"
 					>
+						<strong v-if="item.action.employee">
+							{{ item.action.employee.firstName }}
+							{{ item.action.employee.lastName }}
+						</strong>
+						<strong v-else>
+							{{ $t('unknown') }}
+						</strong>
 
-						<strong>{{ item.action.employee.firstName }} {{ item.item.action.employee.lastName }}</strong>
-
-						<action-item
-							:action="item.action"
-							:clickable="false"
-						></action-item>
+						<base-notification-action :notification="item">
+						</base-notification-action>
 
 						<span>
 							<template v-if="$moment().diff($moment(item.action.createdAt), 'years') > 0">

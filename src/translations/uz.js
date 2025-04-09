@@ -1,4 +1,4 @@
-import { PERMISSION_TYPE } from '../constants';
+import { NOTIFICATION_TYPE, PERMISSION_TYPE } from '../constants';
 
 
 export default {
@@ -56,9 +56,9 @@ export default {
 		[ PERMISSION_TYPE.PROJECT.CHANGE_BACKGROUND ]: 'loyihaning orqa fonini o‘zgartirdi',
 		[ PERMISSION_TYPE.TASK_ATTACHMENT.CREATE ]: '"{taskName}" nomli vazifaga "{fileName}" nomli faylni biriktirdi',
 		[ PERMISSION_TYPE.TASK_ATTACHMENT.DELETE ]: '"{taskName}" nomli vazifadan "{fileName}" nomli faylni o‘chirib yubordi',
-		[ PERMISSION_TYPE.TASK_COMMENT.CREATE ]: '"{taskName}" nomli vazifada "{dateTime}"da izoh qoldirdi',
-		[ PERMISSION_TYPE.TASK_COMMENT.UPDATE ]: '"{taskName}" nomli vazifadagi izohini "{dateTime}"da tahrirladi',
-		[ PERMISSION_TYPE.TASK_COMMENT.DELETE ]: '"{taskName}" nomli vazifadagi izohini "{dateTime}"da o‘chirdi',
+		[ PERMISSION_TYPE.TASK_COMMENT.CREATE ]: '"{taskName}" nomli vazifada izoh qoldirdi',
+		[ PERMISSION_TYPE.TASK_COMMENT.UPDATE ]: '"{taskName}" nomli vazifadagi izohini tahrirladi',
+		[ PERMISSION_TYPE.TASK_COMMENT.DELETE ]: '"{taskName}" nomli vazifadagi izohini o‘chirdi',
 		[ PERMISSION_TYPE.TASK_DEADLINE.CREATE ]: '"{taskName}" nomli vazifaga muddat belgiladi',
 		[ PERMISSION_TYPE.TASK_DEADLINE.UPDATE ]: '"{taskName}" nomli vazifadagi muddatni o‘zgartirdi',
 		[ PERMISSION_TYPE.TASK_DEADLINE.DELETE ]: '"{taskName}" nomli vazifadagi muddatni o‘chirib yubordi',
@@ -66,8 +66,8 @@ export default {
 		[ PERMISSION_TYPE.TASK_MEMBER.DELETE ]: '"{taskName}" nomli vazifadan "{employeeName}" nomli xodimni o‘chirdi',
 		[ PERMISSION_TYPE.TASK_TAG.CREATE ]: '"{taskName}" nomli vazifaga "{tagName}" nomli belgi qo‘shdi',
 		[ PERMISSION_TYPE.TASK_TAG.DELETE ]: '"{taskName}" nomli vazifadan "{tagName}" nomli belgini o‘chirdi',
-		[ PERMISSION_TYPE.TASK_TIMER.START ]: '"{taskName}" nomli vazifaning hisoblagichini "{dateTime}"da ishga tushirdi',
-		[ PERMISSION_TYPE.TASK_TIMER.STOP ]: '"{taskName}" nomli vazifaning hisoblagichini "{dateTime}"da to‘xtatdi',
+		[ PERMISSION_TYPE.TASK_TIMER.START ]: '"{taskName}" nomli vazifaning hisoblagichini ishga tushirdi',
+		[ PERMISSION_TYPE.TASK_TIMER.STOP ]: '"{taskName}" nomli vazifaning hisoblagichini to‘xtatdi',
 		[ PERMISSION_TYPE.TASK.CREATE ]: '"{name}" nomli vazifa yaratdi',
 		[ PERMISSION_TYPE.TASK.UPDATE ]: '"{name}" nomli vazifani tahrirladi',
 		[ PERMISSION_TYPE.TASK.DELETE ]: '"{name}" nomli vazifani o‘chirdi',
@@ -75,6 +75,11 @@ export default {
 		[ PERMISSION_TYPE.TASK.MOVE + 'migrate' ]: '"oldProjectName" nomli loyihadan "{taskName}" nomli vazifani ko‘chirib olib keldi',
 		[ PERMISSION_TYPE.TASK.MOVE + 'move' ]: '"{taskName}" nomli vazifani "{oldColumnName}" nomli ustundan "{newColumnName}" nomli ustunga ko‘chirdi',
 		[ PERMISSION_TYPE.TASK.MOVE + 'reorder' ]: '"{taskName}" nomli vazifani joyini o‘zgartirdi',
+	},
+	notifItem: {
+		[ NOTIFICATION_TYPE.TASK ]: 'sizning "{taskName}" nomli vazifangizni tahrirladi',
+		[ NOTIFICATION_TYPE.COMMENT ]: 'sizni "{taskName}" nomli vazifadagi izohida tilga oldi',
+		[ NOTIFICATION_TYPE.CHECK_LIST_ITEM ]: 'sizni "{taskName}" nomli vazifadagi "{itemName}" nomli nazorat ro‘yxati elementida tilga oldi',
 	},
 	boardColumn: {
 		addTask: 'Vazifa qo‘shish',

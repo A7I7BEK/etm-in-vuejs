@@ -106,19 +106,24 @@
 						>
 							<div class="menu-actions__item">
 								<div class="menu-actions__ava">
-									<img
-										v-if="item.author.photoFile"
-										:src="$store.state.url + item.author.photoFile.url"
-										alt=""
-									>
-									<b v-else>
+									<b v-if="!item.author">
+										UN
+									</b>
+									<b v-else-if="!item.author.photoFile">
 										{{ item.author.firstName.charAt(0) + item.author.lastName.charAt(0) }}
 									</b>
+									<img
+										v-else
+										:src="$store.state.url + item.author.photoFile.url"
+									>
 								</div>
 								<div class="menu-actions__item__text">
-									<strong>
+									<strong v-if="item.author">
 										{{ item.author.firstName }}
 										{{ item.author.lastName }}
+									</strong>
+									<strong v-else>
+										{{ $t('unknown') }}
 									</strong>
 
 									<comment-item :comment="item" />

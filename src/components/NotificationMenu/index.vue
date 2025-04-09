@@ -2,16 +2,24 @@
 import { FAVICON_ALERT, FAVICON_SIMPLE, ORDER } from '../../constants';
 import { SocketService } from '../../services/SocketService';
 import { accessTokenGet } from '../../services/TokenService';
-import ActionItem from '../../views/Dashboard/components/ActionItem.vue';
 import BaseRightMenu from '../BaseRightMenu';
+import BaseNotificationAction from './parts/base-notification.action.vue';
 
+
+const SORT_PROP = {
+	ID: 'id',
+	TYPE: 'type',
+	SEEN_AT: 'seenAt',
+	ACTION: 'action',
+	USER: 'user',
+};
 
 
 export default {
 	name: 'NotificationMenu',
 	components: {
 		BaseRightMenu,
-		ActionItem,
+		BaseNotificationAction,
 	},
 	data() {
 		return {
@@ -21,7 +29,7 @@ export default {
 				params: {
 					page: 1,
 					pageSize: 10,
-					sortBy: 'id',
+					sortBy: SORT_PROP.ID,
 					sortDirection: ORDER.DESC,
 				},
 			},
@@ -32,8 +40,8 @@ export default {
 			}),
 		};
 	},
-	created() {
-		this.GetNotificationList();
+	async created() {
+		await this.GetNotificationList();
 		this.ListenSocketNotification();
 		this.socketNotif.connect();
 		this.socketNotif.enableMonitoring();
@@ -44,20 +52,18 @@ export default {
 		this.AlarmSwitcher();
 	},
 	methods: {
-		GetNotificationList() {
-			this.$api
-				.get('/notifications', {
-					params: this.notif.params,
-				})
-				.then(response => {
-					this.notif.list = response.data.data;
-					this.notif.totalItems = response.data.meta.totalItems;
-					this.AlarmSwitcher();
-				});
+		async GetNotificationList() {
+			const { data: { data, meta } } = await this.$api.get('/notifications', {
+				params: this.notif.params,
+			});
+
+			this.notif.list = data;
+			this.notif.totalItems = meta.totalItems;
+			this.AlarmSwitcher();
 		},
-		GetNotificationMore(size) {
+		async GetNotificationMore(size) {
 			this.notif.params.pageSize += size;
-			this.GetNotificationList();
+			await this.GetNotificationList();
 		},
 		ListenSocketNotification() {
 			this.socketNotif.socket.on('notif-insert', (data) => {
@@ -65,56 +71,50 @@ export default {
 				this.AlarmSwitcher();
 			});
 		},
-		GoToNotification(item) {
-			this.$api
-				.post('/notifications/seen', {
-					allNotification: false,
-					notificationId: item.id,
-				})
-				.then(response => {
-					this.$set(item, 'seenAt', true);
-					this.AlarmSwitcher();
-				});
+		async GoToNotification(item) {
+			await this.$api.post('/notifications/seen', {
+				allNotification: false,
+				notificationId: item.id,
+			});
 
+			this.$set(item, 'seenAt', true);
+			this.AlarmSwitcher();
 
 			if (this.$route.name === 'dashboard') {
-				this.$store.state.taskModalId = item.taskId;
+				this.$store.state.taskModalId = item.action.task.id;
 			}
 
+			try {
+				await this.$router.push({
+					name: 'dashboard',
+					params: {
+						id: item.action.project.id,
+						taskId: item.action.task.id,
+					}
+				});
+			} catch (error) {
+				console.log(error.name);
+			}
+		},
+		async MarkAllAsRead() {
+			this.$refs.markAll.click();
 
-			this.$router.push({
-				name: 'dashboard',
-				params: {
-					id: item.projectId,
-					taskId: item.taskId,
-				}
-			}).catch(err => {
-				console.log(err.name);
+			await this.$api.post('/notifications/seen', {
+				allNotification: true,
+				notificationId: 999,
 			});
+
+			await this.GetNotificationList();
 		},
-		MarkAllAsRead() {
+		async DeleteAll() {
 			this.$refs.markAll.click();
 
-			this.$api
-				.post('/notifications/seen', {
-					allNotification: true,
-					notificationId: 999,
-				})
-				.then(response => {
-					this.GetNotificationList();
-				});
-		},
-		DeleteAll() {
-			this.$refs.markAll.click();
+			await this.$api.post('/notifications/clear', {
+				allNotification: true,
+				notificationId: 999,
+			});
 
-			this.$api
-				.post('/notifications/clear', {
-					allNotification: true,
-					notificationId: 999,
-				})
-				.then(response => {
-					this.GetNotificationList();
-				});
+			await this.GetNotificationList();
 		},
 		AlarmSwitcher() {
 			let status = this.notif.list.some(x => !x.seenAt);
