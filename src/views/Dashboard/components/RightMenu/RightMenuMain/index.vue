@@ -1,6 +1,9 @@
 <script>
 import BaseAction from '../../../../../components/actions/base-action.vue';
 import BaseRightMenu from '../../../../../components/BaseRightMenu';
+import { DEFAULT_API_URL } from '../../../../../constants';
+import { SocketService } from '../../../../../services/SocketService';
+import { accessTokenGet } from '../../../../../services/TokenService';
 import BackgroundModal from './BackgroundModal/index';
 import SettingsModal from './SettingsModal/index';
 
@@ -15,6 +18,12 @@ export default {
 	},
 	data() {
 		return {
+			socketAction: new SocketService({
+				url: DEFAULT_API_URL,
+				path: '/ws-actions',
+				token: accessTokenGet(),
+				roomId: this.$route.params.id,
+			}),
 			settingsModalStarter: 0,
 		};
 	},
@@ -32,14 +41,20 @@ export default {
 			return { img, value };
 		},
 	},
-	watch: {
-		'$store.state.socket.action'(val) {
-			// TODO: Socket action
-			if (this.$store.state.projectData.id === val.projectId) {
-				this.$store.state.projectData.actions = val.taskActionDtos;
-			}
-		},
+	created() {
+		this.listenSocketAction();
+		this.socketAction.connect();
 	},
+	beforeDestroy() {
+		this.socketAction.disconnect();
+	},
+	methods: {
+		listenSocketAction() {
+			this.socketAction.socket.on('action-insert', (data) => {
+				this.$store.state.projectData.actions.unshift(data);
+			});
+		},
+	}
 };
 </script>
 

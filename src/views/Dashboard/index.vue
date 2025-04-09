@@ -1,5 +1,5 @@
 <script>
-import { ORDER } from '../../constants';
+import { DEFAULT_API_URL, ORDER } from '../../constants';
 import SidebarMenu from '../../layouts/components/SidebarMenu';
 import { SocketService } from '../../services/SocketService';
 import { accessTokenGet } from '../../services/TokenService';
@@ -26,13 +26,13 @@ export default {
 	data() {
 		return {
 			socketColumn: new SocketService({
-				url: this.$store.state.url,
+				url: DEFAULT_API_URL,
 				path: '/ws-project-columns',
 				token: accessTokenGet(),
 				roomId: this.$route.params.id,
 			}),
 			socketTask: new SocketService({
-				url: this.$store.state.url,
+				url: DEFAULT_API_URL,
 				path: '/ws-tasks',
 				token: accessTokenGet(),
 				roomId: this.$route.params.id,
