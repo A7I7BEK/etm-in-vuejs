@@ -35,7 +35,7 @@
 					</tr>
 					<tr>
 						<th>{{ $tc('menu.organization', 1) }}</th>
-						<td>{{ item.organization.name }}</td>
+						<td>{{ model.organization.name }}</td>
 					</tr>
 					<tr>
 						<th>{{ $t('accessQuantity') }}</th>
@@ -46,7 +46,7 @@
 						<td>
 							<ul class="az_crud_read_tb_ls">
 								<li v-for="item in model.permissions">
-									{{ item.codeName }} - {{ $t('permission.' + item.codeName) }}
+									{{ item.codeName }}
 								</li>
 							</ul>
 						</td>

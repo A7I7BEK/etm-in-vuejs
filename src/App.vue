@@ -74,12 +74,6 @@ export default {
 			const resp = await this.$api.get('/users/me');
 
 			setProfile(resp.data.data);
-
-			this.$router
-				.push('/')
-				.catch(err => {
-					console.log(err.name);
-				});
 		},
 	}
 };

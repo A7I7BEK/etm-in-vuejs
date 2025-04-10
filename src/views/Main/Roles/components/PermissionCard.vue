@@ -73,7 +73,7 @@
 									</td>
 
 									<td>
-										<div class="az_crud_tb_txt">{{ $t('permission.' + item.name) }}</div>
+										<div class="az_crud_tb_txt">{{ item.name }}</div>
 									</td>
 
 									<td>
