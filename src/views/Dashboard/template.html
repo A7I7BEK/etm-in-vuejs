@@ -278,13 +278,15 @@
 
 								<div
 									class="d-flex justify-content-end mt-3"
-									v-if="employeeList?.length > 0"
+									v-if="employeeList && employeeList.length > 0"
 								>
 									<button
 										type="button"
 										class="member-invite-btn button-effect"
 										@click="AddEmployeeList"
-									>{{$t('invite')}}</button>
+									>
+										{{$t('invite')}}
+									</button>
 								</div>
 
 							</div>

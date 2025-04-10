@@ -235,7 +235,7 @@ export default {
 					id: this.$store.state.taskModalData.id,
 					projectId: this.selectedProject.id,
 					columnId: this.selectedColumn.id,
-					ordering: this.selectedTask?.ordering || 0,
+					ordering: this.selectedTask ? this.selectedTask.ordering : 0,
 				})
 				.then(response => {
 					this.$v.$reset();

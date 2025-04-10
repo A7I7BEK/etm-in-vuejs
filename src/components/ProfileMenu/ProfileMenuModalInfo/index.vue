@@ -61,7 +61,7 @@ export default {
 
 			this.model.SetData(data);
 			this.model.phoneNumber = '998' + data.phoneNumber;
-			this.model.employee.photoFileId = data.employee.photoFile?.id || 0;
+			this.model.employee.photoFileId = data.employee.photoFile ? data.employee.photoFile.id : 0;
 		});
 
 

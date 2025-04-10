@@ -76,7 +76,7 @@ export default {
 					this.model.SetData(data);
 					this.model.user.organizationId = data.user.organization.id;
 					this.model.user.phoneNumber = '998' + data.user.phoneNumber;
-					this.model.photoFileId = data.photoFile?.id || 0;
+					this.model.photoFileId = data.photoFile ? data.photoFile.id : 0;
 
 					this.modelSecond.SetData({
 						userId: data.user.id,

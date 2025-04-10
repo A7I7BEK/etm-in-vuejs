@@ -198,7 +198,7 @@
 						<td>
 							<div
 								class="az_crud_tb_txt"
-								v-if="item.user.roles?.length > 0"
+								v-if="item.user.roles && item.user.roles.length > 0"
 							>
 								{{item.user.roles.map(x => x.name).join(', ')}}
 							</div>

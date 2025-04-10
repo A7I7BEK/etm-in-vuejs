@@ -289,7 +289,11 @@ export default {
 		},
 		ListenSocketActive() {
 			this.socketActive.socket.on('active-user-join', (data) => {
-				const memberList = this.$store.state.projectData?.members;
+				if (!this.$store.state.projectData) {
+					return;
+				}
+
+				const memberList = this.$store.state.projectData.members;
 
 				if (!memberList) {
 					return;
