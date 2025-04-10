@@ -30,7 +30,7 @@
 			<base-input-project
 				class="mr-3"
 				is-filter
-				:show-organization="$store.state.userProfile.systemAdmin"
+				:show-organization="$store.state.systemAdmin"
 				:value.sync="projectSelected"
 				@update:value="HandleParams(HANDLE_PARAMS.PROJECT, $event)"
 			></base-input-project>
@@ -241,7 +241,7 @@
 								<router-link
 									class="btn az_base_btn btn-default icon mr-2"
 									v-if="can(PERMISSION_TYPE.TASK.READ)"
-									:to="{ name: 'dashboard', params: { id: item.projectId, taskId: item.id } }"
+									:to="{ name: 'dashboard', params: { id: item.project.id, taskId: item.id } }"
 								>
 									<i class="fa fa-external-link"></i>
 								</router-link>

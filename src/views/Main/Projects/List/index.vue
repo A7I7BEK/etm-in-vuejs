@@ -17,14 +17,14 @@
 			<base-input-group
 				class="mr-3"
 				is-filter
-				:show-organization="$store.state.userProfile.systemAdmin"
+				:show-organization="$store.state.systemAdmin"
 				@update:value="HandleParams(HANDLE_PARAMS.GROUP, $event)"
 			></base-input-group>
 
 			<base-input-manager
 				class="mr-3"
 				is-filter
-				:show-organization="$store.state.userProfile.systemAdmin"
+				:show-organization="$store.state.systemAdmin"
 				@update:value="HandleParams(HANDLE_PARAMS.MANAGER, $event)"
 			></base-input-manager>
 
@@ -36,7 +36,7 @@
 
 
 			<base-input-organization
-				v-if="$store.state.userProfile.systemAdmin"
+				v-if="$store.state.systemAdmin"
 				is-filter
 				@update:value="HandleParams(HANDLE_PARAMS.ORGANIZATION, $event)"
 			></base-input-organization>

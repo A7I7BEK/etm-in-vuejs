@@ -44,7 +44,6 @@ export default {
 		await this.GetNotificationList();
 		this.ListenSocketNotification();
 		this.socketNotif.connect();
-		this.socketNotif.enableMonitoring();
 	},
 	beforeDestroy() {
 		this.socketNotif.disconnect();

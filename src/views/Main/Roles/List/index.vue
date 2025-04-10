@@ -15,7 +15,7 @@
 			></base-input-search>
 
 			<base-input-organization
-				v-if="$store.state.userProfile.systemAdmin"
+				v-if="$store.state.systemAdmin"
 				is-filter
 				@update:value="HandleParams(HANDLE_PARAMS.ORGANIZATION, $event)"
 			></base-input-organization>

@@ -14,7 +14,7 @@
 
 		<base-input-organization
 			class="az_base_form_gr"
-			v-if="!edit && $store.state.userProfile.systemAdmin"
+			v-if="!edit && $store.state.systemAdmin"
 			:input-class="{ 'is-invalid': $v.model.organizationId.$error }"
 			:value.sync="$v.model.organizationId.$model"
 		></base-input-organization>
@@ -25,7 +25,7 @@
 			v-if="!edit"
 			external
 			:resource="projectList"
-			:disabled="$store.state.userProfile.systemAdmin && !model.organizationId"
+			:disabled="$store.state.systemAdmin && !model.organizationId"
 			:input-class="{ 'is-invalid': $v.model.projectId.$error }"
 			:value.sync="$v.model.projectId.$model"
 		></base-input-project>
@@ -55,7 +55,7 @@
 			<router-link
 				class="btn az_base_btn btn-warning"
 				v-if="edit"
-				:to="{ name: 'dashboard', params: { id: model.projectId, taskId: model.id } }"
+				:to="{ name: 'dashboard', params: { id: model.project.id, taskId: model.id } }"
 			>
 				<i class="fa fa-external-link align-middle mr-1"></i>
 				{{ $t('editInDashboard') }}
@@ -117,7 +117,7 @@ export default {
 				notZero,
 			};
 
-			if (this.$store.state.userProfile.systemAdmin) {
+			if (this.$store.state.systemAdmin) {
 				options.model.organizationId = {
 					notZero,
 				};
@@ -153,7 +153,7 @@ export default {
 		},
 	},
 	mounted() {
-		if (!this.edit && !this.$store.state.userProfile.systemAdmin) {
+		if (!this.edit && !this.$store.state.systemAdmin) {
 			this.getProjectList(0);
 		}
 	},

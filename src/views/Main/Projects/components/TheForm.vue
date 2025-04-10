@@ -3,7 +3,7 @@
 
 		<base-input-organization
 			class="az_base_form_gr"
-			v-if="!edit && $store.state.userProfile.systemAdmin"
+			v-if="!edit && $store.state.systemAdmin"
 			:input-class="{ 'is-invalid': $v.model.organizationId.$error }"
 			:value.sync="$v.model.organizationId.$model"
 		></base-input-organization>
@@ -112,7 +112,7 @@ export default {
 				required,
 			};
 
-			if (this.$store.state.userProfile.systemAdmin) {
+			if (this.$store.state.systemAdmin) {
 				options.model.organizationId = {
 					required,
 					minValue: minValue(1),
@@ -124,7 +124,7 @@ export default {
 	},
 	watch: {
 		'model.organizationId'(val) {
-			if (this.$store.state.userProfile.systemAdmin) {
+			if (this.$store.state.systemAdmin) {
 				if (!this.edit) {
 					this.model.groupId = 0;
 					this.groupList = [];
@@ -139,7 +139,7 @@ export default {
 		}
 	},
 	mounted() {
-		if (!this.$store.state.userProfile.systemAdmin) {
+		if (!this.$store.state.systemAdmin) {
 			this.getGroupAll();
 			this.getManagerAll();
 		}

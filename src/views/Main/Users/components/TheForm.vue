@@ -64,7 +64,7 @@
 
 		<base-input-organization
 			class="az_base_form_gr"
-			v-if="!edit && $store.state.userProfile.systemAdmin"
+			v-if="!edit && $store.state.systemAdmin"
 			:input-class="{ 'is-invalid': $v.model.user.organizationId.$error }"
 			:value.sync="$v.model.user.organizationId.$model"
 		></base-input-organization>
@@ -283,7 +283,7 @@ export default {
 				required
 			};
 
-			if (this.$store.state.userProfile.systemAdmin) {
+			if (this.$store.state.systemAdmin) {
 				options.model.user.organizationId = {
 					notZero,
 				};
@@ -294,7 +294,7 @@ export default {
 	},
 	watch: {
 		'model.user.organizationId'(val) {
-			if (this.$store.state.userProfile.systemAdmin) {
+			if (this.$store.state.systemAdmin) {
 				if (!this.edit) {
 					this.modelSecond.roleIds = [];
 					this.roleList = [];
@@ -305,7 +305,7 @@ export default {
 		}
 	},
 	mounted() {
-		if (!this.$store.state.userProfile.systemAdmin) {
+		if (!this.$store.state.systemAdmin) {
 			this.getRoleAll();
 		}
 	},

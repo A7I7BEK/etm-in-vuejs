@@ -3,7 +3,7 @@
 
 		<base-input-organization
 			class="az_base_form_gr"
-			v-if="!edit && $store.state.userProfile.systemAdmin"
+			v-if="!edit && $store.state.systemAdmin"
 			:input-class="{ 'is-invalid': $v.model.organizationId.$error }"
 			:value.sync="$v.model.organizationId.$model"
 		></base-input-organization>
@@ -25,6 +25,7 @@
 			<permission-card
 				:class="{ 'is-invalid': $v.model.permissionIds.$error }"
 				v-for="item in permissionList"
+				:key="item.title"
 				:resource="item"
 				:model="model"
 			></permission-card>
@@ -85,7 +86,7 @@ export default {
 		};
 
 
-		if (!this.edit && this.$store.state.userProfile.systemAdmin) {
+		if (!this.edit && this.$store.state.systemAdmin) {
 			options.model.organizationId = {
 				notZero,
 			};

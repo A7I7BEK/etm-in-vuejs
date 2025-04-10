@@ -18,30 +18,30 @@ export default {
 		clearInterval(this.$store.state.refreshTokenIntervalId);
 	},
 	methods: {
-		LoginUser() {
-			this.$api
-				.post('/auth/login', this.model.GetData())
-				.then(response => {
-					setAllTokens(response.data.data);
-					setRefreshTokenInterval(this.RefreshToken);
-					this.GetProfileInfo();
-				});
+		async LoginUser() {
+			const resp = await this.$api.post('/auth/login', this.model.GetData());
+
+			setAllTokens(resp.data.data);
+			setRefreshTokenInterval(this.RefreshToken);
+
+			await this.GetProfileInfo();
 		},
-		RefreshToken() {
-			this.$api
-				.post('/auth/refresh-token', {
-					refreshToken: refreshTokenGet(),
-				})
-				.then(response => {
-					setAllTokens(response.data.data);
-				});
+		async RefreshToken() {
+			const resp = await this.$api.post('/auth/refresh-token', {
+				refreshToken: refreshTokenGet(),
+			});
+
+			setAllTokens(resp.data.data);
 		},
-		GetProfileInfo() {
-			this.$api
-				.get('/users/me')
-				.then(response => {
-					setProfile(response.data.data);
-					this.$router.push('/');
+		async GetProfileInfo() {
+			const resp = await this.$api.get('/users/me');
+
+			setProfile(resp.data.data);
+
+			this.$router
+				.push('/')
+				.catch(err => {
+					console.log(err.name);
 				});
 		},
 	}

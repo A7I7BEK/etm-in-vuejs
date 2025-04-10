@@ -56,28 +56,29 @@ export default {
 			immediate: true
 		}
 	},
-	created() {
+	async created() {
 		if (accessTokenGet()) {
 			setRefreshTokenInterval(this.RefreshToken);
-			this.GetProfileInfo();
+			await this.GetProfileInfo();
 		}
 	},
 	methods: {
-		RefreshToken() {
-			this.$api
-				.post('/auth/refresh-token', {
-					refreshToken: refreshTokenGet(),
-				})
-				.then(response => {
-					setAllTokens(response.data.data);
-				});
+		async RefreshToken() {
+			const resp = await this.$api.post('/auth/refresh-token', {
+				refreshToken: refreshTokenGet(),
+			});
+
+			setAllTokens(resp.data.data);
 		},
-		GetProfileInfo() {
-			this.$api
-				.get('/users/me')
-				.then(response => {
-					setProfile(response.data.data);
-					this.$router.push('/');
+		async GetProfileInfo() {
+			const resp = await this.$api.get('/users/me');
+
+			setProfile(resp.data.data);
+
+			this.$router
+				.push('/')
+				.catch(err => {
+					console.log(err.name);
 				});
 		},
 	}

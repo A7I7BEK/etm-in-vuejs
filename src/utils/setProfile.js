@@ -7,6 +7,7 @@ import $store from "../store";
 
 export function setProfile(data) {
     $store.state.userProfile = data;
+    $store.state.systemAdmin = data.systemAdmin;
     $store.state.permissionList = [
         ...new Set(
             data.roles

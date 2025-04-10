@@ -5,7 +5,8 @@ import $store from "../store";
 
 
 export function clearProfile() {
-    $store.state.userProfile = {};
+    $store.state.userProfile = null;
+    $store.state.systemAdmin = false;
     $store.state.permissionList = [];
 
     $router

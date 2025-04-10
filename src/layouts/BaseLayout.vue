@@ -103,6 +103,7 @@
 						type="button"
 						class="ln_btn_square48 ln_marginr0"
 						data-custom-switch-btn="#profileMenu"
+						v-if="$store.state.userProfile"
 					>
 						<img
 							v-if="$store.state.userProfile.employee.photoFile"
@@ -122,7 +123,7 @@
 
 		<notification-menu></notification-menu>
 
-		<profile-menu></profile-menu>
+		<profile-menu v-if="$store.state.userProfile"></profile-menu>
 
 
 		<router-view />
