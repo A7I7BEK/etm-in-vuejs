@@ -1,6 +1,6 @@
 <template>
 	<base-crud-page-read
-		v-if="can('TASK_READ')"
+		v-if="can(PERMISSION_TYPE.TASK.READ)"
 		:title-name="titleName"
 		:title-table="$tc('menu.task', 1)"
 		:back-url="{ name: 'mainTasks' }"
@@ -73,7 +73,7 @@
 
 <script>
 import BaseCrudPageRead from '../../../../components/BaseCrudPageRead';
-import { TASK_STATUS_TYPE } from '../../../../constants';
+import { PERMISSION_TYPE, TASK_STATUS_TYPE } from '../../../../constants';
 
 
 export default {
@@ -89,6 +89,7 @@ export default {
 	},
 	data() {
 		return {
+			PERMISSION_TYPE,
 			statusClass: {
 				[ TASK_STATUS_TYPE.RED ]: 'danger',
 				[ TASK_STATUS_TYPE.YELLOW ]: 'warning',

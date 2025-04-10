@@ -222,7 +222,7 @@
 
 			<div
 				class="az_report_foot"
-				v-if="can('REPORT_MANAGERS_MEMBERS_UPLOAD')"
+				v-if="can(PERMISSION_TYPE.REPORT.MANAGERS_MEMBERS_UPLOAD)"
 			>
 				<!--<button type="button" class="btn az_base_btn btn-primary mr-3">Отправить</button>-->
 				<button
@@ -238,7 +238,7 @@
 
 <script>
 import BaseReportTable from '../../../../../components/BaseReportTable';
-import { PROJECT_TYPE } from '../../../../../constants';
+import { PERMISSION_TYPE, PROJECT_TYPE } from '../../../../../constants';
 
 
 export default {
@@ -247,6 +247,7 @@ export default {
 		BaseReportTable,
 	},
 	data: () => ({
+		PERMISSION_TYPE,
 		projectList: [],
 		memberList: [],
 		selectedData: {

@@ -70,7 +70,7 @@
 
 					<div
 						class="attachment-main__bottom"
-						v-if="can('TASK_UPDATE')"
+						v-if="can(PERMISSION_TYPE.TASK.UPDATE)"
 					>
 						<div
 							class="attachment-change__block"
@@ -137,12 +137,14 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators';
+import { PERMISSION_TYPE } from '../../../../../constants';
 
 
 export default {
 	name: 'TaskModalLeftAttachment',
 	data() {
 		return {
+			PERMISSION_TYPE,
 			attachmentName: null,
 		};
 	},

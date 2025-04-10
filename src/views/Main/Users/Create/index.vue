@@ -1,6 +1,9 @@
 <template>
 	<base-crud-page-create
-		v-if="can('EMPLOYEE_CREATE') && can('USER_ATTACH_ROLE')"
+		v-if="
+			can(PERMISSION_TYPE.EMPLOYEE.CREATE) &&
+			can(PERMISSION_TYPE.USER.ATTACH_ROLE)
+		"
 		:title="$tc('menu.user', 1)"
 		:back-url="{ name: 'mainUsers' }"
 	>
@@ -18,6 +21,7 @@
 
 <script>
 import BaseCrudPageCreate from '../../../../components/BaseCrudPageCreate';
+import { PERMISSION_TYPE } from '../../../../constants';
 import FormService from '../../../../services/FormService';
 import TheForm from '../components/TheForm.vue';
 
@@ -30,6 +34,7 @@ export default {
 	},
 	data() {
 		return {
+			PERMISSION_TYPE,
 			model: new FormService({
 				firstName: '',
 				lastName: '',

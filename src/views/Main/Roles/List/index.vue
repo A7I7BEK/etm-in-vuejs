@@ -1,9 +1,9 @@
 <template>
 	<base-crud-page-list
-		v-if="can('ROLE_READ')"
+		v-if="can(PERMISSION_TYPE.ROLE.READ)"
 		:title="$tc('menu.role', 2)"
 		:create-url="{ name: 'mainRolesCreate' }"
-		:create-show="can('ROLE_CREATE')"
+		:create-show="can(PERMISSION_TYPE.ROLE.CREATE)"
 		:footer-show="record.pageCount > 0"
 	>
 
@@ -115,9 +115,11 @@
 
 						<th
 							class="width-50"
-							v-if="can('ROLE_READ')
-								|| can('ROLE_UPDATE')
-								|| can('ROLE_DELETE')"
+							v-if="
+								can(PERMISSION_TYPE.ROLE.READ) ||
+								can(PERMISSION_TYPE.ROLE.UPDATE) ||
+								can(PERMISSION_TYPE.ROLE.DELETE)
+							"
 						>
 							{{ $t('actions') }}
 						</th>
@@ -161,13 +163,15 @@
 							<div class="az_crud_tb_txt">{{ item.organization.name }}</div>
 						</td>
 
-						<td v-if="can('ROLE_READ')
-							|| can('ROLE_UPDATE')
-							|| can('ROLE_DELETE')">
+						<td v-if="
+							can(PERMISSION_TYPE.ROLE.READ) ||
+							can(PERMISSION_TYPE.ROLE.UPDATE) ||
+							can(PERMISSION_TYPE.ROLE.DELETE)
+						">
 							<div class="d-flex">
 								<router-link
 									class="btn az_base_btn btn-success icon mr-2"
-									v-if="can('ROLE_READ')"
+									v-if="can(PERMISSION_TYPE.ROLE.READ)"
 									:to="{ name: 'mainRolesRead', params: { id: item.id } }"
 								>
 									<i class="fa fa-eye"></i>
@@ -175,7 +179,7 @@
 
 								<router-link
 									class="btn az_base_btn btn-warning icon mr-2"
-									v-if="can('ROLE_UPDATE')"
+									v-if="can(PERMISSION_TYPE.ROLE.UPDATE)"
 									:to="{ name: 'mainRolesUpdate', params: { id: item.id } }"
 								>
 									<i class="fa fa-pencil"></i>
@@ -184,7 +188,7 @@
 								<button
 									class="btn az_base_btn btn-danger icon"
 									type="button"
-									v-if="can('ROLE_DELETE')"
+									v-if="can(PERMISSION_TYPE.ROLE.DELETE)"
 									@click="Delete(item.id)"
 								>
 									<i class="fa fa-trash-o"></i>
@@ -233,7 +237,7 @@ import BaseCrudRange from '../../../../components/BaseCrudRange';
 import BaseCrudTable from '../../../../components/BaseCrudTable';
 import BaseInputOrganization from '../../../../components/BaseInputOrganization';
 import BaseInputSearch from '../../../../components/BaseInputSearch';
-import { HANDLE_PARAMS, ORDER, ORDER_REVERSE } from '../../../../constants';
+import { HANDLE_PARAMS, ORDER, ORDER_REVERSE, PERMISSION_TYPE } from '../../../../constants';
 
 
 const SORT_PROP = {
@@ -256,6 +260,7 @@ export default {
 	},
 	data() {
 		return {
+			PERMISSION_TYPE,
 			ORDER,
 			HANDLE_PARAMS,
 			SORT_PROP,

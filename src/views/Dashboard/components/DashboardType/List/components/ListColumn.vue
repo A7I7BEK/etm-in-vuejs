@@ -41,7 +41,8 @@
 
 			<div
 				class="pl-2 pr-3 flex-shrink-0"
-				v-if="can('PROJECT_COLUMN_UPDATE') && typeTrello"
+				v-if="can(PERMISSION_TYPE.PROJECT_COLUMN.UPDATE) &&
+					typeTrello"
 			>
 				<div
 					class="d-flex"
@@ -91,7 +92,7 @@
 		>
 			<div
 				class="ln_board_item1_body"
-				v-if="can('TASK_READ')"
+				v-if="can(PERMISSION_TYPE.TASK.READ)"
 			>
 
 				<draggable
@@ -115,7 +116,7 @@
 
 			<div
 				class="ln_board_item1_body_footer"
-				v-if="can('TASK_CREATE')"
+				v-if="can(PERMISSION_TYPE.TASK.CREATE)"
 			>
 				<button
 					type="button"
@@ -135,6 +136,7 @@
 <script>
 import draggable from 'vuedraggable';
 import { required } from 'vuelidate/lib/validators';
+import { PERMISSION_TYPE } from '../../../../../../constants';
 import ListTask from './ListTask';
 
 
@@ -158,6 +160,7 @@ export default {
 	},
 	data() {
 		return {
+			PERMISSION_TYPE,
 			dragEvent: null,
 			columnNameEditMode: false,
 			columnNameForEdit: null,

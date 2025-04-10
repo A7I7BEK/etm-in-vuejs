@@ -1,9 +1,9 @@
 <template>
 	<base-crud-page-list
-		v-if="can('PROJECT_READ')"
+		v-if="can(PERMISSION_TYPE.PROJECT.READ)"
 		:title="$tc('menu.project', 2)"
 		:create-url="{ name: 'mainProjectsCreate' }"
-		:create-show="can('PROJECT_CREATE')"
+		:create-show="can(PERMISSION_TYPE.PROJECT.CREATE)"
 		:footer-show="record.pageCount > 0"
 	>
 
@@ -197,9 +197,11 @@
 
 						<th
 							class="width-50"
-							v-if="can('PROJECT_READ')
-								|| can('PROJECT_UPDATE')
-								|| can('PROJECT_DELETE')"
+							v-if="
+								can(PERMISSION_TYPE.PROJECT.READ) ||
+								can(PERMISSION_TYPE.PROJECT.UPDATE) ||
+								can(PERMISSION_TYPE.PROJECT.DELETE)
+							"
 						>
 							{{ $t('actions') }}
 						</th>
@@ -271,11 +273,15 @@
 							<div class="az_crud_tb_txt">{{ item.organization.name }}</div>
 						</td>
 
-						<td v-if="can('PROJECT_READ') || can('PROJECT_UPDATE') || can('PROJECT_DELETE')">
+						<td v-if="
+							can(PERMISSION_TYPE.PROJECT.READ) ||
+							can(PERMISSION_TYPE.PROJECT.UPDATE) ||
+							can(PERMISSION_TYPE.PROJECT.DELETE)
+						">
 							<div class="d-flex">
 								<router-link
 									class="btn az_base_btn btn-default icon mr-2"
-									v-if="can('PROJECT_READ')"
+									v-if="can(PERMISSION_TYPE.PROJECT.READ)"
 									:to="{ name: 'dashboard', params: { id: item.id } }"
 								>
 									<i class="fa fa-external-link"></i>
@@ -283,7 +289,7 @@
 
 								<router-link
 									class="btn az_base_btn btn-success icon mr-2"
-									v-if="can('PROJECT_READ')"
+									v-if="can(PERMISSION_TYPE.PROJECT.READ)"
 									:to="{ name: 'mainProjectsRead', params: { id: item.id } }"
 								>
 									<i class="fa fa-eye"></i>
@@ -291,7 +297,7 @@
 
 								<router-link
 									class="btn az_base_btn btn-warning icon mr-2"
-									v-if="can('PROJECT_UPDATE')"
+									v-if="can(PERMISSION_TYPE.PROJECT.UPDATE)"
 									:to="{ name: 'mainProjectsUpdate', params: { id: item.id } }"
 								>
 									<i class="fa fa-pencil"></i>
@@ -300,7 +306,7 @@
 								<button
 									class="btn az_base_btn btn-danger icon"
 									type="button"
-									v-if="can('PROJECT_DELETE')"
+									v-if="can(PERMISSION_TYPE.PROJECT.DELETE)"
 									@click="Delete(item.id)"
 								>
 									<i class="fa fa-trash-o"></i>
@@ -352,7 +358,7 @@ import BaseInputManager from '../../../../components/BaseInputManager';
 import BaseInputOrganization from '../../../../components/BaseInputOrganization';
 import BaseInputProjectType from '../../../../components/BaseInputProjectType';
 import BaseInputSearch from '../../../../components/BaseInputSearch';
-import { HANDLE_PARAMS, ORDER, ORDER_REVERSE } from '../../../../constants';
+import { HANDLE_PARAMS, ORDER, ORDER_REVERSE, PERMISSION_TYPE } from '../../../../constants';
 
 
 const SORT_PROP = {
@@ -382,6 +388,7 @@ export default {
 	},
 	data() {
 		return {
+			PERMISSION_TYPE,
 			ORDER,
 			HANDLE_PARAMS,
 			SORT_PROP,

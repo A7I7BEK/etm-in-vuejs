@@ -5,7 +5,7 @@
 				<div class="d-flex align-items-center az_task_mdl_hd_text">
 					<div
 						class="mr-2"
-						v-if="can('TASK_UPDATE')"
+						v-if="can(PERMISSION_TYPE.TASK.UPDATE)"
 					>
 						<div
 							class="d-flex"
@@ -110,11 +110,12 @@
 
 				<task-modal-left-information></task-modal-left-information>
 
-				<task-modal-left-attachment v-if="can('TASK_ATTACHMENT_READ')"></task-modal-left-attachment>
+				<task-modal-left-attachment v-if="can(PERMISSION_TYPE.TASK_ATTACHMENT.READ)">
+				</task-modal-left-attachment>
 
 				<task-modal-left-description></task-modal-left-description>
 
-				<template v-if="can('CHECKLIST_GROUP_READ')">
+				<template v-if="can(PERMISSION_TYPE.CHECK_LIST_GROUP.READ)">
 					<task-modal-left-checklist
 						v-for="item in $store.state.taskModalData.checkListGroups"
 						:key="item.id"
@@ -131,7 +132,7 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators';
-import { TASK_LEVEL_TYPE } from '../../../../../constants';
+import { PERMISSION_TYPE, TASK_LEVEL_TYPE } from '../../../../../constants';
 import TaskModalLeftActivity from './TaskModalLeftActivity';
 import TaskModalLeftAttachment from './TaskModalLeftAttachment';
 import TaskModalLeftChecklist from './TaskModalLeftChecklist';
@@ -151,6 +152,7 @@ export default {
 	data() {
 		return {
 			TASK_LEVEL_TYPE,
+			PERMISSION_TYPE,
 			taskNameEditMode: false,
 			taskNameForEdit: null,
 		};

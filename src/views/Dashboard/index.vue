@@ -1,5 +1,5 @@
 <script>
-import { DEFAULT_API_URL, ORDER } from '../../constants';
+import { DEFAULT_API_URL, ORDER, PERMISSION_TYPE } from '../../constants';
 import SidebarMenu from '../../layouts/components/SidebarMenu';
 import { SocketService } from '../../services/SocketService';
 import { accessTokenGet } from '../../services/TokenService';
@@ -25,6 +25,7 @@ export default {
 	},
 	data() {
 		return {
+			PERMISSION_TYPE,
 			socketColumn: new SocketService({
 				url: DEFAULT_API_URL,
 				path: '/ws-project-columns',

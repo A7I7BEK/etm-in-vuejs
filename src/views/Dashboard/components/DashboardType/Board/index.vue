@@ -32,7 +32,8 @@
 
 			<div
 				class="board-item board-item__add__list"
-				v-if="can('PROJECT_COLUMN_CREATE') && projectData.projectType === PROJECT_TYPE.TRELLO"
+				v-if="can(PERMISSION_TYPE.PROJECT_COLUMN.CREATE) &&
+					projectData.projectType === PROJECT_TYPE.TRELLO"
 			>
 				<div
 					class="board-add__main button-effect"
@@ -55,7 +56,7 @@
 
 <script>
 import draggable from 'vuedraggable';
-import { PROJECT_TYPE } from '../../../../../constants';
+import { PERMISSION_TYPE, PROJECT_TYPE } from '../../../../../constants';
 import BoardColumn from './components/BoardColumn';
 
 
@@ -75,6 +76,7 @@ export default {
 	data() {
 		return {
 			PROJECT_TYPE,
+			PERMISSION_TYPE,
 			dragElem: null,
 		};
 	},

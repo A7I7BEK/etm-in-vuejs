@@ -1,4 +1,7 @@
-<div v-if="can('PROJECT_READ_DETAILS') && $store.state.projectData">
+<div v-if="
+	can(PERMISSION_TYPE.PROJECT.READ_DETAILS) &&
+	$store.state.projectData
+">
 
 	<sidebar-menu
 		id="sidebarMenu"
@@ -72,7 +75,7 @@
 
 				<div
 					class="ln_board_header_left_2 ln_margin_left5"
-					v-if="can('PROJECT_MEMBER_READ')"
+					v-if="can(PERMISSION_TYPE.PROJECT_MEMBER.READ)"
 				>
 
 					<div
@@ -194,7 +197,7 @@
 					<div
 						class="member-invite custom-dropdown__main us-n"
 						data-custom-drop
-						v-if="can('PROJECT_MEMBER_CREATE')"
+						v-if="can(PERMISSION_TYPE.PROJECT_MEMBER.CREATE)"
 					>
 						<button
 							type="button"
@@ -342,7 +345,7 @@
 			:style="computedBackground"
 		>
 
-			<template v-if="can('PROJECT_COLUMN_READ')">
+			<template v-if="can(PERMISSION_TYPE.PROJECT_COLUMN.READ)">
 				<template v-if="dashboardTypeSelected === 'board'">
 					<dashboard-type-board
 						data-type="Filtered"
@@ -379,8 +382,12 @@
 
 
 
-	<create-modal-column v-if="can('PROJECT_COLUMN_CREATE')"></create-modal-column>
-	<create-modal-task v-if="can('TASK_CREATE')"></create-modal-task>
+	<create-modal-column v-if="
+		can(PERMISSION_TYPE.PROJECT_COLUMN.CREATE)
+	"></create-modal-column>
+	<create-modal-task v-if="
+		can(PERMISSION_TYPE.TASK.CREATE)
+	"></create-modal-task>
 
 
 	<task-modal></task-modal>

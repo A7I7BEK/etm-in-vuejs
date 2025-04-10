@@ -1,6 +1,9 @@
 <template>
 	<base-crud-page-update
-		v-if="can('EMPLOYEE_UPDATE') && can('USER_ATTACH_ROLE')"
+		v-if="
+			can(PERMISSION_TYPE.EMPLOYEE.UPDATE) &&
+			can(PERMISSION_TYPE.USER.ATTACH_ROLE)
+		"
 		:title-name="titleName"
 		:title-table="$tc('menu.user', 1)"
 		:back-url="{ name: 'mainUsers' }"
@@ -20,6 +23,7 @@
 
 <script>
 import BaseCrudPageUpdate from '../../../../components/BaseCrudPageUpdate';
+import { PERMISSION_TYPE } from '../../../../constants';
 import FormService from '../../../../services/FormService';
 import TheForm from '../components/TheForm';
 
@@ -38,6 +42,7 @@ export default {
 	},
 	data() {
 		return {
+			PERMISSION_TYPE,
 			model: new FormService({
 				firstName: '',
 				lastName: '',

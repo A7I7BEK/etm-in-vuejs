@@ -15,7 +15,7 @@
 				<div class="mw-description__text">
 					<p
 						contenteditable
-						v-if="can('TASK_UPDATE')"
+						v-if="can(PERMISSION_TYPE.TASK.UPDATE)"
 						:data-placeholder="$t('taskDescription')"
 						@focusout="SaveDescription"
 					>
@@ -38,8 +38,16 @@
 </template>
 
 <script>
+import { PERMISSION_TYPE } from '../../../../../constants';
+
+
 export default {
 	name: "TaskModalLeftDescription",
+	data() {
+		return {
+			PERMISSION_TYPE,
+		};
+	},
 	methods: {
 		SaveDescription(e) {
 			this.$api

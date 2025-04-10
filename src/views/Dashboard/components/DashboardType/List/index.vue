@@ -26,7 +26,8 @@
 		</template>
 
 
-		<template v-if="can('PROJECT_COLUMN_CREATE') && projectData.projectType === PROJECT_TYPE.TRELLO">
+		<template v-if="can(PERMISSION_TYPE.PROJECT_COLUMN.CREATE) &&
+			projectData.projectType === PROJECT_TYPE.TRELLO">
 			<button
 				type="button"
 				class="ln_board_item_add button-effect"
@@ -43,7 +44,7 @@
 
 <script>
 import draggable from 'vuedraggable';
-import { PROJECT_TYPE } from '../../../../../constants';
+import { PERMISSION_TYPE, PROJECT_TYPE } from '../../../../../constants';
 import ListColumn from './components/ListColumn';
 
 
@@ -63,6 +64,7 @@ export default {
 	data() {
 		return {
 			PROJECT_TYPE,
+			PERMISSION_TYPE,
 			dragElem: null,
 		};
 	},

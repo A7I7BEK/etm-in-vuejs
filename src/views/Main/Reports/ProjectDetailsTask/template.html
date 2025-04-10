@@ -1,6 +1,6 @@
 <div
 	class="base_report_case"
-	v-if="can('REPORT_KANBAN_TRELLO_PROJECT_WITH_USER')"
+	v-if="can(PERMISSION_TYPE.REPORT.USER_KANBAN_TRELLO)"
 >
 	<div class="az_report_nav">
 		<div class="az_report_nav_it">
@@ -183,14 +183,16 @@
 
 		<div
 			class="az_report_foot"
-			v-if="can('REPORT_PERSONAL_UPLOAD')"
+			v-if="can(PERMISSION_TYPE.REPORT.USER_UPLOAD)"
 		>
 			<!--<button type="button" class="btn az_base_btn btn-primary mr-3">Отправить</button>-->
 			<button
 				type="button"
 				class="btn az_base_btn btn-excel"
 				@click="ExportToFile"
-			> {{$t('downloadExcel')}} </button>
+			>
+				{{$t('downloadExcel')}}
+			</button>
 		</div>
 	</template>
 </div>

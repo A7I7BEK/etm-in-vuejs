@@ -1,6 +1,6 @@
 <template>
 	<base-crud-page-update
-		v-if="can('GROUP_UPDATE')"
+		v-if="can(PERMISSION_TYPE.GROUP.UPDATE)"
 		:title-name="titleName"
 		:title-table="$tc('menu.team', 1)"
 		:back-url="{ name: 'mainTeams' }"
@@ -19,6 +19,7 @@
 
 <script>
 import BaseCrudPageUpdate from '../../../../components/BaseCrudPageUpdate';
+import { PERMISSION_TYPE } from '../../../../constants';
 import FormService from '../../../../services/FormService';
 import TheForm from '../components/TheForm';
 
@@ -37,6 +38,7 @@ export default {
 	},
 	data() {
 		return {
+			PERMISSION_TYPE,
 			model: new FormService({
 				name: '',
 				employeeIds: [],

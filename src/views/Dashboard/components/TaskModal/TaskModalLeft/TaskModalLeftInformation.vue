@@ -3,7 +3,7 @@
 
 		<div
 			class="mw-tags home-top__item"
-			v-if="can('TASK_TAG_READ')"
+			v-if="can(PERMISSION_TYPE.TASK_TAG.READ)"
 		>
 			<div class="home-top__item__title">
 				<div class="home-top__item__title__inner">
@@ -34,7 +34,7 @@
 
 		<div
 			class="mw-users home-top__item"
-			v-if="can('TASK_MEMBER_READ')"
+			v-if="can(PERMISSION_TYPE.TASK_MEMBER.READ)"
 		>
 			<div class="home-top__item__title">
 				<div class="home-top__item__title__inner">
@@ -87,10 +87,7 @@
 			<div class="home-top__item__title">
 				<div class="home-top__item__title__inner">
 					<div class="home-top__item__title__icon">
-						<i
-							class="fa fa-clock-o"
-							aria-hidden="true"
-						></i>
+						<i class="fa fa-clock-o"></i>
 					</div>
 					<h3>{{ $t('deadlineS') }}</h3>
 				</div>
@@ -118,12 +115,13 @@
 </template>
 
 <script>
-import { TASK_STATUS_TYPE } from '../../../../../constants';
+import { PERMISSION_TYPE, TASK_STATUS_TYPE } from '../../../../../constants';
 
 export default {
 	name: "TaskModalLeftInformation",
 	data() {
 		return {
+			PERMISSION_TYPE,
 			statusClass: {
 				[ TASK_STATUS_TYPE.RED ]: 'term-danger',
 				[ TASK_STATUS_TYPE.YELLOW ]: 'term-warning',

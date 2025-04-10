@@ -1,6 +1,6 @@
 <script>
 import BaseReportTab from '../../../../components/BaseReportTab';
-import { PROJECT_TYPE } from '../../../../constants';
+import { PERMISSION_TYPE, PROJECT_TYPE } from '../../../../constants';
 import TypeKanbanOverall from './components/TypeKanbanOverall';
 import TypeKanbanProject from './components/TypeKanbanProject';
 import TypeTrello from './components/TypeTrello';
@@ -15,6 +15,7 @@ export default {
 		TypeKanbanProject,
 	},
 	data: () => ({
+		PERMISSION_TYPE,
 		projectSelectionList: [],
 	}),
 	created() {

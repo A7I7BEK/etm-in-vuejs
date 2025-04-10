@@ -1,12 +1,26 @@
-<base-report-tab v-if="can('REPORT_CHART_KANBAN_PROJECT') && can('REPORT_CHART_TRELLO_PROJECT')">
+<base-report-tab v-if="
+	can(PERMISSION_TYPE.REPORT.CHART_KANBAN) &&
+	can(PERMISSION_TYPE.REPORT.CHART_TRELLO)
+">
 	<template #title>
-		<a class="nav-link active" data-toggle="tab" href="#projectOverviewKanban">{{$t('repoerts.kanban')}}</a>
-		<a class="nav-link" data-toggle="tab" href="#projectOverviewTrello">{{$t('normal')}}</a>
+		<a
+			class="nav-link active"
+			data-toggle="tab"
+			href="#projectOverviewKanban"
+		>{{$t('repoerts.kanban')}}</a>
+		<a
+			class="nav-link"
+			data-toggle="tab"
+			href="#projectOverviewTrello"
+		>{{$t('normal')}}</a>
 	</template>
 
 
 	<template #content>
-		<div class="tab-pane fade show active" id="projectOverviewKanban">
+		<div
+			class="tab-pane fade show active"
+			id="projectOverviewKanban"
+		>
 			<div class="row">
 				<div class="col-4">
 					<type-kanban-overall></type-kanban-overall>
@@ -20,9 +34,19 @@
 		</div>
 
 
-		<div class="tab-pane fade" id="projectOverviewTrello">
-			<div class="row" v-if="projectSelectionList.length > 0">
-				<div class="col-4" v-for="n in 3" :key="n">
+		<div
+			class="tab-pane fade"
+			id="projectOverviewTrello"
+		>
+			<div
+				class="row"
+				v-if="projectSelectionList.length > 0"
+			>
+				<div
+					class="col-4"
+					v-for="n in 3"
+					:key="n"
+				>
 					<type-trello :project-list="projectSelectionList"></type-trello>
 				</div>
 			</div>
@@ -30,7 +54,11 @@
 
 
 		<div class="d-flex justify-content-end mt-4">
-			<button type="button" class="btn az_base_btn btn-primary" onclick="print()">{{ $t('saveAsPdf') }}</button>
+			<button
+				type="button"
+				class="btn az_base_btn btn-primary"
+				onclick="print()"
+			>{{ $t('saveAsPdf') }}</button>
 		</div>
 	</template>
 </base-report-tab>

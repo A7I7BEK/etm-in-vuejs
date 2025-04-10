@@ -1,34 +1,46 @@
-<div class="base_report_case" v-if="can('REPORT_TIME_LEFT')">
+<div
+	class="base_report_case"
+	v-if="can(PERMISSION_TYPE.REPORT.TIME_LEFT)"
+>
 	<div class="az_report_nav">
 		<div class="az_report_nav_it">
 			<label class="az_base_lbl">{{$t('filter')}}</label>
-			<select class="form-control az_base_inp" v-model="filterTypeSelected">
+			<select
+				class="form-control az_base_inp"
+				v-model="filterTypeSelected"
+			>
 				<option :value="null">{{$t('choose')}}</option>
-				<option v-for="item in filterTypeList" :value="item">{{ $t(item) }}</option>
+				<option
+					v-for="item in filterTypeList"
+					:value="item"
+				>{{ $t(item) }}</option>
 			</select>
 		</div>
 
 
-		<div class="az_report_nav_it" v-if="filterTypeSelected === 'WEEKLY_INTERVAL'">
+		<div
+			class="az_report_nav_it"
+			v-if="filterTypeSelected === 'WEEKLY_INTERVAL'"
+		>
 			<label class="az_base_lbl">{{$t('week')}}</label>
 			<vue-ctk-date-time-picker
-					class="base_date_range"
-					v-model="dateRange.model"
-					:label="$t('choose')"
-					:locale="$i18n.locale + '-latn'"
-					format="YYYY/MM/DD"
-					formatted="D.MM.YYYY"
-					color="#849DFE"
-					:range="true"
-					:only-date="true"
-					:no-button="true"
-					:no-label="true"
-					:max-date="dateRange.maxDate"
-					:custom-shortcuts="dateRange.shortcuts"
-					:error="dateRange.error"
-					:key="dateRange.key"
-					@input="InputDateRange"
-					@is-hidden="HideDateRange"
+				class="base_date_range"
+				v-model="dateRange.model"
+				:label="$t('choose')"
+				:locale="$i18n.locale + '-latn'"
+				format="YYYY/MM/DD"
+				formatted="D.MM.YYYY"
+				color="#849DFE"
+				:range="true"
+				:only-date="true"
+				:no-button="true"
+				:no-label="true"
+				:max-date="dateRange.maxDate"
+				:custom-shortcuts="dateRange.shortcuts"
+				:error="dateRange.error"
+				:key="dateRange.key"
+				@input="InputDateRange"
+				@is-hidden="HideDateRange"
 			>
 			</vue-ctk-date-time-picker>
 		</div>
@@ -37,15 +49,26 @@
 		<template v-else-if="filterTypeSelected === 'MONTHLY_INTERVAL'">
 			<div class="az_report_nav_it">
 				<label class="az_base_lbl">{{$t('year')}}</label>
-				<select class="form-control az_base_inp" :key="'MONTHLY_INTERVAL'" v-model="selectedMonth.year">
+				<select
+					class="form-control az_base_inp"
+					:key="'MONTHLY_INTERVAL'"
+					v-model="selectedMonth.year"
+				>
 					<option :value="null">{{$t('choose')}}</option>
-					<option v-for="n in 100" :value="$moment().year() + 1 - n">{{ $moment().year() + 1 - n }}</option>
+					<option
+						v-for="n in 100"
+						:value="$moment().year() + 1 - n"
+					>{{ $moment().year() + 1 - n }}</option>
 				</select>
 			</div>
 
 			<div class="az_report_nav_it">
 				<label class="az_base_lbl">{{$t('month')}}</label>
-				<select class="form-control az_base_inp" v-model="selectedMonth.month" :disabled="!selectedMonth.year">
+				<select
+					class="form-control az_base_inp"
+					v-model="selectedMonth.month"
+					:disabled="!selectedMonth.year"
+				>
 					<option :value="null">{{$t('choose')}}</option>
 					<option value="1">{{$t('january')}}</option>
 					<option value="2">{{$t('february')}}</option>
@@ -67,30 +90,58 @@
 		<template v-else-if="filterTypeSelected === 'QUARTER_INTERVAL'">
 			<div class="az_report_nav_it">
 				<label class="az_base_lbl">{{$t('year')}}</label>
-				<select class="form-control az_base_inp" :key="'QUARTER_INTERVAL'" v-model="selectedQuarter.year">
+				<select
+					class="form-control az_base_inp"
+					:key="'QUARTER_INTERVAL'"
+					v-model="selectedQuarter.year"
+				>
 					<option :value="null">{{$t('choose')}}</option>
-					<option v-for="n in 100" :value="$moment().year() + 1 - n">{{ $moment().year() + 1 - n }}</option>
+					<option
+						v-for="n in 100"
+						:value="$moment().year() + 1 - n"
+					>{{ $moment().year() + 1 - n }}</option>
 				</select>
 			</div>
 
 			<div class="az_report_nav_it">
 				<label class="az_base_lbl">{{$t('kvartal')}}</label>
-				<div class="az_dropdown_bx az_report_sel_multi" data-custom-drop>
-					<button type="button" class="az_report_sel_btn" data-custom-drop-btn :disabled="!selectedQuarter.year">
+				<div
+					class="az_dropdown_bx az_report_sel_multi"
+					data-custom-drop
+				>
+					<button
+						type="button"
+						class="az_report_sel_btn"
+						data-custom-drop-btn
+						:disabled="!selectedQuarter.year"
+					>
 						<span class="txt">
 							<template v-if="selectedQuarter.quarter.length === 4">{{$t('all')}}</template>
-							<template v-else-if="selectedQuarter.quarter.length > 0">{{ selectedQuarter.quarter.join(', ') }}</template>
+							<template
+								v-else-if="selectedQuarter.quarter.length > 0">{{ selectedQuarter.quarter.join(', ') }}</template>
 							<template v-else>{{$t('choose')}}</template>
 						</span>
-						<img src="/img/svg/arrow-down.svg" alt="" class="img">
+						<img
+							src="/img/svg/arrow-down.svg"
+							alt=""
+							class="img"
+						>
 					</button>
 
-					<div class="az_dropdown left" data-custom-drop-body>
+					<div
+						class="az_dropdown left"
+						data-custom-drop-body
+					>
 						<div class="az_dropdown_cnt">
 
 							<label class="az_report_sel_it">
 								<div class="az_report_sel_chk">
-									<input type="checkbox" class="inp" hidden v-model="selectedQuarter.quarterAll">
+									<input
+										type="checkbox"
+										class="inp"
+										hidden
+										v-model="selectedQuarter.quarterAll"
+									>
 									<div class="tick"></div>
 									{{$t('all')}}
 								</div>
@@ -98,7 +149,13 @@
 
 							<label class="az_report_sel_it">
 								<div class="az_report_sel_chk">
-									<input type="checkbox" class="inp" :value="1" hidden v-model="selectedQuarter.quarter">
+									<input
+										type="checkbox"
+										class="inp"
+										:value="1"
+										hidden
+										v-model="selectedQuarter.quarter"
+									>
 									<div class="tick"></div>
 									{{$t('kvartalOne')}}
 								</div>
@@ -106,7 +163,13 @@
 
 							<label class="az_report_sel_it">
 								<div class="az_report_sel_chk">
-									<input type="checkbox" class="inp" :value="2" hidden v-model="selectedQuarter.quarter">
+									<input
+										type="checkbox"
+										class="inp"
+										:value="2"
+										hidden
+										v-model="selectedQuarter.quarter"
+									>
 									<div class="tick"></div>
 									{{$t('kvartalTwo')}}
 								</div>
@@ -114,7 +177,13 @@
 
 							<label class="az_report_sel_it">
 								<div class="az_report_sel_chk">
-									<input type="checkbox" class="inp" :value="3" hidden v-model="selectedQuarter.quarter">
+									<input
+										type="checkbox"
+										class="inp"
+										:value="3"
+										hidden
+										v-model="selectedQuarter.quarter"
+									>
 									<div class="tick"></div>
 									{{$t('kvartalThree')}}
 								</div>
@@ -122,7 +191,13 @@
 
 							<label class="az_report_sel_it">
 								<div class="az_report_sel_chk">
-									<input type="checkbox" class="inp" :value="4" hidden v-model="selectedQuarter.quarter">
+									<input
+										type="checkbox"
+										class="inp"
+										:value="4"
+										hidden
+										v-model="selectedQuarter.quarter"
+									>
 									<div class="tick"></div>
 									{{$t('kvartalFour')}}
 								</div>
@@ -135,11 +210,21 @@
 		</template>
 
 
-		<div class="az_report_nav_it" v-else-if="filterTypeSelected === 'YEARLY_INTERVAL'">
+		<div
+			class="az_report_nav_it"
+			v-else-if="filterTypeSelected === 'YEARLY_INTERVAL'"
+		>
 			<label class="az_base_lbl">{{$t('year')}}</label>
-			<select class="form-control az_base_inp" :key="'YEARLY_INTERVAL'" v-model="selectedYear.year">
+			<select
+				class="form-control az_base_inp"
+				:key="'YEARLY_INTERVAL'"
+				v-model="selectedYear.year"
+			>
 				<option :value="null">{{$t('choose')}}</option>
-				<option v-for="n in 100" :value="$moment().year() + 1 - n">{{ $moment().year() + 1 - n }}</option>
+				<option
+					v-for="n in 100"
+					:value="$moment().year() + 1 - n"
+				>{{ $moment().year() + 1 - n }}</option>
 			</select>
 		</div>
 	</div>

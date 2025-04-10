@@ -1,6 +1,6 @@
 <template>
 	<base-crud-page-list
-		v-if="can('PERMISSION_READ')"
+		v-if="can(PERMISSION_TYPE.PERMISSION.READ)"
 		:title="$tc('menu.permission', 2)"
 		:create-show="false"
 		:footer-show="record.pageCount > 0"
@@ -82,10 +82,7 @@
 							</div>
 						</th>
 
-						<th
-							class="width-50"
-							v-if="can('PERMISSION_READ')"
-						>
+						<th class="width-50">
 							{{ $t('actions') }}
 						</th>
 					</tr>
@@ -111,11 +108,10 @@
 							<div class="az_crud_tb_txt">{{ item.codeName }}</div>
 						</td>
 
-						<td v-if="can('PERMISSION_READ')">
+						<td>
 							<div class="d-flex">
 								<router-link
 									class="btn az_base_btn btn-success icon mr-2"
-									v-if="can('PERMISSION_READ')"
 									:to="{ name: 'mainPermissionsRead', params: { id: item.id } }"
 								>
 									<i class="fa fa-eye"></i>
@@ -163,7 +159,7 @@ import BaseCrudPageList from '../../../../components/BaseCrudPageList';
 import BaseCrudRange from '../../../../components/BaseCrudRange';
 import BaseCrudTable from '../../../../components/BaseCrudTable';
 import BaseInputSearch from '../../../../components/BaseInputSearch';
-import { HANDLE_PARAMS, ORDER, ORDER_REVERSE } from '../../../../constants';
+import { HANDLE_PARAMS, ORDER, ORDER_REVERSE, PERMISSION_TYPE } from '../../../../constants';
 
 
 const SORT_PROP = {
@@ -184,6 +180,7 @@ export default {
 	},
 	data() {
 		return {
+			PERMISSION_TYPE,
 			ORDER,
 			HANDLE_PARAMS,
 			SORT_PROP,

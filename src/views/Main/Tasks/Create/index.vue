@@ -1,6 +1,6 @@
 <template>
 	<base-crud-page-create
-		v-if="can('TASK_CREATE')"
+		v-if="can(PERMISSION_TYPE.TASK.CREATE)"
 		:title="$tc('menu.task', 1)"
 		:back-url="{ name: 'mainTasks' }"
 	>
@@ -17,6 +17,7 @@
 
 <script>
 import BaseCrudPageCreate from '../../../../components/BaseCrudPageCreate';
+import { PERMISSION_TYPE } from '../../../../constants';
 import FormService from '../../../../services/FormService';
 import TheForm from '../components/TheForm';
 
@@ -29,6 +30,7 @@ export default {
 	},
 	data() {
 		return {
+			PERMISSION_TYPE,
 			model: new FormService({
 				name: '',
 				organizationId: 0,

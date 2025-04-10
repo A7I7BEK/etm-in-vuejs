@@ -1,9 +1,10 @@
 <template>
 	<base-crud-page-list
-		v-if="can('EMPLOYEE_READ')"
+		v-if="can(PERMISSION_TYPE.EMPLOYEE.READ)"
 		:title="$tc('menu.user', 2)"
 		:create-url="{ name: 'mainUsersCreate' }"
-		:create-show="can('EMPLOYEE_CREATE') && can('USER_ATTACH_ROLE')"
+		:create-show="can(PERMISSION_TYPE.EMPLOYEE.CREATE) &&
+			can(PERMISSION_TYPE.USER.ATTACH_ROLE)"
 		:footer-show="record.pageCount > 0"
 	>
 
@@ -138,10 +139,15 @@
 
 						<th
 							class="width-50"
-							v-if="can('EMPLOYEE_READ')
-								|| (can('EMPLOYEE_UPDATE') && can('USER_ATTACH_ROLE'))
-								|| can('EMPLOYEE_DELETE')
-								|| can('EMPLOYEE_PASSWORD_CHANGE')"
+							v-if="
+								can(PERMISSION_TYPE.EMPLOYEE.READ) ||
+								(
+									can(PERMISSION_TYPE.EMPLOYEE.UPDATE) &&
+									can(PERMISSION_TYPE.USER.ATTACH_ROLE)
+								) ||
+								can(PERMISSION_TYPE.EMPLOYEE.DELETE) ||
+								can(PERMISSION_TYPE.EMPLOYEE.CHANGE_PASSWORD)
+							"
 						>
 							{{ $t('actions') }}
 						</th>
@@ -210,14 +216,19 @@
 							</div>
 						</td>
 
-						<td v-if="can('EMPLOYEE_READ')
-							|| (can('EMPLOYEE_UPDATE') && can('USER_ATTACH_ROLE'))
-							|| can('EMPLOYEE_DELETE')
-							|| can('EMPLOYEE_PASSWORD_CHANGE')">
+						<td v-if="
+							can(PERMISSION_TYPE.EMPLOYEE.READ) ||
+							(
+								can(PERMISSION_TYPE.EMPLOYEE.UPDATE) &&
+								can(PERMISSION_TYPE.USER.ATTACH_ROLE)
+							) ||
+							can(PERMISSION_TYPE.EMPLOYEE.DELETE) ||
+							can(PERMISSION_TYPE.EMPLOYEE.CHANGE_PASSWORD)
+						">
 							<div class="d-flex">
 								<router-link
 									class="btn az_base_btn btn-default icon mr-2"
-									v-if="can('EMPLOYEE_PASSWORD_CHANGE')"
+									v-if="can(PERMISSION_TYPE.EMPLOYEE.CHANGE_PASSWORD)"
 									:to="{ name: 'mainUsersPasswordReset', params: { id: item.id } }"
 								>
 									<i class="fa fa-unlock"></i>
@@ -225,7 +236,7 @@
 
 								<router-link
 									class="btn az_base_btn btn-success icon mr-2"
-									v-if="can('EMPLOYEE_READ')"
+									v-if="can(PERMISSION_TYPE.EMPLOYEE.READ)"
 									:to="{ name: 'mainUsersRead', params: { id: item.id } }"
 								>
 									<i class="fa fa-eye"></i>
@@ -233,7 +244,10 @@
 
 								<router-link
 									class="btn az_base_btn btn-warning icon mr-2"
-									v-if="can('EMPLOYEE_UPDATE') && can('USER_ATTACH_ROLE')"
+									v-if="
+										can(PERMISSION_TYPE.EMPLOYEE.UPDATE) &&
+										can(PERMISSION_TYPE.USER.ATTACH_ROLE)
+									"
 									:to="{ name: 'mainUsersUpdate', params: { id: item.id } }"
 								>
 									<i class="fa fa-pencil"></i>
@@ -242,7 +256,7 @@
 								<button
 									class="btn az_base_btn btn-danger icon"
 									type="button"
-									v-if="can('EMPLOYEE_DELETE')"
+									v-if="can(PERMISSION_TYPE.EMPLOYEE.DELETE)"
 									@click="Delete(item.id)"
 								>
 									<i class="fa fa-trash-o"></i>
@@ -291,7 +305,7 @@ import BaseCrudRange from '../../../../components/BaseCrudRange';
 import BaseCrudTable from '../../../../components/BaseCrudTable';
 import BaseInputOrganization from '../../../../components/BaseInputOrganization';
 import BaseInputSearch from '../../../../components/BaseInputSearch';
-import { HANDLE_PARAMS, ORDER, ORDER_REVERSE } from '../../../../constants';
+import { HANDLE_PARAMS, ORDER, ORDER_REVERSE, PERMISSION_TYPE } from '../../../../constants';
 
 
 const SORT_PROP = {
@@ -321,6 +335,7 @@ export default {
 	},
 	data() {
 		return {
+			PERMISSION_TYPE,
 			ORDER,
 			HANDLE_PARAMS,
 			SORT_PROP,

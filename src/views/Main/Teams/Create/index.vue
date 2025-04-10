@@ -1,6 +1,6 @@
 <template>
 	<base-crud-page-create
-		v-if="can('GROUP_CREATE')"
+		v-if="can(PERMISSION_TYPE.GROUP.CREATE)"
 		:title="$tc('menu.team', 1)"
 		:back-url="{ name: 'mainTeams' }"
 	>
@@ -17,6 +17,7 @@
 
 <script>
 import BaseCrudPageCreate from '../../../../components/BaseCrudPageCreate';
+import { PERMISSION_TYPE } from '../../../../constants';
 import FormService from '../../../../services/FormService';
 import TheForm from '../components/TheForm';
 
@@ -29,6 +30,7 @@ export default {
 	},
 	data() {
 		return {
+			PERMISSION_TYPE,
 			model: new FormService({
 				name: '',
 				employeeIds: [],

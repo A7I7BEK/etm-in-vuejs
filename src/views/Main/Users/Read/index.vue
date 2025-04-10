@@ -1,6 +1,6 @@
 <template>
 	<base-crud-page-read
-		v-if="can('EMPLOYEE_READ')"
+		v-if="can(PERMISSION_TYPE.EMPLOYEE.READ)"
 		:title-name="titleName"
 		:title-table="$tc('menu.user', 1)"
 		:back-url="{ name: 'mainUsers' }"
@@ -74,6 +74,7 @@
 
 <script>
 import BaseCrudPageRead from '../../../../components/BaseCrudPageRead';
+import { PERMISSION_TYPE } from '../../../../constants';
 
 
 export default {
@@ -89,6 +90,7 @@ export default {
 	},
 	data() {
 		return {
+			PERMISSION_TYPE,
 			model: {},
 			titleName: '',
 		};

@@ -27,7 +27,8 @@
 
 			<div
 				style="width: 66px;"
-				v-if="can('PROJECT_COLUMN_UPDATE') && typeTrello"
+				v-if="can(PERMISSION_TYPE.PROJECT_COLUMN.UPDATE) &&
+					typeTrello"
 			>
 				<div
 					class="d-flex"
@@ -80,7 +81,7 @@
 			:move="DraggableMove"
 			@end="DraggableEnd"
 			:data-id="columnItem.id"
-			v-if="can('TASK_READ')"
+			v-if="can(PERMISSION_TYPE.TASK.READ)"
 		>
 			<transition-group
 				type="transition"
@@ -105,7 +106,7 @@
 			data-toggle="modal"
 			data-target="#modalCreateTask"
 			@click="$store.state.createModalTaskId = columnItem.id"
-			v-if="can('TASK_CREATE')"
+			v-if="can(PERMISSION_TYPE.TASK.CREATE)"
 		>
 
 			<div class="board-list__icon">
@@ -119,6 +120,7 @@
 <script>
 import draggable from 'vuedraggable';
 import { required } from 'vuelidate/lib/validators';
+import { PERMISSION_TYPE } from '../../../../../../constants';
 import BoardTask from './BoardTask';
 
 
@@ -142,6 +144,7 @@ export default {
 	},
 	data() {
 		return {
+			PERMISSION_TYPE,
 			dragEvent: null,
 			columnNameEditMode: false,
 			columnNameForEdit: null,

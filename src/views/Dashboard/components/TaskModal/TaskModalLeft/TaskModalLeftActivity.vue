@@ -27,7 +27,7 @@
 
 						<div
 							class="action__content__top"
-							v-if="can('TASK_UPDATE') && can('TASK_COMMENT_CREATE')"
+							v-if="can(PERMISSION_TYPE.TASK_COMMENT.CREATE)"
 						>
 							<div
 								class="mw-action__ava"
@@ -161,7 +161,7 @@
 
 						<ul
 							class="mw-submenu mw-comment__main"
-							v-if="can('TASK_COMMENT_READ')"
+							v-if="can(PERMISSION_TYPE.TASK_COMMENT.READ)"
 						>
 							<li
 								class="mw-action__item mw-comment__item"
@@ -375,12 +375,12 @@
 						</ul>
 
 
-						<hr v-if="can('TASK_COMMENT_READ') && can('TASK_ACTION_READ')">
+						<hr v-if="can(PERMISSION_TYPE.TASK_COMMENT.READ) && can(PERMISSION_TYPE.ACTION.READ)">
 
 
 						<ul
 							class="mw-submenu mw-action__main"
-							v-if="can('TASK_ACTION_READ')"
+							v-if="can(PERMISSION_TYPE.ACTION.READ)"
 						>
 							<li
 								class="mw-action__item"
@@ -459,7 +459,7 @@
 <script>
 import { required } from 'vuelidate/lib/validators';
 import BaseAction from '../../../../../components/actions/base-action.vue';
-import { ORDER, TASK_COMMENT_TYPE } from '../../../../../constants';
+import { ORDER, PERMISSION_TYPE, TASK_COMMENT_TYPE } from '../../../../../constants';
 import FormService from '../../../../../services/FormService';
 
 
@@ -471,6 +471,7 @@ export default {
 	data() {
 		return {
 			TASK_COMMENT_TYPE,
+			PERMISSION_TYPE,
 			commentClass: {
 				[ TASK_COMMENT_TYPE.INFORMATION ]: '',
 				[ TASK_COMMENT_TYPE.SOLUTION ]: 'success',

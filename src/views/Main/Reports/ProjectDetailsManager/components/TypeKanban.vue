@@ -2,10 +2,16 @@
 	<div>
 		<div class="az_report_nav">
 			<div class="az_report_nav_it">
-				<label class="az_base_lbl">{{$t('fullName')}}</label>
-				<select class="form-control az_base_inp" v-model="selectedManager">
-					<option :value="null">{{$t('choose')}}</option>
-					<option v-for="item in managerList" :value="item.id">{{ item.firstName }} {{ item.lastName }}</option>
+				<label class="az_base_lbl">{{ $t('fullName') }}</label>
+				<select
+					class="form-control az_base_inp"
+					v-model="selectedManager"
+				>
+					<option :value="null">{{ $t('choose') }}</option>
+					<option
+						v-for="item in managerList"
+						:value="item.id"
+					>{{ item.firstName }} {{ item.lastName }}</option>
 				</select>
 			</div>
 		</div>
@@ -15,48 +21,54 @@
 			<base-report-table class="mt-3">
 				<template #head>
 					<tr>
-						<th rowspan="2" class="text-nowrap align-middle">{{$t('repoerts.boardName')}}</th>
-						<th colspan="5">{{$t('statusNameOfBoards')}}</th>
-						<th colspan="2">{{$t('resolution')}}</th>
-						<th colspan="4">{{$t('byTerm')}}</th>
-						<th colspan="4">{{$t('taskPriority')}}</th>
-						<th colspan="4">{{$t('taskDifficultyLevel')}}</th>
-						<th colspan="3">{{$t('comments')}}</th>
+						<th
+							rowspan="2"
+							class="text-nowrap align-middle"
+						>{{ $t('repoerts.boardName') }}</th>
+						<th colspan="5">{{ $t('statusNameOfBoards') }}</th>
+						<th colspan="2">{{ $t('resolution') }}</th>
+						<th colspan="4">{{ $t('byTerm') }}</th>
+						<th colspan="4">{{ $t('taskPriority') }}</th>
+						<th colspan="4">{{ $t('taskDifficultyLevel') }}</th>
+						<th colspan="3">{{ $t('comments') }}</th>
 					</tr>
 					<tr>
-						<th>{{$t('NEW')}}</th>
-						<th>{{$t('DOING')}}</th>
-						<th>{{$t('DONE')}}</th>
-						<th>{{$t('VERIFY')}}</th>
-						<th>{{$t('ARCHIVE')}}</th>
+						<th>{{ $t('NEW') }}</th>
+						<th>{{ $t('DOING') }}</th>
+						<th>{{ $t('DONE') }}</th>
+						<th>{{ $t('VERIFY') }}</th>
+						<th>{{ $t('ARCHIVE') }}</th>
 
-						<th>{{$t('notDone')}}</th>
-						<th>{{$t('completed')}}</th>
+						<th>{{ $t('notDone') }}</th>
+						<th>{{ $t('completed') }}</th>
 
-						<th>{{$t('overdue')}}</th>
-						<th>{{$t('expires')}}</th>
-						<th>{{$t('enoughTime')}}<br></th>
-						<th>{{$t('notDelivered')}}</th>
+						<th>{{ $t('overdue') }}</th>
+						<th>{{ $t('expires') }}</th>
+						<th>{{ $t('enoughTime') }}<br></th>
+						<th>{{ $t('notDelivered') }}</th>
 
-						<th>{{$t('priorityHigh')}}</th>
-						<th>{{$t('priorityNormal')}}</th>
-						<th>{{$t('priorityLow')}}</th>
-						<th>{{$t('notDelivered')}}</th>
+						<th>{{ $t('priorityHigh') }}</th>
+						<th>{{ $t('priorityNormal') }}</th>
+						<th>{{ $t('priorityLow') }}</th>
+						<th>{{ $t('notDelivered') }}</th>
 
-						<th>{{$t('complicated')}}</th>
-						<th>{{$t('priorityNormal')}}</th>
-						<th>{{$t('easy')}}</th>
-						<th>{{$t('notDelivered')}}</th>
+						<th>{{ $t('complicated') }}</th>
+						<th>{{ $t('priorityNormal') }}</th>
+						<th>{{ $t('easy') }}</th>
+						<th>{{ $t('notDelivered') }}</th>
 
-						<th>{{$t('information')}}</th>
-						<th>{{$t('problem')}}</th>
-						<th>{{$t('solution')}}</th>
+						<th>{{ $t('information') }}</th>
+						<th>{{ $t('problem') }}</th>
+						<th>{{ $t('solution') }}</th>
 					</tr>
 				</template>
 
 
 				<template #body>
-					<tr v-for="(item, index) in projectDataList" :key="index">
+					<tr
+						v-for="(item, index) in projectDataList"
+						:key="index"
+					>
 						<td>{{ item.projectName }}</td>
 
 						<td>{{ item.task_column_new }}</td>
@@ -93,7 +105,10 @@
 
 			<div class="jplist-panel box panel-bottom mt-4">
 				<div>
-					<select class="jplist-select" v-model="pagination.range">
+					<select
+						class="jplist-select"
+						v-model="pagination.range"
+					>
 						<option :value="10">10</option>
 						<option :value="20">20</option>
 						<option :value="50">50</option>
@@ -101,58 +116,118 @@
 
 
 					<div class="panel-bottom__pagination">
-						<button type="button" :disabled="pagination.page === 0" @click="GetDataAll('page', 0)">
-							<svg xmlns="http://www.w3.org/2000/svg" width="12.41" height="12"
-								 viewBox="0 0 12.41 12">
-								<path id="ic_first_page_24px"
-									  d="M18.41,16.59,13.82,12l4.59-4.59L17,6l-6,6,6,6ZM6,6H8V18H6Z"
-									  transform="translate(-6 -6)" fill="#495e75"/>
+						<button
+							type="button"
+							:disabled="pagination.page === 0"
+							@click="GetDataAll('page', 0)"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="12.41"
+								height="12"
+								viewBox="0 0 12.41 12"
+							>
+								<path
+									id="ic_first_page_24px"
+									d="M18.41,16.59,13.82,12l4.59-4.59L17,6l-6,6,6,6ZM6,6H8V18H6Z"
+									transform="translate(-6 -6)"
+									fill="#495e75"
+								/>
 							</svg>
 						</button>
-						<button type="button" :disabled="pagination.page === 0" @click="GetDataAll('diff', -1)">
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-								 viewBox="0 0 16 16">
-								<path id="ic_arrow_back_24px"
-									  d="M20,11H7.83l5.59-5.59L12,4,4,12l8,8,1.41-1.41L7.83,13H20Z"
-									  transform="translate(-4 -4)" fill="#495e75"/>
+						<button
+							type="button"
+							:disabled="pagination.page === 0"
+							@click="GetDataAll('diff', -1)"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="16"
+								height="16"
+								viewBox="0 0 16 16"
+							>
+								<path
+									id="ic_arrow_back_24px"
+									d="M20,11H7.83l5.59-5.59L12,4,4,12l8,8,1.41-1.41L7.83,13H20Z"
+									transform="translate(-4 -4)"
+									fill="#495e75"
+								/>
 							</svg>
 						</button>
 
 						<form @submit.prevent="GetDataAll('page', inputPage - 1)">
-							<input type="number" min="1" :max="computedLastPage + 1" v-model="inputPage">
+							<input
+								type="number"
+								min="1"
+								:max="computedLastPage + 1"
+								v-model="inputPage"
+							>
 						</form>
 
-						<button type="button" :disabled="pagination.page === computedLastPage" @click="GetDataAll('diff', 1)">
-							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-								 viewBox="0 0 16 16">
-								<path id="ic_arrow_back_24px"
-									  d="M20,11H7.83l5.59-5.59L12,4,4,12l8,8,1.41-1.41L7.83,13H20Z"
-									  transform="translate(20 20) rotate(180)" fill="#495e75"/>
+						<button
+							type="button"
+							:disabled="pagination.page === computedLastPage"
+							@click="GetDataAll('diff', 1)"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="16"
+								height="16"
+								viewBox="0 0 16 16"
+							>
+								<path
+									id="ic_arrow_back_24px"
+									d="M20,11H7.83l5.59-5.59L12,4,4,12l8,8,1.41-1.41L7.83,13H20Z"
+									transform="translate(20 20) rotate(180)"
+									fill="#495e75"
+								/>
 							</svg>
 						</button>
-						<button type="button" :disabled="pagination.page === computedLastPage" @click="GetDataAll('page', computedLastPage)">
-							<svg xmlns="http://www.w3.org/2000/svg" width="12.41" height="12"
-								 viewBox="0 0 12.41 12">
-								<path id="ic_first_page_24px"
-									  d="M18.41,16.59,13.82,12l4.59-4.59L17,6l-6,6,6,6ZM6,6H8V18H6Z"
-									  transform="translate(18.41 18) rotate(180)" fill="#495e75"/>
+						<button
+							type="button"
+							:disabled="pagination.page === computedLastPage"
+							@click="GetDataAll('page', computedLastPage)"
+						>
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="12.41"
+								height="12"
+								viewBox="0 0 12.41 12"
+							>
+								<path
+									id="ic_first_page_24px"
+									d="M18.41,16.59,13.82,12l4.59-4.59L17,6l-6,6,6,6ZM6,6H8V18H6Z"
+									transform="translate(18.41 18) rotate(180)"
+									fill="#495e75"
+								/>
 							</svg>
 						</button>
 					</div>
 				</div>
 
 
-                <i18n class="jplist-label" tag="div" path="paginationText">
-                    <template #shownText>{{ computedItemFrom }}</template>
-                    <template #fromText><template>{{ computedItemTo }}</template></template>
-                    <template #toText><template>{{ pagination.count }}</template></template>
-                </i18n>
+				<i18n
+					class="jplist-label"
+					tag="div"
+					path="paginationText"
+				>
+					<template #shownText>{{ computedItemFrom }}</template>
+					<template #fromText><template>{{ computedItemTo }}</template></template>
+					<template #toText><template>{{ pagination.count }}</template></template>
+				</i18n>
 			</div>
 
 
-			<div class="az_report_foot" v-if="can('REPORT_MANAGERS_MEMBERS_UPLOAD')">
+			<div
+				class="az_report_foot"
+				v-if="can(PERMISSION_TYPE.REPORT.MANAGERS_MEMBERS_UPLOAD)"
+			>
 				<!--<button type="button" class="btn az_base_btn btn-primary mr-3">Отправить</button>-->
-				<button type="button" class="btn az_base_btn btn-excel" @click="ExportToFile">{{$t('downloadExcel')}}</button>
+				<button
+					type="button"
+					class="btn az_base_btn btn-excel"
+					@click="ExportToFile"
+				>{{ $t('downloadExcel') }}</button>
 			</div>
 		</template>
 
@@ -160,112 +235,114 @@
 </template>
 
 <script>
-	import BaseReportTable from '../../../../../components/BaseReportTable';
+import BaseReportTable from '../../../../../components/BaseReportTable';
+import { PERMISSION_TYPE } from '../../../../../constants';
 
 
-	export default {
-		name: "ProjectDetailsManagerTypeKanban",
-		components: {
-			BaseReportTable,
+export default {
+	name: "ProjectDetailsManagerTypeKanban",
+	components: {
+		BaseReportTable,
+	},
+	props: {
+		managerList: {
+			type: Array,
+			required: true,
+			default: []
 		},
-		props: {
-			managerList: {
-				type: Array,
-				required: true,
-				default: []
-			},
+	},
+	data: () => ({
+		PERMISSION_TYPE,
+		selectedManager: null,
+
+
+		projectDataList: [],
+		pagination: {
+			count: 0,
+			page: 0,
+			range: 10,
 		},
-		data: () => ({
-			selectedManager: null,
-
-
-			projectDataList: [],
-			pagination: {
-				count: 0,
-				page: 0,
-				range: 10,
-			},
-			inputPage: 1,
-		}),
-		computed: {
-			computedLastPage() {
-				return this.pagination.count > 0 ? Math.ceil(this.pagination.count / this.pagination.range) - 1 : 0;
-			},
-			computedItemFrom() {
-				return (this.pagination.range * this.pagination.page) + 1;
-			},
-			computedItemTo() {
-				return (this.pagination.range * this.inputPage) < this.pagination.count ? (this.pagination.range * this.inputPage) : this.pagination.count;
-			},
+		inputPage: 1,
+	}),
+	computed: {
+		computedLastPage() {
+			return this.pagination.count > 0 ? Math.ceil(this.pagination.count / this.pagination.range) - 1 : 0;
 		},
-		watch: {
-			'pagination.range'() {
-				this.GetDataAll();
-			},
-			'selectedManager'() {
-				this.GetDataAll();
-			},
+		computedItemFrom() {
+			return (this.pagination.range * this.pagination.page) + 1;
 		},
-		created() {
+		computedItemTo() {
+			return (this.pagination.range * this.inputPage) < this.pagination.count ? (this.pagination.range * this.inputPage) : this.pagination.count;
 		},
-		methods: {
-			GetDataAll(type, page) {
-
-				if (type === 'diff') {
-					this.pagination.page += page;
-				}
-				else if (type === 'page') {
-					this.pagination.page = page;
-				}
-				else {
-					this.pagination.page = 0;
-				}
-
-				this.inputPage = this.pagination.page + 1;
-
-				this.$api
-					.get('reports/by/project/kanban/managersAndMember', {
-						params: {
-							'userId': this.selectedManager,
-							'page': this.pagination.page,
-							'pageSize': this.pagination.range,
-							'byProjectManagers': true,
-						}
-					})
-					.then(response => {
-						this.projectDataList = response.data.data;
-						this.pagination.count = response.data.totalCount;
-					});
-			},
-			ExportToFile() {
-				this.$api
-					.get('file/report/full/upload', {
-						params: {
-							'userId': this.selectedManager,
-							'page': this.pagination.page,
-							'pageSize': this.pagination.range,
-							'byProjectManagers': true,
-							'uploadKanban': true,
-						},
-						responseType: 'blob',
-					})
-					.then(response => {
-						const a = document.createElement("a");
-						a.style.display = "none";
-						document.body.appendChild(a);
-
-						// Set the HREF to a Blob representation of the data to be downloaded
-						a.setAttribute("href", window.URL.createObjectURL(new Blob([response.data])));
-
-						// Use download attribute to set set desired file name
-						a.setAttribute("download", 'exported.xlsx');
-
-						a.click();
-
-						// Cleanup
-						document.body.removeChild(a);
-					});
-			},
+	},
+	watch: {
+		'pagination.range'() {
+			this.GetDataAll();
 		},
-	}
+		'selectedManager'() {
+			this.GetDataAll();
+		},
+	},
+	created() {
+	},
+	methods: {
+		GetDataAll(type, page) {
+
+			if (type === 'diff') {
+				this.pagination.page += page;
+			}
+			else if (type === 'page') {
+				this.pagination.page = page;
+			}
+			else {
+				this.pagination.page = 0;
+			}
+
+			this.inputPage = this.pagination.page + 1;
+
+			this.$api
+				.get('reports/by/project/kanban/managersAndMember', {
+					params: {
+						'userId': this.selectedManager,
+						'page': this.pagination.page,
+						'pageSize': this.pagination.range,
+						'byProjectManagers': true,
+					}
+				})
+				.then(response => {
+					this.projectDataList = response.data.data;
+					this.pagination.count = response.data.totalCount;
+				});
+		},
+		ExportToFile() {
+			this.$api
+				.get('file/report/full/upload', {
+					params: {
+						'userId': this.selectedManager,
+						'page': this.pagination.page,
+						'pageSize': this.pagination.range,
+						'byProjectManagers': true,
+						'uploadKanban': true,
+					},
+					responseType: 'blob',
+				})
+				.then(response => {
+					const a = document.createElement("a");
+					a.style.display = "none";
+					document.body.appendChild(a);
+
+					// Set the HREF to a Blob representation of the data to be downloaded
+					a.setAttribute("href", window.URL.createObjectURL(new Blob([ response.data ])));
+
+					// Use download attribute to set set desired file name
+					a.setAttribute("download", 'exported.xlsx');
+
+					a.click();
+
+					// Cleanup
+					document.body.removeChild(a);
+				});
+		},
+	},
+};
 </script>

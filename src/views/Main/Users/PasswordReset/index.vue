@@ -1,7 +1,7 @@
 <template>
 	<div
 		class="az_base_box"
-		v-if="can('EMPLOYEE_PASSWORD_CHANGE')"
+		v-if="can(PERMISSION_TYPE.EMPLOYEE.CHANGE_PASSWORD)"
 	>
 
 		<div class="az_crud_ttl mb-5">
@@ -71,6 +71,7 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators';
+import { PERMISSION_TYPE } from '../../../../constants';
 
 
 export default {
@@ -83,6 +84,7 @@ export default {
 	},
 	data() {
 		return {
+			PERMISSION_TYPE,
 			password: '',
 			passwordShow: false,
 			employee: {},

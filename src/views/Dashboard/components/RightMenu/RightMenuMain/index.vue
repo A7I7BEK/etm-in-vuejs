@@ -1,7 +1,7 @@
 <script>
 import BaseAction from '../../../../../components/actions/base-action.vue';
 import BaseRightMenu from '../../../../../components/BaseRightMenu';
-import { DEFAULT_API_URL } from '../../../../../constants';
+import { DEFAULT_API_URL, PERMISSION_TYPE } from '../../../../../constants';
 import { SocketService } from '../../../../../services/SocketService';
 import { accessTokenGet } from '../../../../../services/TokenService';
 import BackgroundModal from './BackgroundModal/index';
@@ -18,6 +18,7 @@ export default {
 	},
 	data() {
 		return {
+			PERMISSION_TYPE,
 			socketAction: new SocketService({
 				url: DEFAULT_API_URL,
 				path: '/ws-actions',

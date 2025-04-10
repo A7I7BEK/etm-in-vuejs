@@ -34,14 +34,12 @@
 				<div
 					class="ml-3 mw-checklist__edit__inner mw-checklist__delete"
 					@click="DeleteGroup(checkListData.id)"
-					v-if="can('TASK_UPDATE') && can('CHECKLIST_GROUP_DELETE')"
+					v-if="can(PERMISSION_TYPE.TASK.UPDATE) &&
+						can(PERMISSION_TYPE.CHECK_LIST_GROUP.DELETE)"
 				>
 					<span>{{ $t('delete') }}</span>
 					<div class="mw-checklist__edit__icon">
-						<i
-							class="fa fa-trash"
-							aria-hidden="true"
-						></i>
+						<i class="fa fa-trash"></i>
 					</div>
 				</div>
 			</div>
@@ -65,7 +63,7 @@
 			</div>
 
 
-			<div v-if="can('TASK_CHECK_READ')">
+			<div v-if="can(PERMISSION_TYPE.CHECK_LIST_ITEM.READ)">
 				<template v-if="checkedItemToggle">
 					<div
 						class="mw-checklist__item"
@@ -79,7 +77,10 @@
 									hidden
 									v-model="item.checked"
 									@change="Update(item)"
-									:disabled="!can('TASK_UPDATE') || !can('TASK_CHECK_UPDATE')"
+									:disabled="!(
+										can(PERMISSION_TYPE.TASK.UPDATE) &&
+										can(PERMISSION_TYPE.CHECK_LIST_ITEM.UPDATE)
+									)"
 								>
 								<div class="checklist-icon"></div>
 								<p>
@@ -96,7 +97,10 @@
 
 						<div
 							class="mw-checkbox__item__edit dropdown"
-							v-if="can('TASK_UPDATE') && can('TASK_CHECK_DELETE')"
+							v-if="
+								can(PERMISSION_TYPE.TASK.UPDATE) &&
+								can(PERMISSION_TYPE.CHECK_LIST_ITEM.DELETE)
+							"
 						>
 							<button
 								type="button"
@@ -113,7 +117,9 @@
 									class="dropdown-item"
 									href="#"
 									@click.prevent="Delete(item.id)"
-								>{{ $t('delete') }}</a>
+								>
+									{{ $t('delete') }}
+								</a>
 							</div>
 						</div>
 					</div>
@@ -133,7 +139,10 @@
 									hidden
 									v-model="item.checked"
 									@change="Update(item)"
-									:disabled="!can('TASK_UPDATE') || !can('TASK_CHECK_UPDATE')"
+									:disabled="!(
+										can(PERMISSION_TYPE.TASK.UPDATE) &&
+										can(PERMISSION_TYPE.CHECK_LIST_ITEM.UPDATE)
+									)"
 								>
 								<div class="checklist-icon"></div>
 								<p>
@@ -150,7 +159,10 @@
 
 						<div
 							class="mw-checkbox__item__edit dropdown"
-							v-if="can('TASK_UPDATE') && can('TASK_CHECK_DELETE')"
+							v-if="
+								can(PERMISSION_TYPE.TASK.UPDATE) &&
+								can(PERMISSION_TYPE.CHECK_LIST_ITEM.DELETE)
+							"
 						>
 							<button
 								type="button"
@@ -177,7 +189,10 @@
 
 			<form
 				@submit.prevent="Create"
-				v-if="can('TASK_UPDATE') && can('TASK_CHECK_CREATE')"
+				v-if="
+					can(PERMISSION_TYPE.TASK.UPDATE) &&
+					can(PERMISSION_TYPE.CHECK_LIST_ITEM.CREATE)
+				"
 			>
 				<div class="form-group mw-checklist__bottom__input">
 					<input
@@ -282,6 +297,7 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators';
+import { PERMISSION_TYPE } from '../../../../../constants';
 
 
 export default {
@@ -297,6 +313,7 @@ export default {
 	},
 	data() {
 		return {
+			PERMISSION_TYPE,
 			checkListData: this.checkListDataProp,
 			employeeListChecked: [],
 

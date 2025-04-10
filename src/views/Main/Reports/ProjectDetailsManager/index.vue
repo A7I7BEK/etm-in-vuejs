@@ -1,7 +1,8 @@
 <script>
+import BaseReportTab from '../../../../components/BaseReportTab';
+import { PERMISSION_TYPE } from '../../../../constants';
 import TypeKanban from './components/TypeKanban';
 import TypeTrello from './components/TypeTrello';
-import BaseReportTab from '../../../../components/BaseReportTab';
 
 export default {
 	name: "MainReportsProjectDetailsManager",
@@ -11,6 +12,7 @@ export default {
 		TypeTrello,
 	},
 	data: () => ({
+		PERMISSION_TYPE,
 		managerList: [],
 	}),
 	created() {

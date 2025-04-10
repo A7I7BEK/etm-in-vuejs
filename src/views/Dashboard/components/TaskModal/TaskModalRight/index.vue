@@ -3,7 +3,11 @@
 		<div class="modal-header">
 			<div
 				class="mw-switch us-n"
-				v-if="can('TASK_UPDATE') && can('TASK_CREATE_TIME')"
+				v-if="
+					can(PERMISSION_TYPE.TASK.UPDATE) &&
+					can(PERMISSION_TYPE.TASK_TIMER.START) &&
+					can(PERMISSION_TYPE.TASK_TIMER.STOP)
+				"
 				@click="ToggleTaskTimer"
 			>
 				<div
@@ -43,34 +47,57 @@
 
 		<div
 			class="modal-body"
-			v-if="can('TASK_UPDATE')"
+			v-if="
+				can(PERMISSION_TYPE.TASK.UPDATE) ||
+				can(PERMISSION_TYPE.TASK.DELETE)
+			"
 		>
 
-			<task-modal-right-member
-				v-if="can('TASK_MEMBER_CREATE') && can('TASK_MEMBER_DELETE')"></task-modal-right-member>
+			<task-modal-right-member v-if="
+				can(PERMISSION_TYPE.TASK_MEMBER.CREATE) &&
+				can(PERMISSION_TYPE.TASK_MEMBER.DELETE)
+			"></task-modal-right-member>
 
 			<task-modal-right-priority></task-modal-right-priority>
 
 			<task-modal-right-level></task-modal-right-level>
 
-			<task-modal-right-checklist v-if="can('CHECKLIST_GROUP_CREATE')"></task-modal-right-checklist>
+			<task-modal-right-checklist v-if="
+				can(PERMISSION_TYPE.CHECK_LIST_GROUP.CREATE)
+			"></task-modal-right-checklist>
 
 			<task-modal-right-deadline></task-modal-right-deadline>
 
-			<task-modal-right-attachment v-if="can('TASK_ATTACHMENT_CREATE')"></task-modal-right-attachment>
+			<task-modal-right-attachment v-if="
+				can(PERMISSION_TYPE.TASK_ATTACHMENT.CREATE)
+			"></task-modal-right-attachment>
 
-			<task-modal-right-label v-if="can('TASK_TAG_CREATE') && can('TASK_TAG_DELETE')"></task-modal-right-label>
+			<task-modal-right-label v-if="
+				can(PERMISSION_TYPE.TASK_TAG.CREATE) &&
+				can(PERMISSION_TYPE.TASK_TAG.DELETE)
+			"></task-modal-right-label>
 
 			<task-modal-right-share></task-modal-right-share>
 
 
-			<h6 v-if="can('TASK_MOVE') || can('TASK_COPY')">{{ $t('actions') }}</h6>
+			<h6 v-if="
+				can(PERMISSION_TYPE.TASK.MOVE) ||
+				can(PERMISSION_TYPE.TASK.COPY)
+			">
+				{{ $t('actions') }}
+			</h6>
 
-			<task-modal-right-move v-if="can('TASK_MOVE')"></task-modal-right-move>
+			<task-modal-right-move v-if="
+				can(PERMISSION_TYPE.TASK.MOVE)
+			"></task-modal-right-move>
 
-			<task-modal-right-copy v-if="can('TASK_COPY')"></task-modal-right-copy>
+			<task-modal-right-copy v-if="
+				can(PERMISSION_TYPE.TASK.COPY)
+			"></task-modal-right-copy>
 
-			<task-modal-right-delete v-if="can('TASK_DELETE')"></task-modal-right-delete>
+			<task-modal-right-delete v-if="
+				can(PERMISSION_TYPE.TASK.DELETE)
+			"></task-modal-right-delete>
 
 		</div>
 	</div>
@@ -78,7 +105,7 @@
 
 
 <script>
-import { TASK_PRIORITY_TYPE, TASK_TIMER_TYPE } from '../../../../../constants';
+import { PERMISSION_TYPE, TASK_PRIORITY_TYPE, TASK_TIMER_TYPE } from '../../../../../constants';
 import TaskModalRightAttachment from './TaskModalRightAttachment';
 import TaskModalRightChecklist from './TaskModalRightChecklist';
 import TaskModalRightCopy from './TaskModalRightCopy';
@@ -110,6 +137,7 @@ export default {
 	data() {
 		return {
 			TASK_TIMER_TYPE,
+			PERMISSION_TYPE,
 			priorityClass: {
 				[ TASK_PRIORITY_TYPE.HIGH ]: 'p-danger',
 				[ TASK_PRIORITY_TYPE.NORMAL ]: 'p-warning',

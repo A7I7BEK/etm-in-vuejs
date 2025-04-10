@@ -1,5 +1,6 @@
 <script>
 import BaseReportTable from '../../../../components/BaseReportTable';
+import { PERMISSION_TYPE } from '../../../../constants';
 
 
 export default {
@@ -8,6 +9,7 @@ export default {
 		BaseReportTable,
 	},
 	data: () => ({
+		PERMISSION_TYPE,
 		projectSelectionList: [],
 		projectSelected: null,
 

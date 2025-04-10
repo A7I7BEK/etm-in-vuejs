@@ -1,9 +1,9 @@
 <template>
 	<base-crud-page-list
-		v-if="can('TASK_READ')"
+		v-if="can(PERMISSION_TYPE.TASK.READ)"
 		:title="$tc('menu.task', 2)"
 		:create-url="{ name: 'mainTasksCreate' }"
-		:create-show="can('TASK_CREATE')"
+		:create-show="can(PERMISSION_TYPE.TASK.CREATE)"
 		:footer-show="record.pageCount > 0"
 	>
 
@@ -176,9 +176,11 @@
 
 						<th
 							class="width-50"
-							v-if="can('TASK_READ')
-								|| can('TASK_UPDATE')
-								|| can('TASK_DELETE')"
+							v-if="
+								can(PERMISSION_TYPE.TASK.READ) ||
+								can(PERMISSION_TYPE.TASK.UPDATE) ||
+								can(PERMISSION_TYPE.TASK.DELETE)
+							"
 						>
 							{{ $t('actions') }}
 						</th>
@@ -230,11 +232,15 @@
 							<template v-else>&nbsp;</template>
 						</td>
 
-						<td v-if="can('TASK_READ') || can('TASK_UPDATE') || can('TASK_DELETE')">
+						<td v-if="
+							can(PERMISSION_TYPE.TASK.READ) ||
+							can(PERMISSION_TYPE.TASK.UPDATE) ||
+							can(PERMISSION_TYPE.TASK.DELETE)
+						">
 							<div class="d-flex">
 								<router-link
 									class="btn az_base_btn btn-default icon mr-2"
-									v-if="can('TASK_READ')"
+									v-if="can(PERMISSION_TYPE.TASK.READ)"
 									:to="{ name: 'dashboard', params: { id: item.projectId, taskId: item.id } }"
 								>
 									<i class="fa fa-external-link"></i>
@@ -242,7 +248,7 @@
 
 								<router-link
 									class="btn az_base_btn btn-success icon mr-2"
-									v-if="can('TASK_READ')"
+									v-if="can(PERMISSION_TYPE.TASK.READ)"
 									:to="{ name: 'mainTasksRead', params: { id: item.id } }"
 								>
 									<i class="fa fa-eye"></i>
@@ -250,7 +256,7 @@
 
 								<router-link
 									class="btn az_base_btn btn-warning icon mr-2"
-									v-if="can('TASK_UPDATE')"
+									v-if="can(PERMISSION_TYPE.TASK.UPDATE)"
 									:to="{ name: 'mainTasksUpdate', params: { id: item.id } }"
 								>
 									<i class="fa fa-pencil"></i>
@@ -259,7 +265,7 @@
 								<button
 									class="btn az_base_btn btn-danger icon"
 									type="button"
-									v-if="can('TASK_DELETE')"
+									v-if="can(PERMISSION_TYPE.TASK.DELETE)"
 									@click="Delete(item.id)"
 								>
 									<i class="fa fa-trash-o"></i>
@@ -311,7 +317,7 @@ import BaseInputDeadline from '../../../../components/BaseInputDeadline';
 import BaseInputDeadlineType, { DEADLINE_LIST } from '../../../../components/BaseInputDeadlineType.vue';
 import BaseInputProject from '../../../../components/BaseInputProject';
 import BaseInputSearch from '../../../../components/BaseInputSearch';
-import { HANDLE_PARAMS, ORDER, ORDER_REVERSE, TASK_PRIORITY_TYPE, TASK_STATUS_TYPE } from '../../../../constants';
+import { HANDLE_PARAMS, ORDER, ORDER_REVERSE, PERMISSION_TYPE, TASK_PRIORITY_TYPE, TASK_STATUS_TYPE } from '../../../../constants';
 
 
 const SORT_PROP = {
@@ -346,6 +352,7 @@ export default {
 	},
 	data() {
 		return {
+			PERMISSION_TYPE,
 			ORDER,
 			HANDLE_PARAMS,
 			SORT_PROP,

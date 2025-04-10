@@ -64,7 +64,7 @@
 						class="btn az_base_btn btn-primary btn-block"
 						data-toggle="modal"
 						data-target="#profileModal"
-						v-if="can('EMPLOYEE_PROFILE_UPDATE')"
+						v-if="can(PERMISSION_TYPE.USER.UPDATE_PROFILE)"
 					>
 						{{ $t('edit') }}
 					</button>
@@ -156,7 +156,7 @@
 
 
 
-	<profile-menu-modal-info v-if="can('EMPLOYEE_PROFILE_UPDATE')"></profile-menu-modal-info>
+	<profile-menu-modal-info v-if="can(PERMISSION_TYPE.USER.UPDATE_PROFILE)"></profile-menu-modal-info>
 
 
 	<profile-menu-modal-password></profile-menu-modal-password>

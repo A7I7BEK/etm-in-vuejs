@@ -1,18 +1,35 @@
-<div v-if="can('REPORT_KANBAN_PROJECT_MANAGER_AND_MEMBER') && can('REPORT_TRELLO_PROJECT_MANAGER_AND_MEMBER')">
+<div v-if="
+	can(PERMISSION_TYPE.REPORT.MANAGERS_MEMBERS_KANBAN) &&
+	can(PERMISSION_TYPE.REPORT.MANAGERS_MEMBERS_TRELLO)
+">
 	<base-report-tab>
 		<template #title>
-			<a class="nav-link active" data-toggle="tab" href="#projectDetailsTaskKanban">{{$t('repoerts.kanban')}}</a>
-			<a class="nav-link" data-toggle="tab" href="#projectDetailsTaskTrello">{{$t('normal')}}</a>
+			<a
+				class="nav-link active"
+				data-toggle="tab"
+				href="#projectDetailsTaskKanban"
+			>{{$t('repoerts.kanban')}}</a>
+			<a
+				class="nav-link"
+				data-toggle="tab"
+				href="#projectDetailsTaskTrello"
+			>{{$t('normal')}}</a>
 		</template>
 
 
 		<template #content>
 
-			<div class="tab-pane fade show active" id="projectDetailsTaskKanban">
+			<div
+				class="tab-pane fade show active"
+				id="projectDetailsTaskKanban"
+			>
 				<type-kanban :manager-list="managerList"></type-kanban>
 			</div>
 
-			<div class="tab-pane fade" id="projectDetailsTaskTrello">
+			<div
+				class="tab-pane fade"
+				id="projectDetailsTaskTrello"
+			>
 				<type-trello :manager-list="managerList"></type-trello>
 			</div>
 

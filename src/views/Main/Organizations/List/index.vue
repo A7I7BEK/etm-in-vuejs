@@ -1,9 +1,9 @@
 <template>
 	<base-crud-page-list
-		v-if="can('ORGANIZATION_READ')"
+		v-if="can(PERMISSION_TYPE.ORGANIZATION.READ)"
 		:title="$tc('menu.organization', 2)"
 		:create-url="{ name: 'mainOrganizationsCreate' }"
-		:create-show="can('ORGANIZATION_CREATE')"
+		:create-show="can(PERMISSION_TYPE.ORGANIZATION.CREATE)"
 		:footer-show="record.pageCount > 0"
 	>
 
@@ -85,9 +85,11 @@
 
 						<th
 							class="width-50"
-							v-if="can('ORGANIZATION_READ')
-								|| can('ORGANIZATION_UPDATE')
-								|| can('ORGANIZATION_DELETE')"
+							v-if="
+								can(PERMISSION_TYPE.ORGANIZATION.READ) ||
+								can(PERMISSION_TYPE.ORGANIZATION.UPDATE) ||
+								can(PERMISSION_TYPE.ORGANIZATION.DELETE)
+							"
 						>
 							{{ $t('actions') }}
 						</th>
@@ -114,11 +116,15 @@
 							<div class="az_crud_tb_txt">{{ item.email }}</div>
 						</td>
 
-						<td v-if="can('ORGANIZATION_READ') || can('ORGANIZATION_UPDATE') || can('ORGANIZATION_DELETE')">
+						<td v-if="
+							can(PERMISSION_TYPE.ORGANIZATION.READ) ||
+							can(PERMISSION_TYPE.ORGANIZATION.UPDATE) ||
+							can(PERMISSION_TYPE.ORGANIZATION.DELETE)
+						">
 							<div class="d-flex">
 								<router-link
 									class="btn az_base_btn btn-success icon mr-2"
-									v-if="can('ORGANIZATION_READ')"
+									v-if="can(PERMISSION_TYPE.ORGANIZATION.READ)"
 									:to="{ name: 'mainOrganizationsRead', params: { id: item.id } }"
 								>
 									<i class="fa fa-eye"></i>
@@ -126,7 +132,7 @@
 
 								<router-link
 									class="btn az_base_btn btn-warning icon mr-2"
-									v-if="can('ORGANIZATION_UPDATE')"
+									v-if="can(PERMISSION_TYPE.ORGANIZATION.UPDATE)"
 									:to="{ name: 'mainOrganizationsUpdate', params: { id: item.id } }"
 								>
 									<i class="fa fa-pencil"></i>
@@ -135,7 +141,7 @@
 								<button
 									class="btn az_base_btn btn-danger icon"
 									type="button"
-									v-if="can('ORGANIZATION_DELETE')"
+									v-if="can(PERMISSION_TYPE.ORGANIZATION.DELETE)"
 									@click="Delete(item.id)"
 								>
 									<i class="fa fa-trash-o"></i>
@@ -183,7 +189,7 @@ import BaseCrudPageList from '../../../../components/BaseCrudPageList';
 import BaseCrudRange from '../../../../components/BaseCrudRange';
 import BaseCrudTable from '../../../../components/BaseCrudTable';
 import BaseInputSearch from '../../../../components/BaseInputSearch';
-import { HANDLE_PARAMS, ORDER, ORDER_REVERSE } from '../../../../constants';
+import { HANDLE_PARAMS, ORDER, ORDER_REVERSE, PERMISSION_TYPE } from '../../../../constants';
 
 
 const SORT_PROP = {
@@ -204,6 +210,7 @@ export default {
 	},
 	data() {
 		return {
+			PERMISSION_TYPE,
 			ORDER,
 			HANDLE_PARAMS,
 			SORT_PROP,
