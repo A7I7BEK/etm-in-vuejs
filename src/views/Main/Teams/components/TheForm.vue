@@ -66,25 +66,22 @@
 						>
 							<tr
 								class="az_team_form_tb_tr_chk"
-								v-for="(item, index) in record.list"
+								v-for="item in record.list"
+								:key="item.id"
+								@click="toggleCheckboxOne(item.id)"
 							>
 								<td>
 									<div class="custom-control custom-checkbox az_base_custom_chk">
 										<input
 											class="custom-control-input"
 											type="checkbox"
-											:id="'teamCheckOne' + index"
-											:value="{
-												id: item.id,
-												firstName: item.firstName,
-												lastName: item.lastName,
-												middleName: item.middleName
-											}"
+											:id="'teamCheckOne' + item.id"
+											:value="item.id"
 											v-model="$v.model.employeeIds.$model"
 										>
 										<label
 											class="custom-control-label"
-											:for="'teamCheckOne' + index"
+											:for="'teamCheckOne' + item.id"
 										></label>
 									</div>
 								</td>
@@ -163,7 +160,7 @@
 				>
 					<div
 						class="az_team_form_user_badge"
-						v-for="(item, index) in model.employeeIds"
+						v-for="(item, index) in selectedEmployees"
 					>
 						<div class="txt">{{ item.firstName }} {{ item.lastName }} {{ item.middleName }}</div>
 
@@ -182,7 +179,9 @@
 						class="btn az_base_btn btn-danger"
 						type="button"
 						@click="clearSelectedUser"
-					>{{ $t('clear') }}</button>
+					>
+						{{ $t('clear') }}
+					</button>
 				</div>
 			</div>
 		</div>
@@ -198,7 +197,7 @@
 				<option :value="0">{{ $t('select') }}</option>
 
 				<option
-					v-for="item in model.employeeIds"
+					v-for="item in selectedEmployees"
 					:value="item.id"
 				>
 					{{ item.firstName }} {{ item.lastName }} {{ item.middleName }}
@@ -265,6 +264,7 @@ export default {
 				pageCount: 0,
 			},
 			checkboxAllChecked: false,
+			selectedEmployees: [],
 		};
 	},
 	validations() {
@@ -305,6 +305,8 @@ export default {
 		'model.employeeIds'(val) {
 			this.model.leaderId = 0;
 			this.trackCheckboxAll();
+
+			this.selectedEmployees = this.record.list.filter(a => val.includes(a.id));
 		},
 		'record.list'(val) {
 			this.trackCheckboxAll();
@@ -314,11 +316,6 @@ export default {
 		if (!this.$store.state.systemAdmin) {
 			this.handleParams();
 		}
-
-		document.addEventListener('click', this.toggleCheckboxOne);
-	},
-	destroyed() {
-		document.removeEventListener('click', this.toggleCheckboxOne);
 	},
 	methods: {
 		submit() {
@@ -360,33 +357,31 @@ export default {
 					this.record.pageCount = response.data.meta.totalPages;
 				});
 		},
-		toggleCheckboxOne(e) {
-			let elem = e.target.closest('.az_team_form_tb_tr_chk');
-			if (elem) {
-				elem.querySelector('.az_base_custom_chk input').click();
+		toggleCheckboxOne(id) {
+			let foundIndex = this.model.employeeIds.indexOf(id);
+
+			if (foundIndex > -1) {
+				this.model.employeeIds.splice(foundIndex, 1);
+			}
+			else {
+				this.model.employeeIds.push(id);
 			}
 		},
 		toggleCheckboxAll(checked) {
-			let data = this.record.list.map(item => {
-				return {
-					id: item.id,
-					firstName: item.firstName,
-					lastName: item.lastName,
-					middleName: item.middleName
-				};
-			});
+			let data = this.record.list.map(a => a.id);
 
 
 			if (checked) {
-				const difference = data.filter(a => !this.model.employeeIds.some(b => a.id === b.id));
+				const difference = data.filter(a => !this.model.employeeIds.includes(a));
 				this.model.employeeIds.push(...difference);
 			}
 			else {
-				this.model.employeeIds = this.model.employeeIds.filter(a => !data.some(b => a.id === b.id));
+				this.model.employeeIds = this.model.employeeIds.filter(a => !data.includes(a));
 			}
 		},
 		trackCheckboxAll() {
-			this.checkboxAllChecked = this.record.list.every(a => this.model.employeeIds.some(b => a.id === b.id));
+			let data = this.record.list.map(a => a.id);
+			this.checkboxAllChecked = data.every(a => this.model.employeeIds.includes(a));
 		},
 		removeSelectedUser(index) {
 			this.model.employeeIds.splice(index, 1);

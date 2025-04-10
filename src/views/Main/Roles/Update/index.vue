@@ -8,6 +8,7 @@
 		<template #form>
 
 			<the-form
+				v-if="model.name"
 				:model="model"
 				edit
 				@emit:submit="save"
@@ -47,7 +48,7 @@ export default {
 			titleName: '',
 		};
 	},
-	mounted() {
+	created() {
 		this.getOne();
 	},
 	methods: {

@@ -32,6 +32,7 @@
 												class="custom-control-input"
 												:id="'roleCheckAll' + resource.title"
 												type="checkbox"
+												v-model="checkboxAllChecked"
 												@change="toggleCheckboxAll($event.target.checked)"
 											>
 											<label
@@ -55,6 +56,8 @@
 								<tr
 									class="az_role_form_tb_tr_chk"
 									v-for="item in resource.list"
+									:key="item.id"
+									@click="toggleCheckboxOne(item.id)"
 								>
 									<td>
 										<div class="custom-control custom-checkbox az_base_custom_chk">
@@ -110,30 +113,42 @@ export default {
 			required: true,
 		},
 	},
-	mounted() {
-		document.addEventListener('click', this.toggleCheckboxOne);
+	data() {
+		return {
+			checkboxAllChecked: false,
+		};
 	},
-	destroyed() {
-		document.removeEventListener('click', this.toggleCheckboxOne);
+	mounted() {
+		this.trackCheckboxAll();
 	},
 	methods: {
-		toggleCheckboxOne(e) {
-			let elem = e.target.closest('.az_role_form_tb_tr_chk');
-			if (elem) {
-				elem.querySelector('.az_base_custom_chk input').click();
+		toggleCheckboxOne(id) {
+			let foundIndex = this.model.permissionIds.indexOf(id);
+
+			if (foundIndex > -1) {
+				this.model.permissionIds.splice(foundIndex, 1);
 			}
+			else {
+				this.model.permissionIds.push(id);
+			}
+
+			this.trackCheckboxAll();
 		},
 		toggleCheckboxAll(checked) {
-			let data = this.resource.list.map(x => x.id);
+			let data = this.resource.list.map(a => a.id);
 
 
 			if (checked) {
-				const difference = data.filter((a) => !this.model.permissionIds.includes(a));
+				const difference = data.filter(a => !this.model.permissionIds.includes(a));
 				this.model.permissionIds.push(...difference);
 			}
 			else {
-				this.model.permissionIds = this.model.permissionIds.filter((a) => !data.includes(a));
+				this.model.permissionIds = this.model.permissionIds.filter(a => !data.includes(a));
 			}
+		},
+		trackCheckboxAll() {
+			let data = this.resource.list.map(a => a.id);
+			this.checkboxAllChecked = data.every(a => this.model.permissionIds.includes(a));
 		},
 	}
 };
