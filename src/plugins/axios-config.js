@@ -40,7 +40,16 @@ instance.interceptors.response.use(response => response, error => {
 		clearProfile();
 	}
 
-	notification.error(error.response.data.error.friendlyMessage);
+
+	const { message } = error.response.data;
+
+	if (Array.isArray(message)) {
+		const errorList = message.map(val => `<p>- ${val}</p>`).join('');
+		notification.error(errorList);
+	}
+	else {
+		notification.error(message);
+	}
 
 	return Promise.reject(error);
 });
