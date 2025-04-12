@@ -31,14 +31,14 @@ export default class FormService {
 	}
 
 
-	extractData(source, target) {
+	extractData(source, structure) {
 		const newData = {};
 
-		Object.keys(target).forEach(key => {
+		Object.keys(structure).forEach(key => {
 			const val = source[ key ];
 
-			if (val !== null && typeof val === 'object') {
-				newData[ key ] = this.extractData(val, target[ key ]);
+			if (val && val.constructor === Object) {
+				newData[ key ] = this.extractData(val, structure[ key ]);
 			}
 			else {
 				newData[ key ] = val;
