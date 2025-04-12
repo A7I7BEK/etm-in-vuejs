@@ -118,7 +118,7 @@ export default {
 			checkboxAllChecked: false,
 		};
 	},
-	mounted() {
+	created() {
 		this.trackCheckboxAll();
 	},
 	methods: {
@@ -139,11 +139,12 @@ export default {
 
 
 			if (checked) {
-				const difference = data.filter(a => !this.model.permissionIds.includes(a));
-				this.model.permissionIds.push(...difference);
+				const noneSelected = data.filter(a => !this.model.permissionIds.includes(a));
+				this.model.permissionIds.push(...noneSelected);
 			}
 			else {
-				this.model.permissionIds = this.model.permissionIds.filter(a => !data.includes(a));
+				const pastSelected = this.model.permissionIds.filter(a => !data.includes(a));
+				this.model.permissionIds = pastSelected;
 			}
 		},
 		trackCheckboxAll() {
