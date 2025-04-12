@@ -68,7 +68,7 @@
 								class="az_team_form_tb_tr_chk"
 								v-for="item in record.list"
 								:key="item.id"
-								@click="toggleCheckboxOne(item.id)"
+								@click="toggleCheckboxOne(item)"
 							>
 								<td>
 									<div class="custom-control custom-checkbox az_base_custom_chk">
@@ -76,8 +76,7 @@
 											class="custom-control-input"
 											type="checkbox"
 											:id="'teamCheckOne' + item.id"
-											:value="item.id"
-											v-model="$v.model.employeeIds.$model"
+											:checked="isSelected(item)"
 										>
 										<label
 											class="custom-control-label"
@@ -160,9 +159,13 @@
 				>
 					<div
 						class="az_team_form_user_badge"
-						v-for="(item, index) in selectedEmployees"
+						v-for="(item, index) in model.employeeIds"
 					>
-						<div class="txt">{{ item.firstName }} {{ item.lastName }} {{ item.middleName }}</div>
+						<div class="txt">
+							{{ item.firstName }}
+							{{ item.lastName }}
+							{{ item.middleName }}
+						</div>
 
 						<button
 							class="btn az_base_btn btn-danger cls"
@@ -197,10 +200,12 @@
 				<option :value="0">{{ $t('select') }}</option>
 
 				<option
-					v-for="item in selectedEmployees"
+					v-for="item in model.employeeIds"
 					:value="item.id"
 				>
-					{{ item.firstName }} {{ item.lastName }} {{ item.middleName }}
+					{{ item.firstName }}
+					{{ item.lastName }}
+					{{ item.middleName }}
 				</option>
 			</select>
 		</div>
@@ -264,7 +269,6 @@ export default {
 				pageCount: 0,
 			},
 			checkboxAllChecked: false,
-			selectedEmployees: [],
 		};
 	},
 	validations() {
@@ -305,11 +309,6 @@ export default {
 		'model.employeeIds'(val) {
 			this.model.leaderId = 0;
 			this.trackCheckboxAll();
-
-			this.selectedEmployees = this.record.list.filter(a => val.includes(a.id));
-		},
-		'record.list'(val) {
-			this.trackCheckboxAll();
 		},
 	},
 	mounted() {
@@ -347,41 +346,45 @@ export default {
 
 			this.getUserAll();
 		},
-		getUserAll() {
-			this.$api
-				.get('/employees', {
-					params: this.params,
-				})
-				.then(response => {
-					this.record.list = response.data.data;
-					this.record.pageCount = response.data.meta.totalPages;
-				});
+		async getUserAll() {
+			const { data: { data, meta } } = await this.$api.get('/employees', {
+				params: this.params,
+			});
+
+			this.record.list = data;
+			this.record.pageCount = meta.totalPages;
+			this.trackCheckboxAll();
 		},
-		toggleCheckboxOne(id) {
-			let foundIndex = this.model.employeeIds.indexOf(id);
+		isSelected(item) {
+			return this.model.employeeIds.some(a => a.id === item.id);
+		},
+		toggleCheckboxOne(item) {
+			let foundIndex = this.model.employeeIds.findIndex(a => a.id === item.id);
 
 			if (foundIndex > -1) {
 				this.model.employeeIds.splice(foundIndex, 1);
 			}
 			else {
-				this.model.employeeIds.push(id);
+				this.model.employeeIds.unshift(item);
 			}
 		},
 		toggleCheckboxAll(checked) {
-			let data = this.record.list.map(a => a.id);
-
-
 			if (checked) {
-				const difference = data.filter(a => !this.model.employeeIds.includes(a));
-				this.model.employeeIds.push(...difference);
+				const noneSelected = this.record.list
+					.filter(a => !this.model.employeeIds.some(b => a.id === b.id));
+
+				this.model.employeeIds.push(...noneSelected);
 			}
 			else {
-				this.model.employeeIds = this.model.employeeIds.filter(a => !data.includes(a));
+				const pastSelected = this.model.employeeIds
+					.filter(a => !this.record.list.some(b => a.id === b.id));
+
+				this.model.employeeIds = pastSelected;
 			}
 		},
 		trackCheckboxAll() {
-			let data = this.record.list.map(a => a.id);
-			this.checkboxAllChecked = data.every(a => this.model.employeeIds.includes(a));
+			this.checkboxAllChecked = this.record.list
+				.every(a => this.model.employeeIds.some(b => a.id === b.id));
 		},
 		removeSelectedUser(index) {
 			this.model.employeeIds.splice(index, 1);

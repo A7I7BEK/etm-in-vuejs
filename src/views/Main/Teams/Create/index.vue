@@ -41,8 +41,8 @@ export default {
 	},
 	methods: {
 		save() {
-			let postData = this.model.GetData();
-			postData.employeeIds.map(a => a.id);
+			const postData = this.model.GetData();
+			postData.employeeIds = postData.employeeIds.map(a => a.id);
 
 
 			this.$api

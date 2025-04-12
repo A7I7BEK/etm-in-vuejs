@@ -24,11 +24,11 @@
 						<th>{{ $t('systemCreated') }}</th>
 						<td>
 							<i
-								class="fa fa-check-circle"
+								class="fa fa-check"
 								v-if="model.systemCreated"
 							></i>
 							<i
-								class="fa fa-times-circle"
+								class="fa fa-minus"
 								v-else
 							></i>
 						</td>

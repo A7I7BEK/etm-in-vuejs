@@ -145,11 +145,11 @@
 						<td>
 							<div class="az_crud_tb_txt">
 								<i
-									class="fa fa-check-circle"
+									class="fa fa-check"
 									v-if="item.systemCreated"
 								></i>
 								<i
-									class="fa fa-times-circle"
+									class="fa fa-minus"
 									v-else
 								></i>
 							</div>

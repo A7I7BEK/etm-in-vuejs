@@ -8,6 +8,7 @@
 		<template #form>
 
 			<the-form
+				v-if="model.name"
 				:model="model"
 				edit
 				@emit:submit="save"
@@ -48,7 +49,7 @@ export default {
 			titleName: '',
 		};
 	},
-	mounted() {
+	created() {
 		this.getOne();
 	},
 	methods: {
@@ -60,24 +61,16 @@ export default {
 
 					this.model.name = data.name;
 					this.model.leaderId = data.leader.id;
-					this.model.employeeIds = data.employees.map(item => {
-						return {
-							id: item.id,
-							firstName: item.firstName,
-							lastName: item.lastName,
-							middleName: item.middleName,
-						};
-					});
+					this.model.employeeIds = data.employees;
 					this.model.organizationId = data.organization.id;
-
 
 					this.titleName = data.name;
 					this.$store.state.metaData.title = this.$route.meta.title(data.name);
 				});
 		},
 		save() {
-			let postData = this.model.GetData();
-			postData.employeeIds.map(a => a.id);
+			const postData = this.model.GetData();
+			postData.employeeIds = postData.employeeIds.map(a => a.id);
 
 
 			this.$api

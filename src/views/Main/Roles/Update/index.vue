@@ -60,7 +60,7 @@ export default {
 
 					this.model.SetData({
 						name: data.name,
-						permissionIds: data.permissions.map(x => x.id),
+						permissionIds: data.permissions.map(a => a.id),
 						organizationId: data.organization.id,
 					});
 
