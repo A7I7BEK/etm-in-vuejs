@@ -14,6 +14,7 @@
 				</router-link>
 
 				<i18n
+					v-if="employee.user"
 					class="az_crud_ttl_txt"
 					tag="h3"
 					path="crudPasswordReset"
@@ -118,7 +119,7 @@ export default {
 
 			this.$api
 				.post('/employees/change-password', {
-					employeeId: this.id,
+					employeeId: Number(this.id),
 					password: this.password,
 				})
 				.then(response => {

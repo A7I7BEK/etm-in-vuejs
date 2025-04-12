@@ -9,8 +9,8 @@ export const PROD_IMG_URL = '';
 
 
 /*____________________ Defaults ____________________*/
-export const DEFAULT_API_URL = PROD_API_URL;
-export const DEFAULT_IMG_URL = PROD_IMG_URL;
+export const DEFAULT_API_URL = DEV_API_URL;
+export const DEFAULT_IMG_URL = DEV_IMG_URL;
 
 
 /*____________________ Others ____________________*/

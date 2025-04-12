@@ -322,7 +322,7 @@ export default {
 
 			this.$emit('emit:submit');
 		},
-		getRoleAll(organizationId = 0) {
+		getRoleAll(organizationId = 999) {
 			this.$api
 				.get('/roles', {
 					params: {

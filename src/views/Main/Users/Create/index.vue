@@ -38,7 +38,7 @@ export default {
 			model: new FormService({
 				firstName: '',
 				lastName: '',
-				middleName: '',
+				middleName: null,
 				birthDate: null,
 				photoFileId: 0,
 				user: {
@@ -57,22 +57,16 @@ export default {
 	},
 	methods: {
 		async save() {
-			let postData = this.model.GetData();
-			if (this.$moment(postData.birthDate).isValid()) {
-				postData.birthDate = this.$moment(postData.birthDate).format('DD-MM-YYYY');
+			try {
+				const resp = await this.$api.post('/employees', this.model.GetData());
+				this.modelSecond.userId = resp.data.data.user.id;
+				await this.$api.post('/users/attach-role', this.modelSecond.GetData());
+
+				this.$store.state.loader = false;
+				this.$router.push({ name: 'mainUsers' });
+			} catch (error) {
+				this.$store.state.loader = false;
 			}
-			else {
-				postData.birthDate = null;
-			}
-
-
-			const resp = await this.$api.post('/employees', postData);
-			this.modelSecond.userId = resp.data.data.user.id;
-			await this.$api.post('/users/attach-role', this.modelSecond.GetData());
-
-
-			this.$store.state.loader = false;
-			this.$router.push({ name: 'mainUsers' });
 		},
 	},
 };
