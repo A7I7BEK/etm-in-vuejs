@@ -1,6 +1,6 @@
 <template>
 	<base-crud-page-create
-		v-if="can(PERMISSION_TYPE.ORGANIZATION.CREATE)"
+		v-if="$store.state.systemAdmin"
 		:title="$tc('menu.organization', 1)"
 		:back-url="{ name: 'mainOrganizations' }"
 	>

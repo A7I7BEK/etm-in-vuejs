@@ -1,9 +1,8 @@
 <template>
 	<base-crud-page-list
-		v-if="can(PERMISSION_TYPE.ORGANIZATION.READ)"
+		v-if="$store.state.systemAdmin"
 		:title="$tc('menu.organization', 2)"
 		:create-url="{ name: 'mainOrganizationsCreate' }"
-		:create-show="can(PERMISSION_TYPE.ORGANIZATION.CREATE)"
 		:footer-show="record.pageCount > 0"
 	>
 
@@ -83,14 +82,7 @@
 							</div>
 						</th>
 
-						<th
-							class="width-50"
-							v-if="
-								can(PERMISSION_TYPE.ORGANIZATION.READ) ||
-								can(PERMISSION_TYPE.ORGANIZATION.UPDATE) ||
-								can(PERMISSION_TYPE.ORGANIZATION.DELETE)
-							"
-						>
+						<th class="width-50">
 							{{ $t('actions') }}
 						</th>
 					</tr>
@@ -116,15 +108,10 @@
 							<div class="az_crud_tb_txt">{{ item.email }}</div>
 						</td>
 
-						<td v-if="
-							can(PERMISSION_TYPE.ORGANIZATION.READ) ||
-							can(PERMISSION_TYPE.ORGANIZATION.UPDATE) ||
-							can(PERMISSION_TYPE.ORGANIZATION.DELETE)
-						">
+						<td>
 							<div class="d-flex">
 								<router-link
 									class="btn az_base_btn btn-success icon mr-2"
-									v-if="can(PERMISSION_TYPE.ORGANIZATION.READ)"
 									:to="{ name: 'mainOrganizationsRead', params: { id: item.id } }"
 								>
 									<i class="fa fa-eye"></i>
@@ -132,7 +119,6 @@
 
 								<router-link
 									class="btn az_base_btn btn-warning icon mr-2"
-									v-if="can(PERMISSION_TYPE.ORGANIZATION.UPDATE)"
 									:to="{ name: 'mainOrganizationsUpdate', params: { id: item.id } }"
 								>
 									<i class="fa fa-pencil"></i>
@@ -141,7 +127,6 @@
 								<button
 									class="btn az_base_btn btn-danger icon"
 									type="button"
-									v-if="can(PERMISSION_TYPE.ORGANIZATION.DELETE)"
 									@click="Delete(item.id)"
 								>
 									<i class="fa fa-trash-o"></i>

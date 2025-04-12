@@ -391,8 +391,7 @@
 
 			<router-link
 				class="sidebar-menu__item"
-				v-if="can(PERMISSION_TYPE.PERMISSION.READ) &&
-					$store.state.systemAdmin"
+				v-if="can(PERMISSION_TYPE.PERMISSION.READ)"
 				:to="{ name: 'mainPermissions' }"
 				tag="div"
 			>
@@ -417,8 +416,7 @@
 
 			<router-link
 				class="sidebar-menu__item"
-				v-if="can(PERMISSION_TYPE.ORGANIZATION.READ) &&
-					$store.state.systemAdmin"
+				v-if="$store.state.systemAdmin"
 				:to="{ name: 'mainOrganizations' }"
 				tag="div"
 			>

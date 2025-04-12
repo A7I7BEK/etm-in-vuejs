@@ -1,6 +1,6 @@
 <template>
 	<base-crud-page-update
-		v-if="can(PERMISSION_TYPE.ORGANIZATION.UPDATE)"
+		v-if="$store.state.systemAdmin"
 		:title-name="titleName"
 		:title-table="$tc('menu.organization', 1)"
 		:back-url="{ name: 'mainOrganizations' }"
