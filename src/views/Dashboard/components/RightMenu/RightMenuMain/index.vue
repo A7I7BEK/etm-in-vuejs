@@ -1,7 +1,7 @@
 <script>
 import BaseAction from '../../../../../components/actions/base-action.vue';
 import BaseRightMenu from '../../../../../components/BaseRightMenu';
-import { DEFAULT_API_URL, PERMISSION_TYPE } from '../../../../../constants';
+import { DEFAULT_URL, PERMISSION_TYPE } from '../../../../../constants';
 import { SocketService } from '../../../../../services/SocketService';
 import { accessTokenGet } from '../../../../../services/TokenService';
 import BackgroundModal from './BackgroundModal/index';
@@ -20,7 +20,7 @@ export default {
 		return {
 			PERMISSION_TYPE,
 			socketAction: new SocketService({
-				url: DEFAULT_API_URL,
+				url: DEFAULT_URL,
 				path: '/ws-actions',
 				token: accessTokenGet(),
 				roomId: this.$route.params.id,

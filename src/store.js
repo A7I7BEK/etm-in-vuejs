@@ -1,8 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import {
-	DEFAULT_IMG_URL,
-} from './constants';
+import { DEFAULT_URL } from './constants';
 
 
 Vue.use(Vuex);
@@ -11,7 +9,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
 	state: {
 		loader: false,
-		url: DEFAULT_IMG_URL,
+		url: DEFAULT_URL,
 		refreshTokenIntervalId: 0,
 		userProfile: null,
 		systemAdmin: false,

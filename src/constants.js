@@ -1,16 +1,15 @@
 /*____________________ Dev Server ____________________*/
-export const DEV_API_URL = 'http://localhost:3001';
-export const DEV_IMG_URL = '';
+export const DEV_URL = 'http://localhost:3001';
 
 
 /*____________________ Prod Server ____________________*/
-export const PROD_API_URL = '';
-export const PROD_IMG_URL = '';
+export const PROD_URL = '';
 
 
 /*____________________ Defaults ____________________*/
-export const DEFAULT_API_URL = DEV_API_URL;
-export const DEFAULT_IMG_URL = DEV_IMG_URL;
+export const DEFAULT_URL = DEV_URL;
+
+
 
 
 /*____________________ Others ____________________*/
