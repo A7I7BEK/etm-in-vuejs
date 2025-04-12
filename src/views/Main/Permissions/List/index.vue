@@ -3,6 +3,7 @@
 		v-if="can(PERMISSION_TYPE.PERMISSION.READ)"
 		:title="$tc('menu.permission', 2)"
 		:create-show="false"
+		:create-url="{}"
 		:footer-show="record.pageCount > 0"
 	>
 
