@@ -73,7 +73,9 @@
 									<div
 										class="az_all_search_hint_no"
 										v-else
-									>{{ $t('noTaskFound') }}</div>
+									>
+										{{ $t('noTaskFound') }}
+									</div>
 								</div>
 							</div>
 						</form>
@@ -158,7 +160,7 @@ export default {
 					this.$api
 						.get('/tasks', {
 							params: {
-								page: 0,
+								page: 1,
 								pageSize: 10,
 								allSearch: val,
 							}

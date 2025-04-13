@@ -200,7 +200,7 @@ export default {
 		dataList: [],
 		pagination: {
 			count: 0,
-			page: 0,
+			page: 1,
 			range: 10,
 		},
 		inputPage: 1,
