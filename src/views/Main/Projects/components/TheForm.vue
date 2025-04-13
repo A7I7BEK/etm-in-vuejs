@@ -153,7 +153,7 @@ export default {
 
 			this.$emit('emit:submit');
 		},
-		getGroupAll(organizationId = 0) {
+		getGroupAll(organizationId = null) {
 			this.$api
 				.get('/groups', {
 					params: {
@@ -164,7 +164,7 @@ export default {
 					this.groupList = response.data.data;
 				});
 		},
-		getManagerAll(organizationId = 0) {
+		getManagerAll(organizationId = null) {
 			this.$api
 				.get('/employees', {
 					params: {
