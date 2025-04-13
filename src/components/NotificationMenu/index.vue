@@ -108,9 +108,11 @@ export default {
 		async DeleteAll() {
 			this.$refs.markAll.click();
 
-			await this.$api.post('/notifications/clear', {
-				allNotification: true,
-				notificationId: 999,
+			await this.$api.delete('/notifications/clear', {
+				data: {
+					allNotification: true,
+					notificationId: 999,
+				}
 			});
 
 			await this.GetNotificationList();
