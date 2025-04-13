@@ -88,7 +88,7 @@ export default {
 
 			this.$api
 				.post('/tasks', {
-					projectId: this.$route.params.id,
+					projectId: Number(this.$route.params.id),
 					columnId: this.$store.state.createModalTaskId,
 					name: this.taskName,
 				})

@@ -47,7 +47,7 @@ export default {
 						pageSize: this.actionPageSize,
 						sortBy: 'id',
 						sortDirection: ORDER.DESC,
-						projectId: this.$route.params.id,
+						projectId: Number(this.$route.params.id),
 					}
 				})
 				.then(response => {
@@ -72,7 +72,7 @@ export default {
 						pageSize: this.commentPageSize,
 						sortBy: 'id',
 						sortDirection: ORDER.DESC,
-						projectId: this.$route.params.id,
+						projectId: Number(this.$route.params.id),
 					}
 				})
 				.then(response => {
