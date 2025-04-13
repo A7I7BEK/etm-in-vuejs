@@ -216,12 +216,6 @@ export default {
 			this.socketColumn.socket.on('column-delete', (data) => {
 				const columnList = this.$store.state.projectData.columns;
 				const columnIndex = columnList.findIndex(a => a.id === data.id);
-
-				if (columnIndex === -1) {
-					this.ReorderArray(columnList);
-					return;
-				}
-
 				columnList.splice(columnIndex, 1);
 				this.ReorderArray(columnList);
 			});
@@ -256,12 +250,6 @@ export default {
 			this.socketTask.socket.on('task-delete', (data) => {
 				const column = this.$store.state.projectData.columns.find(a => a.id === data.column.id);
 				const taskIndex = column.tasks.findIndex(a => a.id === data.id);
-
-				if (taskIndex === -1) {
-					this.ReorderArray(column.tasks);
-					return;
-				}
-
 				column.tasks.splice(taskIndex, 1);
 				this.ReorderArray(column.tasks);
 			});
