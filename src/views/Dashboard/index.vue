@@ -215,7 +215,13 @@ export default {
 
 			this.socketColumn.socket.on('column-delete', (data) => {
 				const columnList = this.$store.state.projectData.columns;
-				const columnIndex = columnList.findIndex(x => x.id === data.id);
+				const columnIndex = columnList.findIndex(a => a.id === data.id);
+
+				if (columnIndex === -1) {
+					this.ReorderArray(columnList);
+					return;
+				}
+
 				columnList.splice(columnIndex, 1);
 				this.ReorderArray(columnList);
 			});
@@ -227,7 +233,7 @@ export default {
 
 			this.socketColumn.socket.on('column-reorder', (data) => {
 				const columnList = this.$store.state.projectData.columns;
-				const columnIndex = columnList.findIndex(x => x.id === data.id);
+				const columnIndex = columnList.findIndex(a => a.id === data.id);
 				const column = columnList[ columnIndex ];
 
 				if (columnIndex === data.ordering) {
@@ -242,26 +248,32 @@ export default {
 		},
 		ListenSocketTask() {
 			this.socketTask.socket.on('task-insert', (data) => {
-				const column = this.$store.state.projectData.columns.find(x => x.id === data.column.id);
+				const column = this.$store.state.projectData.columns.find(a => a.id === data.column.id);
 				column.tasks.splice(data.ordering, 0, data);
 				this.ReorderArray(column.tasks);
 			});
 
 			this.socketTask.socket.on('task-delete', (data) => {
-				const column = this.$store.state.projectData.columns.find(x => x.id === data.column.id);
-				const taskIndex = column.tasks.findIndex(x => x.id === data.id);
+				const column = this.$store.state.projectData.columns.find(a => a.id === data.column.id);
+				const taskIndex = column.tasks.findIndex(a => a.id === data.id);
+
+				if (taskIndex === -1) {
+					this.ReorderArray(column.tasks);
+					return;
+				}
+
 				column.tasks.splice(taskIndex, 1);
 				this.ReorderArray(column.tasks);
 			});
 
 			this.socketTask.socket.on('task-replace', (data) => {
-				const column = this.$store.state.projectData.columns.find(x => x.id === data.column.id);
+				const column = this.$store.state.projectData.columns.find(a => a.id === data.column.id);
 				this.$set(column.tasks, data.ordering, data);
 			});
 
 			this.socketTask.socket.on('task-reorder', (data) => {
-				const column = this.$store.state.projectData.columns.find(x => x.id === data.column.id);
-				const taskIndex = column.tasks.findIndex(x => x.id === data.id);
+				const column = this.$store.state.projectData.columns.find(a => a.id === data.column.id);
+				const taskIndex = column.tasks.findIndex(a => a.id === data.id);
 				const task = column.tasks[ taskIndex ];
 
 				if (taskIndex === data.ordering) {
@@ -275,9 +287,9 @@ export default {
 			});
 
 			this.socketTask.socket.on('task-move', (data) => {
-				const oldColumn = this.$store.state.projectData.columns.find(x => x.id === data.oldColumnId);
-				const newColumn = this.$store.state.projectData.columns.find(x => x.id === data.column.id);
-				const taskIndex = oldColumn.tasks.findIndex(x => x.id === data.id);
+				const oldColumn = this.$store.state.projectData.columns.find(a => a.id === data.oldColumnId);
+				const newColumn = this.$store.state.projectData.columns.find(a => a.id === data.column.id);
+				const taskIndex = oldColumn.tasks.findIndex(a => a.id === data.id);
 				const task = oldColumn.tasks[ taskIndex ];
 
 				if (taskIndex === -1) {
