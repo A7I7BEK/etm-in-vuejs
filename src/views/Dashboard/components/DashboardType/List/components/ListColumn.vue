@@ -123,7 +123,7 @@
 					class="ln_board_item1_body_footer_btn"
 					data-toggle="modal"
 					data-target="#modalCreateTask"
-					@click="$store.state.createModalTaskId = columnItem.id"
+					@click="$store.state.createTaskColumnId = columnItem.id"
 				>
 					<img src="/img/rom2.png">
 					<span>{{ $t('boardColumn.addTask') }}</span>

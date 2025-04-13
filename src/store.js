@@ -27,7 +27,7 @@ export default new Vuex.Store({
 		taskModalId: 0,
 		taskModalData: null,
 		projectSelectionList: [],
-		createModalTaskId: 0,
+		createTaskColumnId: 0,
 		taskModalActionStarter: 0,
 		rightMenuActionStarter: 0,
 		metaData: {

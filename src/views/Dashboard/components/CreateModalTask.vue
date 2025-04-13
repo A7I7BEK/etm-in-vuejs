@@ -75,7 +75,7 @@ export default {
 		$('#modalCreateTask').on('hidden.bs.modal', () => {
 			this.taskName = null;
 			this.$v.$reset();
-			this.$store.state.createModalTaskId = 0;
+			this.$store.state.createTaskColumnId = 0;
 		});
 	},
 	methods: {
@@ -88,9 +88,10 @@ export default {
 
 			this.$api
 				.post('/tasks', {
-					projectId: Number(this.$route.params.id),
-					columnId: this.$store.state.createModalTaskId,
 					name: this.taskName,
+					columnId: this.$store.state.createTaskColumnId,
+					projectId: Number(this.$route.params.id),
+					organizationId: this.$store.state.projectData.organization.id,
 				})
 				.then(response => {
 					$('#modalCreateTask').modal('hide');

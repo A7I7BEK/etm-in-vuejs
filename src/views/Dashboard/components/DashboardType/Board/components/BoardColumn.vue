@@ -105,7 +105,7 @@
 			class="board-item__create__list button-effect"
 			data-toggle="modal"
 			data-target="#modalCreateTask"
-			@click="$store.state.createModalTaskId = columnItem.id"
+			@click="$store.state.createTaskColumnId = columnItem.id"
 			v-if="can(PERMISSION_TYPE.TASK.CREATE)"
 		>
 
