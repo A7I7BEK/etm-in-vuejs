@@ -18,7 +18,7 @@
 				v-for="item in recordList"
 				:value="item.id"
 			>
-				{{ item.projectType === PROJECT_TYPE.KANBAN ? $t(item.name) : item.name }}
+				{{ item.projectType === PROJECT_TYPE.KANBAN ? $t(`COLUMN_KANBAN_TYPE.${item.name}`) : item.name }}
 
 				<template v-if="showProject"> => {{ item.project.name }}</template>
 			</option>

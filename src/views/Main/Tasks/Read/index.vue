@@ -46,7 +46,7 @@
 					</tr>
 					<tr>
 						<th>{{ $t('taskStatus') }}</th>
-						<td>{{ model.status }}</td>
+						<td>{{ model.status ? $t(`TASK_STATUS_TYPE.${model.status}`) : '' }}</td>
 					</tr>
 					<tr>
 						<th>{{ $t('nameProject') }}</th>
@@ -54,7 +54,14 @@
 					</tr>
 					<tr>
 						<th>{{ $t('columnName') }}</th>
-						<td>{{ model.column.name }}</td>
+						<td>
+							<template v-if="model.column.projectType === PROJECT_TYPE.KANBAN">
+								{{ $t(`COLUMN_KANBAN_TYPE.${model.column.name}`) }}
+							</template>
+							<template v-else>
+								{{ model.column.name }}
+							</template>
+						</td>
 					</tr>
 					<tr>
 						<th>{{ $t('difficultyLevel') }}</th>
@@ -73,7 +80,7 @@
 
 <script>
 import BaseCrudPageRead from '../../../../components/BaseCrudPageRead';
-import { PERMISSION_TYPE, TASK_STATUS_TYPE } from '../../../../constants';
+import { PERMISSION_TYPE, PROJECT_TYPE, TASK_STATUS_TYPE } from '../../../../constants';
 
 
 export default {
@@ -90,6 +97,7 @@ export default {
 	data() {
 		return {
 			PERMISSION_TYPE,
+			PROJECT_TYPE,
 			statusClass: {
 				[ TASK_STATUS_TYPE.RED ]: 'danger',
 				[ TASK_STATUS_TYPE.YELLOW ]: 'warning',

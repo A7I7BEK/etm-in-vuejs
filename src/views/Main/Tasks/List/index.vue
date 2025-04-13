@@ -208,7 +208,18 @@
 						</td>
 
 						<td>
-							<div class="az_crud_tb_txt">{{ item.column.name }}</div>
+							<div
+								v-if="item.column.projectType === PROJECT_TYPE.KANBAN"
+								class="az_crud_tb_txt"
+							>
+								{{ $t(`COLUMN_KANBAN_TYPE.${item.column.name}`) }}
+							</div>
+							<div
+								v-else
+								class="az_crud_tb_txt"
+							>
+								{{ item.column.name }}
+							</div>
 						</td>
 
 						<td>
@@ -317,7 +328,15 @@ import BaseInputDeadline from '../../../../components/BaseInputDeadline';
 import BaseInputDeadlineType, { DEADLINE_LIST } from '../../../../components/BaseInputDeadlineType.vue';
 import BaseInputProject from '../../../../components/BaseInputProject';
 import BaseInputSearch from '../../../../components/BaseInputSearch';
-import { HANDLE_PARAMS, ORDER, ORDER_REVERSE, PERMISSION_TYPE, TASK_PRIORITY_TYPE, TASK_STATUS_TYPE } from '../../../../constants';
+import {
+	HANDLE_PARAMS,
+	ORDER,
+	ORDER_REVERSE,
+	PERMISSION_TYPE,
+	PROJECT_TYPE,
+	TASK_PRIORITY_TYPE,
+	TASK_STATUS_TYPE,
+} from '../../../../constants';
 
 
 const SORT_PROP = {
@@ -357,6 +376,7 @@ export default {
 			HANDLE_PARAMS,
 			SORT_PROP,
 			TASK_PRIORITY_TYPE,
+			PROJECT_TYPE,
 			statusClass: {
 				[ TASK_STATUS_TYPE.RED ]: 'danger',
 				[ TASK_STATUS_TYPE.YELLOW ]: 'warning',
@@ -434,7 +454,7 @@ export default {
 					break;
 
 				case HANDLE_PARAMS.OWN_TASK:
-					this.params.ownTask = val;
+					this.params.ownTask = val || null;
 					break;
 
 				case HANDLE_PARAMS.DEADLINE:
@@ -445,7 +465,9 @@ export default {
 					DEADLINE_LIST.forEach(item => {
 						this.params[ item ] = null;
 					});
-					this.params[ val ] = true;
+					if (val) {
+						this.params[ val ] = true;
+					}
 					break;
 			}
 

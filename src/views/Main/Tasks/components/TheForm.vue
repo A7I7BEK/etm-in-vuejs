@@ -54,7 +54,7 @@
 
 			<router-link
 				class="btn az_base_btn btn-warning"
-				v-if="edit"
+				v-if="model.project && edit"
 				:to="{ name: 'dashboard', params: { id: model.project.id, taskId: model.id } }"
 			>
 				<i class="fa fa-external-link align-middle mr-1"></i>
@@ -154,7 +154,7 @@ export default {
 	},
 	mounted() {
 		if (!this.edit && !this.$store.state.systemAdmin) {
-			this.getProjectList(0);
+			this.getProjectList();
 		}
 	},
 	methods: {
