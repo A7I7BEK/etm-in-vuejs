@@ -11,7 +11,7 @@
 			:class="[ { 'ftr': isFilter }, inputClass ]"
 			v-model="model"
 		>
-			<option :value="null">{{ $t('select') }}</option>
+			<option :value="''">{{ $t('select') }}</option>
 
 			<option :value="PROJECT_TYPE.TRELLO">{{ PROJECT_TYPE.TRELLO }}</option>
 			<option :value="PROJECT_TYPE.KANBAN">{{ PROJECT_TYPE.KANBAN }}</option>
