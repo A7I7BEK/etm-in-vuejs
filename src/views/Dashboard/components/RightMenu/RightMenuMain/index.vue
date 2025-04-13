@@ -31,6 +31,11 @@ export default {
 	computed: {
 		computedBackground() {
 			let value = '', img = false, background = this.$store.state.projectData.background;
+
+			if (!background) {
+				return null;
+			}
+
 			if (background.charAt(0) === '#') {
 				value = 'background-color:' + background;
 				img = false;
@@ -39,6 +44,7 @@ export default {
 				value = this.$store.state.url + background;
 				img = true;
 			}
+
 			return { img, value };
 		},
 	},

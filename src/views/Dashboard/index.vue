@@ -72,12 +72,17 @@ export default {
 		computedBackground() {
 			let style = '', background = this.$store.state.projectData.background;
 
+			if (!background) {
+				return style;
+			}
+
 			if (background.charAt(0) === '#') {
 				style = 'background-color:' + background;
 			}
 			else {
 				style = 'background-image: url(' + this.$store.state.url + background + ')';
 			}
+
 			return style;
 		},
 	},
