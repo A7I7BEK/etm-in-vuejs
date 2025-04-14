@@ -26,12 +26,12 @@
 				<div class="row">
 					<div class="col-6">
 						<div>
-							<h5
+							<p
 								class="mb-2"
 								style="color: #495E75;"
 							>
-								{{ $t('start') }}
-							</h5>
+								{{ $t('deadlineStartDate') }}
+							</p>
 							<div class="mb-3">
 								<div class="term-content__top">
 									<div class="term-menu__date">
@@ -44,7 +44,7 @@
 												type="text"
 												class="w-100"
 												readonly
-												:value="startDateFormatted"
+												:value="start.dateFormatted"
 											>
 
 											<div class="term-date__icon">
@@ -78,13 +78,6 @@
 											</div>
 										</div>
 									</div>
-								</div>
-
-								<div
-									class="invalid-feedback mt-2 d-block"
-									v-if="$v.$error"
-								>
-									{{ $t('chooseDateTime') }}
 								</div>
 							</div>
 							<div class="term__calendar">
@@ -139,12 +132,12 @@
 					</div>
 					<div class="col-6">
 						<div>
-							<h5
+							<p
 								class="mb-2"
 								style="color: #495E75;"
 							>
-								{{ $t('completion') }}
-							</h5>
+								{{ $t('deadlineEndDate') }}
+							</p>
 							<div class="mb-3">
 								<div class="term-content__top">
 									<div class="term-menu__date">
@@ -157,7 +150,7 @@
 												type="text"
 												class="w-100"
 												readonly
-												:value="endDateFormatted"
+												:value="end.dateFormatted"
 											>
 
 											<div class="term-date__icon">
@@ -191,13 +184,6 @@
 											</div>
 										</div>
 									</div>
-								</div>
-
-								<div
-									class="invalid-feedback mt-2 d-block"
-									v-if="$v.$error"
-								>
-									{{ $t('chooseDateTime') }}
 								</div>
 							</div>
 							<div class="term__calendar">
@@ -319,17 +305,21 @@ export default {
 			start: {
 				date: null,
 				time: null,
+				dateFormatted: '',
 				delComment: '',
 				disabledDates: {
-					to: new Date(),
+					to: null,
+					from: null,
 				},
 			},
 			end: {
 				date: null,
 				time: null,
+				dateFormatted: '',
 				delComment: '',
 				disabledDates: {
-					to: new Date(),
+					to: null,
+					from: null,
 				},
 			},
 			updateComment: '',
@@ -373,33 +363,27 @@ export default {
 
 		return options;
 	},
-	computed: {
-		endDateFormatted() {
-			if (!this.end.date) {
-				return '';
-			}
-
-			return this.$moment(this.end.date).format('D.MM.YYYY');
+	watch: {
+		'start.date'(val) {
+			this.start.dateFormatted = val ? this.$moment(val).format('D.MM.YYYY') : '';
+			this.end.disabledDates.to = val;
 		},
-		startDateFormatted() {
-			if (!this.start.date) {
-				return '';
-			}
-
-			return this.$moment(this.start.date).format('D.MM.YYYY');
+		'end.date'(val) {
+			this.end.dateFormatted = val ? this.$moment(val).format('D.MM.YYYY') : '';
+			this.start.disabledDates.from = val;
 		},
 	},
 	created() {
-		const { endDate } = this.$store.state.taskModalData;
-		if (endDate) {
-			this.end.date = new Date(endDate);
-			this.end.time = new Date(endDate);
-		}
-
 		const { startDate } = this.$store.state.taskModalData;
 		if (startDate) {
 			this.start.date = new Date(startDate);
 			this.start.time = new Date(startDate);
+		}
+
+		const { endDate } = this.$store.state.taskModalData;
+		if (endDate) {
+			this.end.date = new Date(endDate);
+			this.end.time = new Date(endDate);
 		}
 	},
 	mounted() {
@@ -464,13 +448,13 @@ export default {
 			this.resetAll(resp.data.data);
 		},
 		async deleteStartDate() {
-			this.$v.$touch();
-			if (this.$v.$invalid) {
+			if (this.dateAction !== ACTION_TYPE.DELETE_START) {
+				this.dateAction = ACTION_TYPE.DELETE_START;
 				return;
 			}
 
-			if (this.dateAction !== ACTION_TYPE.DELETE_START) {
-				this.dateAction = ACTION_TYPE.DELETE_START;
+			this.$v.start.delComment.$touch();
+			if (this.$v.start.delComment.$invalid) {
 				return;
 			}
 
@@ -487,13 +471,13 @@ export default {
 			this.resetAll(resp.data.data);
 		},
 		async deleteEndDate() {
-			this.$v.$touch();
-			if (this.$v.$invalid) {
+			if (this.dateAction !== ACTION_TYPE.DELETE_END) {
+				this.dateAction = ACTION_TYPE.DELETE_END;
 				return;
 			}
 
-			if (this.dateAction !== ACTION_TYPE.DELETE_END) {
-				this.dateAction = ACTION_TYPE.DELETE_END;
+			this.$v.end.delComment.$touch();
+			if (this.$v.end.delComment.$invalid) {
 				return;
 			}
 

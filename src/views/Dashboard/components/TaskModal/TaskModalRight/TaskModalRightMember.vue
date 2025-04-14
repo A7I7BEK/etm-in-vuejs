@@ -65,7 +65,7 @@ export default {
 	name: 'TaskModalRightMember',
 	computed: {
 		computedProjectMemberList() {
-			const memberList = [];
+			let memberList = [];
 			const prMembers = this.$store.state.projectData.members;
 			const tsMembers = this.$store.state.taskModalData.members;
 
