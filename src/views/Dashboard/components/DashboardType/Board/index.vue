@@ -8,15 +8,13 @@
 				ghost-class="ghost"
 				class="d-flex align-items-start"
 				animation="300"
-				:move="DraggableMove"
-				@end="DraggableEnd"
+				@change="DraggableChange"
 				v-if="projectData.projectType === PROJECT_TYPE.TRELLO"
 			>
 				<board-column
 					v-for="item in projectData.columns"
 					:key="item.id"
 					:column-item="item"
-					:data-ordering="item.ordering"
 					type-trello
 				></board-column>
 			</draggable>
@@ -25,7 +23,6 @@
 					v-for="item in projectData.columns"
 					:key="item.id"
 					:column-item="item"
-					:data-ordering="item.ordering"
 				></board-column>
 			</template>
 
@@ -77,35 +74,20 @@ export default {
 		return {
 			PROJECT_TYPE,
 			PERMISSION_TYPE,
-			dragElem: null,
 		};
 	},
 	methods: {
-		DraggableMove(event) {
-			this.dragElem = event.draggedContext.element;
-		},
-		DraggableEnd() {
-			if (!this.dragElem ||
-				this.projectData.columns.findIndex(a => a.id === this.dragElem.id)
-				===
-				this.dragElem.ordering) {
-				return;
-			}
-
-
+		async DraggableChange(event) {
 			this.ReorderArray(this.projectData.columns);
-			let elemOrder = this.projectData.columns.findIndex(a => a.id === this.dragElem.id);
 
+			const element = event.moved.element;
+			const elemOrder = this.projectData.columns.findIndex(a => a.id === element.id);
 
-			this.$api
-				.post('/project-columns/move', {
-					id: this.dragElem.id,
-					projectId: this.projectData.id,
-					ordering: elemOrder,
-				})
-				.then(response => {
-					this.dragElem = null;
-				});
+			await this.$api.post('/project-columns/move', {
+				id: element.id,
+				projectId: this.projectData.id,
+				ordering: elemOrder,
+			});
 		},
 		ReorderArray(array) {
 			array.forEach((item, index) => {

@@ -1,8 +1,10 @@
 <template>
 	<div
 		class="board-item__inner__list"
-		@click="$store.state.taskModalId = taskItem.id"
 		:class="{ 'board-list__red': taskItem.priority === TASK_PRIORITY_TYPE.HIGH }"
+		:data-task-ordering="taskItem.ordering"
+		:data-task-id="taskItem.id"
+		@click="$store.state.taskModalId = taskItem.id"
 	>
 
 		<h6>{{ taskItem.name }}</h6>
