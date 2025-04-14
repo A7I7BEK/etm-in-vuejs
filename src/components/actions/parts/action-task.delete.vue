@@ -4,7 +4,7 @@
 		:path="`actionItem.${action.activityType}`"
 	>
 		<template #name>
-			{{ action.task.name }}
+			{{ action.details.task.name }}
 		</template>
 	</i18n>
 </template>

@@ -24,7 +24,7 @@
 					v-else
 				>
 					<h5 v-if="typeTrello">{{ columnItem.name }}</h5>
-					<h5 v-else>{{ $t(columnItem.name) }}</h5>
+					<h5 v-else>{{ $t(`COLUMN_KANBAN_TYPE.${columnItem.name}`) }}</h5>
 				</div>
 			</div>
 

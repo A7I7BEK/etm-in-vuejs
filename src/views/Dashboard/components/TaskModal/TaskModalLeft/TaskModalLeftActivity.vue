@@ -14,7 +14,7 @@
 						<i class="fa fa-list-ul accordion-icon"></i>
 						{{ $t('actionsAndComments') }}
 					</div>
-					<i class="fa fa-chevron-up accordion-rotating__icon position-static"></i>
+					<i class="fa fa-chevron-down accordion-rotating__icon position-static"></i>
 				</div>
 
 

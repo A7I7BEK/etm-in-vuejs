@@ -160,12 +160,12 @@ export default {
 			let status = this.$store.state.taskModalData.timerStatus === TASK_TIMER_TYPE.STOP ?
 				TASK_TIMER_TYPE.START : TASK_TIMER_TYPE.STOP;
 
+			this.$store.state.taskModalData.timerStatus = status;
+
 			await this.$api.post('/task-timer', {
 				taskId: this.$store.state.taskModalData.id,
 				timerStatus: status,
 			});
-
-			this.$store.state.taskModalData.timerStatus = status;
 		}
 	},
 };

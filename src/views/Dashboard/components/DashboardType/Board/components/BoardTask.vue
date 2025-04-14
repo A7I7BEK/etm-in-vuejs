@@ -63,13 +63,15 @@
 				<div
 					class="list-settings__user"
 					v-for="item in taskItem.members"
-					:title="item.employee.firstName + ' ' + item.employee.lastName"
+					:title="item.projectMember.employee.firstName + ' ' + item.projectMember.employee.lastName"
 				>
 					<img
-						v-if="item.employee.photoFile"
-						:src="$store.state.url + item.employee.photoFile.url"
+						v-if="item.projectMember.employee.photoFile"
+						:src="$store.state.url + item.projectMember.employee.photoFile.url"
 					>
-					<div v-else>{{ item.employee.firstName.charAt(0) + item.employee.lastName.charAt(0) }}</div>
+					<div v-else>
+						{{ item.projectMember.employee.firstName.charAt(0) + item.projectMember.employee.lastName.charAt(0) }}
+					</div>
 				</div>
 			</div>
 
