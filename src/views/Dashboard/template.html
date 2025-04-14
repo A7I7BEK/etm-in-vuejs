@@ -98,19 +98,18 @@
 						>{{ item.employee.firstName.charAt(0) + item.employee.lastName.charAt(0) }}</span>
 
 						<img
-							class="ln_common32_btn_ritop"
+							class="ln_common32_btn_ritop bottom left"
 							src="/img/ia33.png"
 							v-if="$store.state.projectData.manager.id === item.employee.id"
 						>
 						<img
-							class="ln_common32_btn_ritop"
+							class="ln_common32_btn_ritop bottom right"
 							src="/img/ia22.png"
 							v-if="item.isTeamLeader"
 						>
 						<img
-							class="ln_common32_btn_ritop"
+							class="ln_common32_btn_ritop top left"
 							src="/img/ia11.png"
-							style="right:auto;left: -4px;"
 							v-if="item.employee.user.isOnline"
 						>
 
@@ -164,19 +163,18 @@
 										>{{ item.employee.firstName.charAt(0) + item.employee.lastName.charAt(0) }}</span>
 
 										<img
-											class="ln_common32_btn_ritop"
+											class="ln_common32_btn_ritop bottom left"
 											src="/img/ia33.png"
 											v-if="$store.state.projectData.manager.id === item.employee.id"
 										>
 										<img
-											class="ln_common32_btn_ritop"
+											class="ln_common32_btn_ritop bottom right"
 											src="/img/ia22.png"
 											v-if="item.isTeamLeader"
 										>
 										<img
-											class="ln_common32_btn_ritop"
+											class="ln_common32_btn_ritop top left"
 											src="/img/ia11.png"
-											style="right:auto;left: -4px;"
 											v-if="item.employee.user.isOnline"
 										>
 

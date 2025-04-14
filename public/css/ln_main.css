@@ -34,9 +34,11 @@
     background-color: #333F54;
     color: #7D97C7;
 }
+
 .ln_btn_square48:hover {
     color: #fff;
 }
+
 .ln_btn_square48.danger {
     box-shadow: 0 2px 6px rgba(240, 140, 119, 0.6);
     background-color: #f08c77;
@@ -143,11 +145,24 @@
 
 .ln_common32_btn_ritop {
     position: absolute;
-    right: -4px;
-    top: -4px;
     object-position: center;
     object-fit: contain;
-    filter: drop-shadow(0 0 6px rgba(0, 0, 0, 0.5));
+}
+
+.ln_common32_btn_ritop.top {
+    top: -4px;
+}
+
+.ln_common32_btn_ritop.bottom {
+    bottom: -4px;
+}
+
+.ln_common32_btn_ritop.left {
+    left: -4px;
+}
+
+.ln_common32_btn_ritop.right {
+    right: -4px;
 }
 
 .ln_common32_btn_delete {
