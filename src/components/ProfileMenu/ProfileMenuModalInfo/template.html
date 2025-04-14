@@ -78,7 +78,7 @@
 									class="form-control az_base_inp"
 									type="text"
 									:class="{'is-invalid': $v.model.userName.$error}"
-									v-model="$v.model.userName.$model"
+									v-model.trim="$v.model.userName.$model"
 								>
 							</div>
 
@@ -88,7 +88,7 @@
 									class="form-control az_base_inp"
 									type="text"
 									:class="{'is-invalid': $v.model.employee.firstName.$error}"
-									v-model="$v.model.employee.firstName.$model"
+									v-model.trim="$v.model.employee.firstName.$model"
 								>
 							</div>
 
@@ -98,7 +98,7 @@
 									class="form-control az_base_inp"
 									type="text"
 									:class="{'is-invalid': $v.model.employee.lastName.$error}"
-									v-model="$v.model.employee.lastName.$model"
+									v-model.trim="$v.model.employee.lastName.$model"
 								>
 							</div>
 
@@ -107,7 +107,7 @@
 								<input
 									class="form-control az_base_inp"
 									type="text"
-									v-model="model.employee.middleName"
+									v-model.trim="model.employee.middleName"
 								>
 							</div>
 						</div>
@@ -120,7 +120,7 @@
 									class="form-control az_base_inp"
 									type="email"
 									:class="{'is-invalid': $v.model.email.$error}"
-									v-model="$v.model.email.$model"
+									v-model.trim="$v.model.email.$model"
 								>
 							</div>
 
@@ -145,11 +145,15 @@
 							class="btn az_base_btn btn-default mr-3"
 							type="button"
 							data-dismiss="modal"
-						>{{ $t('cancel') }}</button>
+						>
+							{{ $t('cancel') }}
+						</button>
 						<button
 							class="btn az_base_btn btn-primary"
 							type="submit"
-						>{{ $t('save') }}</button>
+						>
+							{{ $t('save') }}
+						</button>
 					</div>
 				</form>
 			</div>

@@ -31,7 +31,7 @@
 								class="val"
 								v-if="$store.state.userProfile.roles"
 							>
-								{{ $store.state.userProfile.roles.map(x => x.roleName).join(', ') }}
+								{{ $store.state.userProfile.roles.map(a => a.name).join(', ') }}
 							</div>
 						</li>
 

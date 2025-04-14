@@ -46,7 +46,7 @@ export default {
 			model: new FormService({
 				firstName: '',
 				lastName: '',
-				middleName: null,
+				middleName: '',
 				birthDate: null,
 				photoFileId: 0,
 				user: {
@@ -88,15 +88,18 @@ export default {
 				});
 		},
 		async save() {
+			this.model.middleName = this.model.middleName || null;
+
 			try {
 				await this.$api.put('/employees/' + this.id, this.model.GetData());
 				await this.$api.post('/users/attach-role', this.modelSecond.GetData());
 
-				this.$store.state.loader = false;
 				this.$router.push({ name: 'mainUsers' });
 			} catch (error) {
-				this.$store.state.loader = false;
+				console.warn(error);
 			}
+
+			this.$store.state.loader = false;
 		},
 	}
 };

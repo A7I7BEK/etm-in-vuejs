@@ -78,27 +78,21 @@ export default {
 				return;
 			}
 
+
 			this.$store.state.loader = true;
+			this.model.employee.middleName = this.model.employee.middleName || null;
 
+			try {
+				await this.SavePhoto();
+				await this.$api.post('/users/update-profile', this.model.GetData());
+				await this.GetProfileInfo();
 
-			await this.SavePhoto();
-
-
-			let postData = this.model.GetData();
-			if (this.$moment(postData.employee.birthDate).isValid()) {
-				postData.employee.birthDate = this.$moment(postData.employee.birthDate).format('DD-MM-YYYY');
+				$('#profileModal').modal('hide');
+				this.$notification.success(this.$t('profileEdited'));
+			} catch (error) {
+				console.warn(error);
 			}
-			else {
-				postData.employee.birthDate = null;
-			}
 
-
-			await this.$api.post('/users/update-profile', postData);
-			await this.GetProfileInfo();
-
-
-			$('#profileModal').modal('hide');
-			this.$notification.success(this.$t('profileEdited'));
 			this.$store.state.loader = false;
 		},
 		async SavePhoto() {
@@ -110,17 +104,14 @@ export default {
 			let formData = new FormData();
 			formData.append('file', this.photoFile);
 
+			const resp = await this.$api.post('/resource/upload-one', formData, {
+				params: {
+					minWidth: 100,
+					minHeight: 100,
+				}
+			});
 
-			await this.$api
-				.post('/resource/upload-one', formData, {
-					params: {
-						minWidth: 100,
-						minHeight: 100,
-					}
-				})
-				.then(response => {
-					this.model.employee.photoFileId = response.data.data.id;
-				});
+			this.model.employee.photoFileId = resp.data.data.id;
 		},
 		UploadPhoto(event) {
 			if (event.target.files.length === 0) {
@@ -139,11 +130,8 @@ export default {
 			this.model.employee.photoFileId = 0;
 		},
 		async GetProfileInfo() {
-			await this.$api
-				.get('/users/me')
-				.then(response => {
-					setProfile(response.data.data);
-				});
+			const resp = await this.$api.get('/users/me');
+			setProfile(resp.data.data);
 		},
 	}
 };
