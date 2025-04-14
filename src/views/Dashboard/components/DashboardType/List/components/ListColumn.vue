@@ -100,9 +100,7 @@
 					group="draggableListTask"
 					ghost-class="ghost"
 					animation="300"
-					:move="DraggableMove"
-					@end="DraggableEnd"
-					:data-id="columnItem.id"
+					@change="DraggableChange"
 				>
 					<list-task
 						v-for="item in columnItem.tasks"
@@ -161,7 +159,6 @@ export default {
 	data() {
 		return {
 			PERMISSION_TYPE,
-			dragEvent: null,
 			columnNameEditMode: false,
 			columnNameForEdit: null,
 		};
@@ -172,65 +169,55 @@ export default {
 		},
 	},
 	methods: {
-		EditColumn() {
+		async EditColumn() {
 			this.$v.$touch();
 			if (this.$v.$invalid) {
 				return;
 			}
 
 
-			this.$api
-				.put('/project-columns/' + this.columnItem.id, {
-					name: this.columnNameForEdit,
-				})
-				.then(response => {
-					this.columnNameEditMode = false;
-					this.columnNameForEdit = null;
-					this.$v.columnNameForEdit.$reset();
-				});
+			await this.$api.put('/project-columns/' + this.columnItem.id, {
+				name: this.columnNameForEdit,
+			});
+
+			this.columnItem.name = this.columnNameForEdit;
+			this.columnNameEditMode = false;
+			this.columnNameForEdit = null;
+			this.$v.columnNameForEdit.$reset();
 		},
-		DeleteColumn() {
-			if (confirm(this.$t('confirmDelete'))) {
-				this.$api.delete('/project-columns/' + this.columnItem.id);
+		async DeleteColumn() {
+			if (!confirm(this.$t('confirmDelete'))) {
+				return;
 			}
+			await this.$api.delete('/project-columns/' + this.columnItem.id);
 		},
 
 
-		DraggableMove(event) {
-			this.dragEvent = {
-				drag: event.draggedContext,
-				drop: event.relatedContext,
-			};
-		},
-		DraggableEnd() {
-			if (!this.dragEvent ||
-				this.columnItem.tasks.findIndex(a => a.id === this.dragEvent.drag.element.id)
-				===
-				this.dragEvent.drag.element.ordering) {
+
+		async DraggableChange(event) {
+			this.ReorderArray(this.columnItem.tasks);
+
+			if (event.removed) {
 				return;
 			}
 
+			let element = null;
 
-			this.ReorderArray(this.columnItem.tasks);
-			if (this.dragEvent.drag.element.column.id !== this.dragEvent.drop.component.$attrs[ 'data-id' ]) {
-				this.ReorderArray(this.dragEvent.drop.list);
-				this.dragEvent.drag.element.column.id = this.dragEvent.drop.component.$attrs[ 'data-id' ];
+			if (event.added) {
+				element = event.added.element;
+			}
+			else if (event.moved) {
+				element = event.moved.element;
 			}
 
+			const elemOrder = this.columnItem.tasks.findIndex(a => a.id === element.id);
 
-			let elemOrder = this.dragEvent.drop.list.findIndex(a => a.id === this.dragEvent.drag.element.id);
-
-
-			this.$api
-				.post('/tasks/move', {
-					id: this.dragEvent.drag.element.id,
-					projectId: this.dragEvent.drag.element.project.id,
-					columnId: this.dragEvent.drag.element.column.id,
-					ordering: elemOrder < 0 ? 0 : elemOrder,
-				})
-				.then(response => {
-					this.dragEvent = null;
-				});
+			await this.$api.post('/tasks/move', {
+				id: element.id,
+				projectId: this.$store.state.projectData.id,
+				columnId: this.columnItem.id,
+				ordering: elemOrder,
+			});
 		},
 		ReorderArray(array) {
 			array.forEach((item, index) => {
