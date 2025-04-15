@@ -282,7 +282,6 @@ export default {
 	name: "TaskModalRightDeadline",
 	components: {
 		Datepicker,
-		Timeselector,
 		VueTimepicker,
 	},
 	data() {
@@ -599,9 +598,6 @@ span.cell.year.disabled {
 	color: #a4b4c5 !important;
 }
 
-.vtimeselector__clear {
-	display: none !important;
-}
 
 .vue_datepicker .vdp-datepicker__calendar span.cell.day.selected.disabled {
 	color: #fff !important;
