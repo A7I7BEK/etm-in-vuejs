@@ -327,25 +327,32 @@ export default {
 
 
 		FilterTasks() {
-			let projectDataCopy = structuredClone(this.$store.state.projectData);
+			const projectDataCopy = structuredClone(this.$store.state.projectData);
 
-			let search = this.$store.state.dashboardFilter.search;
-			let selectedTag = this.$store.state.dashboardFilter.selectedTag;
-			let selectedMember = this.$store.state.dashboardFilter.selectedMember;
-			let selectedStatus = this.$store.state.dashboardFilter.selectedStatus;
-			let selectedPriority = this.$store.state.dashboardFilter.selectedPriority;
-			let selectedLevel = this.$store.state.dashboardFilter.selectedLevel;
-
-			this.$store.state.projectDataIsFiltered =
-				!!(search || selectedTag.length > 0 ||
-					selectedMember.length > 0 || selectedStatus.length > 0 ||
-					selectedPriority.length > 0 || selectedLevel.length > 0);
+			const {
+				search,
+				selectedTag,
+				selectedMember,
+				selectedStatus,
+				selectedPriority,
+				selectedLevel,
+			} = this.$store.state.dashboardFilter;
 
 
-			let tempTaskCount = 0;
+			this.$store.state.projectDataIsFiltered = Boolean(
+				search ||
+				selectedTag ||
+				selectedMember ||
+				selectedStatus ||
+				selectedPriority ||
+				selectedLevel
+			);
+
+
+			let filteredTaskCount = 0;
 			projectDataCopy.columns.forEach(column => {
-				column.tasks = column.tasks.filter(item => {
-					let textFound = item.name.toUpperCase().includes(search.toUpperCase());
+				column.tasks = column.tasks.filter(task => {
+					let textFound = task.name.toUpperCase().includes(search.toUpperCase());
 					let tagFound = true;
 					let memberFound = true;
 					let statusFound = true;
@@ -354,30 +361,30 @@ export default {
 
 
 					if (selectedTag.length > 0) {
-						tagFound = selectedTag.some(id => item.tags.some(a => a.projectTag.id === id));
+						tagFound = selectedTag.some(id => task.tags.some(a => a.projectTag.id === id));
 					}
 					if (selectedMember.length > 0) {
-						memberFound = selectedMember.some(id => item.members.some(a => a.projectMember.employee.id === id));
+						memberFound = selectedMember.some(id => task.members.some(a => a.projectMember.employee.id === id));
 					}
 					if (selectedStatus.length > 0) {
-						statusFound = selectedStatus.some(a => a === item.status);
+						statusFound = selectedStatus.some(a => a === task.status);
 					}
 					if (selectedPriority.length > 0) {
-						priorityFound = selectedPriority.some(a => a === item.priority);
+						priorityFound = selectedPriority.some(a => a === task.priority);
 					}
 					if (selectedLevel.length > 0) {
-						levelFound = selectedLevel.some(a => a === item.level);
+						levelFound = selectedLevel.some(a => a === task.level);
 					}
 
 
 					return textFound && tagFound && memberFound && statusFound && priorityFound && levelFound;
 				});
 
-				tempTaskCount += column.tasks.length;
+				filteredTaskCount += column.tasks.length;
 			});
 
 
-			this.projectDataFilteredTaskCount = tempTaskCount;
+			this.projectDataFilteredTaskCount = filteredTaskCount;
 			this.projectDataFiltered = projectDataCopy;
 		},
 		ResetFilter() {
