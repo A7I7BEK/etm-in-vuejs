@@ -200,11 +200,16 @@ export default {
 			let formData = new FormData();
 			formData.append('file', event.clipboardData.files[ 0 ]);
 
-			const resp = await this.$api.post('/resource/upload-one', formData);
-			await this.AttachFileToTask(resp.data.data.id);
-			await this.GetTaskAttachmentList();
+			try {
+				const resp = await this.$api.post('/resource/upload-one', formData);
+				await this.AttachFileToTask(resp.data.data.id);
+				await this.GetTaskAttachmentList();
 
-			this.$notification.success(this.$t('FileUploadedSuccessfully'));
+				this.$notification.success(this.$t('FileUploadedSuccessfully'));
+			} catch (error) {
+				console.warn(error);
+			}
+
 			this.$store.state.loader = false;
 		},
 		async AttachFileToTask(fileId) {

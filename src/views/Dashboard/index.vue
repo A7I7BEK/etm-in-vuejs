@@ -164,9 +164,13 @@ export default {
 		async GetAll() {
 			this.$store.state.loader = true;
 
-			const resp = await this.$api.get('/projects/' + this.$route.params.id + '/details');
-			this.$store.state.projectData = resp.data.data;
-			this.$store.state.metaData.title = this.$route.meta.title(resp.data.data.name);
+			try {
+				const resp = await this.$api.get('/projects/' + this.$route.params.id + '/details');
+				this.$store.state.projectData = resp.data.data;
+				this.$store.state.metaData.title = this.$route.meta.title(resp.data.data.name);
+			} catch (error) {
+				console.warn(error);
+			}
 
 			setTimeout(() => {
 				this.$store.state.loader = false;
