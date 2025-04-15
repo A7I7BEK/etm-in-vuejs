@@ -58,20 +58,13 @@
 										<label>{{ $t('time') }}</label>
 										<div class="term-menu__time__inner">
 
-											<timeselector
-												class="vue_timeselector"
+											<vue-timepicker
 												:class="{ 'is-invalid': $v.start.time.$error }"
-												displayFormat="HH:mm"
-												:h24="true"
+												hide-clear-button
+												auto-scroll
+												:minute-interval="10"
 												v-model="start.time"
-											>
-												<template slot="hours">
-													<span>{{ $t('hour') }}</span>
-												</template>
-												<template slot="minutes">
-													<span>{{ $t('minute') }}</span>
-												</template>
-											</timeselector>
+											></vue-timepicker>
 
 											<div class="term-time__icon">
 												<i class="fa fa-calendar"></i>
@@ -164,20 +157,13 @@
 										<label>{{ $t('time') }}</label>
 										<div class="term-menu__time__inner">
 
-											<timeselector
-												class="vue_timeselector"
+											<vue-timepicker
 												:class="{ 'is-invalid': $v.end.time.$error }"
-												displayFormat="HH:mm"
-												:h24="true"
+												hide-clear-button
+												auto-scroll
+												:minute-interval="10"
 												v-model="end.time"
-											>
-												<template slot="hours">
-													<span>{{ $t('hour') }}</span>
-												</template>
-												<template slot="minutes">
-													<span>{{ $t('minute') }}</span>
-												</template>
-											</timeselector>
+											></vue-timepicker>
 
 											<div class="term-time__icon">
 												<i class="fa fa-calendar"></i>
@@ -280,7 +266,7 @@
 
 
 <script>
-import Timeselector from 'vue-timeselector';
+import VueTimepicker from 'vue2-timepicker/src/vue-timepicker.vue';
 import Datepicker from 'vuejs-datepicker';
 import { required } from 'vuelidate/lib/validators';
 
@@ -297,6 +283,7 @@ export default {
 	components: {
 		Datepicker,
 		Timeselector,
+		VueTimepicker,
 	},
 	data() {
 		return {
@@ -304,7 +291,10 @@ export default {
 			dateAction: null,
 			start: {
 				date: null,
-				time: null,
+				time: {
+					HH: '',
+					mm: ''
+				},
 				dateFormatted: '',
 				delComment: '',
 				disabledDates: {
@@ -314,7 +304,10 @@ export default {
 			},
 			end: {
 				date: null,
-				time: null,
+				time: {
+					HH: '',
+					mm: ''
+				},
 				dateFormatted: '',
 				delComment: '',
 				disabledDates: {
@@ -328,37 +321,29 @@ export default {
 	validations() {
 		const options = {
 			start: {
-				date: {
-					required,
-				},
+				date: { required },
 				time: {
-					required,
+					HH: { required },
+					mm: { required },
 				},
 			},
 			end: {
-				date: {
-					required,
-				},
+				date: { required },
 				time: {
-					required,
+					HH: { required },
+					mm: { required },
 				},
 			},
 		};
 
 		if (this.dateAction === ACTION_TYPE.DELETE_START) {
-			options.start.delComment = {
-				required,
-			};
+			options.start.delComment = { required };
 		}
 		else if (this.dateAction === ACTION_TYPE.DELETE_END) {
-			options.end.delComment = {
-				required,
-			};
+			options.end.delComment = { required };
 		}
 		else if (this.dateAction === ACTION_TYPE.UPDATE) {
-			options.updateComment = {
-				required,
-			};
+			options.updateComment = { required };
 		}
 
 		return options;
@@ -377,20 +362,16 @@ export default {
 		const { startDate } = this.$store.state.taskModalData;
 		if (startDate) {
 			this.start.date = new Date(startDate);
-			this.start.time = new Date(startDate);
+			this.start.time.HH = this.$moment(startDate).format('HH');
+			this.start.time.mm = this.$moment(startDate).format('mm');
 		}
 
 		const { endDate } = this.$store.state.taskModalData;
 		if (endDate) {
 			this.end.date = new Date(endDate);
-			this.end.time = new Date(endDate);
+			this.end.time.HH = this.$moment(endDate).format('HH');
+			this.end.time.mm = this.$moment(endDate).format('mm');
 		}
-	},
-	mounted() {
-		document.addEventListener('click', this.resetWhenClose);
-	},
-	destroyed() {
-		document.removeEventListener('click', this.resetWhenClose);
 	},
 	methods: {
 		async setDeadline() {
@@ -410,9 +391,9 @@ export default {
 			}
 
 			const sDate = this.$moment(this.start.date).format('YYYY-MM-DD');
-			const sTime = this.$moment(this.start.time).format('HH:mm:ss');
+			const sTime = `${this.start.time.HH}:${this.start.time.mm}:00`;
 			const eDate = this.$moment(this.end.date).format('YYYY-MM-DD');
-			const eTime = this.$moment(this.end.time).format('HH:mm:ss');
+			const eTime = `${this.end.time.HH}:${this.end.time.mm}:00`;
 
 			const resp = await this.$api.post('/task-deadline', {
 				startDate: sDate + ' ' + sTime,
@@ -434,9 +415,9 @@ export default {
 			}
 
 			const sDate = this.$moment(this.start.date).format('YYYY-MM-DD');
-			const sTime = this.$moment(this.start.time).format('HH:mm:ss');
+			const sTime = `${this.start.time.HH}:${this.start.time.mm}:00`;
 			const eDate = this.$moment(this.end.date).format('YYYY-MM-DD');
-			const eTime = this.$moment(this.end.time).format('HH:mm:ss');
+			const eTime = `${this.end.time.HH}:${this.end.time.mm}:00`;
 
 			const resp = await this.$api.put('/task-deadline', {
 				startDate: sDate + ' ' + sTime,
@@ -467,7 +448,8 @@ export default {
 			});
 
 			this.start.date = null;
-			this.start.time = null;
+			this.start.time.HH = '';
+			this.start.time.mm = '';
 			this.resetAll(resp.data.data);
 		},
 		async deleteEndDate() {
@@ -490,7 +472,8 @@ export default {
 			});
 
 			this.end.date = null;
-			this.end.time = null;
+			this.end.time.HH = '';
+			this.end.time.mm = '';
 			this.resetAll(resp.data.data);
 		},
 		resetAll(data) {
@@ -509,12 +492,6 @@ export default {
 
 			this.$store.state.taskModalActionStarter++;
 		},
-
-		resetWhenClose(e) {
-			if (!e.target.closest('#modalRightDeadlineBody')) {
-				this.$v.$reset();
-			}
-		},
 	},
 };
 </script>
@@ -522,7 +499,21 @@ export default {
 
 
 <style>
-.vue_timeselector .vtimeselector__box {
+.vue__time-picker {
+	width: 130px;
+}
+
+.vue__time-picker input.display-time {
+	width: 100%;
+	height: auto;
+	padding: 6px 10px;
+	padding-right: 35px;
+	font-size: 15px;
+}
+
+.vue__time-picker .dropdown,
+.vue__time-picker-dropdown {
+	width: 100%;
 	height: 200px;
 	top: calc(100% + 2px);
 	border: 1px solid #e3ebf3;
@@ -530,31 +521,29 @@ export default {
 	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.16);
 }
 
-.vue_timeselector .vtimeselector__box__list--hours {
-	border-right: 1px solid #e3ebf3;
+.vue__time-picker .dropdown .select-list,
+.vue__time-picker-dropdown .select-list {
+	width: 100%;
+	height: 100%;
 }
 
-.vue_timeselector .vtimeselector__box__head {
-	color: #a4b4c5;
-}
-
-.vue_timeselector .vtimeselector__box__item {
-	font-size: 14px;
+.vue__time-picker .dropdown ul li,
+.vue__time-picker-dropdown ul li {
+	padding: 6px 0;
+	font-size: 15px;
 	color: #000;
 }
 
-.vue_timeselector .timeselector__box__item--is-disabled {
-	background-color: transparent;
-	color: #a4b4c5;
+.vue__time-picker .dropdown ul li:not([disabled]).active,
+.vue__time-picker .dropdown ul li:not([disabled]).active:hover,
+.vue__time-picker .dropdown ul li:not([disabled]).active:focus,
+.vue__time-picker-dropdown ul li:not([disabled]).active,
+.vue__time-picker-dropdown ul li:not([disabled]).active:hover,
+.vue__time-picker-dropdown ul li:not([disabled]).active:focus {
+	background: #75a4ef;
+	color: #ffffff !important;
 }
 
-.vue_timeselector .vtimeselector__box__item:not(.timeselector__box__item--is-disabled):not(.timeselector__box__item--is-selected):hover {
-	background: #e3ebf3;
-}
-
-.vue_timeselector .vtimeselector__box__item--hours {
-	margin-left: 3px;
-}
 
 .vue_datepicker .vdp-datepicker__calendar span.cell {
 	color: #000 !important;
@@ -616,20 +605,5 @@ span.cell.year.disabled {
 
 .vue_datepicker .vdp-datepicker__calendar span.cell.day.selected.disabled {
 	color: #fff !important;
-}
-
-.vtimeselector__box__item {
-	padding: .4em 0;
-	font-size: 13px;
-	color: #6c7584;
-}
-
-.vtimeselector__box__list::-webkit-scrollbar {
-	width: 3px;
-}
-
-.timeselector__box__item--is-selected {
-	background: #75a4ef;
-	color: #ffffff !important;
 }
 </style>
