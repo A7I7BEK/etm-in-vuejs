@@ -250,7 +250,7 @@
 						">
 							<div class="d-flex">
 								<router-link
-									class="btn az_base_btn btn-default icon mr-2"
+									class="btn az_base_btn btn-primary icon mr-2"
 									v-if="can(PERMISSION_TYPE.TASK.READ)"
 									:to="{ name: 'dashboard', params: { id: item.project.id, taskId: item.id } }"
 								>

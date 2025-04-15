@@ -41,12 +41,12 @@ export default {
 				await this.AttachFileToTask(resp.data.data.id);
 				await this.GetTaskAttachmentList();
 
-				event.target.value = '';
 				this.$notification.success(this.$t('FileUploadedSuccessfully'));
 			} catch (error) {
 				console.warn(error);
 			}
 
+			event.target.value = '';
 			this.$store.state.loader = false;
 		},
 		async AttachFileToTask(fileId) {

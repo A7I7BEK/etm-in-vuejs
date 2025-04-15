@@ -49,7 +49,8 @@
 					<a
 						v-else
 						:href="$store.state.url + item.file.url"
-						download
+						:download="item.file.name"
+						target="_blank"
 					>
 						<span>{{ item.file.filename.split('.')[ 1 ] }}</span>
 					</a>
@@ -79,7 +80,7 @@
 							<div
 								class="attachment-change__block__inner"
 								data-custom-drop-btn
-								@click="attachmentName = item.file.name"
+								@click="copyName(item.file.name)"
 							>
 								<span>{{ $t('edit') }}</span>
 								<div>
@@ -96,7 +97,7 @@
 								</div>
 
 								<div class="attachment-change__body">
-									<form @submit.prevent="Update(item.id)">
+									<form @submit.prevent="Update(item.file.id)">
 										<div class="form-group">
 											<label>
 												{{ $t('linkName') }}
@@ -111,7 +112,9 @@
 											<button
 												class="button-effect"
 												type="submit"
-											>{{ $t('save') }}</button>
+											>
+												{{ $t('save') }}
+											</button>
 										</div>
 									</form>
 								</div>
@@ -121,7 +124,7 @@
 
 						<div
 							class="attachment-delete__block"
-							@click="Delete(item.id)"
+							@click="Delete(item.file.id)"
 						>
 							<span>{{ $t('delete') }}</span>
 							<div class="attachment-delete__icon">
@@ -217,6 +220,11 @@ export default {
 				fileId,
 				taskId: this.$store.state.taskModalData.id
 			});
+		},
+		copyName(name) {
+			const nameSplit = name.split('.');
+			nameSplit.pop();
+			this.attachmentName = nameSplit.join('.');
 		},
 	}
 };
