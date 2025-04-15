@@ -32,7 +32,9 @@
 					</div>
 					<p class="ln_board_item1_header_left_ppp">
 						<b v-if="typeTrello">{{ columnItem.name }}</b>
-						<b v-else>{{ $t(columnItem.name) }}</b>
+						<b v-else>
+							{{ $t(`COLUMN_KANBAN_TYPE.${columnItem.name}`) }}
+						</b>
 						<span>({{ columnItem.tasks.length }})</span>
 					</p>
 				</div>
@@ -86,10 +88,7 @@
 		</div>
 
 
-		<div
-			data-custom-accordion-body
-			style="display: none;"
-		>
+		<div data-custom-accordion-body>
 			<div
 				class="ln_board_item1_body"
 				v-if="can(PERMISSION_TYPE.TASK.READ)"

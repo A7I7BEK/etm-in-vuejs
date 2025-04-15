@@ -64,18 +64,18 @@
 					<button
 						class="ln_common32_btn"
 						v-for="item in computedMembers.list"
-						:class="{ 'ln_width_auto': !item.employee.photoFile }"
-						:title="item.employee.firstName + ' ' + item.employee.lastName"
+						:class="{ 'ln_width_auto': !item.projectMember.employee.photoFile }"
+						:title="item.projectMember.employee.firstName + ' ' + item.projectMember.employee.lastName"
 					>
 						<img
 							class="ln_common32_btn_person"
-							v-if="item.employee.photoFile"
-							:src="$store.state.url + item.employee.photoFile.url"
+							v-if="item.projectMember.employee.photoFile"
+							:src="$store.state.url + item.projectMember.employee.photoFile.url"
 						>
 						<span
 							class="ln_common32_btn_name"
 							v-else
-						>{{ item.employee.firstName.charAt(0) + item.employee.lastName.charAt(0) }}</span>
+						>{{ item.projectMember.employee.firstName.charAt(0) + item.projectMember.employee.lastName.charAt(0) }}</span>
 					</button>
 
 					<button
