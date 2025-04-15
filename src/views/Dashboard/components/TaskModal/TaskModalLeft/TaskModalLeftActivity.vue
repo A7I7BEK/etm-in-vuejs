@@ -20,7 +20,6 @@
 
 				<div
 					class="mw-submenu__main_bx"
-					style="display: none;"
 					data-custom-accordion-body
 				>
 					<div class="mw-submenu__main">
@@ -142,7 +141,7 @@
 											<button
 												type="button"
 												class="modal-btn__save cancel button-effect mr-3"
-												@click="cCreateModel.Reset()"
+												@click="cCreateModelReset"
 											>
 												{{ $t('cancel') }}
 											</button>
@@ -171,7 +170,7 @@
 								<div class="mw-action__ava">
 									<img
 										v-if="item.author.photoFile"
-										:src="$store.state.url + item.item.author.photoFile.url"
+										:src="$store.state.url + item.author.photoFile.url"
 									>
 									<div
 										v-else
@@ -341,7 +340,7 @@
 													<button
 														type="button"
 														class="modal-btn__save cancel button-effect mr-3"
-														@click="cUpdateModel.Reset()"
+														@click="cUpdateModelReset"
 													>
 														{{ $t('cancel') }}
 													</button>
@@ -575,7 +574,7 @@ export default {
 			await this.$api.post('/task-comments', this.cCreateModel.GetData());
 			await this.GetTaskComments();
 
-			this.cCreateModel.Reset();
+			this.cCreateModelReset();
 			this.$notification.success(this.$t('Added'));
 		},
 		async EditComment() {
@@ -587,7 +586,7 @@ export default {
 			await this.$api.put('/task-comments/' + this.cUpdateModel.id, this.cUpdateModel.GetData());
 			await this.GetTaskComments();
 
-			this.cUpdateModel.Reset();
+			this.cUpdateModelReset();
 			this.$notification.success(this.$t('EditedBy'));
 		},
 		CopyObjectForEdit(obj) {
@@ -605,6 +604,14 @@ export default {
 			await this.GetTaskComments();
 
 			this.$notification.success(this.$t('successfullyDeleted'));
+		},
+		cCreateModelReset() {
+			this.cCreateModel.Reset();
+			this.$v.cCreateModel.$reset();
+		},
+		cUpdateModelReset() {
+			this.cUpdateModel.Reset();
+			this.$v.cUpdateModel.$reset();
 		},
 	}
 };
