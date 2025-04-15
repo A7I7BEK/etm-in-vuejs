@@ -562,6 +562,10 @@ export default {
 				}
 			});
 
+			if (!this.$store.state.taskModalData) {
+				return;
+			}
+
 			this.$store.state.taskModalData.actions = data;
 			this.aParams.totalItems = meta.totalItems;
 		},

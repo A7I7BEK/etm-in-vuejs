@@ -18,15 +18,11 @@
 						v-if="can(PERMISSION_TYPE.TASK.UPDATE)"
 						:data-placeholder="$t('taskDescription')"
 						@focusout="SaveDescription"
-					>
-						{{ $store.state.taskModalData.description }}
-					</p>
+					>{{ $store.state.taskModalData.description }}</p>
 					<p
 						v-else
 						:data-placeholder="$t('taskDescription')"
-					>
-						{{ $store.state.taskModalData.description }}
-					</p>
+					>{{ $store.state.taskModalData.description }}</p>
 
 					<!--<div class="mw-description__bottom">-->
 					<!--<div class="mw-description__save button-effect">Сохранить</div>-->
@@ -53,7 +49,7 @@ export default {
 			this.$api
 				.put('/tasks/' + this.$store.state.taskModalData.id, {
 					name: this.$store.state.taskModalData.name,
-					description: e.target.innerText,
+					description: e.target.innerText || null,
 				})
 				.then(response => {
 					this.$store.state.taskModalActionStarter++;
