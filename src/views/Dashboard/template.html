@@ -298,14 +298,14 @@
 			<div class="ln_board_header_right">
 				<div
 					class="btn-group mr-3"
-					v-if="$store.state.projectDataIsFiltered"
+					v-if="projectDataFiltered.active"
 				>
 					<button
 						type="button"
 						class="btn ln_board_header_search_btn"
 						data-custom-switch-btn="#rightMenuSearch"
 					>
-						{{ projectDataFilteredTaskCount }} {{ $t('searchResult') }}
+						{{ projectDataFiltered.taskCount }} {{ $t('searchResult') }}
 					</button>
 
 					<button
@@ -349,8 +349,8 @@
 				<template v-if="dashboardTypeSelected === 'board'">
 					<dashboard-type-board
 						data-type="Filtered"
-						v-if="$store.state.projectDataIsFiltered"
-						:project-data="projectDataFiltered"
+						v-if="projectDataFiltered.active"
+						:project-data="projectDataFiltered.data"
 					></dashboard-type-board>
 
 					<dashboard-type-board
@@ -364,8 +364,8 @@
 				<template v-else-if="dashboardTypeSelected === 'list'">
 					<dashboard-type-list
 						data-type="Filtered"
-						v-if="$store.state.projectDataIsFiltered"
-						:project-data="projectDataFiltered"
+						v-if="projectDataFiltered.active"
+						:project-data="projectDataFiltered.data"
 					></dashboard-type-list>
 
 					<dashboard-type-list

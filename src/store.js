@@ -15,7 +15,6 @@ export default new Vuex.Store({
 		systemAdmin: false,
 		permissionList: [],
 		projectData: null,
-		projectDataIsFiltered: false,
 		dashboardFilter: {
 			search: '',
 			selectedTag: [],

@@ -44,8 +44,11 @@ export default {
 				token: accessTokenGet(),
 			}),
 
-			projectDataFiltered: null,
-			projectDataFilteredTaskCount: 0,
+			projectDataFiltered: {
+				active: false,
+				taskCount: 0,
+				data: null,
+			},
 
 			employeeSearch: null,
 			employeeList: null,
@@ -339,14 +342,19 @@ export default {
 			} = this.$store.state.dashboardFilter;
 
 
-			this.$store.state.projectDataIsFiltered = Boolean(
+			this.projectDataFiltered.active = Boolean(
 				search ||
-				selectedTag ||
-				selectedMember ||
-				selectedStatus ||
-				selectedPriority ||
-				selectedLevel
+				selectedTag.length ||
+				selectedMember.length ||
+				selectedStatus.length ||
+				selectedPriority.length ||
+				selectedLevel.length
 			);
+
+
+			if (!this.projectDataFiltered.active) {
+				return;
+			}
 
 
 			let filteredTaskCount = 0;
@@ -384,8 +392,8 @@ export default {
 			});
 
 
-			this.projectDataFilteredTaskCount = filteredTaskCount;
-			this.projectDataFiltered = projectDataCopy;
+			this.projectDataFiltered.taskCount = filteredTaskCount;
+			this.projectDataFiltered.data = projectDataCopy;
 		},
 		ResetFilter() {
 			this.$store.state.dashboardFilter.search = '';
