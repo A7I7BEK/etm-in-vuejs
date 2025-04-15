@@ -5,17 +5,17 @@
 
 		<div class="main-content active">
 
-			<router-view/>
+			<router-view />
 
 		</div>
 	</section>
 </template>
 <script>
-	import SidebarMenu from "./components/SidebarMenu";
+import SidebarMenu from "./components/SidebarMenu";
 
-	export default {
-		components: {
-			SidebarMenu,
-		}
+export default {
+	components: {
+		SidebarMenu,
 	}
+};
 </script>
