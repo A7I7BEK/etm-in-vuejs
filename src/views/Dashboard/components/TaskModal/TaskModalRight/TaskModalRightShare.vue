@@ -192,27 +192,30 @@ export default {
 			}
 
 
+			this.$store.state.loader = true;
+
+
 			let postData = {
 				taskId: this.$store.state.taskModalData.id,
 				employeeIds: this.employeeSelectedList,
 			};
 
-			if (this.checkbox.telegram) {
-				await this.$api.post('/share/task/telegram', postData);
+
+			try {
+				if (this.checkbox.telegram) {
+					await this.$api.post('/share/task/telegram', postData);
+				}
+				if (this.checkbox.email) {
+					await this.$api.post('/share/task/email', postData);
+				}
+
+				this.resetAll();
+			} catch (error) {
+				console.warn(error);
 			}
-			if (this.checkbox.email) {
-				await this.$api.post('/share/task/email', postData);
-			}
 
 
-			this.$notification.success(this.$t('SuccessfullySent'));
-
-			this.checkbox.email = false;
-			this.checkbox.telegram = false;
-			this.$v.$reset();
-			this.employeeSearch = null;
-			this.employeeList = null;
-			this.employeeSelectedList = [];
+			this.$store.state.loader = false;
 		},
 		ToggleEmployee(item) {
 			item.checked = !item.checked;
@@ -223,6 +226,16 @@ export default {
 			else {
 				this.employeeSelectedList = this.employeeSelectedList.filter(a => a !== item.id);
 			}
+		},
+		resetAll() {
+			this.$notification.success(this.$t('SuccessfullySent'));
+
+			this.checkbox.email = false;
+			this.checkbox.telegram = false;
+			this.$v.$reset();
+			this.employeeSearch = null;
+			this.employeeList = null;
+			this.employeeSelectedList = [];
 		},
 	}
 };
