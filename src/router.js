@@ -1,4 +1,3 @@
-// @ts-nocheck
 import Vue from 'vue';
 import Router from 'vue-router';
 import $i18n from './plugins/vue-i18n-config';
@@ -15,25 +14,25 @@ const router = new Router({
 		{
 			path: '/',
 			name: 'home',
-			component: () => import('./layouts/BaseLayout'),
+			component: () => import('./layouts/BaseLayout.vue'),
 			redirect: { name: 'main' },
 			children: [
 				{
 					path: 'main',
 					name: 'main',
-					component: () => import('./layouts/MainLayout'),
-					redirect: { name: 'mainTasks' },
+					component: () => import('./layouts/MainLayout.vue'),
+					redirect: { name: 'mainProjects' },
 					children: [
 						{
 							path: 'tasks',
 							name: 'mainTasks',
-							component: () => import('./views/Main/Tasks/index'),
+							component: () => import('./views/Main/Tasks/index.vue'),
 							redirect: { name: 'mainTasksList' },
 							children: [
 								{
 									path: 'index',
 									name: 'mainTasksList',
-									component: () => import('./views/Main/Tasks/List/index'),
+									component: () => import('./views/Main/Tasks/List/index.vue'),
 									meta: {
 										title() {
 											return $i18n.tc('menu.task', 2) + ' | ETM';
@@ -43,7 +42,7 @@ const router = new Router({
 								{
 									path: 'create',
 									name: 'mainTasksCreate',
-									component: () => import('./views/Main/Tasks/Create/index'),
+									component: () => import('./views/Main/Tasks/Create/index.vue'),
 									meta: {
 										title() {
 											return $i18n.t('crudCreate', {
@@ -56,7 +55,7 @@ const router = new Router({
 									path: 'update/:id',
 									props: true,
 									name: 'mainTasksUpdate',
-									component: () => import('./views/Main/Tasks/Update/index'),
+									component: () => import('./views/Main/Tasks/Update/index.vue'),
 									meta: {
 										title(name) {
 											return $i18n.t('crudEdit', {
@@ -70,7 +69,7 @@ const router = new Router({
 									path: 'read/:id',
 									props: true,
 									name: 'mainTasksRead',
-									component: () => import('./views/Main/Tasks/Read/index'),
+									component: () => import('./views/Main/Tasks/Read/index.vue'),
 									meta: {
 										title(name) {
 											return $i18n.t('crudRead', {
@@ -85,13 +84,13 @@ const router = new Router({
 						{
 							path: 'projects',
 							name: 'mainProjects',
-							component: () => import('./views/Main/Projects/index'),
+							component: () => import('./views/Main/Projects/index.vue'),
 							redirect: { name: 'mainProjectsList' },
 							children: [
 								{
 									path: 'index',
 									name: 'mainProjectsList',
-									component: () => import('./views/Main/Projects/List/index'),
+									component: () => import('./views/Main/Projects/List/index.vue'),
 									meta: {
 										title() {
 											return $i18n.tc('menu.project', 2) + ' | ETM';
@@ -101,7 +100,7 @@ const router = new Router({
 								{
 									path: 'create',
 									name: 'mainProjectsCreate',
-									component: () => import('./views/Main/Projects/Create/index'),
+									component: () => import('./views/Main/Projects/Create/index.vue'),
 									meta: {
 										title() {
 											return $i18n.t('crudCreate', {
@@ -114,7 +113,7 @@ const router = new Router({
 									path: 'update/:id',
 									props: true,
 									name: 'mainProjectsUpdate',
-									component: () => import('./views/Main/Projects/Update/index'),
+									component: () => import('./views/Main/Projects/Update/index.vue'),
 									meta: {
 										title(name) {
 											return $i18n.t('crudEdit', {
@@ -128,7 +127,7 @@ const router = new Router({
 									path: 'read/:id',
 									props: true,
 									name: 'mainProjectsRead',
-									component: () => import('./views/Main/Projects/Read/index'),
+									component: () => import('./views/Main/Projects/Read/index.vue'),
 									meta: {
 										title(name) {
 											return $i18n.t('crudRead', {
@@ -143,13 +142,13 @@ const router = new Router({
 						{
 							path: 'teams',
 							name: 'mainTeams',
-							component: () => import('./views/Main/Teams/index'),
+							component: () => import('./views/Main/Teams/index.vue'),
 							redirect: { name: 'mainTeamsList' },
 							children: [
 								{
 									path: 'index',
 									name: 'mainTeamsList',
-									component: () => import('./views/Main/Teams/List/index'),
+									component: () => import('./views/Main/Teams/List/index.vue'),
 									meta: {
 										title() {
 											return $i18n.tc('menu.team', 2) + ' | ETM';
@@ -159,7 +158,7 @@ const router = new Router({
 								{
 									path: 'create',
 									name: 'mainTeamsCreate',
-									component: () => import('./views/Main/Teams/Create/index'),
+									component: () => import('./views/Main/Teams/Create/index.vue'),
 									meta: {
 										title() {
 											return $i18n.t('crudCreate', {
@@ -172,7 +171,7 @@ const router = new Router({
 									path: 'update/:id',
 									props: true,
 									name: 'mainTeamsUpdate',
-									component: () => import('./views/Main/Teams/Update/index'),
+									component: () => import('./views/Main/Teams/Update/index.vue'),
 									meta: {
 										title(name) {
 											return $i18n.t('crudEdit', {
@@ -186,7 +185,7 @@ const router = new Router({
 									path: 'read/:id',
 									props: true,
 									name: 'mainTeamsRead',
-									component: () => import('./views/Main/Teams/Read/index'),
+									component: () => import('./views/Main/Teams/Read/index.vue'),
 									meta: {
 										title(name) {
 											return $i18n.t('crudRead', {
@@ -201,13 +200,13 @@ const router = new Router({
 						{
 							path: 'users',
 							name: 'mainUsers',
-							component: () => import('./views/Main/Users/index'),
+							component: () => import('./views/Main/Users/index.vue'),
 							redirect: { name: 'mainUsersList' },
 							children: [
 								{
 									path: 'index',
 									name: 'mainUsersList',
-									component: () => import('./views/Main/Users/List/index'),
+									component: () => import('./views/Main/Users/List/index.vue'),
 									meta: {
 										title() {
 											return $i18n.tc('menu.user', 2) + ' | ETM';
@@ -217,7 +216,7 @@ const router = new Router({
 								{
 									path: 'create',
 									name: 'mainUsersCreate',
-									component: () => import('./views/Main/Users/Create/index'),
+									component: () => import('./views/Main/Users/Create/index.vue'),
 									meta: {
 										title() {
 											return $i18n.t('crudCreate', {
@@ -230,7 +229,7 @@ const router = new Router({
 									path: 'update/:id',
 									props: true,
 									name: 'mainUsersUpdate',
-									component: () => import('./views/Main/Users/Update/index'),
+									component: () => import('./views/Main/Users/Update/index.vue'),
 									meta: {
 										title(name) {
 											return $i18n.t('crudEdit', {
@@ -244,7 +243,7 @@ const router = new Router({
 									path: 'read/:id',
 									props: true,
 									name: 'mainUsersRead',
-									component: () => import('./views/Main/Users/Read/index'),
+									component: () => import('./views/Main/Users/Read/index.vue'),
 									meta: {
 										title(name) {
 											return $i18n.t('crudRead', {
@@ -258,7 +257,7 @@ const router = new Router({
 									path: 'password-reset/:id',
 									props: true,
 									name: 'mainUsersPasswordReset',
-									component: () => import('./views/Main/Users/PasswordReset/index'),
+									component: () => import('./views/Main/Users/PasswordReset/index.vue'),
 									meta: {
 										title(name) {
 											return $i18n.t('crudPasswordReset', {
@@ -272,13 +271,13 @@ const router = new Router({
 						{
 							path: 'roles',
 							name: 'mainRoles',
-							component: () => import('./views/Main/Roles/index'),
+							component: () => import('./views/Main/Roles/index.vue'),
 							redirect: { name: 'mainRolesList' },
 							children: [
 								{
 									path: 'index',
 									name: 'mainRolesList',
-									component: () => import('./views/Main/Roles/List/index'),
+									component: () => import('./views/Main/Roles/List/index.vue'),
 									meta: {
 										title() {
 											return $i18n.tc('menu.role', 2) + ' | ETM';
@@ -288,7 +287,7 @@ const router = new Router({
 								{
 									path: 'create',
 									name: 'mainRolesCreate',
-									component: () => import('./views/Main/Roles/Create/index'),
+									component: () => import('./views/Main/Roles/Create/index.vue'),
 									meta: {
 										title() {
 											return $i18n.t('crudCreate', {
@@ -301,7 +300,7 @@ const router = new Router({
 									path: 'update/:id',
 									props: true,
 									name: 'mainRolesUpdate',
-									component: () => import('./views/Main/Roles/Update/index'),
+									component: () => import('./views/Main/Roles/Update/index.vue'),
 									meta: {
 										title(name) {
 											return $i18n.t('crudEdit', {
@@ -315,7 +314,7 @@ const router = new Router({
 									path: 'read/:id',
 									props: true,
 									name: 'mainRolesRead',
-									component: () => import('./views/Main/Roles/Read/index'),
+									component: () => import('./views/Main/Roles/Read/index.vue'),
 									meta: {
 										title(name) {
 											return $i18n.t('crudRead', {
@@ -330,13 +329,13 @@ const router = new Router({
 						{
 							path: 'permissions',
 							name: 'mainPermissions',
-							component: () => import('./views/Main/Permissions/index'),
+							component: () => import('./views/Main/Permissions/index.vue'),
 							redirect: { name: 'mainPermissionsList' },
 							children: [
 								{
 									path: 'index',
 									name: 'mainPermissionsList',
-									component: () => import('./views/Main/Permissions/List/index'),
+									component: () => import('./views/Main/Permissions/List/index.vue'),
 									meta: {
 										title() {
 											return $i18n.tc('menu.permission', 2) + ' | ETM';
@@ -347,7 +346,7 @@ const router = new Router({
 									path: 'read/:id',
 									props: true,
 									name: 'mainPermissionsRead',
-									component: () => import('./views/Main/Permissions/Read/index'),
+									component: () => import('./views/Main/Permissions/Read/index.vue'),
 									meta: {
 										title(name) {
 											return $i18n.t('crudRead', {
@@ -362,13 +361,13 @@ const router = new Router({
 						{
 							path: 'organizations',
 							name: 'mainOrganizations',
-							component: () => import('./views/Main/Organizations/index'),
+							component: () => import('./views/Main/Organizations/index.vue'),
 							redirect: { name: 'mainOrganizationsList' },
 							children: [
 								{
 									path: 'index',
 									name: 'mainOrganizationsList',
-									component: () => import('./views/Main/Organizations/List/index'),
+									component: () => import('./views/Main/Organizations/List/index.vue'),
 									meta: {
 										title() {
 											return $i18n.tc('menu.organization', 2) + ' | ETM';
@@ -378,7 +377,7 @@ const router = new Router({
 								{
 									path: 'create',
 									name: 'mainOrganizationsCreate',
-									component: () => import('./views/Main/Organizations/Create/index'),
+									component: () => import('./views/Main/Organizations/Create/index.vue'),
 									meta: {
 										title() {
 											return $i18n.t('crudCreate', {
@@ -391,7 +390,7 @@ const router = new Router({
 									path: 'update/:id',
 									props: true,
 									name: 'mainOrganizationsUpdate',
-									component: () => import('./views/Main/Organizations/Update/index'),
+									component: () => import('./views/Main/Organizations/Update/index.vue'),
 									meta: {
 										title(name) {
 											return $i18n.t('crudEdit', {
@@ -405,7 +404,7 @@ const router = new Router({
 									path: 'read/:id',
 									props: true,
 									name: 'mainOrganizationsRead',
-									component: () => import('./views/Main/Organizations/Read/index'),
+									component: () => import('./views/Main/Organizations/Read/index.vue'),
 									meta: {
 										title(name) {
 											return $i18n.t('crudRead', {
@@ -423,13 +422,13 @@ const router = new Router({
 						{
 							path: 'reports',
 							name: 'mainReports',
-							component: () => import('./views/Main/Reports/index'),
+							component: () => import('./views/Main/Reports/index.vue'),
 							redirect: { name: 'mainReportsProjectOverview' },
 							children: [
 								{
 									path: 'project-overview',
 									name: 'mainReportsProjectOverview',
-									component: () => import('./views/Main/Reports/ProjectOverview/index'),
+									component: () => import('./views/Main/Reports/ProjectOverview/index.vue'),
 									meta: {
 										title() {
 											return $i18n.t('menu.projectOverview') + ' | ETM';
@@ -439,7 +438,7 @@ const router = new Router({
 								{
 									path: 'time-series',
 									name: 'mainReportsTimeSeries',
-									component: () => import('./views/Main/Reports/TimeSeries/index'),
+									component: () => import('./views/Main/Reports/TimeSeries/index.vue'),
 									meta: {
 										title() {
 											return $i18n.t('menu.timeSeries') + ' | ETM';
@@ -449,7 +448,7 @@ const router = new Router({
 								{
 									path: 'time-frame',
 									name: 'mainReportsTimeFrame',
-									component: () => import('./views/Main/Reports/TimeFrame/index'),
+									component: () => import('./views/Main/Reports/TimeFrame/index.vue'),
 									meta: {
 										title() {
 											return $i18n.t('menu.timeFrame') + ' | ETM';
@@ -459,7 +458,7 @@ const router = new Router({
 								{
 									path: 'project-details-task',
 									name: 'mainReportsProjectDetailsTask',
-									component: () => import('./views/Main/Reports/ProjectDetailsTask/index'),
+									component: () => import('./views/Main/Reports/ProjectDetailsTask/index.vue'),
 									meta: {
 										title() {
 											return $i18n.t('menu.projectDetailsTask') + ' | ETM';
@@ -469,7 +468,7 @@ const router = new Router({
 								{
 									path: 'project-details-manager',
 									name: 'mainReportsProjectDetailsManager',
-									component: () => import('./views/Main/Reports/ProjectDetailsManager/index'),
+									component: () => import('./views/Main/Reports/ProjectDetailsManager/index.vue'),
 									meta: {
 										title() {
 											return $i18n.t('menu.projectDetailsManager') + ' | ETM';
@@ -479,7 +478,7 @@ const router = new Router({
 								{
 									path: 'project-details-employee',
 									name: 'mainReportsProjectDetailsEmployee',
-									component: () => import('./views/Main/Reports/ProjectDetailsEmployee/index'),
+									component: () => import('./views/Main/Reports/ProjectDetailsEmployee/index.vue'),
 									meta: {
 										title() {
 											return $i18n.t('menu.projectDetailsEmployee') + ' | ETM';
@@ -493,7 +492,7 @@ const router = new Router({
 				{
 					path: 'dashboard/:id/:taskId?',
 					name: 'dashboard',
-					component: () => import('./views/Dashboard/index'),
+					component: () => import('./views/Dashboard/index.vue'),
 					meta: {
 						title(name) {
 							return $i18n.t('projectInDashboard', {
@@ -510,7 +509,7 @@ const router = new Router({
 		{
 			path: '/auth',
 			name: 'auth',
-			component: () => import('./layouts/AuthorizationLayout'),
+			component: () => import('./layouts/AuthorizationLayout.vue'),
 			redirect: { name: 'authLogin' },
 			meta: {
 				public: true
@@ -519,7 +518,7 @@ const router = new Router({
 				{
 					path: 'login',
 					name: 'authLogin',
-					component: () => import('./views/Authorization/Login/index'),
+					component: () => import('./views/Authorization/Login/index.vue'),
 					meta: {
 						title() {
 							return $i18n.t('login') + ' | ETM';
@@ -535,7 +534,7 @@ const router = new Router({
 				{
 					path: 'registration',
 					name: 'authRegistration',
-					component: () => import('./views/Authorization/Registration/index'),
+					component: () => import('./views/Authorization/Registration/index.vue'),
 					meta: {
 						title() {
 							return $i18n.t('register') + ' | ETM';
@@ -551,7 +550,7 @@ const router = new Router({
 				{
 					path: 'recovery',
 					name: 'authRecovery',
-					component: () => import('./views/Authorization/Recovery/index'),
+					component: () => import('./views/Authorization/Recovery/index.vue'),
 					meta: {
 						title() {
 							return $i18n.t('passwordRecovery') + ' | ETM';
@@ -566,26 +565,45 @@ const router = new Router({
 				},
 			]
 		},
+
+
+		{
+			path: '/gate',
+			name: 'gateForBackend',
+			component: () => import('./views/Gate/GateForBackend.vue'),
+			meta: {
+				all: true
+			},
+		},
 	]
 });
 
 
 router.beforeEach((to, from, next) => {
-	let hasToken = !!accessTokenGet();
-	let isPublic = to.matched.some(record => record.meta.public);
+	const hasToken = !!accessTokenGet();
+	const isPublic = to.matched.some(record => record.meta.public);
+	const isAll = to.matched.some(record => record.meta.all);
+
+
+	if (isAll) {
+		return next();
+	}
+
 
 	if (hasToken && isPublic) {
 		return next(from.fullPath);
 	}
 
+
 	if (!hasToken && !isPublic) {
 		return next({ name: 'authLogin' });
 	}
 
+
 	next();
 
 
-
+	// @ts-ignore
 	$('.modal').modal('hide');
 });
 
