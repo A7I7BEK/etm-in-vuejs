@@ -399,6 +399,7 @@ export default {
 	other: 'Другой | Другие',
 	tasksIamAssigned: 'Задачи, которые мне назначены',
 	editInDashboard: 'Редактировать в доске',
+	openInDashboard: 'Открыть в доске',
 	createdDate: 'Дата создания',
 	deadlineStartDate: 'Начало срока',
 	deadlineEndDate: 'Окончание срока',

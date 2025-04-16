@@ -74,6 +74,16 @@
 				</tbody>
 			</table>
 
+			<div class="d-flex justify-content-end">
+				<router-link
+					class="btn az_base_btn btn-warning"
+					:to="{ name: 'dashboard', params: { id: model.project.id, taskId: model.id } }"
+				>
+					<i class="fa fa-external-link align-middle mr-1"></i>
+					{{ $t('openInDashboard') }}
+				</router-link>
+			</div>
+
 		</template>
 	</base-crud-page-read>
 </template>

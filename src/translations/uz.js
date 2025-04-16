@@ -399,6 +399,7 @@ export default {
 	other: 'Boshqa | Boshqalar',
 	tasksIamAssigned: 'Menga topshirilgan vazifalar',
 	editInDashboard: 'Doskada tahrirlash',
+	openInDashboard: 'Doskada ko‘rish',
 	createdDate: 'Yaratilgan vaqt',
 	deadlineStartDate: 'Muddat boshlanish vaqti',
 	deadlineEndDate: 'Muddat tugash vaqti',

@@ -399,6 +399,7 @@ export default {
 	other: 'Other | Others',
 	tasksIamAssigned: 'Tasks that I\'m assigned',
 	editInDashboard: 'Edit in dashboard',
+	openInDashboard: 'Open in dashboard',
 	createdDate: 'Created date',
 	deadlineStartDate: 'Deadline start',
 	deadlineEndDate: 'Deadline end',
