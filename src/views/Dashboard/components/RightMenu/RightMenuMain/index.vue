@@ -30,22 +30,19 @@ export default {
 	},
 	computed: {
 		computedBackground() {
-			let value = '', img = false, background = this.$store.state.projectData.background;
+			let color = '', img = '', background = this.$store.state.projectData.background;
 
 			if (!background) {
-				return null;
+				img = this.$store.state.backgroundImg;
 			}
-
-			if (background.charAt(0) === '#') {
-				value = 'background-color:' + background;
-				img = false;
+			else if (background.charAt(0) === '#') {
+				color = 'background-color:' + background;
 			}
 			else {
-				value = this.$store.state.url + background;
-				img = true;
+				img = this.$store.state.url + background;
 			}
 
-			return { img, value };
+			return { color, img };
 		},
 	},
 	created() {

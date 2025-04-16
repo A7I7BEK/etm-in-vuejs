@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { DEFAULT_URL } from './constants';
+import { BACKGROUND_IMAGE, DEFAULT_URL } from './constants';
 
 
 Vue.use(Vuex);
@@ -10,6 +10,7 @@ export default new Vuex.Store({
 	state: {
 		loader: false,
 		url: DEFAULT_URL,
+		backgroundImg: BACKGROUND_IMAGE,
 		refreshTokenIntervalId: 0,
 		userProfile: null,
 		systemAdmin: false,

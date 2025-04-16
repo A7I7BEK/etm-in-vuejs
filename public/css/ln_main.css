@@ -360,7 +360,6 @@
 }
 
 .ln_board_body {
-    min-height: calc(100vh - 125px);
     background: center / cover no-repeat fixed;
 }
 

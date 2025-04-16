@@ -44,21 +44,16 @@
 								></i>
 							</div>
 							<span>{{$t('changeBackground')}}</span>
-							<div
-								v-if="computedBackground"
-								class="current-background"
-							>
+							<div class="current-background">
 								<div
-									v-if="computedBackground.img"
 									class="current-background__inner"
+									:style="computedBackground.color"
 								>
-									<img :src="computedBackground.value">
+									<img
+										v-if="computedBackground.img"
+										:src="computedBackground.img"
+									>
 								</div>
-								<div
-									v-else
-									class="current-background__inner"
-									:style="computedBackground.value"
-								></div>
 							</div>
 						</div>
 					</div>

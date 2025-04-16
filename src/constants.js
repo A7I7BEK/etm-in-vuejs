@@ -96,7 +96,7 @@ export const COLOR_LIST = [
 	'#4acb8b',
 	'#fa163f',
 	'#12cad6',
-	'#7e0cf5',
+	// '#7e0cf5',
 	'#f45905',
 	'#0c9463',
 	'#1089ff',
@@ -109,6 +109,7 @@ export const META_DATA = {
 };
 export const FAVICON_SIMPLE = '/img/favicon.png';
 export const FAVICON_ALERT = '/img/favicon_alert.png';
+export const BACKGROUND_IMAGE = '/img/background2.jpg';
 
 
 export const PERMISSION_TYPE = {

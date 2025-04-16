@@ -76,14 +76,13 @@ export default {
 			let style = '', background = this.$store.state.projectData.background;
 
 			if (!background) {
-				return style;
+				style = `background-image: url('${this.$store.state.backgroundImg}')`;
 			}
-
-			if (background.charAt(0) === '#') {
+			else if (background.charAt(0) === '#') {
 				style = 'background-color:' + background;
 			}
 			else {
-				style = 'background-image: url(' + this.$store.state.url + background + ')';
+				style = `background-image: url('${this.$store.state.url + background}')`;
 			}
 
 			return style;

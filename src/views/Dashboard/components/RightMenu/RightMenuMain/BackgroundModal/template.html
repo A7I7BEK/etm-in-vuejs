@@ -6,6 +6,21 @@
 		<div class="az_prfl_mod">
 			<div class="az_prfl_mod_case">
 				<div class="row mb-4">
+					<div class="col-4 mb-3">
+						<div
+							class="az_bg_mdl_color"
+							style="background: url('/img/background2.jpg') center / cover no-repeat;"
+							@click="ResetBackground"
+						>
+							<div
+								class="az_bg_mdl_color_tick"
+								v-if="computedBackground.img === $store.state.backgroundImg"
+							>
+								<img src="/img/svg/background-tick.svg">
+							</div>
+						</div>
+					</div>
+
 					<div
 						class="col-4 mb-3"
 						v-for="item in COLOR_LIST"
@@ -17,7 +32,7 @@
 						>
 							<div
 								class="az_bg_mdl_color_tick"
-								v-if="computedBackground.value === item"
+								v-if="computedBackground.color === item"
 							>
 								<img src="/img/svg/background-tick.svg">
 							</div>
@@ -38,7 +53,7 @@
 					>
 					<img
 						v-if="computedBackground.img"
-						:src="computedBackground.value"
+						:src="computedBackground.img"
 					>
 					<img
 						v-else
