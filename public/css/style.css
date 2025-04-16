@@ -3271,10 +3271,34 @@ input#typeofprject2:checked + label {
 
 
 .board-item__inner__list > h6 {
+	padding-right: 32px;
 	word-break: break-word;
 	font-family: 'SFUIText-Regular', sans-serif;
 	font-size: 13px;
 	color: #495E75;
+}
+
+.board-item__inner__list__lev_prio {
+	display: flex;
+	align-items: center;
+	position: absolute;
+	top: 2px;
+	right: 7px;
+}
+
+.board-item__inner__list__level {
+	margin-left: 5px;
+	font-size: 16px;
+	color: #495E75;
+}
+
+.board-item__inner__list__level.high {
+	color: #EF5730;
+}
+
+.board-item__inner__list__priority {
+	font-size: 14px;
+	color: #EF5730;
 }
 
 .board-item__inner__list__settings {
@@ -3334,16 +3358,25 @@ input#typeofprject2:checked + label {
 
 
 .list-settings__date {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	width: 100%;
 	margin-top: 8px;
-	margin-right: 10px;
 }
 
-.list-settings__date span {
+.list-settings__date p {
 	color: #495E75;
 	font-size: 13px;
 	padding: 4px;
 	background-color: #eaecef;
 	border-radius: 4px;
+}
+
+.list-settings__date span {
+	color: #495E75;
+	font-size: 16px;
+	margin: 0 4px;
 }
 
 .list-settings__date .success {
@@ -3403,12 +3436,13 @@ input#typeofprject2:checked + label {
 .list-color__main__item {
 	display: flex;
 	align-items: center;
+	justify-content: center;
 	height: 20px;
-	min-width: 20px;
+	min-width: 40px;
 	margin-top: 8px;
 	margin-right: 8px;
-	padding: 0 5px;
-	border-radius: 4px;
+	padding: 0 8px;
+	border-radius: 999px;
 	white-space: nowrap;
 	line-height: 1;
 	font-family: "SFUIText-Regular";

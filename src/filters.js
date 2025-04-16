@@ -11,6 +11,10 @@ Vue.filter('filterDateTime', (val) => {
 	return Moment(val).isValid() ? Moment(val).format('D.MM.YYYY, HH:mm:ss') : '';
 });
 
+Vue.filter('filterDateTime2', (val) => {
+	return Moment(val).isValid() ? Moment(val).format('DD.MM.YYYY, HH:mm') : '';
+});
+
 Vue.filter('filterTimeDate', (val) => {
 	return Moment(val).isValid() ? Moment(val).format('HH:mm:ss, D.MM.YYYY') : '';
 });

@@ -1,7 +1,7 @@
 <template>
 	<div
 		class="board-item__inner__list"
-		:class="{ 'board-list__red': taskItem.priority === TASK_PRIORITY_TYPE.HIGH }"
+		:class="{ 'board-list__red': taskItem.timerStatus === TASK_TIMER_TYPE.START }"
 		:data-task-ordering="taskItem.ordering"
 		:data-task-id="taskItem.id"
 		@click="$store.state.taskModalId = taskItem.id"
@@ -9,20 +9,48 @@
 
 		<h6>{{ taskItem.name }}</h6>
 
+		<div
+			v-if="taskItem.priority || taskItem.level"
+			class="board-item__inner__list__lev_prio"
+		>
+			<div
+				v-if="taskItem.priority === TASK_PRIORITY_TYPE.HIGH"
+				class="board-item__inner__list__priority"
+			>
+				<i class="fa fa-fire"></i>
+			</div>
+
+			<div
+				v-if="taskItem.level"
+				class="board-item__inner__list__level"
+				:class="{ 'high': taskItem.level === TASK_LEVEL_TYPE.HIGH }"
+			>
+				<i
+					class="fa"
+					:class="levelClass[ taskItem.level ]"
+				></i>
+			</div>
+		</div>
+
 		<div class="board-item__inner__list__settings">
 
 			<div
+				v-if="taskItem.startDate || taskItem.endDate"
 				class="list-settings__date"
-				v-if="$moment(taskItem.endDate).isValid()"
 			>
-				<span :class="statusClass[ taskItem.status ]">
-					<template v-if="$moment().diff($moment(taskItem.endDate), 'years') > 0">
-						{{ taskItem.endDate | filterDateMonth }}
+				<p :class="statusClass[ taskItem.status ]">
+					<template v-if="taskItem.startDate">
+						{{ taskItem.startDate | filterDateTime2 }}
 					</template>
-					<template v-else>
-						{{ taskItem.endDate | filterMonthTime }}
+					<template v-else>...</template>
+				</p>
+				<span>-</span>
+				<p :class="statusClass[ taskItem.status ]">
+					<template v-if="taskItem.endDate">
+						{{ taskItem.endDate | filterDateTime2 }}
 					</template>
-				</span>
+					<template v-else>...</template>
+				</p>
 			</div>
 
 			<div
@@ -96,7 +124,14 @@
 </template>
 
 <script>
-import { TASK_COMMENT_TYPE, TASK_PRIORITY_TYPE, TASK_STATUS_TYPE } from '../../../../../../constants';
+import {
+	TASK_COMMENT_TYPE,
+	TASK_LEVEL_TYPE,
+	TASK_PRIORITY_TYPE,
+	TASK_STATUS_TYPE,
+	TASK_TIMER_TYPE
+} from '../../../../../../constants';
+
 
 export default {
 	name: 'BoardTask',
@@ -109,11 +144,18 @@ export default {
 	},
 	data() {
 		return {
+			TASK_LEVEL_TYPE,
 			TASK_PRIORITY_TYPE,
+			TASK_TIMER_TYPE,
+			levelClass: {
+				[ TASK_LEVEL_TYPE.HIGH ]: 'fa-chevron-up',
+				[ TASK_LEVEL_TYPE.NORMAL ]: 'fa-minus',
+				[ TASK_LEVEL_TYPE.LOW ]: 'fa-chevron-down',
+			},
 			statusClass: {
 				[ TASK_STATUS_TYPE.RED ]: 'danger',
 				[ TASK_STATUS_TYPE.YELLOW ]: 'warning',
-				[ TASK_STATUS_TYPE.GREEN ]: 'success',
+				// [ TASK_STATUS_TYPE.GREEN ]: 'success',
 			},
 			commentClass: {
 				[ TASK_COMMENT_TYPE.INFORMATION ]: '',
