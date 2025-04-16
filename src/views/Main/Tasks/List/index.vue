@@ -195,7 +195,7 @@
 					<tr
 						v-for="item in record.list"
 						class="bdr"
-						:class="{ 'danger': item.priority === TASK_PRIORITY_TYPE.HIGH }"
+						:class="{ 'danger': item.timerStatus === TASK_TIMER_TYPE.START }"
 					>
 						<td>
 							<div class="az_crud_tb_txt">
@@ -227,17 +227,12 @@
 						</td>
 
 						<td>
-							<template v-if="$moment(item.endDate).isValid()">
+							<template v-if="item.endDate">
 								<div
 									class="az_crud_tb_sts"
 									:class="statusClass[ item.status ]"
 								>
-									<template v-if="$moment().diff($moment(item.endDate), 'years') > 0">
-										{{ item.endDate | filterDateMonth }}
-									</template>
-									<template v-else>
-										{{ item.endDate | filterMonthTime }}
-									</template>
+									{{ item.endDate | filterDateTime2 }}
 								</div>
 							</template>
 							<template v-else>&nbsp;</template>
@@ -334,8 +329,8 @@ import {
 	ORDER_REVERSE,
 	PERMISSION_TYPE,
 	PROJECT_TYPE,
-	TASK_PRIORITY_TYPE,
 	TASK_STATUS_TYPE,
+	TASK_TIMER_TYPE
 } from '../../../../constants';
 
 
@@ -375,7 +370,7 @@ export default {
 			ORDER,
 			HANDLE_PARAMS,
 			SORT_PROP,
-			TASK_PRIORITY_TYPE,
+			TASK_TIMER_TYPE,
 			PROJECT_TYPE,
 			statusClass: {
 				[ TASK_STATUS_TYPE.RED ]: 'danger',

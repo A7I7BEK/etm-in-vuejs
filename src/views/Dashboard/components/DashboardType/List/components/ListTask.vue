@@ -5,7 +5,7 @@
 	>
 		<div
 			class="ln_board_item1_body_1_left"
-			:class="{ 'high': taskItem.priority === TASK_PRIORITY_TYPE.HIGH }"
+			:class="{ 'high': taskItem.timerStatus === TASK_TIMER_TYPE.START }"
 		>
 			<p class="ln_board_item1_body_1_left_pp">{{ taskItem.name }}</p>
 		</div>
@@ -14,14 +14,11 @@
 		<div class="ln_board_item1_body_1_right">
 			<div
 				class="ln_board_item1_body_1_right_00"
-				v-if="$moment(taskItem.endDate).isValid()"
+				v-if="taskItem.endDate"
 				:class="statusClass[ taskItem.status ]"
 			>
-				<p v-if="$moment().diff($moment(taskItem.endDate), 'years') > 0">
-					{{ taskItem.endDate | filterDateMonth }}
-				</p>
-				<p v-else>
-					{{ taskItem.endDate | filterMonthTime }}
+				<p>
+					{{ taskItem.endDate | filterDateTime2 }}
 				</p>
 			</div>
 
@@ -91,7 +88,8 @@
 </template>
 
 <script>
-import { TASK_COMMENT_TYPE, TASK_PRIORITY_TYPE, TASK_STATUS_TYPE } from '../../../../../../constants';
+import { TASK_COMMENT_TYPE, TASK_STATUS_TYPE, TASK_TIMER_TYPE } from '../../../../../../constants';
+
 
 export default {
 	name: 'ListTask',
@@ -104,7 +102,7 @@ export default {
 	},
 	data() {
 		return {
-			TASK_PRIORITY_TYPE,
+			TASK_TIMER_TYPE,
 			statusClass: {
 				[ TASK_STATUS_TYPE.RED ]: 'danger',
 				[ TASK_STATUS_TYPE.YELLOW ]: 'warning',
