@@ -74,32 +74,48 @@
 				<div class="mw-title__btm__left">
 					<span>{{ $t('column') }}</span>
 					<div class="column-name">
-						<a
-							href="#"
-							@click.prevent
-						>
-							{{ $store.state.taskModalData.column.name }}
-						</a>
+						{{ $store.state.taskModalData.column.name }}
+					</div>
+				</div>
+
+				<div class="mw-title__btm__right">
+					<span>{{ $t('priority') }}:</span>
+
+					<div
+						v-if="$store.state.taskModalData.priority"
+						class="level-status"
+						:class="[
+							{ 'danger': $store.state.taskModalData.priority === TASK_PRIORITY_TYPE.HIGH },
+						]"
+					>
+						{{ $t(`TASK_PRIORITY_TYPE.${$store.state.taskModalData.priority}`) }}
+					</div>
+					<div
+						class="level-status"
+						v-else
+					>
+						{{ $t('notSet') }}
 					</div>
 				</div>
 
 				<div class="mw-title__btm__right">
 					<span>{{ $t('difficultyLevel') }}:</span>
-					<span v-if="$store.state.taskModalData.level">
+
+					<div
+						v-if="$store.state.taskModalData.level"
+						class="level-status"
+						:class="[
+							{ 'danger': $store.state.taskModalData.level === TASK_LEVEL_TYPE.HIGH },
+						]"
+					>
 						{{ $t(`TASK_LEVEL_TYPE.${$store.state.taskModalData.level}`) }}
-					</span>
-					<span v-else>{{ $t('notSet') }}</span>
-					<!--<div-->
-					<!--v-if="$store.state.taskModalData.level"-->
-					<!--class="level-status"-->
-					<!--:class="[-->
-					<!--{'danger': $store.state.taskModalData.level === TASK_LEVEL_TYPE.HIGH},-->
-					<!--{'warning': $store.state.taskModalData.level === TASK_LEVEL_TYPE.NORMAL},-->
-					<!--{'success': $store.state.taskModalData.level === TASK_LEVEL_TYPE.LOW}-->
-					<!--]"-->
-					<!--&gt;-->
-					<!--<span>{{ $t(`TASK_LEVEL_TYPE.${$store.state.taskModalData.level}`) }}</span>-->
-					<!--</div>-->
+					</div>
+					<div
+						class="level-status"
+						v-else
+					>
+						{{ $t('notSet') }}
+					</div>
 				</div>
 			</div>
 		</div>
@@ -132,7 +148,7 @@
 
 <script>
 import { required } from 'vuelidate/lib/validators';
-import { PERMISSION_TYPE, TASK_LEVEL_TYPE } from '../../../../../constants';
+import { PERMISSION_TYPE, TASK_LEVEL_TYPE, TASK_PRIORITY_TYPE } from '../../../../../constants';
 import TaskModalLeftActivity from './TaskModalLeftActivity';
 import TaskModalLeftAttachment from './TaskModalLeftAttachment';
 import TaskModalLeftChecklist from './TaskModalLeftChecklist';
@@ -152,6 +168,7 @@ export default {
 	data() {
 		return {
 			TASK_LEVEL_TYPE,
+			TASK_PRIORITY_TYPE,
 			PERMISSION_TYPE,
 			taskNameEditMode: false,
 			taskNameForEdit: null,

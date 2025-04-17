@@ -32,7 +32,7 @@
 			</div>
 
 
-			<div class="mw-priority align-items-center">
+			<!-- <div class="mw-priority align-items-center">
 				<h5>{{ $t('priority') }}:</h5>
 				<span
 					v-if="$store.state.taskModalData.priority"
@@ -41,7 +41,7 @@
 					{{ $t(`TASK_PRIORITY_TYPE.${$store.state.taskModalData.priority}`) }}
 				</span>
 				<span v-else>{{ $t('notSet') }}</span>
-			</div>
+			</div> -->
 
 			<div class="mw-priority align-items-center">
 				<h5>{{ $t('timeSpent') }}:</h5>
@@ -167,10 +167,12 @@ export default {
 
 			this.$store.state.taskModalData.timerStatus = status;
 
-			await this.$api.post('/task-timer', {
+			const resp = await this.$api.post('/task-timer', {
 				taskId: this.$store.state.taskModalData.id,
 				timerStatus: status,
 			});
+
+			this.$store.state.taskModalData.totalTimeSpent = resp.data.data.task.totalTimeSpent;
 		}
 	},
 };

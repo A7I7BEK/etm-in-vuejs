@@ -3660,27 +3660,28 @@ input#typeofprject2:checked + label {
 	border-radius: 12px;
 	display: flex;
 	align-items: center;
+	color: #495E75;
+	font-size: 14px;
+	background-color: #DDE4F1;
 }
 
 .level-status.success {
 	background: #7DCBAA;
+	color: #fff;
 }
 
 .level-status.warning {
 	background: #EBA53C;
+	color: #fff;
 }
 
 .level-status.danger {
 	background: #EF5730;
-}
-
-.level-status span {
-	font-size: 14px;
 	color: #fff;
-	margin-right: 0;
 }
 
-.column-name a {
+
+.column-name {
 	text-transform: uppercase;
 	color: #495E75;
 	font-size: 14px;
