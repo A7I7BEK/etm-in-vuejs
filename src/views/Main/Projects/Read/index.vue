@@ -48,7 +48,7 @@
 									</span>
 
 									<i
-										class="fa fa-user-secret ml-2"
+										class="fa fa-trophy ml-2"
 										v-if="item.isTeamLeader"
 										:title="$t('teamLeader')"
 									></i>

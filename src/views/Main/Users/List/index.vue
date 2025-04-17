@@ -116,6 +116,8 @@
 
 						<th>{{ $tc('menu.role', 2) }}</th>
 
+						<th>{{ $t('systemCreated') }}</th>
+
 						<th
 							class="sort"
 							:class="{ 'active': params.sortBy === SORT_PROP.ORGANIZATION }"
@@ -207,6 +209,19 @@
 								v-else
 							>
 								{{ $t('roleAbsent') }}
+							</div>
+						</td>
+
+						<td>
+							<div class="az_crud_tb_txt">
+								<i
+									class="fa fa-check"
+									v-if="item.user.marks.registered"
+								></i>
+								<i
+									class="fa fa-minus"
+									v-else
+								></i>
 							</div>
 						</td>
 

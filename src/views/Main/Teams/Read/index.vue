@@ -33,7 +33,7 @@
 
 									<i
 										v-if="item.id === model.leader.id"
-										class="fa fa-user-secret ml-2"
+										class="fa fa-trophy ml-2"
 										:title="$t('teamLeader')"
 									></i>
 								</li>
