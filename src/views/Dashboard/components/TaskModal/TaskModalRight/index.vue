@@ -42,6 +42,11 @@
 				</span>
 				<span v-else>{{ $t('notSet') }}</span>
 			</div>
+
+			<div class="mw-priority align-items-center">
+				<h5>{{ $t('timeSpent') }}:</h5>
+				<span>{{ $store.state.taskModalData.totalTimeSpent | filterTimeSeconds }}</span>
+			</div>
 		</div>
 
 

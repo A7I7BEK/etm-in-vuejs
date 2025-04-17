@@ -1,5 +1,5 @@
-import Vue from 'vue';
 import Moment from 'moment';
+import Vue from 'vue';
 
 
 
@@ -44,13 +44,29 @@ Vue.filter('filterTimeDateStr', (val) => {
 
 Vue.filter('filterTimeLeftMinutes', (val) => {
 	if (typeof val === 'number') {
-		let duration = Moment.duration(val, 'm');
+		let duration = Moment.duration(val, 'minutes');
 		return (duration.asDays() > 9 ? Math.floor(duration.asDays()) : '0' + Math.floor(duration.asDays())) + ':' +
 			(duration.hours() > 9 ? duration.hours() : '0' + duration.hours()) + ':' +
 			(duration.minutes() > 9 ? duration.minutes() : '0' + duration.minutes());
 	}
 
 	return '';
+});
+
+Vue.filter('filterTimeSeconds', (val) => {
+	if (!Number.isFinite(val)) {
+		return '';
+	}
+
+	const duration = Moment.duration(val, 'seconds');
+	const time = [];
+
+	if (duration.asDays() > 1) time.push(Math.floor(duration.asDays()) + 'd');
+	if (duration.hours() > 0) time.push(duration.hours() + 'h');
+	if (duration.minutes() > 0) time.push(duration.minutes() + 'm');
+	if (duration.seconds() > 0) time.push(duration.seconds() + 's');
+
+	return time.join(', ');
 });
 
 Vue.filter('filterPhoneNumber', (val) => {
