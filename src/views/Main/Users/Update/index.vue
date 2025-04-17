@@ -91,8 +91,8 @@ export default {
 			this.model.middleName = this.model.middleName || null;
 
 			try {
-				await this.$api.put('/employees/' + this.id, this.model.GetData());
 				await this.$api.post('/users/attach-role', this.modelSecond.GetData());
+				await this.$api.put('/employees/' + this.id, this.model.GetData());
 
 				this.$router.push({ name: 'mainUsers' });
 			} catch (error) {
