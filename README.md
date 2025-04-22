@@ -1,5 +1,10 @@
 # ETM - Electron Task Manager (Trello clone)
 
+- https://electron-task-manager.netlify.app/
+- https://electron-task-manager.vercel.app/
+
+
+
 ## Project setup
 ```
 npm install
