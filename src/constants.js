@@ -7,7 +7,7 @@ export const PROD_URL = '';
 
 
 /*____________________ Defaults ____________________*/
-export const DEFAULT_URL = DEV_URL;
+export const DEFAULT_URL = process.env.VUE_APP_API_URL;
 
 
 
