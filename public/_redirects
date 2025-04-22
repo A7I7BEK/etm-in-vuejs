@@ -1,0 +1,5 @@
+# Netlify settings
+# Redirect all routes to index.html for Vue Router history mode
+
+
+/*    /index.html   200
