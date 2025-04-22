@@ -51,6 +51,7 @@
 </template>
 
 <script>
+import { META_DATA } from './constants';
 import { accessTokenGet, refreshTokenGet, setAllTokens, setRefreshTokenInterval } from './services/TokenService';
 import { setProfile } from './utils/setProfile';
 
@@ -59,9 +60,9 @@ export default {
 	watch: {
 		'$route': {
 			handler(to, from) {
-				this.$store.state.metaData.title = to.meta.title ? to.meta.title() : 'ETM';
-				this.$store.state.metaData.description = to.meta.description ? to.meta.description() : 'Test description';
-				this.$store.state.metaData.keywords = to.meta.keywords ? to.meta.keywords() : 'Test keyword';
+				this.$store.state.metaData.title = to.meta.title ? to.meta.title() : META_DATA.title;
+				this.$store.state.metaData.description = to.meta.description ? to.meta.description() : META_DATA.description;
+				this.$store.state.metaData.keywords = to.meta.keywords ? to.meta.keywords() : META_DATA.keywords;
 			},
 			immediate: true
 		}

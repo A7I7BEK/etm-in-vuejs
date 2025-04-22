@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { BACKGROUND_IMAGE, DEFAULT_URL } from './constants';
+import { BACKGROUND_IMAGE, DEFAULT_URL, META_DATA } from './constants';
 
 
 Vue.use(Vuex);
@@ -31,10 +31,10 @@ export default new Vuex.Store({
 		taskModalActionStarter: 0,
 		rightMenuActionStarter: 0,
 		metaData: {
-			title: 'Test title',
-			description: 'Test description',
-			keywords: 'Test keyword',
-			image: 'https://etm.crm24.uz/img/favicon_alert.png',
+			title: META_DATA.title,
+			description: META_DATA.description,
+			keywords: META_DATA.keywords,
+			image: META_DATA.image,
 		},
 		notificationAlert: false,
 	},

@@ -105,7 +105,7 @@ export const META_DATA = {
 	title: 'Test title',
 	description: 'Test description',
 	keywords: 'Test keyword',
-	image: 'https://etm.crm24.uz/img/favicon_alert.png',
+	image: '/img/favicon.png',
 };
 export const FAVICON_SIMPLE = '/img/favicon.png';
 export const FAVICON_ALERT = '/img/favicon_alert.png';
