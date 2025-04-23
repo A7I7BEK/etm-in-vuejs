@@ -3,7 +3,7 @@ module.exports = {
     devtool: 'source-map'
   },
   lintOnSave: false,
-  publicPath: undefined,
+  publicPath: process.env.GITHUB_PAGES_SUFFIX || '/',
   outputDir: undefined,
   assetsDir: undefined,
   runtimeCompiler: undefined,
@@ -14,4 +14,4 @@ module.exports = {
     hot: false, // disable parallel update on save
     liveReload: false, // disable sudden browser refresh on save
   },
-}
+};
