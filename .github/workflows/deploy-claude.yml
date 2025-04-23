@@ -1,4 +1,4 @@
-name: Deploy Vue.js Site to GitHub Pages
+name: Claude
 
 on:
   push:
