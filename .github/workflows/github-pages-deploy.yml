@@ -1,0 +1,44 @@
+name: Deploy Vue.js App to GitHub Pages
+
+on:
+  # Trigger the workflow when changes are pushed to the `main` branch
+  push:
+    branches:
+      - main
+
+  # Trigger the workflow when a pull request is opened against the `main` branch
+  pull_request:
+    branches:
+      - main
+
+  # Allow manual triggering of the workflow from the GitHub Actions tab
+  workflow_dispatch:
+
+
+
+jobs:
+  build-and-deploy:
+
+    # Specify the operating system
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
