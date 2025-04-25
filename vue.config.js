@@ -3,7 +3,7 @@ module.exports = {
     devtool: 'source-map'
   },
   lintOnSave: false,
-  publicPath: process.env.GITHUB_PAGES_SUFFIX || '/',
+  publicPath: process.env.GH_PAGES_SUFFIX || '/',
   outputDir: undefined,
   assetsDir: undefined,
   runtimeCompiler: undefined,
