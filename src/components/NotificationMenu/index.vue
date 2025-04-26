@@ -1,5 +1,5 @@
 <script>
-import { DEFAULT_URL, FAVICON_ALERT, FAVICON_SIMPLE, ORDER } from '../../constants';
+import { API_URL, FAVICON_ALERT, FAVICON_SIMPLE, ORDER } from '../../constants';
 import { SocketService } from '../../services/SocketService';
 import { accessTokenGet } from '../../services/TokenService';
 import BaseRightMenu from '../BaseRightMenu';
@@ -34,7 +34,7 @@ export default {
 				},
 			},
 			socketNotif: new SocketService({
-				url: DEFAULT_URL,
+				url: API_URL,
 				path: '/ws-notifications',
 				token: accessTokenGet(),
 			}),

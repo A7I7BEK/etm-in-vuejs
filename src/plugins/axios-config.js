@@ -1,6 +1,6 @@
 import Axios from 'axios';
 import Vue from 'vue';
-import { DEFAULT_URL } from '../constants';
+import { API_URL } from '../constants';
 import { langGet } from '../services/LanguageService';
 import { accessTokenGet, clearAllTokens } from '../services/TokenService';
 import { clearProfile } from '../utils/clearProfile';
@@ -9,7 +9,7 @@ import notification from './vue-notification-config';
 
 
 const instance = Axios.create({
-	baseURL: DEFAULT_URL,
+	baseURL: API_URL,
 	headers: {
 		common: {
 			'X-Requested-With': 'XMLHttpRequest',
