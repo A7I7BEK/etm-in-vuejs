@@ -1,9 +1,11 @@
 # Deploy Vue.js App to GitHub Pages
 name: Deploy - GitHub Pages
 
+
+# ─── When to run ───────────────────────────────────────────────────────────────
 on:
   # Trigger the workflow ONLY when changes are pushed to the `main` branch
-  # This includes merges from pull requests into `main`
+  # This includes merges from pull requests into `main` branch
   push:
     branches:
       - main
@@ -12,13 +14,17 @@ on:
   workflow_dispatch:
 
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+# ─── Set permissions ───────────────────────────────────────────────────────────
+# Set permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
+  # `contents: write` is required for action `peaceiris/actions-gh-pages@v4`
+  # Otherwise, `contents: read` is enough
   contents: write
   pages: write
   id-token: write
 
 
+# ─── Prevent overlapping deploys ───────────────────────────────────────────────
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
@@ -26,31 +32,69 @@ concurrency:
   cancel-in-progress: false
 
 
+# ─── Define jobs ──────────────────────────────────────────────────────────────
 jobs:
-  build-and-deploy:
+
+  # ─── Build job ──────────────────────────────────────────────────────────────
+  build:
+    name: Build and upload artifact
+
+    # Specify the operating system
+    runs-on: ubuntu-latest
+
+    # Pass environment variables to the build job
+    env:
+      VUE_APP_DOMAIN_URL: ${{ vars.VUE_APP_DOMAIN_URL }}
+
+    steps:
+
+        # Checkout the code from the repository so we can build it
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+        # Enable GitHub Pages on this repo and gather metadata for the deploy
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+        # Installs Node.js (v20) so we can npm install & build
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+        # `npm ci` is similar to `npm install`, except it's meant to be used in automated environments
+        # such as test platforms, continuous integration, and deployment
+        # It installs dependencies from package-lock.json, which is faster and more reliable
+      - name: Install dependencies
+        run: npm ci
+
+        # Runs Vue CLI build and outputs the files to the `./dist` folder
+      - name: Build project
+        run: npm run build
+
+        # Packages the contents of `./dist` folder and uploads it for the Deploy job
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  # ─── Deploy job ─────────────────────────────────────────────────────────────
+  deploy:
+    name: Deploy to GitHub Pages
+
+    # Wait for the build job’s artifact
+    needs: build
 
     # Specify the operating system
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
+      # Download the uploaded artifact and publish it via the Pages API
+      - name: Deploy artifact to Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
 
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build project
-        run: npm run build
-        env:
-          GH_PAGES_SUFFIX: /${{ github.event.repository.name }}/
-
-      - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+        # Print the published URL to the Actions log
+      - name: Show the site URL
+        run: echo "Your site is live at ${{ steps.deployment.outputs.page_url }}"
