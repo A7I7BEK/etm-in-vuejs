@@ -44,6 +44,7 @@ jobs:
 
     # Pass environment variables to the build job
     env:
+      VUE_APP_API_URL: ${{ vars.VUE_APP_API_URL }}
       VUE_APP_DOMAIN_URL: ${{ vars.VUE_APP_DOMAIN_URL }}
 
     steps:
@@ -56,7 +57,7 @@ jobs:
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
-        # Installs Node.js (v20) so we can npm install & build
+        # Install Node.js (v20) so we can npm install & build
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -64,15 +65,16 @@ jobs:
 
         # `npm ci` is similar to `npm install`, except it's meant to be used in automated environments
         # such as test platforms, continuous integration, and deployment
-        # It installs dependencies from package-lock.json, which is faster and more reliable
+        # Uses `package-lock.json` to installs dependencies for exact versions
       - name: Install dependencies
         run: npm ci
 
-        # Runs Vue CLI build and outputs the files to the `./dist` folder
+        # Run Vue CLI build and output the files to the `./dist` folder
       - name: Build project
         run: npm run build
 
-        # Packages the contents of `./dist` folder and uploads it for the Deploy job
+        # Upload the built application files (from the './dist' folder) as a Pages artifact.
+        # The 'actions/deploy-pages' job will automatically download this artifact.
       - name: Upload GitHub Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
@@ -91,7 +93,7 @@ jobs:
     steps:
 
       # Download the uploaded artifact and publish it via the Pages API
-      - name: Deploy artifact to Pages
+      - name: Deploy artifact to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
 
