@@ -73,6 +73,10 @@ jobs:
       - name: Build project
         run: npm run build
 
+        # Copy index.html to 404.html for history mode support on GitHub Pages
+      - name: Create SPA fallback
+        run: cp dist/index.html dist/404.html
+
         # Upload the built application files (from the './dist' folder) as a Pages artifact.
         # The 'actions/deploy-pages' job will automatically download this artifact.
       - name: Upload GitHub Pages artifact
