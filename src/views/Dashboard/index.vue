@@ -1,4 +1,5 @@
 <script>
+import defaultBackgroundImg from '../../assets/img/background2.jpg';
 import { API_URL, ORDER, PERMISSION_TYPE } from '../../constants';
 import SidebarMenu from '../../layouts/components/SidebarMenu';
 import { SocketService } from '../../services/SocketService';
@@ -76,7 +77,7 @@ export default {
 			let style = '', background = this.$store.state.projectData.background;
 
 			if (!background) {
-				style = `background-image: url('${this.$store.state.backgroundImg}')`;
+				style = `background-image: url('${defaultBackgroundImg}')`;
 			}
 			else if (background.charAt(0) === '#') {
 				style = 'background-color:' + background;

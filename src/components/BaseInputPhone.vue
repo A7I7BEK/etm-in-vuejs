@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { TheMask } from '../assets/vue-the-mask/src/index';
+import { TheMask } from '../assets/plugins/vue-the-mask/src/index';
 
 
 export default {

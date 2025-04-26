@@ -11,6 +11,7 @@ import './plugins/vue-headful-config';
 import './mixins/index';
 import './directives/index';
 import './filters';
+import './assets/css/all.css';
 
 
 

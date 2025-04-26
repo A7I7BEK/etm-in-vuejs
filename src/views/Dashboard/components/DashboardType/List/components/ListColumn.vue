@@ -24,11 +24,11 @@
 				v-else
 			>
 				<div class="ln_board_item1_header_img1">
-					<img src="/img/dotss.png">
+					<img src="@/assets/img/dotss.png">
 				</div>
 				<div class="ln_board_item1_header_left_cont1">
 					<div class="ln_board_item1_header_left_icon1">
-						<img src="/img/rom4.png">
+						<img src="@/assets/img/rom4.png">
 					</div>
 					<p class="ln_board_item1_header_left_ppp">
 						<b v-if="typeTrello">{{ columnItem.name }}</b>
@@ -122,7 +122,7 @@
 					data-target="#modalCreateTask"
 					@click="$store.state.createTaskColumnId = columnItem.id"
 				>
-					<img src="/img/rom2.png">
+					<img src="@/assets/img/rom2.png">
 					<span>{{ $t('boardColumn.addTask') }}</span>
 				</button>
 			</div>

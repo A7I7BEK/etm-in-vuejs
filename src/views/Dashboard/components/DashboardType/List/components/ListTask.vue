@@ -31,7 +31,7 @@
 					class="ln_board_item1_____11"
 					v-if="taskItem.checkListCount"
 				>
-					<img src="/img/rom3.png">
+					<img src="@/assets/img/rom3.png">
 					<span>{{ taskItem.checkListCount.checkedCount }} - {{ taskItem.checkListCount.totalCount }}</span>
 				</div>
 
@@ -39,7 +39,7 @@
 					class="ln_board_item1_____11"
 					v-if="taskItem.commentCount > 0"
 				>
-					<img src="/img/rom1.png">
+					<img src="@/assets/img/rom1.png">
 					<span>{{ taskItem.commentCount }}</span>
 				</div>
 				<div

@@ -15,10 +15,10 @@ export default {
 	},
 	computed: {
 		computedBackground() {
-			let color = '', img = '', background = this.$store.state.projectData.background;
+			let isDefault = false, color = '', img = '', background = this.$store.state.projectData.background;
 
 			if (!background) {
-				img = this.$store.state.backgroundImg;
+				isDefault = true;
 			}
 			else if (background.charAt(0) === '#') {
 				color = background;
@@ -27,7 +27,7 @@ export default {
 				img = this.$store.state.url + background;
 			}
 
-			return { color, img };
+			return { isDefault, color, img };
 		},
 	},
 	methods: {

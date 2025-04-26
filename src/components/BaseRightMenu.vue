@@ -26,7 +26,7 @@
 				v-if="buttonClose"
 			>
 				<img
-					src="/img/svg/close.svg"
+					src="@/assets/img/svg/close.svg"
 					alt=""
 				>
 			</button>

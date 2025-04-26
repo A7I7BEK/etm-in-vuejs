@@ -9,14 +9,19 @@
 					<div class="col-4 mb-3">
 						<div
 							class="az_bg_mdl_color"
-							style="background: url('/img/background2.jpg') center / cover no-repeat;"
+							:style="{
+								backgroundImage: `url('${require('@/assets/img/background2.jpg')}')`,
+								backgroundPosition: 'center',
+								backgroundSize: 'cover',
+								backgroundRepeat: 'no-repeat',
+							}"
 							@click="ResetBackground"
 						>
 							<div
 								class="az_bg_mdl_color_tick"
-								v-if="computedBackground.img === $store.state.backgroundImg"
+								v-if="computedBackground.isDefault"
 							>
-								<img src="/img/svg/background-tick.svg">
+								<img src="@/assets/img/svg/background-tick.svg">
 							</div>
 						</div>
 					</div>
@@ -34,7 +39,7 @@
 								class="az_bg_mdl_color_tick"
 								v-if="computedBackground.color === item"
 							>
-								<img src="/img/svg/background-tick.svg">
+								<img src="@/assets/img/svg/background-tick.svg">
 							</div>
 						</div>
 					</div>
@@ -43,7 +48,7 @@
 
 				<label
 					class="az_bg_mdl_img_up"
-					:class="{'active': computedBackground.img}"
+					:class="{'active': computedBackground.img || computedBackground.isDefault}"
 				>
 					<input
 						type="file"
@@ -56,8 +61,12 @@
 						:src="computedBackground.img"
 					>
 					<img
+						v-else-if="computedBackground.isDefault"
+						src="@/assets/img/background2.jpg"
+					>
+					<img
 						v-else
-						src="/img/svg/background-image-preview.svg"
+						src="@/assets/img/svg/background-image-preview.svg"
 					>
 				</label>
 			</div>

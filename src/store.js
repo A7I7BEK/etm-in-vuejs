@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import { API_URL, BACKGROUND_IMAGE, DOMAIN_URL, META_DATA } from './constants';
+import { API_URL, DOMAIN_URL, META_DATA } from './constants';
 
 
 Vue.use(Vuex);
@@ -11,7 +11,6 @@ export default new Vuex.Store({
 		loader: false,
 		url: API_URL,
 		domainUrl: DOMAIN_URL,
-		backgroundImg: BACKGROUND_IMAGE,
 		refreshTokenIntervalId: 0,
 		userProfile: null,
 		systemAdmin: false,

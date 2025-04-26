@@ -7,7 +7,7 @@
 						:to="{ name: 'main' }"
 						class="ln_heder__tomain"
 					>
-						<img src="/img/mylogo.png">
+						<img src="@/assets/img/mylogo.png">
 					</router-link>
 
 

@@ -99,11 +99,9 @@ export const META_DATA = {
 	title: 'Test title',
 	description: 'Test description',
 	keywords: 'Test keyword',
-	image: '/img/favicon.png',
+	image: DOMAIN_URL + 'img-static/favicon.png',
 };
-export const FAVICON_SIMPLE = '/img/favicon.png';
-export const FAVICON_ALERT = '/img/favicon_alert.png';
-export const BACKGROUND_IMAGE = '/img/background2.jpg';
+
 
 
 export const PERMISSION_TYPE = {

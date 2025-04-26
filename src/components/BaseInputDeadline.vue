@@ -33,7 +33,7 @@
 
 <script>
 import Datepicker from 'vuejs-datepicker';
-import { en, ru, uz } from '../assets/vuejs-datepicker/locale/index';
+import { en, ru, uz } from '../assets/plugins/vuejs-datepicker/locale/index';
 
 
 

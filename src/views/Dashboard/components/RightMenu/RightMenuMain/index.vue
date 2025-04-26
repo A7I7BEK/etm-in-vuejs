@@ -1,4 +1,5 @@
 <script>
+import defaultBackgroundImg from '../../../../../assets/img/background2.jpg';
 import BaseAction from '../../../../../components/actions/base-action.vue';
 import BaseRightMenu from '../../../../../components/BaseRightMenu';
 import { API_URL, PERMISSION_TYPE } from '../../../../../constants';
@@ -33,7 +34,7 @@ export default {
 			let color = '', img = '', background = this.$store.state.projectData.background;
 
 			if (!background) {
-				img = this.$store.state.backgroundImg;
+				img = defaultBackgroundImg;
 			}
 			else if (background.charAt(0) === '#') {
 				color = 'background-color:' + background;

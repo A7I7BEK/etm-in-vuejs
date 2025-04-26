@@ -58,7 +58,7 @@
 				v-if="taskItem.commentCount > 0"
 			>
 				<img
-					src="/img/svg/comment.svg"
+					src="@/assets/img/svg/comment.svg"
 					alt=""
 				>
 				<span>{{ taskItem.commentCount }}</span>
@@ -78,7 +78,7 @@
 				v-if="taskItem.checkListCount"
 			>
 				<img
-					src="/img/svg/checkbox.svg"
+					src="@/assets/img/svg/checkbox.svg"
 					alt=""
 				>
 				<span>{{ taskItem.checkListCount.checkedCount }} - {{ taskItem.checkListCount.totalCount }}</span>

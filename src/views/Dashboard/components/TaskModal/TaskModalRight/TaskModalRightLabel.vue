@@ -59,7 +59,7 @@
 												@change="TaskTagToggle(item)"
 											>
 											<img
-												src="/img/svg/check.svg"
+												src="@/assets/img/svg/check.svg"
 												alt=""
 											>
 										</div>

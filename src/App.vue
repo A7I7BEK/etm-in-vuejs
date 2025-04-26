@@ -27,7 +27,7 @@
 		>
 
 			<div class="loader-pulse">
-				<img src="/img/favicon.png" />
+				<img src="@/assets/img/favicon.png" />
 			</div>
 		</div>
 

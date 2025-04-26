@@ -1,5 +1,7 @@
 <script>
-import { API_URL, FAVICON_ALERT, FAVICON_SIMPLE, ORDER } from '../../constants';
+import imgFaviconSimple from '../../assets/img/favicon.png';
+import imgFaviconAlert from '../../assets/img/favicon_alert.png';
+import { API_URL, ORDER } from '../../constants';
 import { SocketService } from '../../services/SocketService';
 import { accessTokenGet } from '../../services/TokenService';
 import BaseRightMenu from '../BaseRightMenu';
@@ -120,7 +122,7 @@ export default {
 		AlarmSwitcher() {
 			let status = this.notif.list.some(x => !x.seenAt);
 			this.$store.state.notificationAlert = status;
-			document.getElementById('favicon').href = status ? FAVICON_ALERT : FAVICON_SIMPLE;
+			document.getElementById('favicon').href = status ? imgFaviconAlert : imgFaviconSimple;
 		},
 	}
 };
