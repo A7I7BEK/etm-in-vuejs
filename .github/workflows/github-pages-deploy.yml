@@ -56,8 +56,6 @@ jobs:
         # Enable GitHub Pages on this repo and gather metadata for the deploy
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
-        with:
-          static_site_generator: 'vue'
 
         # Install Node.js (v20) so we can npm install & build
       - name: Setup Node.js
