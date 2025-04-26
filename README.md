@@ -2,6 +2,7 @@
 
 - https://electron-task-manager.netlify.app/
 - https://electron-task-manager.vercel.app/
+- https://a7i7bek.github.io/etm-in-vuejs/
 
 
 
