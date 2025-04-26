@@ -1,14 +1,7 @@
-/*____________________ Dev Server ____________________*/
-export const DEV_URL = 'http://localhost:3001';
 
-
-/*____________________ Prod Server ____________________*/
-export const PROD_URL = '';
-
-
-/*____________________ Defaults ____________________*/
-export const API_URL = process.env.VUE_APP_API_URL;
-export const DOMAIN_URL = process.env.VUE_APP_DOMAIN_URL;
+/*____________________ URLs ____________________*/
+export const API_URL = process.env.VUE_APP_API_URL || '/';
+export const DOMAIN_URL = process.env.VUE_APP_DOMAIN_URL || '/';
 
 
 

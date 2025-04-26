@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import { DOMAIN_URL } from './constants';
 import $i18n from './plugins/vue-i18n-config';
 import { accessTokenGet } from './services/TokenService';
 
@@ -9,7 +10,7 @@ Vue.use(Router);
 
 const router = new Router({
 	mode: 'history',
-	base: process.env.VUE_APP_DOMAIN_URL || '/',
+	base: DOMAIN_URL,
 	linkActiveClass: 'active',
 	routes: [
 		{
