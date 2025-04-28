@@ -7,8 +7,7 @@ on:
   # Trigger the workflow ONLY when changes are pushed to the `main` branch
   # This includes merges from pull requests into `main` branch
   push:
-    branches:
-      - main
+    branches: ["main"]
 
   # Allow manual triggering of the workflow from the GitHub Actions tab
   workflow_dispatch:
@@ -44,8 +43,8 @@ jobs:
 
     # Pass environment variables to the build job
     env:
-      VUE_APP_API_URL: ${{ vars.VUE_APP_API_URL }}
-      VUE_APP_DOMAIN_URL: ${{ vars.VUE_APP_DOMAIN_URL }}
+      VUE_APP_API_URL: ${{ vars.API_URL_GITHUB }}
+      VUE_APP_DOMAIN_URL: ${{ vars.DOMAIN_URL_GITHUB }}
 
     steps:
 
