@@ -3,6 +3,7 @@
 - GitHub Pages: https://a7i7bek.github.io/etm-in-vuejs/
 - Netlify: https://electron-task-manager.netlify.app/
 - Vercel: https://electron-task-manager.vercel.app/
+- Sevalla: https://electron-task-manager-m9ww5.kinsta.page/
 - Firebase Hosting
     1. https://electron-task-manager.web.app/
     2. https://electron-task-manager.firebaseapp.com/
