@@ -18,7 +18,7 @@
 </template>
 
 <script>
-import { refreshTokenGet, setAllTokens, setRefreshTokenInterval } from '../../../services/TokenService';
+import { setAllTokens } from '../../../services/TokenService';
 import { setProfile } from '../../../utils/setProfile';
 import AccountDetails from './parts/AccountDetails';
 import OtpConfirm from './parts/OtpConfirm';
@@ -43,20 +43,10 @@ export default {
 		},
 		async ListenEmitConfirm(val) {
 			setAllTokens(val);
-			setRefreshTokenInterval(this.RefreshToken);
-
 			await this.GetProfileInfo();
-		},
-		async RefreshToken() {
-			const resp = await this.$api.post('/auth/refresh-token', {
-				refreshToken: refreshTokenGet(),
-			});
-
-			setAllTokens(resp.data.data);
 		},
 		async GetProfileInfo() {
 			const resp = await this.$api.get('/users/me');
-
 			setProfile(resp.data.data);
 
 			this.$router

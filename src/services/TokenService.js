@@ -1,10 +1,7 @@
-// @ts-nocheck
-import $store from "../store";
 
-
-const TOKEN_KEY = 'Authorization';
-const REFRESH_TOKEN_KEY = 'Refresh';
-const EXPIRE_TIME = 'Expire';
+const TOKEN_KEY = 'access_token';
+const REFRESH_TOKEN_KEY = 'refresh_token';
+const EXPIRE_TIME = 'access_token_expire_time';
 
 
 export function accessTokenSet(token) {
@@ -35,7 +32,7 @@ export function expireTimeSet(time) {
 	localStorage.setItem(EXPIRE_TIME, time);
 }
 export function expireTimeGet() {
-	return parseInt(localStorage.getItem(EXPIRE_TIME) || '0');
+	return Number(localStorage.getItem(EXPIRE_TIME)) || 0;
 }
 export function expireTimeRemove() {
 	localStorage.removeItem(EXPIRE_TIME);
@@ -53,14 +50,4 @@ export function clearAllTokens() {
 	accessTokenRemove();
 	refreshTokenRemove();
 	expireTimeRemove();
-}
-
-
-
-export function setRefreshTokenInterval(expireCallback) {
-	$store.state.refreshTokenIntervalId = setInterval(() => {
-		if (Date.now() > expireTimeGet() - 60 * 1000) {
-			expireCallback();
-		}
-	}, 1000);
 }

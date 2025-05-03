@@ -11,7 +11,6 @@ export default new Vuex.Store({
 		loader: false,
 		url: API_URL,
 		domainUrl: DOMAIN_URL,
-		refreshTokenIntervalId: 0,
 		userProfile: null,
 		systemAdmin: false,
 		permissionList: [],

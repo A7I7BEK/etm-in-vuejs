@@ -52,7 +52,7 @@
 
 <script>
 import { META_DATA } from './constants';
-import { accessTokenGet, refreshTokenGet, setAllTokens, setRefreshTokenInterval } from './services/TokenService';
+import { accessTokenGet } from './services/TokenService';
 import { setProfile } from './utils/setProfile';
 
 
@@ -69,21 +69,12 @@ export default {
 	},
 	async created() {
 		if (accessTokenGet()) {
-			setRefreshTokenInterval(this.RefreshToken);
 			await this.GetProfileInfo();
 		}
 	},
 	methods: {
-		async RefreshToken() {
-			const resp = await this.$api.post('/auth/refresh-token', {
-				refreshToken: refreshTokenGet(),
-			});
-
-			setAllTokens(resp.data.data);
-		},
 		async GetProfileInfo() {
 			const resp = await this.$api.get('/users/me');
-
 			setProfile(resp.data.data);
 		},
 	}

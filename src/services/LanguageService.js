@@ -1,7 +1,7 @@
 import { LANG } from '../constants';
 
 
-const LANGUAGE = 'Lang';
+const LANGUAGE = 'language';
 
 
 export function langSet(lang) {
