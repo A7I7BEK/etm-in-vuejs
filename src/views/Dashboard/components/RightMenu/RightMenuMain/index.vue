@@ -2,7 +2,7 @@
 import defaultBackgroundImg from '../../../../../assets/img/background2.jpg';
 import BaseAction from '../../../../../components/actions/base-action.vue';
 import BaseRightMenu from '../../../../../components/BaseRightMenu';
-import { API_URL, PERMISSION_TYPE } from '../../../../../constants';
+import { PERMISSION_TYPE, WS_URL } from '../../../../../constants';
 import { SocketService } from '../../../../../services/SocketService';
 import { accessTokenGet } from '../../../../../services/TokenService';
 import BackgroundModal from './BackgroundModal/index';
@@ -21,7 +21,7 @@ export default {
 		return {
 			PERMISSION_TYPE,
 			socketAction: new SocketService({
-				url: API_URL,
+				url: WS_URL,
 				path: '/ws-actions',
 				token: accessTokenGet(),
 				roomId: this.$route.params.id,

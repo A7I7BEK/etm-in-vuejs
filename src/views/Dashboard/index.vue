@@ -1,6 +1,6 @@
 <script>
 import defaultBackgroundImg from '../../assets/img/background2.jpg';
-import { API_URL, ORDER, PERMISSION_TYPE } from '../../constants';
+import { ORDER, PERMISSION_TYPE, WS_URL } from '../../constants';
 import SidebarMenu from '../../layouts/components/SidebarMenu';
 import { SocketService } from '../../services/SocketService';
 import { accessTokenGet } from '../../services/TokenService';
@@ -28,19 +28,19 @@ export default {
 		return {
 			PERMISSION_TYPE,
 			socketColumn: new SocketService({
-				url: API_URL,
+				url: WS_URL,
 				path: '/ws-project-columns',
 				token: accessTokenGet(),
 				roomId: this.$route.params.id,
 			}),
 			socketTask: new SocketService({
-				url: API_URL,
+				url: WS_URL,
 				path: '/ws-tasks',
 				token: accessTokenGet(),
 				roomId: this.$route.params.id,
 			}),
 			socketActive: new SocketService({
-				url: API_URL,
+				url: WS_URL,
 				path: '/ws-active-users',
 				token: accessTokenGet(),
 			}),

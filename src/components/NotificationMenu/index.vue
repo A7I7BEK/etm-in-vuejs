@@ -1,7 +1,7 @@
 <script>
 import imgFaviconSimple from '../../assets/img/favicon.png';
 import imgFaviconAlert from '../../assets/img/favicon_alert.png';
-import { API_URL, ORDER } from '../../constants';
+import { ORDER, WS_URL } from '../../constants';
 import { SocketService } from '../../services/SocketService';
 import { accessTokenGet } from '../../services/TokenService';
 import BaseRightMenu from '../BaseRightMenu';
@@ -36,7 +36,7 @@ export default {
 				},
 			},
 			socketNotif: new SocketService({
-				url: API_URL,
+				url: WS_URL,
 				path: '/ws-notifications',
 				token: accessTokenGet(),
 			}),
