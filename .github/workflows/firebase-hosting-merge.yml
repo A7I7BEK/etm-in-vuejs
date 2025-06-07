@@ -14,6 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       VUE_APP_API_URL: ${{ vars.API_URL_FIREBASE }}
+      VUE_APP_WS_URL: ${{ vars.WS_URL_FIREBASE }}
     steps:
       - uses: actions/checkout@v4
       - run: npm ci && npm run build
