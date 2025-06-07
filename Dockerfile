@@ -28,8 +28,8 @@ COPY nginx.conf.template /etc/nginx/templates/nginx.conf.template
 # Expose port
 EXPOSE 80
 
-# Set default value for BACKEND_URL (can be overridden at runtime)
-ENV BACKEND_URL=https://example-backend.com
+# Set default value for BACKEND_INTERNAL_URL (can be overridden at runtime)
+ENV BACKEND_INTERNAL_URL=https://example-internal-backend.com
 
 # Start nginx with environment variable substitution
-CMD ["/bin/sh", "-c", "envsubst '${BACKEND_URL}' < /etc/nginx/templates/nginx.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
+CMD ["/bin/sh", "-c", "envsubst '${BACKEND_INTERNAL_URL}' < /etc/nginx/templates/nginx.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
