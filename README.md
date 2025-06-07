@@ -7,6 +7,7 @@
 - Firebase Hosting
     1. https://electron-task-manager.web.app/
     2. https://electron-task-manager.firebaseapp.com/
+- Railway: https://etm-in-vuejs.up.railway.app/
 
 
 
