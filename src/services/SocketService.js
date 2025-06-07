@@ -18,17 +18,21 @@ export class SocketService {
 
 
 	setup() {
-		this.socket = io(this.url, {
+		const socketOptions = {
 			path: this.path,
-			query: {
-				roomId: this.roomId,
-			},
+			query: {},
 			auth: {
 				token: this.token,
 			},
 			forceNew: true,
 			autoConnect: false,
-		});
+		};
+
+		if (this.roomId) {
+			socketOptions.query.roomId = this.roomId;
+		}
+
+		this.socket = io(this.url, socketOptions);
 	}
 
 
