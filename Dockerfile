@@ -5,6 +5,15 @@
 FROM node:lts-alpine as builder
 WORKDIR /app
 COPY . .
+
+# Declare build-time args
+ARG VUE_APP_API_URL
+ARG VUE_APP_DOMAIN_URL
+
+# Export them as environment variables for Vue CLI to use
+ENV VUE_APP_API_URL=$VUE_APP_API_URL
+ENV VUE_APP_DOMAIN_URL=$VUE_APP_DOMAIN_URL
+
 RUN npm install && npm run build
 
 # Serve with nginx
