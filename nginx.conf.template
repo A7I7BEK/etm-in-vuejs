@@ -19,7 +19,29 @@ server {
 
   error_page 404 /index.html;
 
-  # Proxy /api requests to internal backend
+  # Specific location for /api/ws-* for WebSockets
+  # This takes precedence over the general /api/ block for these paths.
+  location ~* ^/api/ws-(.*)$ {
+    # Proxies to ${BACKEND_INTERNAL_URL}/ws-$1 (e.g., /api/ws-tasks -> /ws-tasks)
+    # $is_args$args preserves any query parameters
+    proxy_pass ${BACKEND_INTERNAL_URL}/ws-$1$is_args$args;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "Upgrade";
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-Host $host; # From original /ws-* block
+    proxy_set_header X-Forwarded-Port $server_port; # From original /ws-* block
+    proxy_cache_bypass $http_upgrade;
+    proxy_read_timeout 86400;
+    proxy_send_timeout 86400;
+    proxy_connect_timeout 60;
+    proxy_buffering off;
+  }
+
+  # Proxy /api requests to internal backend (for non-WebSocket /api/... calls)
   location /api/ {
     rewrite ^/api/(.*)$ /$1 break;
     proxy_pass ${BACKEND_INTERNAL_URL};
@@ -30,12 +52,12 @@ server {
   }
 
   # Proxy all WebSocket connections with /ws-* pattern
+  # This block now handles direct /ws-* calls (not prefixed by /api/)
   location ~* ^/ws-.* {
-    rewrite ^/api/(.*)$ /$1 break;
     proxy_pass ${BACKEND_INTERNAL_URL};
     proxy_http_version 1.1;
     proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection "Upgrade"; # Changed from "upgrade"
+    proxy_set_header Connection "Upgrade";
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
