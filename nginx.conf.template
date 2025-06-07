@@ -19,8 +19,8 @@ server {
 
   error_page 404 /index.html;
 
-  # Proxy WebSocket connections (Socket.IO)
-  location /socket.io/ {
+  # Proxy all WebSocket connections with /ws-* pattern
+  location ~* ^/ws-.* {
     proxy_pass ${BACKEND_INTERNAL_URL};
     proxy_http_version 1.1;
     proxy_set_header Upgrade $http_upgrade;
@@ -31,20 +31,7 @@ server {
     proxy_set_header X-Forwarded-Proto $scheme;
     proxy_cache_bypass $http_upgrade;
     proxy_read_timeout 86400;
-  }
-
-  # Proxy /ws WebSocket endpoint
-  location /ws {
-    proxy_pass ${BACKEND_INTERNAL_URL};
-    proxy_http_version 1.1;
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection "upgrade";
-    proxy_set_header Host $host;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header X-Forwarded-Proto $scheme;
-    proxy_cache_bypass $http_upgrade;
-    proxy_read_timeout 86400;
+    proxy_send_timeout 86400;
   }
 
   # Proxy /api requests to internal backend
