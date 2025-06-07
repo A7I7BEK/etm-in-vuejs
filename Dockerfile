@@ -1,3 +1,6 @@
+# This Dockerfile builds a Vue.js application and serves it using Nginx.
+# It is needed for Railway.com
+
 # Build step
 FROM node:lts-alpine as builder
 WORKDIR /app
