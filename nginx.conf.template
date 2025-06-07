@@ -19,6 +19,16 @@ server {
 
   error_page 404 /index.html;
 
+  # Proxy /api requests to internal backend
+  location /api/ {
+    rewrite ^/api/(.*)$ /$1 break;
+    proxy_pass ${BACKEND_INTERNAL_URL};
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+  }
+
   # Proxy all WebSocket connections with /ws-* pattern
   location ~* ^/ws-.* {
     proxy_pass ${BACKEND_INTERNAL_URL};
@@ -36,15 +46,5 @@ server {
     proxy_send_timeout 86400;
     proxy_connect_timeout 60;
     proxy_buffering off;
-  }
-
-  # Proxy /api requests to internal backend
-  location /api/ {
-    rewrite ^/api/(.*)$ /$1 break;
-    proxy_pass ${BACKEND_INTERNAL_URL};
-    proxy_set_header Host $host;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header X-Forwarded-Proto $scheme;
   }
 }
