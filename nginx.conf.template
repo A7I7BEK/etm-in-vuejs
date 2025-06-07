@@ -31,6 +31,7 @@ server {
 
   # Proxy all WebSocket connections with /ws-* pattern
   location ~* ^/ws-.* {
+    rewrite ^/api/(.*)$ /$1 break;
     proxy_pass ${BACKEND_INTERNAL_URL};
     proxy_http_version 1.1;
     proxy_set_header Upgrade $http_upgrade;
