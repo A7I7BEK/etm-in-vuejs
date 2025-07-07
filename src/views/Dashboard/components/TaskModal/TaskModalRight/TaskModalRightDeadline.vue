@@ -395,8 +395,8 @@ export default {
 			const eTime = `${this.end.time.HH}:${this.end.time.mm}:00`;
 
 			const resp = await this.$api.post('/task-deadline', {
-				startDate: sDate + ' ' + sTime,
-				endDate: eDate + ' ' + eTime,
+				startDate: new Date(sDate + ' ' + sTime),
+				endDate: new Date(eDate + ' ' + eTime),
 				taskId: this.$store.state.taskModalData.id,
 			});
 
@@ -419,8 +419,8 @@ export default {
 			const eTime = `${this.end.time.HH}:${this.end.time.mm}:00`;
 
 			const resp = await this.$api.put('/task-deadline', {
-				startDate: sDate + ' ' + sTime,
-				endDate: eDate + ' ' + eTime,
+				startDate: new Date(sDate + ' ' + sTime),
+				endDate: new Date(eDate + ' ' + eTime),
 				changesComment: this.updateComment,
 				taskId: this.$store.state.taskModalData.id,
 			});
