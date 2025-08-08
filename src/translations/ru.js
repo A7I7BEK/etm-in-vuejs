@@ -35,6 +35,122 @@ export default {
 		sumTasks: 'Количество задач',
 		noTask: 'Нет задачи'
 	},
+	permissionItem: {
+		// Organization
+		[ PERMISSION_TYPE.ORGANIZATION.CREATE ]: 'Создание организации',
+		[ PERMISSION_TYPE.ORGANIZATION.READ ]: 'Просмотр организаций',
+		[ PERMISSION_TYPE.ORGANIZATION.UPDATE ]: 'Редактирование организации',
+		[ PERMISSION_TYPE.ORGANIZATION.DELETE ]: 'Удаление организации',
+		// Permission
+		[ PERMISSION_TYPE.PERMISSION.READ ]: 'Просмотр разрешений',
+		// Role
+		[ PERMISSION_TYPE.ROLE.CREATE ]: 'Создание роли',
+		[ PERMISSION_TYPE.ROLE.READ ]: 'Просмотр ролей',
+		[ PERMISSION_TYPE.ROLE.UPDATE ]: 'Редактирование роли',
+		[ PERMISSION_TYPE.ROLE.DELETE ]: 'Удаление роли',
+		[ PERMISSION_TYPE.ROLE.UPDATE_ADMINS ]: 'Управление администраторами роли',
+		// User
+		[ PERMISSION_TYPE.USER.GET_ME ]: 'Просмотр собственного профиля',
+		[ PERMISSION_TYPE.USER.ATTACH_ROLE ]: 'Назначение ролей пользователю',
+		[ PERMISSION_TYPE.USER.CHANGE_PASSWORD ]: 'Смена собственного пароля',
+		[ PERMISSION_TYPE.USER.CHANGE_LANGUAGE ]: 'Смена собственного языка',
+		[ PERMISSION_TYPE.USER.UPDATE_PROFILE ]: 'Редактирование собственного профиля',
+		// Employee
+		[ PERMISSION_TYPE.EMPLOYEE.CREATE ]: 'Создание сотрудника',
+		[ PERMISSION_TYPE.EMPLOYEE.READ ]: 'Просмотр сотрудников',
+		[ PERMISSION_TYPE.EMPLOYEE.UPDATE ]: 'Редактирование сотрудника',
+		[ PERMISSION_TYPE.EMPLOYEE.DELETE ]: 'Удаление сотрудника',
+		[ PERMISSION_TYPE.EMPLOYEE.CHANGE_PASSWORD ]: 'Смена пароля сотрудника',
+		// Group
+		[ PERMISSION_TYPE.GROUP.CREATE ]: 'Создание группы',
+		[ PERMISSION_TYPE.GROUP.READ ]: 'Просмотр групп',
+		[ PERMISSION_TYPE.GROUP.UPDATE ]: 'Редактирование группы',
+		[ PERMISSION_TYPE.GROUP.DELETE ]: 'Удаление группы',
+		// Project
+		[ PERMISSION_TYPE.PROJECT.CREATE ]: 'Создание проекта',
+		[ PERMISSION_TYPE.PROJECT.READ ]: 'Просмотр проектов',
+		[ PERMISSION_TYPE.PROJECT.UPDATE ]: 'Редактирование проекта',
+		[ PERMISSION_TYPE.PROJECT.DELETE ]: 'Удаление проекта',
+		[ PERMISSION_TYPE.PROJECT.CHANGE_BACKGROUND ]: 'Изменение фона проекта',
+		[ PERMISSION_TYPE.PROJECT.READ_DETAILS ]: 'Просмотр деталей проекта',
+		// Project Column
+		[ PERMISSION_TYPE.PROJECT_COLUMN.CREATE ]: 'Создание столбца',
+		[ PERMISSION_TYPE.PROJECT_COLUMN.READ ]: 'Просмотр столбцов',
+		[ PERMISSION_TYPE.PROJECT_COLUMN.UPDATE ]: 'Редактирование столбца',
+		[ PERMISSION_TYPE.PROJECT_COLUMN.DELETE ]: 'Удаление столбца',
+		[ PERMISSION_TYPE.PROJECT_COLUMN.MOVE ]: 'Изменение порядка столбцов',
+		// Project Member
+		[ PERMISSION_TYPE.PROJECT_MEMBER.CREATE ]: 'Добавление участников проекта',
+		[ PERMISSION_TYPE.PROJECT_MEMBER.READ ]: 'Просмотр участников проекта',
+		[ PERMISSION_TYPE.PROJECT_MEMBER.DELETE ]: 'Удаление участников проекта',
+		// Project Tag
+		[ PERMISSION_TYPE.PROJECT_TAG.CREATE ]: 'Создание тега проекта',
+		[ PERMISSION_TYPE.PROJECT_TAG.READ ]: 'Просмотр тегов проекта',
+		[ PERMISSION_TYPE.PROJECT_TAG.UPDATE ]: 'Редактирование тега проекта',
+		[ PERMISSION_TYPE.PROJECT_TAG.DELETE ]: 'Удаление тега проекта',
+		// Task
+		[ PERMISSION_TYPE.TASK.CREATE ]: 'Создание задачи',
+		[ PERMISSION_TYPE.TASK.READ ]: 'Просмотр задач',
+		[ PERMISSION_TYPE.TASK.UPDATE ]: 'Редактирование задачи',
+		[ PERMISSION_TYPE.TASK.DELETE ]: 'Удаление задачи',
+		[ PERMISSION_TYPE.TASK.COPY ]: 'Копирование задачи',
+		[ PERMISSION_TYPE.TASK.MOVE ]: 'Перемещение задачи',
+		[ PERMISSION_TYPE.TASK.READ_DETAILS ]: 'Просмотр деталей задачи',
+		// Task Member
+		[ PERMISSION_TYPE.TASK_MEMBER.CREATE ]: 'Добавление участников задачи',
+		[ PERMISSION_TYPE.TASK_MEMBER.READ ]: 'Просмотр участников задачи',
+		[ PERMISSION_TYPE.TASK_MEMBER.DELETE ]: 'Удаление участников задачи',
+		// Task Tag
+		[ PERMISSION_TYPE.TASK_TAG.CREATE ]: 'Добавление тегов задачи',
+		[ PERMISSION_TYPE.TASK_TAG.READ ]: 'Просмотр тегов задачи',
+		[ PERMISSION_TYPE.TASK_TAG.DELETE ]: 'Удаление тегов задачи',
+		// Task Comment
+		[ PERMISSION_TYPE.TASK_COMMENT.CREATE ]: 'Добавление комментариев',
+		[ PERMISSION_TYPE.TASK_COMMENT.READ ]: 'Просмотр комментариев',
+		[ PERMISSION_TYPE.TASK_COMMENT.UPDATE ]: 'Редактирование комментариев',
+		[ PERMISSION_TYPE.TASK_COMMENT.DELETE ]: 'Удаление комментариев',
+		// Task Deadline
+		[ PERMISSION_TYPE.TASK_DEADLINE.CREATE ]: 'Установка срока задачи',
+		[ PERMISSION_TYPE.TASK_DEADLINE.UPDATE ]: 'Изменение срока задачи',
+		[ PERMISSION_TYPE.TASK_DEADLINE.DELETE ]: 'Удаление срока задачи',
+		// Task Attachment
+		[ PERMISSION_TYPE.TASK_ATTACHMENT.CREATE ]: 'Добавление вложений',
+		[ PERMISSION_TYPE.TASK_ATTACHMENT.READ ]: 'Просмотр вложений',
+		[ PERMISSION_TYPE.TASK_ATTACHMENT.DELETE ]: 'Удаление вложений',
+		// Task Timer
+		[ PERMISSION_TYPE.TASK_TIMER.START ]: 'Запуск таймера задачи',
+		[ PERMISSION_TYPE.TASK_TIMER.STOP ]: 'Остановка таймера задачи',
+		[ PERMISSION_TYPE.TASK_TIMER.READ ]: 'Просмотр таймеров задачи',
+		// Checklist Group
+		[ PERMISSION_TYPE.CHECK_LIST_GROUP.CREATE ]: 'Создание группы контрольного списка',
+		[ PERMISSION_TYPE.CHECK_LIST_GROUP.READ ]: 'Просмотр групп контрольного списка',
+		[ PERMISSION_TYPE.CHECK_LIST_GROUP.UPDATE ]: 'Редактирование группы контрольного списка',
+		[ PERMISSION_TYPE.CHECK_LIST_GROUP.DELETE ]: 'Удаление группы контрольного списка',
+		// Checklist Item
+		[ PERMISSION_TYPE.CHECK_LIST_ITEM.CREATE ]: 'Создание пункта контрольного списка',
+		[ PERMISSION_TYPE.CHECK_LIST_ITEM.READ ]: 'Просмотр пунктов контрольного списка',
+		[ PERMISSION_TYPE.CHECK_LIST_ITEM.UPDATE ]: 'Редактирование пункта контрольного списка',
+		[ PERMISSION_TYPE.CHECK_LIST_ITEM.DELETE ]: 'Удаление пункта контрольного списка',
+		// Share
+		[ PERMISSION_TYPE.SHARE.EMAIL ]: 'Поделиться задачей по Email',
+		[ PERMISSION_TYPE.SHARE.TELEGRAM ]: 'Поделиться задачей в Telegram',
+		// Action
+		[ PERMISSION_TYPE.ACTION.READ ]: 'Просмотр журнала активности',
+		// Notification
+		[ PERMISSION_TYPE.NOTIFICATION.READ ]: 'Просмотр уведомлений',
+		[ PERMISSION_TYPE.NOTIFICATION.UPDATE ]: 'Обновление уведомлений',
+		[ PERMISSION_TYPE.NOTIFICATION.DELETE ]: 'Удаление уведомлений',
+		// Report
+		[ PERMISSION_TYPE.REPORT.MANAGERS_MEMBERS_KANBAN ]: 'Отчет по менеджерам и участникам (Kanban)',
+		[ PERMISSION_TYPE.REPORT.MANAGERS_MEMBERS_TRELLO ]: 'Отчет по менеджерам и участникам (Trello)',
+		[ PERMISSION_TYPE.REPORT.USER_KANBAN_TRELLO ]: 'Личный отчет по проектам (Kanban/Trello)',
+		[ PERMISSION_TYPE.REPORT.CHART_KANBAN ]: 'Диаграмма проекта (Kanban)',
+		[ PERMISSION_TYPE.REPORT.CHART_TRELLO ]: 'Диаграмма проекта (Trello)',
+		[ PERMISSION_TYPE.REPORT.TIME_LEFT ]: 'Отчет по оставшемуся времени',
+		[ PERMISSION_TYPE.REPORT.MANAGERS_MEMBERS_UPLOAD ]: 'Скачать отчет по менеджерам/участникам',
+		[ PERMISSION_TYPE.REPORT.USER_UPLOAD ]: 'Скачать личный отчет',
+		[ PERMISSION_TYPE.REPORT.TIME_LEFT_UPLOAD ]: 'Скачать отчет по оставшемуся времени',
+	},
 	actionItem: {
 		[ PERMISSION_TYPE.CHECK_LIST_GROUP.CREATE ]: 'создал группу контрольных списков "{groupName}" в задаче "{taskName}"',
 		[ PERMISSION_TYPE.CHECK_LIST_GROUP.UPDATE ]: 'отредактировал группу контрольного списка "{groupName}" в задаче "{taskName}"',

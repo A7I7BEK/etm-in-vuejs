@@ -35,6 +35,122 @@ export default {
 		sumTasks: 'Number of tasks',
 		noTask: 'No task',
 	},
+	permissionItem: {
+		// Organization
+		[ PERMISSION_TYPE.ORGANIZATION.CREATE ]: 'Create organization',
+		[ PERMISSION_TYPE.ORGANIZATION.READ ]: 'View organizations',
+		[ PERMISSION_TYPE.ORGANIZATION.UPDATE ]: 'Edit organization',
+		[ PERMISSION_TYPE.ORGANIZATION.DELETE ]: 'Delete organization',
+		// Permission
+		[ PERMISSION_TYPE.PERMISSION.READ ]: 'View permissions',
+		// Role
+		[ PERMISSION_TYPE.ROLE.CREATE ]: 'Create role',
+		[ PERMISSION_TYPE.ROLE.READ ]: 'View roles',
+		[ PERMISSION_TYPE.ROLE.UPDATE ]: 'Edit role',
+		[ PERMISSION_TYPE.ROLE.DELETE ]: 'Delete role',
+		[ PERMISSION_TYPE.ROLE.UPDATE_ADMINS ]: 'Manage role administrators',
+		// User
+		[ PERMISSION_TYPE.USER.GET_ME ]: 'View own profile',
+		[ PERMISSION_TYPE.USER.ATTACH_ROLE ]: 'Assign roles to a user',
+		[ PERMISSION_TYPE.USER.CHANGE_PASSWORD ]: 'Change own password',
+		[ PERMISSION_TYPE.USER.CHANGE_LANGUAGE ]: 'Change own language',
+		[ PERMISSION_TYPE.USER.UPDATE_PROFILE ]: 'Edit own profile',
+		// Employee
+		[ PERMISSION_TYPE.EMPLOYEE.CREATE ]: 'Create employee',
+		[ PERMISSION_TYPE.EMPLOYEE.READ ]: 'View employees',
+		[ PERMISSION_TYPE.EMPLOYEE.UPDATE ]: 'Edit employee',
+		[ PERMISSION_TYPE.EMPLOYEE.DELETE ]: 'Delete employee',
+		[ PERMISSION_TYPE.EMPLOYEE.CHANGE_PASSWORD ]: 'Change employee password',
+		// Group
+		[ PERMISSION_TYPE.GROUP.CREATE ]: 'Create group',
+		[ PERMISSION_TYPE.GROUP.READ ]: 'View groups',
+		[ PERMISSION_TYPE.GROUP.UPDATE ]: 'Edit group',
+		[ PERMISSION_TYPE.GROUP.DELETE ]: 'Delete group',
+		// Project
+		[ PERMISSION_TYPE.PROJECT.CREATE ]: 'Create project',
+		[ PERMISSION_TYPE.PROJECT.READ ]: 'View projects',
+		[ PERMISSION_TYPE.PROJECT.UPDATE ]: 'Edit project',
+		[ PERMISSION_TYPE.PROJECT.DELETE ]: 'Delete project',
+		[ PERMISSION_TYPE.PROJECT.CHANGE_BACKGROUND ]: 'Change project background',
+		[ PERMISSION_TYPE.PROJECT.READ_DETAILS ]: 'View project details',
+		// Project Column
+		[ PERMISSION_TYPE.PROJECT_COLUMN.CREATE ]: 'Create column',
+		[ PERMISSION_TYPE.PROJECT_COLUMN.READ ]: 'View columns',
+		[ PERMISSION_TYPE.PROJECT_COLUMN.UPDATE ]: 'Edit column',
+		[ PERMISSION_TYPE.PROJECT_COLUMN.DELETE ]: 'Delete column',
+		[ PERMISSION_TYPE.PROJECT_COLUMN.MOVE ]: 'Reorder columns',
+		// Project Member
+		[ PERMISSION_TYPE.PROJECT_MEMBER.CREATE ]: 'Add project members',
+		[ PERMISSION_TYPE.PROJECT_MEMBER.READ ]: 'View project members',
+		[ PERMISSION_TYPE.PROJECT_MEMBER.DELETE ]: 'Remove project members',
+		// Project Tag
+		[ PERMISSION_TYPE.PROJECT_TAG.CREATE ]: 'Create project tag',
+		[ PERMISSION_TYPE.PROJECT_TAG.READ ]: 'View project tags',
+		[ PERMISSION_TYPE.PROJECT_TAG.UPDATE ]: 'Edit project tag',
+		[ PERMISSION_TYPE.PROJECT_TAG.DELETE ]: 'Delete project tag',
+		// Task
+		[ PERMISSION_TYPE.TASK.CREATE ]: 'Create task',
+		[ PERMISSION_TYPE.TASK.READ ]: 'View tasks',
+		[ PERMISSION_TYPE.TASK.UPDATE ]: 'Edit task',
+		[ PERMISSION_TYPE.TASK.DELETE ]: 'Delete task',
+		[ PERMISSION_TYPE.TASK.COPY ]: 'Copy task',
+		[ PERMISSION_TYPE.TASK.MOVE ]: 'Move task',
+		[ PERMISSION_TYPE.TASK.READ_DETAILS ]: 'View task details',
+		// Task Member
+		[ PERMISSION_TYPE.TASK_MEMBER.CREATE ]: 'Add task members',
+		[ PERMISSION_TYPE.TASK_MEMBER.READ ]: 'View task members',
+		[ PERMISSION_TYPE.TASK_MEMBER.DELETE ]: 'Remove task members',
+		// Task Tag
+		[ PERMISSION_TYPE.TASK_TAG.CREATE ]: 'Add task tags',
+		[ PERMISSION_TYPE.TASK_TAG.READ ]: 'View task tags',
+		[ PERMISSION_TYPE.TASK_TAG.DELETE ]: 'Remove task tags',
+		// Task Comment
+		[ PERMISSION_TYPE.TASK_COMMENT.CREATE ]: 'Add task comments',
+		[ PERMISSION_TYPE.TASK_COMMENT.READ ]: 'View task comments',
+		[ PERMISSION_TYPE.TASK_COMMENT.UPDATE ]: 'Edit task comments',
+		[ PERMISSION_TYPE.TASK_COMMENT.DELETE ]: 'Delete task comments',
+		// Task Deadline
+		[ PERMISSION_TYPE.TASK_DEADLINE.CREATE ]: 'Set task deadline',
+		[ PERMISSION_TYPE.TASK_DEADLINE.UPDATE ]: 'Edit task deadline',
+		[ PERMISSION_TYPE.TASK_DEADLINE.DELETE ]: 'Remove task deadline',
+		// Task Attachment
+		[ PERMISSION_TYPE.TASK_ATTACHMENT.CREATE ]: 'Add task attachments',
+		[ PERMISSION_TYPE.TASK_ATTACHMENT.READ ]: 'View task attachments',
+		[ PERMISSION_TYPE.TASK_ATTACHMENT.DELETE ]: 'Remove task attachments',
+		// Task Timer
+		[ PERMISSION_TYPE.TASK_TIMER.START ]: 'Start task timer',
+		[ PERMISSION_TYPE.TASK_TIMER.STOP ]: 'Stop task timer',
+		[ PERMISSION_TYPE.TASK_TIMER.READ ]: 'View task timers',
+		// Checklist Group
+		[ PERMISSION_TYPE.CHECK_LIST_GROUP.CREATE ]: 'Create task checklist group',
+		[ PERMISSION_TYPE.CHECK_LIST_GROUP.READ ]: 'View task checklist groups',
+		[ PERMISSION_TYPE.CHECK_LIST_GROUP.UPDATE ]: 'Edit task checklist group',
+		[ PERMISSION_TYPE.CHECK_LIST_GROUP.DELETE ]: 'Delete task checklist group',
+		// Checklist Item
+		[ PERMISSION_TYPE.CHECK_LIST_ITEM.CREATE ]: 'Create task checklist item',
+		[ PERMISSION_TYPE.CHECK_LIST_ITEM.READ ]: 'View task checklist items',
+		[ PERMISSION_TYPE.CHECK_LIST_ITEM.UPDATE ]: 'Edit task checklist item',
+		[ PERMISSION_TYPE.CHECK_LIST_ITEM.DELETE ]: 'Delete task checklist item',
+		// Share
+		[ PERMISSION_TYPE.SHARE.EMAIL ]: 'Share task via Email',
+		[ PERMISSION_TYPE.SHARE.TELEGRAM ]: 'Share task via Telegram',
+		// Action
+		[ PERMISSION_TYPE.ACTION.READ ]: 'View all activity in project',
+		// Notification
+		[ PERMISSION_TYPE.NOTIFICATION.READ ]: 'View notifications',
+		[ PERMISSION_TYPE.NOTIFICATION.UPDATE ]: 'Update notifications',
+		[ PERMISSION_TYPE.NOTIFICATION.DELETE ]: 'Delete notifications',
+		// Report
+		[ PERMISSION_TYPE.REPORT.MANAGERS_MEMBERS_KANBAN ]: 'Managers and members report (Kanban)',
+		[ PERMISSION_TYPE.REPORT.MANAGERS_MEMBERS_TRELLO ]: 'Managers and members report (Trello)',
+		[ PERMISSION_TYPE.REPORT.USER_KANBAN_TRELLO ]: 'Personal project report (Kanban/Trello)',
+		[ PERMISSION_TYPE.REPORT.CHART_KANBAN ]: 'Project chart (Kanban)',
+		[ PERMISSION_TYPE.REPORT.CHART_TRELLO ]: 'Project chart (Trello)',
+		[ PERMISSION_TYPE.REPORT.TIME_LEFT ]: 'Time left report',
+		[ PERMISSION_TYPE.REPORT.MANAGERS_MEMBERS_UPLOAD ]: 'Download managers/members report',
+		[ PERMISSION_TYPE.REPORT.USER_UPLOAD ]: 'Download personal report',
+		[ PERMISSION_TYPE.REPORT.TIME_LEFT_UPLOAD ]: 'Download time left report',
+	},
 	actionItem: {
 		[ PERMISSION_TYPE.CHECK_LIST_GROUP.CREATE ]: 'created checklist group "{groupName}" in task "{taskName}"',
 		[ PERMISSION_TYPE.CHECK_LIST_GROUP.UPDATE ]: 'edited checklist group "{groupName}" in task "{taskName}"',

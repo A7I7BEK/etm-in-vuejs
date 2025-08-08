@@ -18,7 +18,7 @@
 					</tr>
 					<tr>
 						<th>{{ $t('name') }}</th>
-						<td>{{ model.name }}</td>
+						<td>{{ $t(`permissionItem.${model.codeName}`) }}</td>
 					</tr>
 					<tr>
 						<th>{{ $t('codeName') }}</th>

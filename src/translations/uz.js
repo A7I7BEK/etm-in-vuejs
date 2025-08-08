@@ -35,6 +35,122 @@ export default {
 		sumTasks: 'Vazifalar soni',
 		noTask: 'Vazifa yo‘q'
 	},
+	permissionItem: {
+		// Organization
+		[ PERMISSION_TYPE.ORGANIZATION.CREATE ]: 'Tashkilot yaratish',
+		[ PERMISSION_TYPE.ORGANIZATION.READ ]: 'Tashkilotlarni ko‘rish',
+		[ PERMISSION_TYPE.ORGANIZATION.UPDATE ]: 'Tashkilotni tahrirlash',
+		[ PERMISSION_TYPE.ORGANIZATION.DELETE ]: 'Tashkilotni o‘chirish',
+		// Permission
+		[ PERMISSION_TYPE.PERMISSION.READ ]: 'Huquqlarni ko‘rish',
+		// Role
+		[ PERMISSION_TYPE.ROLE.CREATE ]: 'Rol yaratish',
+		[ PERMISSION_TYPE.ROLE.READ ]: 'Rollarni ko‘rish',
+		[ PERMISSION_TYPE.ROLE.UPDATE ]: 'Rolni tahrirlash',
+		[ PERMISSION_TYPE.ROLE.DELETE ]: 'Rolni o‘chirish',
+		[ PERMISSION_TYPE.ROLE.UPDATE_ADMINS ]: 'Rol administratorlarini boshqarish',
+		// User
+		[ PERMISSION_TYPE.USER.GET_ME ]: 'O‘z profilini ko‘rish',
+		[ PERMISSION_TYPE.USER.ATTACH_ROLE ]: 'Foydalanuvchiga rol biriktirish',
+		[ PERMISSION_TYPE.USER.CHANGE_PASSWORD ]: 'O‘z parolini o‘zgartirish',
+		[ PERMISSION_TYPE.USER.CHANGE_LANGUAGE ]: 'O‘z tilini o‘zgartirish',
+		[ PERMISSION_TYPE.USER.UPDATE_PROFILE ]: 'O‘z profilini tahrirlash',
+		// Employee
+		[ PERMISSION_TYPE.EMPLOYEE.CREATE ]: 'Xodim yaratish',
+		[ PERMISSION_TYPE.EMPLOYEE.READ ]: 'Xodimlarni ko‘rish',
+		[ PERMISSION_TYPE.EMPLOYEE.UPDATE ]: 'Xodimni tahrirlash',
+		[ PERMISSION_TYPE.EMPLOYEE.DELETE ]: 'Xodimni o‘chirish',
+		[ PERMISSION_TYPE.EMPLOYEE.CHANGE_PASSWORD ]: 'Xodim parolini o‘zgartirish',
+		// Group
+		[ PERMISSION_TYPE.GROUP.CREATE ]: 'Guruh yaratish',
+		[ PERMISSION_TYPE.GROUP.READ ]: 'Guruhlarni ko‘rish',
+		[ PERMISSION_TYPE.GROUP.UPDATE ]: 'Guruhni tahrirlash',
+		[ PERMISSION_TYPE.GROUP.DELETE ]: 'Guruhni o‘chirish',
+		// Project
+		[ PERMISSION_TYPE.PROJECT.CREATE ]: 'Loyiha yaratish',
+		[ PERMISSION_TYPE.PROJECT.READ ]: 'Loyihalarni ko‘rish',
+		[ PERMISSION_TYPE.PROJECT.UPDATE ]: 'Loyihani tahrirlash',
+		[ PERMISSION_TYPE.PROJECT.DELETE ]: 'Loyihani o‘chirish',
+		[ PERMISSION_TYPE.PROJECT.CHANGE_BACKGROUND ]: 'Loyiha orqa fonini o‘zgartirish',
+		[ PERMISSION_TYPE.PROJECT.READ_DETAILS ]: 'Loyiha tafsilotlarini ko‘rish',
+		// Project Column
+		[ PERMISSION_TYPE.PROJECT_COLUMN.CREATE ]: 'Ustun yaratish',
+		[ PERMISSION_TYPE.PROJECT_COLUMN.READ ]: 'Ustunlarni ko‘rish',
+		[ PERMISSION_TYPE.PROJECT_COLUMN.UPDATE ]: 'Ustunni tahrirlash',
+		[ PERMISSION_TYPE.PROJECT_COLUMN.DELETE ]: 'Ustunni o‘chirish',
+		[ PERMISSION_TYPE.PROJECT_COLUMN.MOVE ]: 'Ustunlarning joyini o‘zgartirish',
+		// Project Member
+		[ PERMISSION_TYPE.PROJECT_MEMBER.CREATE ]: 'Loyiha ishtirokchilarini qo‘shish',
+		[ PERMISSION_TYPE.PROJECT_MEMBER.READ ]: 'Loyiha ishtirokchilarini ko‘rish',
+		[ PERMISSION_TYPE.PROJECT_MEMBER.DELETE ]: 'Loyiha ishtirokchilarini olib tashlash',
+		// Project Tag
+		[ PERMISSION_TYPE.PROJECT_TAG.CREATE ]: 'Loyiha belgisini yaratish',
+		[ PERMISSION_TYPE.PROJECT_TAG.READ ]: 'Loyiha belgilarini ko‘rish',
+		[ PERMISSION_TYPE.PROJECT_TAG.UPDATE ]: 'Loyiha belgisini tahrirlash',
+		[ PERMISSION_TYPE.PROJECT_TAG.DELETE ]: 'Loyiha belgisini o‘chirish',
+		// Task
+		[ PERMISSION_TYPE.TASK.CREATE ]: 'Vazifa yaratish',
+		[ PERMISSION_TYPE.TASK.READ ]: 'Vazifalarni ko‘rish',
+		[ PERMISSION_TYPE.TASK.UPDATE ]: 'Vazifani tahrirlash',
+		[ PERMISSION_TYPE.TASK.DELETE ]: 'Vazifani o‘chirish',
+		[ PERMISSION_TYPE.TASK.COPY ]: 'Vazifani nusxalash',
+		[ PERMISSION_TYPE.TASK.MOVE ]: 'Vazifani ko‘chirish',
+		[ PERMISSION_TYPE.TASK.READ_DETAILS ]: 'Vazifa tafsilotlarini ko‘rish',
+		// Task Member
+		[ PERMISSION_TYPE.TASK_MEMBER.CREATE ]: 'Vazifa ishtirokchilarini qo‘shish',
+		[ PERMISSION_TYPE.TASK_MEMBER.READ ]: 'Vazifa ishtirokchilarini ko‘rish',
+		[ PERMISSION_TYPE.TASK_MEMBER.DELETE ]: 'Vazifa ishtirokchilarini olib tashlash',
+		// Task Tag
+		[ PERMISSION_TYPE.TASK_TAG.CREATE ]: 'Vazifa belgilarini qo‘shish',
+		[ PERMISSION_TYPE.TASK_TAG.READ ]: 'Vazifa belgilarini ko‘rish',
+		[ PERMISSION_TYPE.TASK_TAG.DELETE ]: 'Vazifa belgilarini olib tashlash',
+		// Task Comment
+		[ PERMISSION_TYPE.TASK_COMMENT.CREATE ]: 'Vazifa izohlarini qo‘shish',
+		[ PERMISSION_TYPE.TASK_COMMENT.READ ]: 'Vazifa izohlarini ko‘rish',
+		[ PERMISSION_TYPE.TASK_COMMENT.UPDATE ]: 'Vazifa izohlarini tahrirlash',
+		[ PERMISSION_TYPE.TASK_COMMENT.DELETE ]: 'Vazifa izohlarini o‘chirish',
+		// Task Deadline
+		[ PERMISSION_TYPE.TASK_DEADLINE.CREATE ]: 'Vazifa muddatini belgilash',
+		[ PERMISSION_TYPE.TASK_DEADLINE.UPDATE ]: 'Vazifa muddatini tahrirlash',
+		[ PERMISSION_TYPE.TASK_DEADLINE.DELETE ]: 'Vazifa muddatini olib tashlash',
+		// Task Attachment
+		[ PERMISSION_TYPE.TASK_ATTACHMENT.CREATE ]: 'Vazifa fayllarini qo‘shish',
+		[ PERMISSION_TYPE.TASK_ATTACHMENT.READ ]: 'Vazifa fayllarini ko‘rish',
+		[ PERMISSION_TYPE.TASK_ATTACHMENT.DELETE ]: 'Vazifa fayllarini olib tashlash',
+		// Task Timer
+		[ PERMISSION_TYPE.TASK_TIMER.START ]: 'Vazifa taymerini ishga tushirish',
+		[ PERMISSION_TYPE.TASK_TIMER.STOP ]: 'Vazifa taymerini to‘xtatish',
+		[ PERMISSION_TYPE.TASK_TIMER.READ ]: 'Vazifa taymerlarini ko‘rish',
+		// Checklist Group
+		[ PERMISSION_TYPE.CHECK_LIST_GROUP.CREATE ]: 'Vazifa nazorat ro‘yxati guruhini yaratish',
+		[ PERMISSION_TYPE.CHECK_LIST_GROUP.READ ]: 'Vazifa nazorat ro‘yxati guruhlarini ko‘rish',
+		[ PERMISSION_TYPE.CHECK_LIST_GROUP.UPDATE ]: 'Vazifa nazorat ro‘yxati guruhini tahrirlash',
+		[ PERMISSION_TYPE.CHECK_LIST_GROUP.DELETE ]: 'Vazifa nazorat ro‘yxati guruhini o‘chirish',
+		// Checklist Item
+		[ PERMISSION_TYPE.CHECK_LIST_ITEM.CREATE ]: 'Vazifa nazorat ro‘yxati elementini yaratish',
+		[ PERMISSION_TYPE.CHECK_LIST_ITEM.READ ]: 'Vazifa nazorat ro‘yxati elementlarini ko‘rish',
+		[ PERMISSION_TYPE.CHECK_LIST_ITEM.UPDATE ]: 'Vazifa nazorat ro‘yxati elementini tahrirlash',
+		[ PERMISSION_TYPE.CHECK_LIST_ITEM.DELETE ]: 'Vazifa nazorat ro‘yxati elementini o‘chirish',
+		// Share
+		[ PERMISSION_TYPE.SHARE.EMAIL ]: 'Vazifani Email orqali ulashish',
+		[ PERMISSION_TYPE.SHARE.TELEGRAM ]: 'Vazifani Telegram orqali ulashish',
+		// Action
+		[ PERMISSION_TYPE.ACTION.READ ]: 'Loyihadagi barcha harakatlarni ko‘rish',
+		// Notification
+		[ PERMISSION_TYPE.NOTIFICATION.READ ]: 'Xabarnomalarni ko‘rish',
+		[ PERMISSION_TYPE.NOTIFICATION.UPDATE ]: 'Xabarnomalarni yangilash',
+		[ PERMISSION_TYPE.NOTIFICATION.DELETE ]: 'Xabarnomalarni o‘chirish',
+		// Report
+		[ PERMISSION_TYPE.REPORT.MANAGERS_MEMBERS_KANBAN ]: 'Menejerlar va ishtirokchilar hisoboti (Kanban)',
+		[ PERMISSION_TYPE.REPORT.MANAGERS_MEMBERS_TRELLO ]: 'Menejerlar va ishtirokchilar hisoboti (Trello)',
+		[ PERMISSION_TYPE.REPORT.USER_KANBAN_TRELLO ]: 'Shaxsiy loyiha hisoboti (Kanban/Trello)',
+		[ PERMISSION_TYPE.REPORT.CHART_KANBAN ]: 'Loyiha diagrammasi (Kanban)',
+		[ PERMISSION_TYPE.REPORT.CHART_TRELLO ]: 'Loyiha diagrammasi (Trello)',
+		[ PERMISSION_TYPE.REPORT.TIME_LEFT ]: 'Qolgan vaqt hisoboti',
+		[ PERMISSION_TYPE.REPORT.MANAGERS_MEMBERS_UPLOAD ]: 'Menejerlar/ishtirokchilar hisobotini yuklab olish',
+		[ PERMISSION_TYPE.REPORT.USER_UPLOAD ]: 'Shaxsiy hisobotni yuklab olish',
+		[ PERMISSION_TYPE.REPORT.TIME_LEFT_UPLOAD ]: 'Qolgan vaqt hisobotini yuklab olish',
+	},
 	actionItem: {
 		[ PERMISSION_TYPE.CHECK_LIST_GROUP.CREATE ]: '"{taskName}" nomli vazifada "{groupName}" nomli nazorat ro‘yxati guruhini yaratdi',
 		[ PERMISSION_TYPE.CHECK_LIST_GROUP.UPDATE ]: '"{taskName}" nomli vazifadagi "{groupName}" nomli nazorat ro‘yxati guruhini tahrirladi',
