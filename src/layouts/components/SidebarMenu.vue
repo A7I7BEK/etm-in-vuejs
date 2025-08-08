@@ -208,181 +208,183 @@
 			</router-link>
 
 
-			<div
-				class="sidebar-menu__item"
-				data-custom-accordion
-				v-if="can(PERMISSION_TYPE.REPORT.MANAGERS_MEMBERS_KANBAN) ||
-					can(PERMISSION_TYPE.REPORT.MANAGERS_MEMBERS_TRELLO) ||
-					can(PERMISSION_TYPE.REPORT.USER_KANBAN_TRELLO) ||
-					can(PERMISSION_TYPE.REPORT.CHART_KANBAN) ||
-					can(PERMISSION_TYPE.REPORT.CHART_TRELLO) ||
-					can(PERMISSION_TYPE.REPORT.TIME_LEFT)"
-				:class="{ 'active': computedPageName.includes('mainReports') }"
-			>
-				<a
-					href="#"
-					data-custom-accordion-btn
-				>
-					<div class="sidebar-menu__item__icon">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							width="16"
-							height="16"
-							viewBox="0 0 16 16"
-						>
-							<path
-								d="M15.429,4H12.571V.571A.571.571,0,0,0,12,0H.571A.571.571,0,0,0,0,.571V13.714A2.286,2.286,0,0,0,2.286,16H13.714A2.286,2.286,0,0,0,16,13.714V4.571A.571.571,0,0,0,15.429,4ZM4.571,2.857H8A.571.571,0,1,1,8,4H4.571a.571.571,0,1,1,0-1.143ZM9.714,13.714H2.857a.571.571,0,1,1,0-1.143H9.714a.571.571,0,1,1,0,1.143Zm0-2.286H2.857a.571.571,0,1,1,0-1.143H9.714a.571.571,0,1,1,0,1.143Zm0-2.286H2.857A.571.571,0,0,1,2.857,8H9.714a.571.571,0,0,1,0,1.143Zm0-2.286H2.857a.571.571,0,1,1,0-1.143H9.714a.571.571,0,1,1,0,1.143Zm5.143,6.857a1.143,1.143,0,1,1-2.286,0V5.143h2.286v8.571Z"
-							/>
-						</svg>
-					</div>
-					<span>{{ $tc('menu.report', 2) }}</span>
-				</a>
-
-
+			<div v-if="false" class="hide-reports-temporarily">
 				<div
-					data-custom-accordion-body
-					:style="computedPageName.includes('mainReports') ? 'display: block' : 'display: none'"
+					class="sidebar-menu__item"
+					data-custom-accordion
+					v-if="can(PERMISSION_TYPE.REPORT.MANAGERS_MEMBERS_KANBAN) ||
+						can(PERMISSION_TYPE.REPORT.MANAGERS_MEMBERS_TRELLO) ||
+						can(PERMISSION_TYPE.REPORT.USER_KANBAN_TRELLO) ||
+						can(PERMISSION_TYPE.REPORT.CHART_KANBAN) ||
+						can(PERMISSION_TYPE.REPORT.CHART_TRELLO) ||
+						can(PERMISSION_TYPE.REPORT.TIME_LEFT)"
+					:class="{ 'active': computedPageName.includes('mainReports') }"
 				>
-					<div class="sidebar-settings">
-						<div class="sidebar-settings__inner">
-
-							<div
-								class="sidebar-settings__item"
-								v-if="can(PERMISSION_TYPE.REPORT.CHART_KANBAN) &&
-									can(PERMISSION_TYPE.REPORT.CHART_TRELLO)"
+					<a
+						href="#"
+						data-custom-accordion-btn
+					>
+						<div class="sidebar-menu__item__icon">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								width="16"
+								height="16"
+								viewBox="0 0 16 16"
 							>
-								<router-link :to="{ name: 'mainReportsProjectOverview' }">
-									<div class="settings-icon">
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											width="16"
-											height="17.778"
-											viewBox="0 0 16 17.778"
-										>
-											<path
-												d="M17.222,2.778H13.507a2.656,2.656,0,0,0-5.013,0H4.778A1.783,1.783,0,0,0,3,4.556V17a1.783,1.783,0,0,0,1.778,1.778H17.222A1.783,1.783,0,0,0,19,17V4.556A1.783,1.783,0,0,0,17.222,2.778ZM11,2.778a.889.889,0,1,1-.889.889A.892.892,0,0,1,11,2.778ZM9.222,15.222,5.667,11.667,6.92,10.413l2.3,2.293L15.08,6.849l1.253,1.262Z"
-												transform="translate(-3 -1)"
-											/>
-										</svg>
-									</div>
-									<h5>{{ $t('menu.projectOverview') }}</h5>
-								</router-link>
+								<path
+									d="M15.429,4H12.571V.571A.571.571,0,0,0,12,0H.571A.571.571,0,0,0,0,.571V13.714A2.286,2.286,0,0,0,2.286,16H13.714A2.286,2.286,0,0,0,16,13.714V4.571A.571.571,0,0,0,15.429,4ZM4.571,2.857H8A.571.571,0,1,1,8,4H4.571a.571.571,0,1,1,0-1.143ZM9.714,13.714H2.857a.571.571,0,1,1,0-1.143H9.714a.571.571,0,1,1,0,1.143Zm0-2.286H2.857a.571.571,0,1,1,0-1.143H9.714a.571.571,0,1,1,0,1.143Zm0-2.286H2.857A.571.571,0,0,1,2.857,8H9.714a.571.571,0,0,1,0,1.143Zm0-2.286H2.857a.571.571,0,1,1,0-1.143H9.714a.571.571,0,1,1,0,1.143Zm5.143,6.857a1.143,1.143,0,1,1-2.286,0V5.143h2.286v8.571Z"
+								/>
+							</svg>
+						</div>
+						<span>{{ $tc('menu.report', 2) }}</span>
+					</a>
+
+
+					<div
+						data-custom-accordion-body
+						:style="computedPageName.includes('mainReports') ? 'display: block' : 'display: none'"
+					>
+						<div class="sidebar-settings">
+							<div class="sidebar-settings__inner">
+
+								<div
+									class="sidebar-settings__item"
+									v-if="can(PERMISSION_TYPE.REPORT.CHART_KANBAN) &&
+										can(PERMISSION_TYPE.REPORT.CHART_TRELLO)"
+								>
+									<router-link :to="{ name: 'mainReportsProjectOverview' }">
+										<div class="settings-icon">
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												width="16"
+												height="17.778"
+												viewBox="0 0 16 17.778"
+											>
+												<path
+													d="M17.222,2.778H13.507a2.656,2.656,0,0,0-5.013,0H4.778A1.783,1.783,0,0,0,3,4.556V17a1.783,1.783,0,0,0,1.778,1.778H17.222A1.783,1.783,0,0,0,19,17V4.556A1.783,1.783,0,0,0,17.222,2.778ZM11,2.778a.889.889,0,1,1-.889.889A.892.892,0,0,1,11,2.778ZM9.222,15.222,5.667,11.667,6.92,10.413l2.3,2.293L15.08,6.849l1.253,1.262Z"
+													transform="translate(-3 -1)"
+												/>
+											</svg>
+										</div>
+										<h5>{{ $t('menu.projectOverview') }}</h5>
+									</router-link>
+								</div>
+
+
+								<div
+									class="sidebar-settings__item"
+									v-if="can(PERMISSION_TYPE.REPORT.TIME_LEFT)"
+								>
+									<router-link :to="{ name: 'mainReportsTimeSeries' }">
+										<div class="settings-icon">
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												width="16"
+												height="17.778"
+												viewBox="0 0 16 17.778"
+											>
+												<path
+													d="M17.222,2.778H13.507a2.656,2.656,0,0,0-5.013,0H4.778A1.783,1.783,0,0,0,3,4.556V17a1.783,1.783,0,0,0,1.778,1.778H17.222A1.783,1.783,0,0,0,19,17V4.556A1.783,1.783,0,0,0,17.222,2.778ZM11,2.778a.889.889,0,1,1-.889.889A.892.892,0,0,1,11,2.778ZM9.222,15.222,5.667,11.667,6.92,10.413l2.3,2.293L15.08,6.849l1.253,1.262Z"
+													transform="translate(-3 -1)"
+												/>
+											</svg>
+										</div>
+										<h5>{{ $t('menu.timeSeries') }}</h5>
+									</router-link>
+								</div>
+
+
+								<div class="sidebar-settings__item">
+									<router-link :to="{ name: 'mainReportsTimeFrame' }">
+										<div class="settings-icon">
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												width="16"
+												height="17.778"
+												viewBox="0 0 16 17.778"
+											>
+												<path
+													d="M17.222,2.778H13.507a2.656,2.656,0,0,0-5.013,0H4.778A1.783,1.783,0,0,0,3,4.556V17a1.783,1.783,0,0,0,1.778,1.778H17.222A1.783,1.783,0,0,0,19,17V4.556A1.783,1.783,0,0,0,17.222,2.778ZM11,2.778a.889.889,0,1,1-.889.889A.892.892,0,0,1,11,2.778ZM9.222,15.222,5.667,11.667,6.92,10.413l2.3,2.293L15.08,6.849l1.253,1.262Z"
+													transform="translate(-3 -1)"
+												/>
+											</svg>
+										</div>
+										<h5>{{ $t('menu.timeFrame') }}</h5>
+									</router-link>
+								</div>
+
+
+								<div
+									class="sidebar-settings__item"
+									v-if="can(PERMISSION_TYPE.REPORT.USER_KANBAN_TRELLO)"
+								>
+									<router-link :to="{ name: 'mainReportsProjectDetailsTask' }">
+										<div class="settings-icon">
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												width="16"
+												height="17.778"
+												viewBox="0 0 16 17.778"
+											>
+												<path
+													d="M17.222,2.778H13.507a2.656,2.656,0,0,0-5.013,0H4.778A1.783,1.783,0,0,0,3,4.556V17a1.783,1.783,0,0,0,1.778,1.778H17.222A1.783,1.783,0,0,0,19,17V4.556A1.783,1.783,0,0,0,17.222,2.778ZM11,2.778a.889.889,0,1,1-.889.889A.892.892,0,0,1,11,2.778ZM9.222,15.222,5.667,11.667,6.92,10.413l2.3,2.293L15.08,6.849l1.253,1.262Z"
+													transform="translate(-3 -1)"
+												/>
+											</svg>
+										</div>
+										<h5>{{ $t('menu.projectDetailsTask') }}</h5>
+									</router-link>
+								</div>
+
+
+								<div
+									class="sidebar-settings__item"
+									v-if="can(PERMISSION_TYPE.REPORT.MANAGERS_MEMBERS_KANBAN) &&
+										can(PERMISSION_TYPE.REPORT.MANAGERS_MEMBERS_TRELLO)"
+								>
+									<router-link :to="{ name: 'mainReportsProjectDetailsManager' }">
+										<div class="settings-icon">
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												width="16"
+												height="17.778"
+												viewBox="0 0 16 17.778"
+											>
+												<path
+													d="M17.222,2.778H13.507a2.656,2.656,0,0,0-5.013,0H4.778A1.783,1.783,0,0,0,3,4.556V17a1.783,1.783,0,0,0,1.778,1.778H17.222A1.783,1.783,0,0,0,19,17V4.556A1.783,1.783,0,0,0,17.222,2.778ZM11,2.778a.889.889,0,1,1-.889.889A.892.892,0,0,1,11,2.778ZM9.222,15.222,5.667,11.667,6.92,10.413l2.3,2.293L15.08,6.849l1.253,1.262Z"
+													transform="translate(-3 -1)"
+												/>
+											</svg>
+										</div>
+										<h5>{{ $t('menu.projectDetailsManager') }}</h5>
+									</router-link>
+								</div>
+
+
+								<div
+									class="sidebar-settings__item"
+									v-if="can(PERMISSION_TYPE.REPORT.MANAGERS_MEMBERS_KANBAN) &&
+										can(PERMISSION_TYPE.REPORT.MANAGERS_MEMBERS_TRELLO)"
+								>
+									<router-link :to="{ name: 'mainReportsProjectDetailsEmployee' }">
+										<div class="settings-icon">
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												width="16"
+												height="17.778"
+												viewBox="0 0 16 17.778"
+											>
+												<path
+													d="M17.222,2.778H13.507a2.656,2.656,0,0,0-5.013,0H4.778A1.783,1.783,0,0,0,3,4.556V17a1.783,1.783,0,0,0,1.778,1.778H17.222A1.783,1.783,0,0,0,19,17V4.556A1.783,1.783,0,0,0,17.222,2.778ZM11,2.778a.889.889,0,1,1-.889.889A.892.892,0,0,1,11,2.778ZM9.222,15.222,5.667,11.667,6.92,10.413l2.3,2.293L15.08,6.849l1.253,1.262Z"
+													transform="translate(-3 -1)"
+												/>
+											</svg>
+										</div>
+										<h5>{{ $t('menu.projectDetailsEmployee') }}</h5>
+									</router-link>
+								</div>
+
 							</div>
-
-
-							<div
-								class="sidebar-settings__item"
-								v-if="can(PERMISSION_TYPE.REPORT.TIME_LEFT)"
-							>
-								<router-link :to="{ name: 'mainReportsTimeSeries' }">
-									<div class="settings-icon">
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											width="16"
-											height="17.778"
-											viewBox="0 0 16 17.778"
-										>
-											<path
-												d="M17.222,2.778H13.507a2.656,2.656,0,0,0-5.013,0H4.778A1.783,1.783,0,0,0,3,4.556V17a1.783,1.783,0,0,0,1.778,1.778H17.222A1.783,1.783,0,0,0,19,17V4.556A1.783,1.783,0,0,0,17.222,2.778ZM11,2.778a.889.889,0,1,1-.889.889A.892.892,0,0,1,11,2.778ZM9.222,15.222,5.667,11.667,6.92,10.413l2.3,2.293L15.08,6.849l1.253,1.262Z"
-												transform="translate(-3 -1)"
-											/>
-										</svg>
-									</div>
-									<h5>{{ $t('menu.timeSeries') }}</h5>
-								</router-link>
-							</div>
-
-
-							<div class="sidebar-settings__item">
-								<router-link :to="{ name: 'mainReportsTimeFrame' }">
-									<div class="settings-icon">
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											width="16"
-											height="17.778"
-											viewBox="0 0 16 17.778"
-										>
-											<path
-												d="M17.222,2.778H13.507a2.656,2.656,0,0,0-5.013,0H4.778A1.783,1.783,0,0,0,3,4.556V17a1.783,1.783,0,0,0,1.778,1.778H17.222A1.783,1.783,0,0,0,19,17V4.556A1.783,1.783,0,0,0,17.222,2.778ZM11,2.778a.889.889,0,1,1-.889.889A.892.892,0,0,1,11,2.778ZM9.222,15.222,5.667,11.667,6.92,10.413l2.3,2.293L15.08,6.849l1.253,1.262Z"
-												transform="translate(-3 -1)"
-											/>
-										</svg>
-									</div>
-									<h5>{{ $t('menu.timeFrame') }}</h5>
-								</router-link>
-							</div>
-
-
-							<div
-								class="sidebar-settings__item"
-								v-if="can(PERMISSION_TYPE.REPORT.USER_KANBAN_TRELLO)"
-							>
-								<router-link :to="{ name: 'mainReportsProjectDetailsTask' }">
-									<div class="settings-icon">
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											width="16"
-											height="17.778"
-											viewBox="0 0 16 17.778"
-										>
-											<path
-												d="M17.222,2.778H13.507a2.656,2.656,0,0,0-5.013,0H4.778A1.783,1.783,0,0,0,3,4.556V17a1.783,1.783,0,0,0,1.778,1.778H17.222A1.783,1.783,0,0,0,19,17V4.556A1.783,1.783,0,0,0,17.222,2.778ZM11,2.778a.889.889,0,1,1-.889.889A.892.892,0,0,1,11,2.778ZM9.222,15.222,5.667,11.667,6.92,10.413l2.3,2.293L15.08,6.849l1.253,1.262Z"
-												transform="translate(-3 -1)"
-											/>
-										</svg>
-									</div>
-									<h5>{{ $t('menu.projectDetailsTask') }}</h5>
-								</router-link>
-							</div>
-
-
-							<div
-								class="sidebar-settings__item"
-								v-if="can(PERMISSION_TYPE.REPORT.MANAGERS_MEMBERS_KANBAN) &&
-									can(PERMISSION_TYPE.REPORT.MANAGERS_MEMBERS_TRELLO)"
-							>
-								<router-link :to="{ name: 'mainReportsProjectDetailsManager' }">
-									<div class="settings-icon">
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											width="16"
-											height="17.778"
-											viewBox="0 0 16 17.778"
-										>
-											<path
-												d="M17.222,2.778H13.507a2.656,2.656,0,0,0-5.013,0H4.778A1.783,1.783,0,0,0,3,4.556V17a1.783,1.783,0,0,0,1.778,1.778H17.222A1.783,1.783,0,0,0,19,17V4.556A1.783,1.783,0,0,0,17.222,2.778ZM11,2.778a.889.889,0,1,1-.889.889A.892.892,0,0,1,11,2.778ZM9.222,15.222,5.667,11.667,6.92,10.413l2.3,2.293L15.08,6.849l1.253,1.262Z"
-												transform="translate(-3 -1)"
-											/>
-										</svg>
-									</div>
-									<h5>{{ $t('menu.projectDetailsManager') }}</h5>
-								</router-link>
-							</div>
-
-
-							<div
-								class="sidebar-settings__item"
-								v-if="can(PERMISSION_TYPE.REPORT.MANAGERS_MEMBERS_KANBAN) &&
-									can(PERMISSION_TYPE.REPORT.MANAGERS_MEMBERS_TRELLO)"
-							>
-								<router-link :to="{ name: 'mainReportsProjectDetailsEmployee' }">
-									<div class="settings-icon">
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											width="16"
-											height="17.778"
-											viewBox="0 0 16 17.778"
-										>
-											<path
-												d="M17.222,2.778H13.507a2.656,2.656,0,0,0-5.013,0H4.778A1.783,1.783,0,0,0,3,4.556V17a1.783,1.783,0,0,0,1.778,1.778H17.222A1.783,1.783,0,0,0,19,17V4.556A1.783,1.783,0,0,0,17.222,2.778ZM11,2.778a.889.889,0,1,1-.889.889A.892.892,0,0,1,11,2.778ZM9.222,15.222,5.667,11.667,6.92,10.413l2.3,2.293L15.08,6.849l1.253,1.262Z"
-												transform="translate(-3 -1)"
-											/>
-										</svg>
-									</div>
-									<h5>{{ $t('menu.projectDetailsEmployee') }}</h5>
-								</router-link>
-							</div>
-
 						</div>
 					</div>
 				</div>
