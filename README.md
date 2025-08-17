@@ -4,10 +4,10 @@
 - Netlify: https://electron-task-manager.netlify.app/
 - Vercel: https://electron-task-manager.vercel.app/
 - Sevalla: https://electron-task-manager-m9ww5.kinsta.page/
-- Firebase Hosting
+- Railway: https://etm-in-vuejs.up.railway.app/
+- Firebase Hosting (Recommended)
     1. https://electron-task-manager.web.app/
     2. https://electron-task-manager.firebaseapp.com/
-- Railway: https://etm-in-vuejs.up.railway.app/
 
 
 
