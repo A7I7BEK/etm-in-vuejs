@@ -46,7 +46,10 @@
 						<td>
 							<ul class="az_crud_read_tb_ls">
 								<li v-for="item in model.permissions">
-									{{ item.codeName }}
+									{{ $t(`permissionItem.${item.codeName}`) }}
+									<b>
+										({{ item.codeName }})
+									</b>
 								</li>
 							</ul>
 						</td>
