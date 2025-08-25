@@ -11,6 +11,7 @@ module.exports = {
   parallel: undefined,
   css: undefined,
   devServer: {
+    port: process.env.VUE_APP_DEV_PORT,
     hot: false, // disable parallel update on save
     liveReload: false, // disable sudden browser refresh on save
   },
